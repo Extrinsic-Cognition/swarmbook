@@ -1,0 +1,210 @@
+/* Harmony's shared accent: the Emporium Brain rune. Typography belongs to each surface. */
+:root {
+  /* HARMONY'S ONE PALETTE (his lock, Oct 24 2026 ~21:4x WEST: "Lock it: Harmony's one palette is the dive's night plus her pink, lavender and gold"),
+     every value sampled from the welcome's dive or her sprite (ui/icons/harmony-girl.png), each with one role and no other. The night is Harmony's;
+     the day is its mirror, on the header's switch (his ~22:1x: "Lock the snow day as the night's mirror, with the switch in the header"). Red and
+     green leave Harmony's chrome; gold is for the precious alone (the tank, $WARM, his one press). The brief, with his words and the mocks:
+     ec-workspace/docs/the-one-harmony-window-2026-10-25/README.md. harmony-ice.js keeps these colours as they are (its LOCKED fixed points). */
+  --harmony-sky: #0e1c2d;            /* the ground */
+  --harmony-glass: #142537;          /* cards and panels */
+  --harmony-line: #12324b;
+  --harmony-text: #eef6fa;           /* frost */
+  --harmony-quiet: #93a7b3;
+  --harmony-go: #79c5ea;             /* go, live: the dive's ripple */
+  --harmony-on-go: #0e1c2d;
+  --harmony-selected: #0d4769;       /* the ripple's deep sea */
+  --harmony-on-selected: #79c5ea;
+  --harmony-pink: #f78cd9;           /* waits on you, not now */
+  --harmony-lavender: #b08cf3;       /* her own */
+  --harmony-gold: #ebb22c;           /* precious only */
+  /* the accent's names stay (every page reads them; the iPad's Look/Harmony.swift enum Palace says the same six hexes) and now say the palette's go:
+     The Sims' teal of Oct 11 leaves by the lock. The day's six are below. */
+  --harmony-orange: #79c5ea;
+  --harmony-orange-hover: #79c5ea;
+  --harmony-orange-ink: #79c5ea;
+  --harmony-orange-edge: #0d4769;
+  --harmony-orange-soft: #0d4769;
+  --harmony-orange-wash: #79c5ea24;
+  --harmony-orange-halo: #79c5ea55;
+  --harmony-on-orange: #0e1c2d;
+  --affine-primary-color: var(--harmony-orange-ink);
+  --affine-link-color: var(--harmony-orange-ink);
+  --gold: var(--harmony-orange-ink);
+  --gold-light: var(--harmony-orange);
+  --bronze: var(--harmony-orange-ink);
+  --wire: var(--harmony-orange-edge);
+  --gold-wash: var(--harmony-orange-wash);
+  --gold-soft: var(--harmony-orange-halo);
+}
+:root[data-theme="dark"] {
+  --gold: var(--harmony-orange);
+  --gold-light: var(--harmony-orange-hover);
+}
+/* THE CANVAS WEARS THE SPOOL, its names of the palette said in the palette's one file (THE GUARD HOLDS THE LOOK, Nov 1 2026; his Sep 23 "DO NOT MULTIPLY
+   ENTITIES BEYOND NECESSITY!!!!"): since THE CANVAS IS THE SPOOL BOARD'S UI (Oct 22, his 21:2x WEST "it's not the spool board's register dio merda, it's the
+   entire UI dude... it's so much fucking beter and more beautiful on spool board") the window under the skin's word gives the go, the gold and the accent's
+   names the board's inks, and the canvas pane the day's go (Oct 27, his "spool board being night theme and canvas being day theme"). These lines stood in
+   life-menu/canvas-spool.css, where only this file may say them; the selectors and the values are the same, so every glass draws what it drew.
+   They stand before the snow day so that the day's names stay the last this file says of them (a reader that takes the last, dl-paywall.test.mjs, reads the day). The rest of
+   the board's tokens stay the skin's own (canvas-spool.css, word for word with room/spool.html). */
+html body[data-canvas-skin="spool"] { --accent: #0d4769; }
+html[data-theme="dark"] body[data-canvas-skin="spool"] { --accent: #79c5ea; }
+@media (prefers-color-scheme: dark) { html:not([data-theme="light"]) body[data-canvas-skin="spool"] { --accent: #79c5ea; } }
+html body[data-canvas-skin="spool"] {
+  --gold: var(--accent);
+  --gold-light: var(--accent);
+  --harmony-orange: var(--accent);
+  --harmony-orange-ink: var(--accent);
+  --harmony-orange-soft: var(--accent-tint);
+  --harmony-on-orange: var(--accent-tint);
+  --harmony-orange-edge: var(--hair);
+}
+html body[data-canvas-skin="spool"].top-tab-canvas.golem-canvas-open:not(.dl-glass) #canvas-pane { --accent: #0d4769; }
+/* THE SPOOL READS THE ACCENT (Nov 2 2026; his Nov 1 19:11 WET "what? is this following ORFAM principles? hypertrace", his Sep 23 "DO NOT MULTIPLY ENTITIES
+   BEYOND NECESSITY!!!!"): the Spool Board's names of the palette (its ground, its cards, its inks, its lines, its go) stood three times, word for word, in
+   room/spool.html's :root, life-menu/canvas-spool.css and canvas-spool.mjs's TOKENS. They stand here once, the values as they were (every glass draws what it
+   drew: the Spool page keeps its light default and follows the system where no theme is pressed), under the three words that read them: the Spool page itself
+   (html[data-skin="spool"], which links this file), the editor frame under the skin (its theme data-spool-theme, the window's) and the window's shell under the
+   skin's word. The surfaces keep what is theirs: the scheme, the faces, the stickies' colours, the shadows (canvas-spool.test.mjs holds the three equal). */
+html[data-skin="spool"], html body[data-canvas-skin="spool"] {
+  --canvas: #e3eef5; --dot: #c8d2d7; --card: #f1f8fa; --card-2: #e3eef5; --hair: rgba(20,37,55,.13); --label: #142537;
+  --label-2: #4a5b6a; --glass: rgba(241,248,250,.82); --glass-line: rgba(20,37,55,.10); --h-line: #c8d2d7; --h-selected: #cde9f7; --h-on-selected: #0d4769;
+  --h-gold: #ad8730; --h-pink: #d1477a; --seg: #f1f8fa; --accent-tint: rgba(13,71,105,.12);
+}
+html[data-skin="spool"] { --accent: #0d4769; }
+html[data-skin="spool"][data-theme="dark"], html[data-skin="spool"][data-spool-theme="dark"], html[data-theme="dark"] body[data-canvas-skin="spool"] {
+  --canvas: #0e1c2d; --dot: #12324b; --card: #142537; --card-2: #12324b; --hair: rgba(238,246,250,.11); --label: #eef6fa;
+  --label-2: #93a7b3; --glass: rgba(20,37,55,.82); --glass-line: rgba(238,246,250,.09); --h-line: #12324b; --h-selected: #0d4769; --h-on-selected: #79c5ea;
+  --h-gold: #ebb22c; --h-pink: #f78cd9; --seg: #0d4769; --accent-tint: rgba(121,197,234,.18);
+}
+html[data-skin="spool"][data-theme="dark"], html[data-skin="spool"][data-spool-theme="dark"] { --accent: #79c5ea; }
+@media (prefers-color-scheme: dark) {
+  html[data-skin="spool"]:not([data-theme="light"]):not([data-spool-theme="light"]), html:not([data-theme="light"]) body[data-canvas-skin="spool"] {
+    --canvas: #0e1c2d; --dot: #12324b; --card: #142537; --card-2: #12324b; --hair: rgba(238,246,250,.11); --label: #eef6fa;
+    --label-2: #93a7b3; --glass: rgba(20,37,55,.82); --glass-line: rgba(238,246,250,.09); --h-line: #12324b; --h-selected: #0d4769; --h-on-selected: #79c5ea;
+    --h-gold: #ebb22c; --h-pink: #f78cd9; --seg: #0d4769; --accent-tint: rgba(121,197,234,.18);
+  }
+  html[data-skin="spool"]:not([data-theme="light"]):not([data-spool-theme="light"]) { --accent: #79c5ea; }
+}
+/* the Canvas tab's pane wears the day's names whatever the window's night (Oct 27, his "spool board being night theme and canvas being day theme"): they stood in
+   canvas-spool.css; the go above was already here */
+html body[data-canvas-skin="spool"].top-tab-canvas.golem-canvas-open:not(.dl-glass) #canvas-pane {
+  --canvas: #e3eef5; --dot: #c8d2d7; --card: #f1f8fa; --card-2: #e3eef5; --hair: rgba(20,37,55,.13); --label: #142537;
+  --label-2: #4a5b6a; --glass: rgba(241,248,250,.82); --glass-line: rgba(20,37,55,.10); --seg: #f1f8fa; --accent-tint: rgba(13,71,105,.12);
+}
+
+/* the snow day, the night's mirror role by role */
+:root[data-theme="light"] {
+  --harmony-sky: #e3eef5;
+  --harmony-glass: #f1f8fa;
+  --harmony-line: #c8d2d7;
+  --harmony-text: #142537;
+  --harmony-quiet: #4a5b6a;
+  --harmony-go: #0d4769;
+  --harmony-on-go: #eef6fa;
+  --harmony-selected: #cde9f7;
+  --harmony-on-selected: #0d4769;
+  --harmony-pink: #d1477a;
+  --harmony-lavender: #6f6e91;
+  --harmony-gold: #ad8730;
+  --harmony-orange: #0d4769;
+  --harmony-orange-hover: #0d4769;
+  --harmony-orange-ink: #0d4769;
+  --harmony-orange-edge: #0d4769;
+  --harmony-orange-soft: #cde9f7;
+  --harmony-on-orange: #eef6fa;
+  --harmony-orange-wash: #0d476924;
+  --harmony-orange-halo: #0d476955;
+}
+
+/* Workspace navigation and actions share the rune's orange-on-ink selection. */
+.top-tabs [role="tab"].selected,
+.golem-tab-cell.selected,
+.creator .creator-forms button[aria-checked="true"],
+.creator .creator-open[aria-expanded="true"] {
+  background: var(--harmony-selected);
+  color: var(--harmony-on-selected);
+  box-shadow: inset 0 -2px var(--harmony-go);
+}
+.golem-tab-cell.selected .golem-tab-close { color: var(--harmony-orange); }
+.nav-item.active { border-color: var(--harmony-orange-edge); box-shadow: inset 2px 0 var(--harmony-orange); }
+.focus-button, .primary, .harmony-chat .hc-send, .budget-form button {
+  background: var(--harmony-orange);
+  border-color: var(--harmony-orange-edge);
+  color: var(--harmony-on-orange);
+}
+.focus-button.on { background: transparent; color: var(--gold); }
+.cosmo-fill { background: linear-gradient(90deg, var(--harmony-orange-edge), var(--harmony-orange) 60%, #ffdab3); }
+.lane-fill { background: var(--harmony-orange); }
+
+/* Welcome and creator. No changes to films, character artwork or status colors. */
+.title-screen, .companion-onboarding { --accent: var(--harmony-orange-ink); --form-gold: var(--harmony-orange-ink); }
+.title-screen .eyebrow,
+.title-screen .harmony-menu h2 em { color: var(--harmony-orange-ink) !important; }
+#start-tracenet, #enter-harmony {
+  border-color: var(--harmony-orange) !important;
+  box-shadow: 0 0 0 1px var(--harmony-orange-halo), 0 12px 34px #47271030, inset 0 1px #ffdab324;
+}
+#start-tracenet:hover, #enter-harmony:hover {
+  border-color: var(--harmony-orange-hover) !important;
+  box-shadow: 0 0 0 1px var(--harmony-orange-halo), 0 16px 42px #47271040, inset 0 1px #ffdab333;
+}
+#start-tracenet .cta-word, #enter-harmony .cta-word {
+  background-image: linear-gradient(100deg, #ffdab3, var(--harmony-orange) 65%, var(--harmony-orange-hover));
+}
+#start-tracenet span, #enter-harmony span { color: var(--harmony-orange) !important; }
+.title-screen .join-nest { color: var(--harmony-orange-ink); border-color: var(--harmony-orange-edge); background-color: var(--harmony-orange-soft); }
+.title-screen .join-nest:hover { background-color: #f7ddc1; }
+.journey-home-state:not([data-kind="bad"]), .nest-join .nest-join-state:not([data-kind="bad"]),
+.nest-join .nest-join-row i, .nest-join .nest-join-back, .nest-join .nest-join-seat,
+.nest-join .nest-join-accept span { color: var(--harmony-orange-ink); }
+.journey-ladder button:not(:last-child)::after { background: var(--harmony-orange-halo); }   /* the rail: a segment under each name (poleis-stage.css, Oct 12) */
+.journey-ladder button { color: var(--harmony-orange-ink); }
+.journey-ladder button svg { border-color: var(--harmony-orange-edge); }
+.journey-ladder button:hover svg, .journey-ladder button:focus-visible svg { border-color: var(--harmony-orange-ink); color: var(--harmony-orange-ink); }
+.journey-ladder button.is-active svg { background: var(--harmony-orange); border-color: var(--harmony-orange-edge); color: var(--harmony-on-orange); box-shadow: 0 0 0 5px var(--harmony-orange-wash); }
+.companion-onboarding .creator-card { box-shadow: inset 0 0 0 2px #f4f0e4, inset 0 0 0 3px var(--harmony-orange-edge), 3px 3px 0 #1b211b; }
+.companion-onboarding .creator-figure { border-color: var(--harmony-orange-edge); }
+.companion-onboarding .creator-name input:focus { border-bottom-color: var(--harmony-orange-ink); }
+.companion-onboarding .creator-shape, .companion-onboarding .creator-home { color: var(--harmony-orange-ink); border-color: var(--harmony-orange-edge); }
+.companion-onboarding .creator button:focus-visible { outline-color: var(--harmony-orange-ink); }
+
+/* Room and Emporium retain their paper, type, vessel and semantic state colors. */
+body:has(#emporium-open) { --accent: var(--harmony-orange); }
+.emporium { --emporium-accent: var(--harmony-orange); }
+.brand-period { color: var(--harmony-orange-edge); }
+.invite-room { background: var(--harmony-orange); border-color: var(--harmony-orange-edge); color: var(--harmony-on-orange); }
+.invite-room:hover, .emporium .primary:hover { background: var(--harmony-orange-hover); }
+nav button[aria-pressed="true"], .emporium .rune[aria-pressed="true"] { color: var(--harmony-orange); }
+.emporium .rune:hover { border-color: var(--harmony-orange-edge); background: var(--harmony-orange-soft); color: var(--harmony-orange-ink); }
+.emporium .rune[aria-pressed="true"]:hover { background: var(--harmony-on-orange); color: var(--harmony-orange); }
+.emporium .party-member[aria-pressed="true"], .emporium .recipe-actions .secondary[aria-pressed="true"] { background: var(--harmony-orange-soft); border-color: var(--harmony-orange-edge); }
+.emporium .ingredient-option[aria-pressed="true"] { background: var(--harmony-orange-soft); border-color: var(--harmony-orange-edge); box-shadow: inset 3px 0 var(--harmony-orange-edge); }
+#emporium-open:hover { border-color: var(--harmony-orange-edge); background: var(--harmony-orange-soft); }
+.emporium button:focus-visible, .emporium input:focus-visible,
+.emporium select:focus-visible, .emporium summary:focus-visible,
+#emporium-open:focus-visible { outline-color: var(--harmony-orange-ink); }
+
+/* Canvas authoring chrome. The document's own artwork/colors remain user content. */
+#editor .light, #editor .dark {
+  --affine-primary-color: var(--harmony-orange-ink);
+  --affine-link-color: var(--harmony-orange-ink);
+}
+.modes button.active { background: var(--harmony-on-orange); color: var(--harmony-orange); }
+#canvas-comments-toggle { border-color: var(--harmony-orange-edge); background: var(--harmony-orange-soft); color: var(--harmony-orange-ink); }
+#canvas-comments-panel { --canvas-copper: var(--harmony-orange-ink); }
+.canvas-comments-actions button.active { background: var(--harmony-on-orange); border-color: var(--harmony-on-orange); color: var(--harmony-orange); }
+.canvas-comment-composer .canvas-comment-post:not(:disabled),
+.canvas-comment-pins .canvas-comment-pin { background: var(--harmony-orange); border-color: var(--harmony-orange-edge); color: var(--harmony-on-orange); }
+.canvas-comment-composer .canvas-comment-post:not(:disabled):hover,
+.canvas-comment-pins .canvas-comment-pin:hover { background: var(--harmony-orange-hover); }
+.canvas-comment-pins .canvas-comment-pin.anchor-changed { background: var(--harmony-orange-soft); }
+.canvas-runtime-response { border-color: var(--harmony-orange-edge) !important; }
+.canvas-compose-box:focus-within,
+#canvas-comments-panel button:focus-visible, #canvas-comments-panel summary:focus-visible,
+#canvas-comments-panel select:focus-visible, #canvas-comments-panel input:focus-visible { outline-color: var(--harmony-orange-ink); }
+.canvas-image-option input { accent-color: var(--harmony-orange-ink); }
+.canvas-comment-list article button, .canvas-conversation-tools [data-refresh],
+.canvas-comment-composer [data-unaddressed] { color: var(--harmony-orange-ink); }
+.canvas-comment-mentions button, .steering-entry.selected { background: var(--harmony-orange-soft); border-color: var(--harmony-orange-edge); }
+.steering-composer > button[type="submit"] { background: var(--harmony-orange); border-color: var(--harmony-orange-edge); color: var(--harmony-on-orange); }

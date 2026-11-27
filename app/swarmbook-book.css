@@ -1,0 +1,453 @@
+/* swarmbook-book.css: THE FLASKS AND THE POOL COME BACK (Nov 19 2026). His words, UTC, over the page after the film (a hairline title, two buttons, three
+   cards): "the website style, apart from the hero hexagonal animation and this [the two plates] is fucking crimes against humany for how fucking ugly it
+   is... why dont you recover the flasks neghiverse posiverse shit dude... we had so amazing vibes". What he means was built on Nov 11 to 12 2026 on
+   lane/swarmbook-is-the-new-poleis and stage/one-split-swarmbook and never landed: the two sides (blue, the Pantheon, $POOL, his governance film; red,
+   the flasks, $WARM, every flask a Claw Rider; between them the yield and the traces), how the swarm decides, the studies, the riders' posters. This
+   sheet is that page's own rules for everything under the hero, rule for rule, each scoped under .sbk so the film hero's sheet (after-the-mint.css)
+   is untouched. THE PLATE'S FACE EVERYWHERE (his Nov 11 01:13 "i dont like these fonts. think of alternatives", then of three mocks "a"): every title
+   here is Gelasio bold, the words DM Sans. His words for each rule are in that lane's sheet (git show stage/one-split-swarmbook:…/after-the-mint.css). */
+.sbk{--am-serif:'Gelasio','Georgia',serif;counter-reset:chapter}
+.sbk .am-go{border-radius:0}   /* the hero sheet's rounded button must not reach the book's square gold bar (read against the Nov 12 page: every other computed style is equal) */
+a.am-warm:hover .am-slash,a.am-warm:focus-visible .am-slash{filter:brightness(1.3) saturate(1.25)} a.am-warm:focus-visible{outline:0}
+.sbk *{box-sizing:border-box}
+.sbk .am-go em{font:italic 700 clamp(32px,2.9vw,42px)/1 var(--am-serif);letter-spacing:-.01em;color:#131713}
+.sbk .am-go{display:flex;align-items:center;justify-content:space-between;gap:30px;min-width:220px;min-height:48px;border:1px solid #c4a365;padding:12px 20px 16px;background:#c4a365;color:#131713;font:600 13px/1.4 var(--am-sans);text-align:left}
+.sbk .am-go i{font:normal 600 16px/1 var(--am-sans)}
+.sbk .am-kicker{margin:0;color:#c4a365;font:600 12px/1 var(--am-sans);letter-spacing:.3em;text-transform:uppercase}
+.sbk .am-token{display:inline-block;margin-left:.45em;border:1px solid #c4a36577;padding:.28em .5em .24em;color:#c4a365;font:700 .5em/1 var(--am-sans);letter-spacing:.08em;vertical-align:.32em}
+.sbk .am-book{margin-top:46px}
+.sbk .am-pantheon{text-align:center}
+.sbk .am-pantheon .am-book-head{display:grid;justify-content:center;justify-items:center;gap:8px;border:0;margin-bottom:22px;padding:0}
+.sbk .am-pantheon .am-book-head h2{font-size:clamp(32px,3.2vw,46px);color:#d0b679}
+.sbk .am-pantheon .am-book-head p{max-width:none;text-align:center}
+.sbk .am-throne-door{display:inline-block;margin:22px 0 0;color:var(--harmony-quiet);font:400 12px/1.5 var(--am-sans)}
+.sbk .am-fut{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin:0;padding:0;list-style:none}
+.sbk .am-fut li::before{content:"";display:block;aspect-ratio:4/3;margin-bottom:14px;border:1px solid var(--harmony-line);border-top-color:#c4a36577;border-radius:16px;background:var(--harmony-glass) url(./after-the-mint-futarchy.svg) 0 50%/300% auto no-repeat}
+.sbk .am-fut li:nth-child(2)::before{background-position:50% 50%}
+.sbk .am-fut li:nth-child(3)::before{background-position:100% 50%}
+.sbk .am-fut b{display:block;font:700 21px/1.2 var(--am-serif);letter-spacing:-.01em;color:var(--harmony-text)}
+.sbk .am-fut small{display:block;margin-top:6px;color:var(--harmony-quiet);font-size:15px;line-height:1.5}
+.sbk .am-book-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:16px;border-bottom:1px solid var(--harmony-line);padding-bottom:12px}
+.sbk .am-book-head h2{margin:0;font:700 32px/1.1 var(--am-serif);letter-spacing:-.01em;color:var(--harmony-text)}
+.sbk .am-book-head p{margin:0;max-width:560px;color:var(--harmony-quiet);font:italic 400 17px/1.35 var(--am-serif);text-align:right}
+.sbk .am-swarm{display:grid;grid-template-columns:56px minmax(0,1fr) auto auto;align-items:center;gap:6px 20px;border:1px solid var(--harmony-line);border-radius:16px;padding:14px 22px 14px 14px;background:var(--harmony-glass)}
+.sbk .am-swarm:hover{border-color:var(--harmony-go)}
+.sbk .am-face{--fl:104px;position:relative;grid-area:1/2/4/3;width:var(--fl);height:calc(var(--fl) + 10px);background:radial-gradient(circle at 50% 19px,#c4a365 18px,transparent 19px),url(./after-the-mint-flask.svg) 50% 100%/var(--fl) var(--fl) no-repeat;color:#131713;font:normal 700 17px/38px var(--am-serif);text-align:center}
+.sbk .am-face img{position:absolute;top:1px;left:50%;width:36px;height:36px;margin-left:-18px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 1.5px #c4a365}
+.sbk .am-swarm b{display:block;font:700 21px/1.2 var(--am-serif);color:var(--harmony-text)}
+.sbk .am-swarm small{display:block;margin-top:2px;overflow:hidden;color:var(--harmony-quiet);font-size:14px;line-height:1.45;text-overflow:ellipsis;white-space:nowrap}
+.sbk .am-facts{color:var(--harmony-quiet);font:500 12px/1.4 var(--am-sans);letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+.sbk .am-swarm em{grid-column:4;color:var(--harmony-go);font:normal 600 14px/1.4 var(--am-sans);white-space:nowrap}
+.sbk .am-yours{border-style:dashed;background:none}
+.sbk .am-yours .am-face{grid-row:1/span 2;background:url(./after-the-mint-flask-yours.svg) 50% 100%/var(--fl) var(--fl) no-repeat;color:#c4a365;font-size:30px;line-height:calc(var(--fl)*1.04 + 20px)}
+.sbk .am-path{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:center;gap:10px 30px;margin-top:34px;border-top:1px solid var(--harmony-line);border-bottom:1px solid var(--harmony-line);padding:16px 0;counter-reset:step}
+.sbk .am-path b{color:#c4a365;font:600 12px/1 var(--am-sans);letter-spacing:.3em;text-transform:uppercase}
+.sbk .am-path a{color:var(--harmony-text);font:700 19px/1.2 var(--am-serif)}
+.sbk .am-path a::before{counter-increment:step;content:counter(step,decimal-leading-zero);margin-right:.6em;color:#c4a365;font:600 11px/1 var(--am-sans);letter-spacing:.14em;vertical-align:.3em}
+.sbk .am-book,.sbk .am-riders{scroll-margin-top:18px;counter-increment:chapter}
+.sbk .am-book-head h2::before,.sbk .am-riders .am-kicker::before{content:counter(chapter,decimal-leading-zero)}
+.sbk .am-book-head h2::before{display:inline-block;margin-right:.9em;color:#c4a365;font:600 12px/1 var(--am-sans);letter-spacing:.14em;vertical-align:.5em}
+.sbk .am-riders .am-kicker::before{margin-right:1em}
+.sbk .am-frame{--f:min(1000px,100vw - 72px);display:block;width:min(100%,1000px);margin:0 auto;border:1px solid #c4a36577;box-shadow:0 34px 90px rgba(0,0,0,.8)}
+.sbk #why .am-frame{height:calc(var(--f)*.40 + 420px)}
+.sbk #how .am-frame{height:calc(var(--f)*.56 + 320px)}
+@media (max-width:760px){
+  .sbk .am-frame{--f:calc(100vw - 32px)}
+}
+@media (max-width:652px){
+  .sbk #why .am-frame{height:calc(var(--f)*.72 + 656px)}
+  .sbk #how .am-frame{height:calc(var(--f)*.70 + 600px)}
+}
+.sbk .am-film{position:relative;display:block;width:100%;margin:0;padding:0;overflow:hidden;border:1px solid #c4a36577;background:none;color:#c4a365;font:600 11px/1 var(--am-sans);letter-spacing:.2em;text-transform:uppercase;text-align:left;cursor:pointer;box-shadow:0 24px 60px rgba(0,0,0,.8)}
+.sbk .am-film:hover,.sbk .am-film:focus-visible{border-color:#c4a365;outline:0}
+.sbk .am-film img{display:block;width:100%;height:auto}
+.sbk .am-film b{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:14px;padding:34px 16px 14px;background:linear-gradient(transparent,rgba(0,0,0,.8));font-weight:600}
+.sbk .am-film i{position:relative;flex:none;width:34px;height:34px;border:1.5px solid #c4a365;border-radius:50%;background:#131713}
+.sbk .am-film i::after{content:"";position:absolute;left:12px;top:9px;border-left:11px solid #c4a365;border-top:7px solid transparent;border-bottom:7px solid transparent}
+.am .dl-athena-film-card{display:none}
+.sbk .am-sides{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:0 30px;align-items:start;margin-top:56px}
+.sbk .am-sides .am-book{margin-top:0}
+.sbk .am-sides .am-book-head{display:block;justify-items:normal;border:0;border-bottom:1px solid var(--harmony-line);margin-bottom:16px;padding:0 0 14px}
+.sbk .am-sides .am-book-head h2{font-size:clamp(28px,2.6vw,36px);color:var(--harmony-text)}
+.sbk .am-sides .am-book-head p{max-width:none;margin-top:10px;text-align:left}
+.sbk .am-sides .am-pantheon,.sbk .am-sides .am-pantheon .am-book-head p{text-align:right}
+.sbk .am-sides .am-pantheon .am-book-head h2{color:#d0b679}
+.sbk .am-sides .am-swarm{grid-template-columns:minmax(0,1fr) auto;gap:4px 18px;padding:12px 16px 12px 20px}
+.sbk .am-sides .am-give{display:block;margin-top:14px;color:#c4a365;font-size:13px}
+.sbk .am-sides .am-swarm small{white-space:normal}
+.sbk .am-sides .am-swarm>span,.sbk .am-sides .am-swarm em{grid-column:1}
+.sbk .am-flow{align-self:stretch;display:grid;align-content:center;justify-items:center;gap:26px;margin:0;border-left:1px solid var(--harmony-line);border-right:1px solid var(--harmony-line);padding:0 16px;color:#c4a365;font:600 10px/1.3 var(--am-sans);letter-spacing:.24em;text-transform:uppercase;text-align:center}
+.sbk .am-flow b{font-weight:600}
+.sbk .am-flow b::before{display:block;margin-bottom:4px;font:400 26px/1 var(--am-sans);letter-spacing:0}
+.sbk .am-flow b:first-child::before{content:"→"}
+.sbk .am-flow b:last-child::before{content:"←"}
+.sbk .am-ride{display:flex;flex-wrap:wrap;justify-content:center;gap:26px 30px;margin-top:76px;padding-bottom:52px}
+.sbk .am-ride .am-go{position:relative;flex:0 1 390px}
+.sbk .am-ride .am-go b,.sbk .am-ride .am-go small{position:absolute;top:100%;margin-top:9px;color:#c4a365;font:600 11px/1.2 var(--am-sans);letter-spacing:.16em;text-transform:uppercase;white-space:nowrap}
+.sbk .am-ride .am-go b{left:0}
+.sbk .am-ride .am-go small{left:0;margin-top:28px;color:var(--harmony-quiet);font-weight:400;letter-spacing:.04em;text-transform:none}
+@media (max-width:979px){
+  .sbk .am-sides{display:block}
+  .sbk .am-sides .am-pantheon{margin-top:0}
+  .sbk .am-sides .am-pantheon,.sbk .am-sides .am-pantheon .am-book-head p{text-align:left}
+  .sbk .am-flow{grid-auto-flow:column;justify-content:center;gap:44px;border:0;margin:26px 0;padding:0}
+  .sbk .am-flow b:first-child::before{content:"↓"}
+  .sbk .am-flow b:last-child::before{content:"↑"}
+}
+.sbk .am-riders{position:relative;margin:92px 0 0;padding:78px 0 30px;text-align:center}
+.sbk .am-riders::before{content:"";position:absolute;z-index:-1;top:0;bottom:0;left:50%;width:100vw;transform:translateX(-50%);border-top:1px solid #c4a36555;background:radial-gradient(ellipse 56% 44% at 50% 0,color-mix(in srgb,#c4a365 26%,transparent),transparent 72%)}
+.sbk .am-riders .am-kicker{letter-spacing:.42em}
+.sbk .am-riders h2{margin:20px auto 0;max-width:13.5em;font:700 clamp(36px,5vw,70px)/1 var(--am-serif);letter-spacing:-.02em;color:var(--harmony-text);text-wrap:balance}
+.sbk .am-riders h2 em{font-style:italic;color:#d0b679}
+.sbk .am-trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2.6vw,38px);align-items:start;margin:64px calc(50% - min(650px,50vw - 44px)) 0;perspective:1800px}
+.sbk .am-trio figure{margin:0;padding-top:40px}
+.sbk .am-trio figure:nth-child(2){z-index:1;padding-top:0}
+.sbk .am-poster{transform:rotateY(11deg) scale(.96);transform-origin:100% 50%}
+.sbk .am-trio figure:nth-child(2) .am-poster{transform:scale(1.03)}
+.sbk .am-trio figure:nth-child(3) .am-poster{transform:rotateY(-11deg) scale(.96);transform-origin:0 50%}
+.sbk .am-poster{position:relative;container-type:inline-size;aspect-ratio:2/3;overflow:hidden;background:#0b0709;border:1px solid #c4a36577;box-shadow:0 34px 90px rgba(0,0,0,.8),0 0 70px color-mix(in srgb,#c4a365 16%,transparent)}
+.sbk .am-trio figure:nth-child(2) .am-poster{border-color:#c4a365;box-shadow:0 44px 110px rgba(0,0,0,.8),0 0 110px color-mix(in srgb,#c4a365 30%,transparent)}
+.sbk .am-poster::after{content:"";position:absolute;z-index:3;inset:2.6cqw;border:1px solid #c4a36555;pointer-events:none}
+.sbk .am-poster b,.sbk .am-poster em,.sbk .am-poster small{position:absolute;z-index:2;left:0;right:0;text-align:center;text-transform:uppercase;white-space:nowrap}
+.sbk .am-poster b{top:8cqw;font:700 10.2cqw/1 var(--am-serif);letter-spacing:.045em;text-indent:.045em;filter:drop-shadow(0 .5cqw 1.4cqw rgba(0,0,0,.8));color:#d0b679;background:linear-gradient(#d0b679 20%,#c4a365 80%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sbk .am-poster img{position:absolute;top:20cqw;left:0;display:block;width:100%;height:101cqw;object-fit:cover;-webkit-mask-image:linear-gradient(transparent,#000 9%,#000 89%,transparent);mask-image:linear-gradient(transparent,#000 9%,#000 89%,transparent)}
+.sbk .am-poster em{bottom:11cqw;font:normal 700 5.3cqw/1 var(--am-serif);letter-spacing:.09em;text-indent:.09em;color:#c4a365}
+.sbk .am-poster em::before{content:"";display:block;width:15cqw;height:13.6cqw;margin:0 auto 3.6cqw;background:#c4a365;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 100'%3E%3Cpath d='M55 1C63 30 64 64 55 99C46 64 47 30 55 1ZM28 19C39 42 42 68 37 91C23 73 20 44 28 19ZM82 19C71 42 68 68 73 91C87 73 90 44 82 19Z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 110 100'%3E%3Cpath d='M55 1C63 30 64 64 55 99C46 64 47 30 55 1ZM28 19C39 42 42 68 37 91C23 73 20 44 28 19ZM82 19C71 42 68 68 73 91C87 73 90 44 82 19Z'/%3E%3C/svg%3E") center/contain no-repeat}
+.sbk .am-poster small{bottom:5.4cqw;font:600 2.3cqw/1 var(--am-sans);letter-spacing:.5em;text-indent:.5em;color:#c4a365}
+.sbk .am-trio figcaption{position:relative;z-index:2;margin-top:26px;padding:0 6px;color:var(--harmony-quiet);font-size:15px;line-height:1.5}
+.sbk .am-trio figcaption b{display:block;margin-bottom:6px;font:700 clamp(19px,1.9vw,25px)/1.15 var(--am-serif);letter-spacing:-.01em;color:var(--harmony-text)}
+@media (max-width:760px){
+  .sbk .am-fut{grid-template-columns:minmax(0,1fr);gap:26px}
+  .sbk .am-path{justify-content:flex-start;gap:8px 20px;margin-top:22px}
+  .sbk .am-path b{flex:0 0 100%}
+  .sbk .am-path a{font-size:17px}
+  .sbk .am-riders{margin:60px -16px 0;padding:52px 0 10px}
+  .sbk .am-riders h2{padding:0 16px}
+  .sbk .am-trio{display:flex;gap:14px;margin:36px 0 0;padding:0 16px 6px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;perspective:none}
+  .sbk .am-trio figure,.sbk .am-trio figure:nth-child(2){flex:0 0 80%;padding-top:0;scroll-snap-align:center}
+  .sbk .am-poster,.sbk .am-trio figure:nth-child(2) .am-poster,.sbk .am-trio figure:nth-child(3) .am-poster{transform:none}
+  .sbk .am-trio figcaption{text-align:left}
+  .sbk .am-ride{margin-top:38px;padding:0 16px 34px;gap:58px 0}
+  .sbk .am-ride .am-go{flex:1 1 100%}
+  .sbk .am-book-head{display:block}
+  .sbk .am-book-head p{margin-top:6px;text-align:left}
+  .sbk .am-face{--fl:84px}
+}
+.sbk .am-room{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin:0;padding:0;list-style:none}
+.sbk .am-room li{border-top:1px solid #c4a36577;padding-top:14px}
+.sbk .am-room b{display:block;font:700 21px/1.2 var(--am-serif);letter-spacing:-.01em;color:var(--harmony-text)}
+.sbk .am-room small{display:block;margin-top:6px;color:var(--harmony-quiet);font-size:15px;line-height:1.5}
+@media (min-width:761px){
+  .sbk .am-path{column-gap:22px}
+}
+@media (max-width:760px){
+  .sbk .am-room{grid-template-columns:minmax(0,1fr);gap:22px}
+}
+.sbk .am-call{font-size:inherit;padding:.3em .1em .1em;color:inherit}
+.sbk .am-call .am-slash{left:-.25em;right:-.25em;top:1.5em;height:.95em}
+.sbk .am-pool .am-slash{background:var(--am-router)}
+.sbk .am-flask .am-slash{background:var(--am-warm)}
+.sbk .am-call .am-name{display:grid;justify-items:center;text-shadow:0 4px 18px rgba(0,0,0,.85)}
+.sbk .am-call .am-name small{display:block;margin-bottom:.4em;font-size:.44em;letter-spacing:.34em;padding-left:.34em;color:#f0cf74;-webkit-text-stroke:0;text-shadow:0 1px 0 #000}
+.sbk .am-pool .am-name small{color:#fbf6ea}
+.sbk .am-call .am-stamp{display:flex;align-items:center;gap:.6em;margin-top:.5em;padding:.3em .5em .24em .6em;border-radius:2px;background:rgba(0,0,0,.8);font-size:max(10.5px,.36em);letter-spacing:.24em;line-height:1.5;text-align:left;white-space:nowrap}
+.sbk .am-call .am-stamp::before{content:"";width:1.9em;height:1.9em;flex:none;background:#f0cf74;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpolygon points='18,10 14,16.9 6,16.9 2,10 6,3.1 14,3.1' fill='none' stroke='%23000' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpolygon points='18,10 14,16.9 6,16.9 2,10 6,3.1 14,3.1' fill='none' stroke='%23000' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
+.sbk .am-pool .am-stamp::before{background:rgba(80,220,255,.7);-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpolygon points='10,2 17.6,7.5 14.7,16.5 5.3,16.5 2.4,7.5' fill='none' stroke='%23000' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E");mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpolygon points='10,2 17.6,7.5 14.7,16.5 5.3,16.5 2.4,7.5' fill='none' stroke='%23000' stroke-width='1.6' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.sbk a.am-call:hover .am-slash,.sbk a.am-call:focus-visible .am-slash{filter:brightness(1.3) saturate(1.25)}
+.sbk a.am-call:focus-visible{outline:none}
+.sbk a.am-call:focus-visible .am-name{-webkit-text-stroke:2px #f0cf74}
+.sbk .am-sides{gap:0;align-items:stretch;--blue-in:color-mix(in srgb,rgba(64,128,236,.95) 62%,rgba(8,16,58,.92));--red-in:color-mix(in srgb,rgba(140,14,30,.92) 84%,#fbf6ea)}
+.sbk .am-sides .am-pantheon{padding:34px 30px 30px;background:linear-gradient(90deg,rgba(8,16,58,.92),var(--blue-in))}
+.sbk .am-sides .am-flasks{padding:34px 30px 30px;background:linear-gradient(90deg,var(--red-in),rgba(140,14,30,.92))}
+.sbk .am-sides .am-flow{border:0;padding:0 20px;color:#fbf6ea;background:linear-gradient(95deg,var(--blue-in) calc(50% - 1.5px),#fbf6ea 50%,var(--red-in) calc(50% + 1.5px))}
+.sbk .am-flow b{padding:6px 8px;background:rgba(0,0,0,.8);border-radius:2px}
+.sbk .am-sides .am-book-head,.sbk .am-sides .am-pantheon .am-book-head{display:grid;justify-items:center;gap:12px;text-align:center;border-bottom-color:var(--harmony-line)}
+.sbk .am-sides .am-book-head h2{font-size:clamp(21px,2vw,30px)}
+.sbk .am-sides .am-book-head h2::before{content:none}
+.sbk .am-sides .am-book-head p.am-kicker{color:#f0cf74;font:600 12px/1 var(--am-sans);letter-spacing:.3em}
+.sbk .am-sides .am-kicker::before{content:counter(chapter,decimal-leading-zero);margin-right:1em}
+.sbk .am-sides .am-token{color:#f0cf74;border-color:rgba(240,207,116,.75)}
+.sbk .am-sides .am-book-head p,.sbk .am-sides .am-pantheon .am-book-head p{text-align:center;color:#fbf6ea}
+.sbk .am-sides .am-pantheon .am-throne-door{color:#fbf6ea}
+@media (max-width:979px){
+  .sbk .am-sides .am-pantheon,.sbk .am-sides .am-flasks{padding:28px 18px 24px}
+  .sbk .am-sides .am-flow{margin:0;padding:18px 0;background:linear-gradient(178deg,var(--blue-in) calc(50% - 1.5px),#fbf6ea 50%,var(--red-in) calc(50% + 1.5px))}
+  .sbk .am-sides .am-pantheon,.sbk .am-sides .am-pantheon .am-book-head p{text-align:center}
+}
+@media (max-width:760px){
+  .sbk .am-sides{margin-left:-16px;margin-right:-16px}
+}
+
+/* THE END OF THE INTRO IS ONE SCREEN (Nov 19 2026). His words that day, over the page after the film: "it is disgusting... IT IS A UGLY FUCKING POOR WEBSITE", "do you not
+   know what quality means?"; then, over this composition as a still: "this was way better. but why the fuck is there no longer the animated hero?" (the still had no hero; here
+   the hero plays and ends on it). One rule: gold on night, colour only in the two strokes. Once the bar stands: the gold light stays behind the twelve houses; the book's name
+   is the screen's title, its stroke as wide as the word and no wider, the second plate about half of it; the swarm's name a gold line over them. */
+.am-say .am-society{display:none}
+.am-plate .am-name{position:relative;display:inline-block}
+.am-plate{isolation:isolate}
+.am-plate .am-name .am-slash{z-index:-1;left:-.42em;right:-.42em;top:.5em;height:.62em}
+html[data-arrow="bar"] body.am{background:radial-gradient(80% 460px at 50% -40px,rgba(240,207,116,.22),rgba(240,207,116,.06) 46%,rgba(240,207,116,0) 74%),var(--harmony-sky)}
+html[data-arrow="bar"] .am-hero{padding:10px 0 6px}
+html[data-arrow="bar"] .am-say{gap:22px}
+html[data-arrow="bar"] .am-say .am-society{display:block;margin:4px 0 -4px;color:#c4a365;font:600 12px/1 var(--am-sans);letter-spacing:.44em;text-indent:.44em}
+html[data-arrow="bar"] .am-say .am-router{font-size:clamp(46px,8.6vw,104px)}
+html[data-arrow="bar"] .am-say .am-router .am-name{font-style:italic}
+html[data-arrow="bar"] .am-say .am-router .am-stamp{margin-top:.34em;padding-left:0;font-size:.21em;letter-spacing:.3em;text-indent:.3em}
+html[data-arrow="bar"] .am-say .am-warm{font-size:clamp(28px,4.9vw,60px)}
+html[data-arrow="bar"] .am-say .am-warm .am-name{font-style:italic}
+html[data-arrow="bar"] .am-say .am-warm .am-stamp{margin-top:.34em;padding-left:0;font-size:.3em;letter-spacing:.5em;text-indent:.5em}
+.sbk .duo{display:grid;grid-template-columns:minmax(0,1fr) 1px minmax(0,1fr);gap:0 clamp(28px,5vw,72px);align-items:start;margin-top:clamp(40px,6vw,76px)}
+.sbk .duo-side{display:grid;justify-items:center;text-align:center;isolation:isolate;scroll-margin-top:18px}
+.sbk .duo-art{position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:clamp(190px,25vw,290px)}
+.sbk .duo-art::before{content:"";position:absolute;z-index:-1;inset:-8% -4%;background:radial-gradient(closest-side,rgba(64,128,236,.22),rgba(64,128,236,0))}
+.sbk .duo-flask .duo-art::before{background:radial-gradient(closest-side,rgba(140,14,30,.34),rgba(140,14,30,0))}
+.sbk .duo-art img{display:block;width:auto;max-width:100%;height:clamp(190px,25vw,290px)}
+.sbk .duo-flask .duo-art img{height:clamp(170px,22vw,260px)}
+.sbk .duo-call{display:grid;justify-items:center;margin:22px 0 0;font-size:clamp(24px,3.5vw,42px);line-height:1}
+.sbk .duo-call small{display:block;margin-bottom:.5em;font:italic 700 .4em/1 var(--am-serif);letter-spacing:.34em;text-indent:.34em;text-transform:uppercase;color:#f0cf74}
+.sbk .duo-call .am-name{position:relative;display:inline-block;font:italic 700 1em/.9 var(--am-serif);letter-spacing:.02em;text-transform:uppercase;white-space:nowrap;color:#fbf6ea;-webkit-text-stroke:2px #0b0709;paint-order:stroke fill;text-shadow:-1px 0 rgba(255,36,56,.35),1px 0 rgba(8,180,255,.35),0 4px 18px rgba(0,0,0,.85)}
+.sbk .duo-call .am-slash{position:absolute;z-index:-1;left:-.42em;right:-.42em;top:.5em;height:.62em;transform:translateY(-50%) skewY(-4deg);background:var(--am-router)}
+.sbk .duo-flask .duo-call .am-slash{background:var(--am-warm)}
+.sbk .duo-side>p{margin:20px 0 0;max-width:26em;color:#b8c6d4;font:400 16px/1.5 var(--am-sans)}
+.sbk .duo-door{display:inline-flex;align-items:baseline;gap:.6em;margin:18px 0 0;padding:0 0 5px;border:0;border-bottom:1px solid rgba(196,163,101,.55);background:none;color:#f0cf74;font:700 17px/1.2 var(--am-serif);letter-spacing:.02em;white-space:nowrap;cursor:pointer}
+.sbk .duo-door i{font:normal 600 12px/1 var(--am-sans);letter-spacing:.2em;text-transform:uppercase;color:#c4a365}
+.sbk .duo-door:hover,.sbk .duo-door:focus-visible{border-bottom-color:#f0cf74;outline:0}
+.sbk .duo-side>.am-throne-door{margin:12px 0 0;color:var(--harmony-quiet);font:400 12px/1.5 var(--am-sans)}
+.sbk .duo-seam{align-self:stretch;position:relative;background:linear-gradient(rgba(196,163,101,0),rgba(196,163,101,.6) 22%,rgba(196,163,101,.6) 78%,rgba(196,163,101,0))}
+.sbk .duo-seam span{position:absolute;left:50%;transform:translate(-50%,-50%);padding:8px 0;background:var(--harmony-sky);color:#c4a365;font:600 10px/1 var(--am-sans);letter-spacing:.36em;text-indent:.36em;text-transform:uppercase;white-space:nowrap}
+.sbk .duo-seam span:first-child{top:38%} .sbk .duo-seam span:last-child{top:62%}
+.sbk .am-riders{margin-top:clamp(56px,7vw,92px)}
+@media (max-width:700px){.sbk .duo{grid-template-columns:minmax(0,1fr)} .sbk .duo-seam{display:none} .sbk .duo-flask{margin-top:56px}}
+
+/* THE IMAGERY LEADS (Nov 19 2026, his "this has to become imagery you lead with... it is one sad monocolor background... it has completely lost its plot around $POOL and $WARM
+   and $SOL"): each side opens on its picture (the pool with its twelve chairs; the flask feeding its agents), then the bond and the whim, then the road of Project Snowtrace.
+   A picture stands on the night with its edge feathered, never in a frame. */
+.sbk .duo-art{height:auto}
+.sbk .duo-art::before{display:none}
+.sbk .duo-art img,.sbk .duo-flask .duo-art img,.sbk .lead-row img{display:block;width:100%;max-width:460px;height:auto;aspect-ratio:1;-webkit-mask:radial-gradient(closest-side,#000 84%,transparent 100%);mask:radial-gradient(closest-side,#000 84%,transparent 100%)}
+.sbk .duo-art img,.sbk .lead-row img{mix-blend-mode:lighten}   /* the pictures' own ground is a shade darker than the night: only what is lighter than the page is laid, so no dark disc stands round a picture */
+.sbk .duo-call{margin-top:6px}
+
+/* THE TWO SIDES COME ALIVE (his Nov 23 2026 ~13:4x UTC "didnt we say to replace the pixel arts with more delightful shit? that was merged or what?", then "Yes, build
+   them" over the drawing): no pixel picture is left on the page. The Pantheon is twelve chairs round a pool of gold that breathes and ripples; a society the Fund seats turns
+   live on its chair as a well does (after-the-mint-book.mjs), a gold thread from its chair to the pool; an empty chair stays bare. The flask is the rider's hexagon wearing
+   her Lyssajudron (her default till the page knows the rider's own), three unit1s in orbit, each fed by a gold thread. The motion is the compositor's alone (transform,
+   opacity), and none under reduced motion. */
+/* THE PANTHEON IS ONE RING (his Nov 23 2026 ~19:1x UTC, over his Tracenet tab beside this page: "so? do you see how beatufiul it is? why the website shit is not good looking?",
+   then "Yes, build it" over the draft in its language, Canvas widget 3ee360b5): in the language of his Tracenet (harmony's tab: you and your flask, your swarms in wells, your twelve
+   houses in gold), one level up: the common pot and its money in the middle, the racing swarms in the wells round it (each its live ball; their ranks in the list), the twelve thrones
+   in gold round them (the zodiac's signs as his Tracenet draws them, Aries first, no names, no numerals: his "dont fucking use the latin names or the numbers... use also the oroscope icons there"; the one the next fee takes alight; a seated society's ball on its throne), the "+" a wish not yet made. Nothing moves but the balls. */
+.sbk .duo-art.pantheon{position:relative;display:block;width:min(100%,560px);aspect-ratio:1;margin:6px auto 0;container-type:inline-size}
+.sbk .duo-art.pantheon::before,.sbk .duo-art.pantheon::after{content:"";display:block;position:absolute;z-index:0;inset:24% 6%;border-radius:50%;border:1px solid rgba(58,90,128,.5);transform:rotate(-18deg)}
+.sbk .duo-art.pantheon::after{inset:13% 15%;transform:rotate(34deg)}
+.sbk .pantheon .pool{position:absolute;z-index:1;left:50%;top:50%;width:32%;aspect-ratio:1;transform:translate(-50%,-50%);display:grid;align-content:end;justify-items:center;padding-bottom:6.5cqw;border-radius:50%;border:1px solid #2c4767;background:radial-gradient(circle at 50% 30%,#fff4cf 0,#f3cf6a 9%,rgba(243,207,106,.4) 18%,rgba(243,207,106,0) 28%),#13263d}
+.sbk .pantheon .amt{font:700 max(15px,4.2cqw)/1 var(--am-serif);color:#e7c25a;white-space:nowrap}
+.sbk .pantheon .pool small{margin-top:6px;max-width:80%;text-align:center;font:600 13px/1.2 var(--am-sans);color:#9fb0c2}
+.sbk .pantheon>i{position:absolute;z-index:2;left:50%;top:50%;width:9.7%;aspect-ratio:1;display:grid;place-items:center;transform:translate(-50%,-50%) rotate(calc(var(--k)*30deg)) translateY(-375%) rotate(calc(var(--k)*-30deg))}
+.sbk .pantheon>i::before{content:"";position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 60'%3E%3Cpolygon points='32,0 62.43,22.11 50.81,57.89 13.19,57.89 1.57,22.11' fill='%23dcb352' stroke='%23a8873f' stroke-width='1'/%3E%3Cpolygon points='32,10 52.92,25.2 44.93,49.8 19.07,49.8 11.08,25.2' fill='none' stroke='%23fff8e6' stroke-opacity='.6' stroke-width='.9'/%3E%3C/svg%3E") center/contain no-repeat}
+.sbk .pantheon>i::after{content:attr(data-n);position:relative;margin-top:12%;font:400 max(14px,4.3cqw)/1 'Apple Symbols','Segoe UI Symbol','Noto Sans Symbols 2',var(--am-sans);color:#fffaf0;text-shadow:0 1px 1px rgba(80,56,10,.55)}
+.sbk .pantheon>i.next{filter:drop-shadow(0 0 8px rgba(255,240,194,.9))} .sbk .pantheon>i.next::before{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 60'%3E%3Cpolygon points='32,0 62.43,22.11 50.81,57.89 13.19,57.89 1.57,22.11' fill='%23f3d27a' stroke='%23a8873f' stroke-width='1'/%3E%3Cpolygon points='32,10 52.92,25.2 44.93,49.8 19.07,49.8 11.08,25.2' fill='none' stroke='%23fff8e6' stroke-opacity='.6' stroke-width='.9'/%3E%3C/svg%3E") center/contain no-repeat}
+.sbk .pantheon>i.held>.activity-scene{position:absolute;z-index:1;left:50%;top:50%;width:150%;aspect-ratio:1;transform:translate(-50%,-50%)}
+.sbk .pantheon>.w{position:absolute;z-index:2;left:50%;top:50%;width:7.6%;aspect-ratio:.866;transform:translate(-50%,-50%) rotate(calc(var(--k)*30deg)) translateY(-240%) rotate(calc(var(--k)*-30deg))}
+.sbk .pantheon>.w::before,.sbk .pantheon>.w::after{content:"";position:absolute;inset:0;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:#2f4a68}
+.sbk .pantheon>.w::after{inset:6%;background:#0f1e33}
+.sbk .pantheon>.w.full::before{background:#dcb352} .sbk .pantheon>.w.full::after{background:#0b1626}
+.sbk .pantheon>.w.add::before{clip-path:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 87 100'%3E%3Cpolygon points='43.5,3 84,26.5 84,73.5 43.5,97 3,73.5 3,26.5' fill='none' stroke='%23dcb352' stroke-width='3.5' stroke-dasharray='9 7'/%3E%3Cpath d='M43.5 37v26M30.5 50h26' stroke='%23dcb352' stroke-width='3.5'/%3E%3C/svg%3E") center/contain no-repeat} .sbk .pantheon>.w.add::after{display:none}
+.sbk .pantheon>.w>span{position:absolute;z-index:1;inset:6%;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);overflow:hidden}
+.sbk .pantheon>.w>span>.activity-scene{position:absolute;left:50%;top:50%;width:150%;aspect-ratio:1;transform:translate(-50%,-50%)}
+.sbk .pantheon .activity-scene canvas,.sbk .wells .race-list .activity-scene canvas{position:absolute;inset:0;width:100%!important;height:100%!important}
+.sbk .pantheon .scene-legend,.sbk .wells .race-list .scene-legend{display:none}
+/* the race, where the wells stood: one row a swarm, its ball drawn once, its fees and seats, its rank */
+.sbk .stake-road{display:none} html[data-side="pool"] .sbk .wells .lead-head,html[data-side="pool"] .sbk .wells .race,html[data-side="pool"] .sbk .wells .race-list,html[data-side="pool"] .am-board{display:none!important} html[data-side="pool"] .sbk .stake-road{display:grid;justify-items:center;gap:14px;max-width:620px;margin:22px auto 0;padding:22px 20px 20px;border:2px solid #4080ec;border-radius:12px;background:#0b1730} .sbk .stake-call{margin:0;font:italic 700 clamp(28px,3vw,38px)/1.1 var(--am-serif);color:#fbf6ea} .sbk .stake-road ol{display:grid;gap:10px;width:100%;margin:0;padding:0;list-style:none;counter-reset:s} .sbk .stake-road li{display:grid;grid-template-columns:34px minmax(0,1fr);align-items:baseline;gap:4px 12px;text-align:left;counter-increment:s} .sbk .stake-road li::before{content:counter(s);grid-row:span 2;font:700 22px/1 var(--am-serif);color:#9fc3ff;text-align:center} .sbk .stake-road b{font:600 17px/1.3 var(--am-sans);color:#fbf6ea} .sbk .stake-road small{font:400 14px/1.35 var(--am-sans);color:#93a7b3} .sbk .stake-state{margin:0;font:600 13px/1 var(--am-sans);letter-spacing:.24em;text-transform:uppercase;color:#f0cf74}   /* THE BLUE SIDE IS THE STAKE (his Nov 26 2026 marks on the blue page: "useless noise" over Wishes pull riders, "unclear" over the season strip, "this fucking section we're on is for people who want to stake sol to get $pool" over the race, "wtf is this?" over the riders' board): on the pool's side the stake road stands where those were */
+html[data-side="pool"] .sbk .duo{grid-template-columns:minmax(0,1fr)} html[data-side="pool"] .sbk .duo-seam,html[data-side="pool"] .sbk .duo-flask,html[data-side="pool"] .sbk .duo-pool>.duo-call,html[data-side="pool"] .sbk a.pantheon,.sbk .hall{display:none} html[data-side="pool"] .sbk .duo-pool{display:block;text-align:left} html[data-side="pool"] .sbk .hall{display:grid;width:min(1440px,100%);margin:0 auto} .sbk .hall .stake-road{margin:0;max-width:none;width:100%;min-width:0;grid-template-columns:minmax(0,1fr);justify-items:start;text-align:left} .sbk .hall .stake-call{font:500 clamp(26px,2.4vw,36px)/1.1 var(--display)} .sbk .hall .stake-road b{font-weight:600} .sbk .hall-cards{display:flex;flex-direction:column;gap:16px;min-width:0} .sbk .stake-subs{margin:0;font:400 14px/1.45 var(--am-sans);color:#b8c6d4} .sbk .stake-road:has([data-her-door]:not([hidden])) .stake-state{display:none} html[data-side="pool"] .am-say .am-warm{display:none} html[data-side="pool"] .sbk .duo{margin-top:clamp(20px,3vw,40px)}   /* THE HALL IS THE STAKE (his Nov 26 2026 "pantheon should go into the stake tab... pantheon is for the stakers. socieities remains with grid"): on blue the Pantheon's hall itself, live from the chain, the stake at the head of its column; the ring stays the red side's picture */
+.sbk .hall{--display:'Bodoni 72',Didot,Georgia,'Iowan Old Style','Palatino Linotype',serif;--gold:#ebb22c}   /* the hall's sheet, moved whole from polis.css with the hall; the faces poleis.css gave it there */
+/* THE PANTHEON (Nov 23 2026, his "grab the source of it"): the Nov 7 widget's own sheet, its sky, glass, gold and pink, scoped to the hall; its stone is assets/pantheon-hall.svg */
+.hall{--sky:#0e1c2d;--glass:#142537;--hline:#12324b;--htext:#eef6fa;--hquiet:#93a7b3;--go:#79c5ea;--pink:#f78cd9;--hgold:#ebb22c;display:grid;grid-template-columns:minmax(0,900fr) minmax(0,560fr);gap:28px;align-items:center;padding:22px 26px;margin-top:38px;background:var(--sky);color:var(--htext);border:1px solid var(--hline);border-radius:18px}
+.hall[hidden]{display:none}.hall{scroll-margin-top:84px}.hall .throne .tg{font-size:28px;letter-spacing:0}.hall-arena{aspect-ratio:1;background:url(./assets/pantheon-hall.svg) center/100% no-repeat}.hall-arena svg{width:100%;height:100%;display:block}.hall text{font-family:var(--words)}.hall .throne.is-empty{pointer-events:none;cursor:default}.hall .throne.is-seated{cursor:pointer}.hall .throne.is-seated:hover path{filter:brightness(1.22)}
+.hall .tg{font-family:var(--display);font-size:14px;letter-spacing:.08em;fill:var(--htext)}.hall .tg.oc{font-size:13px;fill:var(--hgold);letter-spacing:.1em}.hall .td{font-size:11px;fill:var(--hquiet)}.hall .tp{font-size:12px;fill:var(--htext)}.hall .tn{font-size:10.5px;fill:var(--hgold);font-variant-numeric:tabular-nums}
+.hall-side{display:flex;flex-direction:column;gap:16px;min-width:0}.hall-side h2{font:500 clamp(32px,3vw,54px)/1.1 var(--display);letter-spacing:.06em;margin:4px 0 0;white-space:nowrap}.hall-side .sub{color:var(--hquiet);font-size:16px;line-height:1.45;margin:6px 0 0}
+.sbk .hall .stake-road{border-color:rgba(196,163,101,.32);background:var(--glass);padding:20px 20px 18px;gap:16px}
+.gvs-law{display:grid;gap:14px;width:100%;margin:0;padding:0;list-style:none;counter-reset:s}.gvs-law li{display:grid;grid-template-columns:28px minmax(0,1fr);align-items:baseline;gap:3px 12px;counter-increment:s}.gvs-law li::before{content:counter(s);grid-row:span 2;font:600 18px/1 var(--am-serif);color:#f0cf74;text-align:center}.gvs-law b{font:600 15px/1.3 var(--am-sans);color:#fbf6ea}.gvs-law small{font:400 13.5px/1.45 var(--am-sans);color:var(--hquiet)}
+.stake-facts{display:grid;gap:8px;width:100%;min-width:0;margin:0;padding:12px 14px;border:1px solid var(--hline);border-radius:10px;background:#0e1c2d}.stake-facts>div{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:2px 12px;font:400 13px/1.35 var(--am-sans)}.stake-facts dt{color:var(--hquiet)}.stake-facts dd{margin:0;text-align:right;font-weight:600;font-variant-numeric:tabular-nums;color:var(--htext)}.stake-facts dd.is-gold{color:#f0cf74}
+.sbk .hall .stake-state{width:100%;padding:12px 14px;border:1px solid rgba(240,207,116,.3);border-radius:8px;background:rgba(240,207,116,.05);text-align:center}.sbk .hall [data-her-door]{width:100%;justify-content:center;min-height:48px;border:1px solid #4080ec;border-radius:8px;background:linear-gradient(98deg,rgba(18,44,150,.95),rgba(64,126,236,.88));color:#fbf6ea;font:600 15px/1 var(--am-sans)}.hall-links{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px}.hall-links a{display:inline-flex;align-items:center;min-height:44px;min-width:44px;color:#9fc3ff;font:500 13px/1.3 var(--am-sans);text-decoration:none}.hall-links a:hover,.hall-links a:focus-visible{color:#f0cf74;outline:0}
+.hall .card{background:var(--glass);border:1px solid var(--hline);border-radius:14px;padding:14px 18px}.hall .k{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--hquiet)}.hall .big{font:30px/1.2 var(--display)}.hall .row{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.hall .bar{height:10px;border-radius:5px;background:var(--hline);position:relative;overflow:hidden;margin:5px 0 2px}.hall .bar>i{position:absolute;left:0;top:0;bottom:0;border-radius:5px}.hall .bar>b{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--htext)}
+.hall .pass{color:var(--hgold);font:26px/1 var(--display);letter-spacing:.08em}.hall table{width:100%;border-collapse:collapse;font-size:13.5px}.hall td{padding:3px 4px;border-bottom:1px solid var(--hline)}.hall td.n{text-align:right;font-variant-numeric:tabular-nums}.hall tr.cut td{border-bottom:2px solid var(--hgold)}.hall tr.out td{color:var(--hquiet)}
+.hall .foot{color:var(--hquiet);font-size:12px}.hall .god{font-family:var(--display)}.hall .gold{color:var(--hgold)}.hall .pink{color:var(--pink)}.hall .go{color:var(--go)}.hall .cols{display:flex;gap:16px}.hall .cols>.card{flex:1;min-width:0}.hall .glyph-strip{display:block;height:12px;margin:6px 0 8px;color:var(--hquiet)}
+@media(max-width:980px){.hall{grid-template-columns:1fr;padding:18px}}@media(max-width:560px){.hall{padding:12px;gap:16px}.hall-side h2{white-space:normal}.hall .cols{flex-direction:column}.hall .foot,.stake-box-top small,.stake-facts>div{font-size:13px}.hall td{font-size:13px}}
+.sbk .wells .race-list{display:grid;gap:0;max-width:620px;margin:10px auto 0;padding:0;list-style:none;border:1px solid #1f3350;border-radius:12px;background:#0f1e33}
+.sbk .wells .race-list li+li{border-top:1px solid #1d3049}
+.sbk .wells .race-list a{display:grid;grid-template-columns:44px minmax(0,1fr) 26px;justify-items:start;align-items:center;gap:12px;padding:10px 16px;min-height:64px;color:inherit;text-decoration:none}
+.sbk .wells .race-list .activity-scene{position:relative;width:44px;height:44px}
+.sbk .wells .race-list span{text-align:left;min-width:0;max-width:100%}
+.sbk .wells .race-list b{display:block;margin:0;max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font:600 15px/1.25 var(--am-sans);font-style:normal;color:#fbf6ea}
+.sbk .wells .race-list small{display:block;margin-top:2px;color:#8a99ab;font:400 13px/1.35 var(--am-sans)}
+.sbk .wells .race-list em{justify-self:end;font:normal 700 18px/1 var(--am-serif);color:#dcb352}
+.sbk .wells .race-list a:hover b,.sbk .wells .race-list a:focus-visible b{color:#f0cf74}
+.sbk .wells .race-list .unlit i{width:40px;height:40px;margin-left:2px;border:1.5px dashed #dcb352;border-radius:50%}
+.sbk .wells .race-list .unlit b{color:#dcb352;font:italic 700 16px/1.25 var(--am-serif)}
+.sbk .duo-art .flask{position:relative;display:grid;place-items:center;width:clamp(210px,31vw,390px);aspect-ratio:1}
+@media (min-width:701px){html:not([data-side="pool"]) .sbk .duo{align-items:stretch}html:not([data-side="pool"]) .sbk .duo-side{grid-template-rows:1fr auto}html:not([data-side="pool"]) .sbk .duo-art{align-self:center}}
+.sbk .flask::before{content:"";position:absolute;inset:4%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,233,168,.4),rgba(255,233,168,0))}
+.sbk .flask::after{content:"";position:absolute;inset:13%;border-radius:50%;border:1px solid rgba(196,163,101,.3)}
+.sbk .flask .lyssa{position:relative;z-index:2;width:42%;aspect-ratio:.866;background:#f0cf74;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.sbk .flask .lyssa::after{content:"";position:absolute;inset:5%;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:#f3eee4 url(./assets/her-default.jpg) center/cover no-repeat}
+.sbk .flask>i{--r:calc(30% + var(--k)*7%);position:absolute;inset:0;animation:sbk-orbit calc(28s + var(--k)*9s) linear infinite;animation-delay:calc(var(--k)*-11s)}
+.sbk .flask>i::before{content:"";position:absolute;left:50%;top:calc(50% - 1px);width:var(--r);height:2px;background:linear-gradient(90deg,rgba(255,216,107,.95),rgba(255,216,107,.1))}
+.sbk .flask>i::after{content:"";position:absolute;left:calc(50% + var(--r));top:50%;width:8%;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle at 35% 32%,#fff 0 14%,var(--c) 48%,#13233a 100%);box-shadow:0 0 12px var(--c)}
+/* THE WELLS ARE THE RACE, THE PANTHEON IS THE PODIUM (his Nov 23 2026 "u get the connection between them?", over the Pantheon's page and the wells; "draft first dude"; then
+   "Yes, build both"): a well says its place on the Pantheon's ladder and its fees this season; the small Pantheon names its twelve thrones (polis-state.js GODS), lights the
+   one the next fee takes, and is the door to the Pantheon; its centre stays the common pot. */
+.sbk .wells .race{display:flex;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:6px 18px;margin:clamp(14px,2vw,22px) 0 0;color:#c4a365;font:600 13px/1.4 var(--am-sans);letter-spacing:.14em;text-transform:uppercase}
+.sbk .wells .race a{display:inline-flex;align-items:center;min-height:44px;color:#f0cf74;border-bottom:1px solid rgba(240,207,116,.6)}
+@keyframes sbk-orbit{to{transform:rotate(1turn)}}
+@media (prefers-reduced-motion:reduce){.sbk .flask>i{animation:none}}
+.sbk .lead{margin-top:clamp(64px,8vw,112px);text-align:center}
+.sbk .lead-head h2{margin:0;font:italic 700 clamp(28px,3.6vw,46px)/1.1 var(--am-serif);letter-spacing:-.01em;color:#fbf6ea}
+.sbk .lead-kicker{margin:0 0 14px;color:#c4a365;font:600 12px/1 var(--am-sans);letter-spacing:.42em;text-indent:.42em;text-transform:uppercase}
+.sbk .lead-row{display:grid;gap:clamp(16px,3vw,48px);margin:clamp(14px,2vw,28px) 0 0;padding:0;list-style:none}
+.sbk .lead-row.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.sbk .lead-row.five{grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(6px,1.2vw,18px)}
+.sbk .lead-row figure,.sbk .lead-row li{display:grid;justify-items:center;align-content:start;margin:0}
+.sbk .lead-row b{display:block;margin-top:2px;font:italic 700 clamp(18px,2vw,25px)/1.2 var(--am-serif);color:#fbf6ea}
+.sbk .lead-row span{display:block;margin-top:8px;max-width:30em;color:#b8c6d4;font:400 15px/1.5 var(--am-sans)}
+.sbk .lead-row.five b{font-size:clamp(14px,1.5vw,19px)}
+.sbk .lead-row.five span{font-size:13px;line-height:1.45}
+.sbk .lead-doors{display:flex;flex-wrap:wrap;justify-content:center;gap:18px 56px;margin-top:56px;padding-bottom:40px}
+.sbk .lead-doors small{display:block;margin-left:.8em;color:var(--harmony-quiet);font:400 11px/1.3 var(--am-sans)} .sbk .lead-doors small:empty{display:none}
+@media (max-width:700px){.sbk .lead-row.two{grid-template-columns:minmax(0,1fr)} .sbk .lead-row.five{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* THE HERO IS THE WHOLE SCREEN WHILE THE FILM PLAYS (Nov 19 2026, his words over the tops of the pool and the flask showing under the ball: "why the fuck am i seeing glimpses
+   of this from the hero?"): until the bar stands the hero fills the window under the header, whatever the window's height, and the book under it is not laid at all; it
+   comes with the bar. Before the script has spoken (no data-arrow yet) the hero already fills the window, so nothing shows under it for an instant either. */
+html:not([data-arrow="bar"]) .am-hero{min-height:calc(100svh - 46px - (min(100vw,1180px) - 72px)/12)}
+html[data-arrow="drawn"] .sbk,html[data-arrow="gone"] .sbk,html[data-arrow="struck"] .sbk,html[data-arrow="drawn"] .am-foot,html[data-arrow="gone"] .am-foot,html[data-arrow="struck"] .am-foot{display:none}
+html:not([data-arrow="bar"]) .am-main{padding-bottom:0}
+@media (max-width:760px){html:not([data-arrow="bar"]) .am-hero{min-height:0}}
+
+/* NO TEXT UNDER THE PICTURES (Nov 19 2026, his words over the sentence, the door line and the note under each side: "why the fuck do you gotta pollute my eyes with useless
+   text like these?"): a side is its picture and its call. The picture is the door (the pool's opens his governance film; the flask's enters the first tracenet). The rows
+   under them keep each picture's title and nothing else. */
+.sbk a.duo-art{margin:0;padding:0;border:0;background:none;color:inherit;font:inherit;cursor:pointer}
+.sbk a.duo-art:hover img,.sbk a.duo-art:focus-visible img{filter:brightness(1.12)}
+.sbk a.duo-art:focus-visible{outline:0}
+/* THE PANTHEON'S BOARD (Nov 19 2026, his "we need this both in the website (global leaderboard)", then "Yes, lay it" over this board drawn on the page): the
+   riders by what they brought (swarmbook-board.mjs), the sheet he passed less its sentence under the title and its foot (his rule on this page: a section is
+   its picture and its title or call, no explanatory sentence, no status note); the empty board's small line is its call to the mint. */
+.sbk .am-board{max-width:1060px;margin:56px auto 0;padding:0 4px;text-align:center}
+.sbk .am-board [hidden]{display:none}
+.sbk .am-board h2{margin:6px 0 22px;font:700 clamp(30px,3.4vw,42px)/1.1 var(--am-plate);color:var(--am-cream)}
+.sbk .am-board h2 em{font-style:italic;color:var(--am-stamp)}
+.sbk .am-board-rows{list-style:none;margin:0;padding:0;display:grid;gap:10px;text-align:left}
+.sbk .am-board-rows li{display:grid;grid-template-columns:44px 62px minmax(0,1fr) 150px 130px 120px;align-items:center;gap:14px;padding:10px 18px;border:1px solid var(--harmony-line);border-radius:16px;background:var(--harmony-glass)}
+.sbk .am-board-rows li.top{border-color:rgba(240,207,116,.55);background:linear-gradient(90deg,rgba(240,207,116,.10),rgba(240,207,116,.02) 60%),var(--harmony-glass)}
+.sbk .am-board-rows li.mine{border-color:#f0cf74;box-shadow:inset 0 0 0 1px #f0cf74}
+.sbk .am-board-rank{font:700 26px/1 var(--am-plate);color:var(--am-stamp);text-align:center}
+.sbk .am-board-face{display:block;width:62px;height:62px;clip-path:polygon(50% 2%,93% 26%,93% 74%,50% 98%,7% 74%,7% 26%);background:rgba(240,207,116,.12)}
+.sbk .am-board-face:has(canvas){clip-path:none;background:none}
+.sbk .am-board-face canvas{display:block;width:100%;height:100%}
+.sbk .am-board-who b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:600 17px/1.25 var(--am-sans);color:var(--harmony-text)}
+.sbk .am-board-who a{color:inherit;text-decoration:none}
+.sbk .am-board-who a:hover,.sbk .am-board-who a:focus-visible{color:var(--am-stamp);outline:0}
+.sbk .am-board-who small{color:var(--harmony-quiet);font-size:13px}
+.sbk .am-board-rows li.mine .am-board-who small{color:var(--am-stamp)}
+.sbk .am-board-num{text-align:right}
+.sbk .am-board-num b{display:block;font:600 18px/1.2 var(--am-sans);color:var(--harmony-text);font-variant-numeric:tabular-nums}
+.sbk .am-board-num.fee b{color:var(--am-stamp)}
+.sbk .am-board-num small{color:var(--harmony-quiet);font-size:12px}
+.sbk .am-board-empty{display:grid;justify-items:center;margin:4px auto 0;max-width:560px;padding:28px 24px;border:1px dashed rgba(240,207,116,.45);border-radius:16px;color:var(--harmony-text);font:400 20px/1.4 var(--am-serif)}
+@media (max-width:960px){   /* measured at 761: the sheet's columns left a name 31 px and cut all six; these leave it about 190 */
+  .sbk .am-board-rows li{grid-template-columns:36px 56px minmax(0,1fr) 120px 100px 96px;gap:10px;padding:10px 14px}
+  .sbk .am-board-face{width:56px;height:56px}
+}
+@media (max-width:760px){
+  .sbk .am-board-rows li{grid-template-columns:26px 48px minmax(0,1fr) auto;gap:10px;padding:10px 12px}
+  .sbk .am-board-face{width:48px;height:48px}
+  .sbk .am-board-num.burn,.sbk .am-board-num.warm{display:none}
+  .sbk .am-board-who b{font-size:15px}
+  .sbk .am-board-rank{font-size:20px}
+}
+/* THE WISHES ARE WELLS (his Nov 22 2026 00:37:30 UTC "i love that. is it implemented yet?", over the patron's road drawn on this page): on the pool's side "Wishes pull riders" stands first under the hero, lifted, its pictures 190 px; once the bar stands each cell is a society's door (after-the-mint-book.mjs): its name one line with the door's underline, its SOL and seats in the door's small caps, the last the unlit well, grey. The flask's side keeps the section as it stood. */
+html[data-side="pool"] .sbk .wells{margin-top:clamp(18px,2.2vw,32px)} html[data-side="pool"] .sbk .wells .lead-row{margin-top:8px} html[data-side="pool"] .sbk .wells .lead-row .swarm{max-width:100%}
+.sbk .wells a{display:grid;justify-items:center;min-width:0;max-width:100%;color:inherit;text-decoration:none}
+.sbk .wells .lead-row.five a b{max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;padding-bottom:5px;border-bottom:1px solid rgba(196,163,101,.55);font-size:clamp(14px,1.12vw,17px)}
+.sbk .wells a:hover b,.sbk .wells a:focus-visible b{border-bottom-color:#f0cf74} .sbk .wells a:hover .swarm{filter:brightness(1.12)}
+.sbk .wells .lead-row.five a span{margin-top:10px;color:#c4a365;font:600 12px/1.3 var(--am-sans);letter-spacing:.2em;text-indent:.2em;text-transform:uppercase}
+.sbk .wells .unlit b{color:#f0cf74}
+/* THE WISHES ARE SWARMS (his Nov 23 2026): a well is a hexagon in the freeze's gold holding its society's own tree (the heroes' swarm page, his Nov 19 "that hex is a page"); the unlit one is the same hexagon, empty */
+/* THE WELLS FIT THEIR COLUMNS (Nov 23 2026, read on his pane at 750 px: five columns of 136 px each held a 190 px hexagon, so the wells overlapped, their captions ran together and the page scrolled 38 px sideways, from 701 to about 1,080 px wide): a well's one column is its cell's own width, never its content's, so the hexagon and the words are held by the cell */
+.sbk .wells .lead-row li,.sbk .wells a{grid-template-columns:minmax(0,1fr)}
+.sbk .wells .swarm{position:relative;display:block;width:min(190px,42vw);max-width:100%;aspect-ratio:1;clip-path:polygon(50% 2.5%,91.1% 26.25%,91.1% 73.75%,50% 97.5%,8.9% 73.75%,8.9% 26.25%);background:linear-gradient(160deg,#fbf6ea,#f0cf74 40%,#c4a365)}
+.sbk .wells .swarm::before,.sbk .wells .swarm .activity-scene,.sbk .wells .swarm canvas{content:"";position:absolute;inset:0;width:100%!important;height:100%!important;clip-path:polygon(50% 4.2%,89.6% 27.1%,89.6% 72.9%,50% 95.8%,10.4% 72.9%,10.4% 27.1%)} .sbk .wells .swarm::before{background:#0b1626} .sbk .wells .swarm .scene-legend{display:none}
+.sbk .wells .unlit .swarm{opacity:.5}
+@media (max-width:700px){.sbk .wells .lead-row.five li.unlit{grid-column:1/-1} .sbk .wells .lead-row.five li.unlit .swarm{width:21vw}}
+@media (max-width:699px){.sbk .duo-door{flex-wrap:wrap;justify-content:center;white-space:normal;max-width:calc(100vw - 32px)}} @media (max-width:380px){.sbk .wells .lead-row.five a span{letter-spacing:.1em;text-indent:.1em}}   /* a door too wide for a phone wraps its small line under its words (read at 360 px: "Ride" under the riders 404 px wide on one line, the board's "Be the first rider" 357 px, the page 402 px wide); a door that fits stands as it did; under 380 px a well's numbers close their spacing to stay on one line */
+/* THE BLUE SIDE READS ON A PHONE (Nov 22 2026; the screens checker of seat claude-6c2484aa, run on the live site after his publish of ~03:4x UTC, found
+   both after-the-mint pages red at all twelve sizes: text under 12 px, 13 px under 500 wide, and controls under 44 px on a phone). A floor, and nothing
+   else moves: every text of the page at 12 px at least, 13 px under 500 wide; a door, the red plate and the footer's links at least 44 px each way on a
+   phone. The posters' small print, the society's name said again under each poster at 5 to 9 px, is left out (less, never bigger boxes). The red plate's
+   PROMPT-2-MINE keeps its colours: its ivory stands on its own dark stroke, which the checker's contrast does not read. */
+.sbk .duo-seam span{font-size:12px} .sbk .duo-call small{font-size:max(12px,.4em)} .sbk .lead-doors small{font-size:12px}
+.sbk .am-poster em{font-size:max(12px,5.3cqw)} .sbk .am-poster small{display:none}
+html[data-arrow="bar"] .am-say .am-router .am-stamp{font-size:max(12px,.21em)} html[data-arrow="bar"] .am-say .am-warm .am-stamp{font-size:max(12px,.3em)}
+@media (max-width:499px){
+  html[data-arrow="bar"] .am-say .am-society,.sbk .lead-kicker,.sbk .am-kicker,.sbk .am-sides .am-book-head p.am-kicker,.sbk .am-throne-door,.sbk .duo-side>.am-throne-door,.sbk .duo-door i,.sbk .lead-doors small,.sbk .wells .lead-row.five a span,.am-foot{font-size:13px}
+  .sbk .duo-call small{font-size:max(13px,.4em)} .sbk .am-poster em{font-size:max(13px,5.3cqw)}
+  html[data-arrow="bar"] .am-say .am-router .am-stamp{font-size:13px;letter-spacing:.1em;text-indent:.1em} html[data-arrow="bar"] .am-say .am-warm .am-stamp{font-size:13px}
+  html[data-arrow="bar"] .am-say .am-warm{min-height:48px;align-content:center} .sbk .duo-door{min-height:44px;align-content:flex-end}
+  .am-foot{flex-wrap:wrap;gap:0 10px} .am-foot a{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px}
+}
+/* THE MACHINE, ONE PUNCH AT A TIME (his Nov 22 2026 09:58 UTC over the wells: "too much too soon"; his Aug 18 rule: "less volume and more strategic punches with
+   silence"): the title, the film, then the wells. The three pictured beats left with THE WISHES ARE SWARMS (Nov 23 2026). */
+/* the same floor while the film plays (the hero before its bar: the screens checker reads it there, 397 px wide on a 320 px phone and 830 on a 768 px
+   glass, the plates' stamps at 12 px): the stamps 13 px on a phone and free to wrap where the film's column is narrow; the red plate a 44 px target */
+@media (max-width:499px){.am-say .am-router .am-stamp{font-size:13px;letter-spacing:.1em;text-indent:.1em;padding-left:0;white-space:normal} .am-say .am-warm .am-stamp{font-size:13px} .am-say .am-warm{min-height:48px;align-content:center}}
+@media (min-width:500px) and (max-width:1099px){.am-say .am-router .am-stamp{white-space:normal;letter-spacing:.24em;text-indent:.24em;padding-left:0}}
+
+/* FROM NEFERTITI TO BLUE (Nov 22 2026, lane/from-nefertiti-to-blue; his words in dl-side-press.js, after-the-mint-tree.mjs and swarmbook-film.mjs). Blue alone (html[data-side="pool"], said by the page's head before
+   its first paint). While the film plays the ball's canvas is the window, as on the mint page (its box there: the window's, 16 px down), so the ball stands where she left it, at every size; the titles stand under it
+   and come once the arrow is let go. Reduced motion keeps no hero at all (the bar at once), so nothing here moves under it. */
+/* nothing under the hero before the script speaks, on a phone too (the 760 px rule above undid his Nov 19 "why the fuck am i seeing glimpses of this from the hero?": "Wishes pull riders" flashed and went) */
+@media (scripting:enabled){html:not([data-arrow]) .sbk,html:not([data-arrow]) .am-foot{display:none}}
+html[data-side="pool"]:not([data-arrow="bar"]) .am-tree{position:fixed;left:0;top:16px;width:100vw;height:100svh;min-height:0;margin:0;z-index:0}
+html[data-side="pool"]:not([data-arrow="bar"]) .am-hero{min-height:calc(100svh - 58px)}
+html[data-side="pool"]:not([data-arrow="bar"]) .am-say{position:fixed;left:16px;right:16px;bottom:10svh;z-index:1;display:grid;justify-items:center;opacity:0}
+@media (min-width:701px){html[data-side="pool"]:not([data-arrow="bar"]) .am-say{bottom:3svh}}
+html[data-side="pool"][data-ball]:not([data-arrow="bar"]) .am-say{opacity:1;transition:opacity 1.4s 2.2s}
+html[data-side="pool"]:not([data-arrow="bar"]) .am-tree-kit{position:fixed;left:50%;bottom:6svh;transform:translateX(-50%);z-index:3} html[data-side="pool"]:not([data-arrow="bar"]) .am-hero:has(.am-tree-kit:not([hidden])) .am-say{opacity:0;pointer-events:none;transition:none}   /* the egg's door, opened while the film plays, takes the titles' place, never the ball's */
+html[data-side="pool"] .am-tree-canvas{opacity:0} html[data-side="pool"][data-ball] .am-tree-canvas{opacity:1;transition:opacity .9s} html[data-side="pool"][data-arrow="struck"] .am-tree-canvas{transition:none} .am-bar polygon{transition:opacity .45s ease}
+.am-bridge{position:fixed;left:0;top:16px;width:100vw;height:100svh;z-index:0;pointer-events:none} html[data-ball] .am-bridge{opacity:0;transition:opacity 1.1s .35s} html[data-arrow="bar"] .am-bridge{display:none}
+.am-skip{display:none} html[data-side="pool"]:not([data-arrow="bar"]) .am-skip:not([hidden]){display:block;position:fixed;left:16px;top:30px;z-index:9;min-height:44px;margin:0;padding:0 18px;border:1px solid rgba(173,135,48,.75);border-radius:999px;background:rgba(14,12,10,.58);color:#f0cf74;font:600 13px/1 var(--am-sans);letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.am-skip:hover{background:rgba(14,12,10,.8);color:#fff1c4} .am-skip:focus-visible{outline:2px solid #b4944d;outline-offset:3px}
+/* the film in blue's page: its night still, its ball in a blue pentagon with the ball's own line; a press plays it in place. Nothing is laid over the film while it plays */
+.sbk .wish-film{display:none} html[data-side="pool"] .sbk .wish-film{display:block;position:relative;width:min(640px,100%);margin:clamp(22px,4vw,44px) auto 40px;aspect-ratio:16/9}
+.wish-film video,.wish-film img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:14px;background:#101b1a} .wish-film img{transition:opacity 1.4s cubic-bezier(.4,0,.2,1)}
+/* THE STILL WAITS FOR THE FILM (Nov 23 2026, read frame by frame on a slow network: the still faded to an empty dark box for 0.9 s before the film's first frame cut in; and on touch the whole box flashed the browser's tap blue for 0.1 s at every press): the still leaves only once the film has a frame; while it waits the pentagon dims; no tap highlight on the film's buttons */
+.wish-film:is([data-film="on"],[data-film="paused"]) img{opacity:0;transition-duration:.2s} .wish-film button{-webkit-tap-highlight-color:transparent} .wish-film[data-film="wait"] svg{opacity:.45}
+.wish-edge{position:absolute;inset:0;border-radius:14px;border:1.5px solid rgba(64,128,236,.95);box-shadow:0 0 22px rgba(64,128,236,.5),0 0 60px rgba(64,128,236,.22);pointer-events:none}
+.sbk .wish-film [data-wish-play]{position:absolute;inset:0;width:100%;height:100%;margin:0;padding:0;border:0;border-radius:14px;background:none;cursor:pointer}
+/* THE COVER IS THE FILM'S FIRST FRAME (his Nov 23 2026 "why the fuck u got that before i press then? it's so dysgenic dude", then "Build A"): the still is the film's own second 0, so a press goes on from what the cover shows; the blue pentagon lies on the film's own (its circumcentre at 40 % of the box, 14.25 % of its width), the play mark under the glyph, in the pentagon's blue; the still and the pentagon leave in 0.2 s (the same picture needs no cross-fade; 1.4 s showed the film's moving name twice), the still comes back at the end as slowly as before */
+.wish-film svg{position:absolute;left:50%;top:40%;width:31%;transform:translate(-50%,-50%);overflow:visible;filter:drop-shadow(0 0 5px rgba(64,128,236,.95)) drop-shadow(0 0 18px rgba(64,128,236,.55));transition:opacity .8s}
+.wish-film polygon{vector-effect:non-scaling-stroke;fill:none;stroke:#4080ec;stroke-width:2.2;stroke-linejoin:round} .wish-film path{fill:#4080ec} .wish-film[data-film="on"] svg{opacity:0;transition-duration:.25s}
+.sbk .wish-film [data-wish-sound]{position:absolute;right:0;top:100%;min-width:88px;min-height:44px;margin:0;padding:0 6px;border:0;background:none;color:#c4a365;font:600 13px/1 var(--am-sans);letter-spacing:.06em;text-align:right;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .8s}
+.wish-film:not([data-film="rest"]) [data-wish-sound]{opacity:1;pointer-events:auto} .wish-film button:focus-visible{outline:2px solid #b4944d;outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.wish-film img,.wish-film svg,.wish-film [data-wish-sound]{transition:none!important}}
+/* STAKE IN HER, SEND YOUR LIGHT (Nov 22 2026, his "Yes, build them"; on today's page Nov 24 2026, his "build all and ship to prod"): the Pantheon's one
+   door under its call, and its dialog: the stake, then where its light goes (a wish, the futarchy, or a new wish: "the making of wish is a capital
+   allocator action", his Nov 24 15:26:58 UTC). Every byte a wallet signs is poleis/door's (her-door.mjs is the glue). Hidden until a chain names her pool. */
+.her-dialog{width:min(520px,calc(100vw - 32px));padding:30px 24px 26px;border:1px solid rgba(196,163,101,.35);border-radius:6px;background:var(--am-stroke);color:var(--am-cream);box-shadow:0 30px 100px rgba(0,0,0,.55)}
+.her-dialog::backdrop{background:rgba(5,8,16,.42);backdrop-filter:blur(6px)}
+.her-dialog[aria-busy]{cursor:progress}.her-dialog[aria-busy] button,.her-dialog[aria-busy] .her-go{opacity:.6;pointer-events:none}
+.her-close{position:absolute;top:6px;right:6px;width:44px;height:44px;border:0;background:none;color:color-mix(in srgb,var(--am-cream) 72%,transparent);font:300 26px/1 var(--am-sans);cursor:pointer}
+.her-eyebrow{margin:0 0 12px;font:500 13px/1.5 var(--am-sans);letter-spacing:.16em;text-transform:uppercase}
+.her-dialog h2{margin:0 0 14px;font:400 38px/1.08 var(--am-serif)}
+.her-line,.her-note{margin:0;font:15px/1.55 var(--am-sans);color:color-mix(in srgb,var(--am-cream) 72%,transparent)}
+.her-note{margin-top:14px;font-size:13px}.her-note:empty{display:none}
+.her-stake{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:end;margin-top:22px}
+.her-stake label{grid-column:1/-1;font:13px/1.4 var(--am-sans);color:color-mix(in srgb,var(--am-cream) 72%,transparent)}
+.her-stake input{min-width:0;width:100%;min-height:48px;padding:10px 14px;border:1px solid rgba(196,163,101,.35);border-radius:3px;background:rgba(251,246,234,.05);color:var(--am-cream);font:400 24px/1.1 var(--am-serif)}
+.her-go{display:flex;align-items:center;justify-content:center;min-height:48px;min-width:140px;padding:12px 18px;border:1px solid rgba(92,150,246,.95);border-radius:3px;background:linear-gradient(98deg,rgba(18,44,150,.95),rgba(64,126,236,.85));color:var(--am-cream);font:500 15px/1.3 var(--am-sans);text-decoration:none;cursor:pointer}
+.her-go.her-alt{background:none;border-color:rgba(240,207,116,.65);color:var(--am-stamp)}
+.her-go.her-new{background:none;border-color:rgba(251,246,234,.4);color:var(--am-cream)}
+.her-choice{display:grid;gap:10px;margin-top:20px}
+.her-out{display:block;min-height:44px;margin-top:16px;padding:0;border:0;border-bottom:1px solid rgba(240,207,116,.5);background:none;color:var(--am-stamp);font:500 15px/1.3 var(--am-sans);cursor:pointer}
+.film-pop{position:fixed;width:min(960px,calc(100vw - 32px));max-width:none;padding:56px 0 52px;border:0;background:none;overflow:visible;color:#fbf6ea} .film-pop::backdrop{background:rgba(4,9,18,.86)} .sbk .film-pop .wish-film{display:block;width:100%;margin:0} .film-skip{position:absolute;right:0;top:0;min-width:88px;min-height:44px;padding:0 18px;border:1px solid rgba(173,135,48,.75);border-radius:999px;background:#0b1626;color:#f0cf74;font:600 14px/1 var(--am-sans);letter-spacing:.08em;cursor:pointer} .film-skip:focus-visible{outline:2px solid #b4944d;outline-offset:3px} .hall-arena{position:relative} .oculus-door{position:absolute;left:38%;top:34.67%;width:24%;aspect-ratio:1;min-width:44px;padding:0;border:0;border-radius:50%;background:none;cursor:pointer;transition:box-shadow .3s} .oculus-door:hover,.oculus-door:focus-visible{outline:0;box-shadow:0 0 0 3px rgba(235,178,44,.85),0 0 28px rgba(235,178,44,.55)}   /* THE FILM OPENS THE STAKE (his Nov 26 2026): the film a pop-up over the hall, Skip at its corner; her face at the oculus its door */

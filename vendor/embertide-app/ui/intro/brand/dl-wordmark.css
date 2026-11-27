@@ -1,0 +1,28 @@
+/* THE WORDMARK, ONE DESIGN FOR EVERY PLACE (his Oct 16 2026 10:34 WEST, over the welcome, the lock and the onboarding side by side, and pelino:
+   "these + the one on pelino (dysonlight, not dysonlight harmony on pelino) are all fucked up... IT MEANS THAT YOU GOTTA FUCKING GO THROUGHOUT ALL
+   THE PLACES WE GOT AND I WANT YOU TO USE THE ssame fucking designed stuff omg dude this shit is so fuckin accidental").
+   Nine places drew it nine ways: 11 to 37.5 px, Georgia and Bodoni and DM Sans, weights 400 to 700, tracking .15 to .3 em, Harmony beside or under
+   or missing, in navy, grey, gold or blue. Now there is this one: harmony.css's design (Georgia bold capitals tracked .18 em; Harmony in Georgia
+   italic, the accent), at the welcome's size (his "make this 50% larger please": clamp(25.5px, 2.7vw, 37.5px)), Harmony under the name (his Oct 16
+   09:33 "make harmony below dysonlight"), the sub four fifths of the name, the inks of the house's paper (optimism.fit's --dl-ink and --dl-accent-ink).
+   A page links this file and writes
+     <header class="dl-wordmark" aria-label="DysonLight Harmony"><b>DysonLight</b><i>Harmony</i></header>
+   adding dl-corner for the house's corner and dl-dark on a dark ground; it may move the mark, never restyle it. The lock page links it too: the
+   lock answers a page, never a stylesheet (harmony-lock.mjs). optimism.fit ships it at /brand/ (dyson-society/tools/build-optimism-fit.mjs).
+   dl-wordmark.json holds the same numbers for the glasses that draw without CSS: pelino's launcher reads it at build (nestos-windows/launcher/src/
+   brand.rs) and draws the name alone, no Harmony under it (his "dysonlight, not dysonlight harmony on pelino"). dl-wordmark.test.mjs fails any
+   place that draws its own. Cost: ~1.5 KB once per load. */
+:root { --dl-name: clamp(25.5px, 2.7vw, 37.5px); --dl-top: 26px; --dl-left: 5vw; }
+@media (max-width: 759px) { :root { --dl-name: clamp(16px, 4.4vw, 23px); --dl-top: 18px; --dl-left: 6vw; } }
+/* The band a page keeps clear under the corner mark: its inset, the name's line, Harmony's line, a breath. The two pairs of inks: a page on a
+   dark ground says `--dl-ink: var(--dl-ink-dark); --dl-accent: var(--dl-accent-dark)` on its .dl-wordmark (or adds dl-dark), never a colour of its own. */
+:root { --dl-band: calc(var(--dl-top) + var(--dl-name) * 2 + 16px);
+  --dl-ink-paper: #16263a; --dl-accent-paper: #1a789f; --dl-ink-dark: #ffffff; --dl-accent-dark: #a9d4ea; }
+.dl-wordmark { --dl-ink: var(--dl-ink-paper); --dl-accent: var(--dl-accent-paper); margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; align-items: flex-start;
+  gap: 0; font-family: Georgia, 'Times New Roman', serif; font-size: var(--dl-name); line-height: 1; white-space: nowrap; text-decoration: none;
+  background: none; box-shadow: none; transform: none; }
+.dl-wordmark::before, .dl-wordmark::after { content: none; }
+.dl-wordmark > b { display: block; margin: 0; font: 700 1em/1.2 Georgia, 'Times New Roman', serif; letter-spacing: .18em; text-transform: uppercase; color: var(--dl-ink); }
+.dl-wordmark > i { display: block; margin: 0; font: italic 400 .8em/1 Georgia, 'Times New Roman', serif; letter-spacing: 0; text-transform: none; color: var(--dl-accent); }
+.dl-wordmark.dl-dark { --dl-ink: var(--dl-ink-dark); --dl-accent: var(--dl-accent-dark); }
+.dl-wordmark.dl-corner { position: absolute; top: var(--dl-top); left: var(--dl-left); z-index: 40; pointer-events: none; }

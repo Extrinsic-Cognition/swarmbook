@@ -1,0 +1,80 @@
+/* dl-mint-hexagon.css: THE HEXAGON'S OWN MINT's sheet (Nov 22 2026; dl-mint-hexagon.js holds his words and the road). It stands at the deposit door alone (html[data-hexmint], said by the page's first
+   script before anything is painted): a night, her hexagon blank in the middle of it from the first paint, the page's one ball behind it, the door's own press and roads as the split's plates. From a
+   knock her hexagon starts where the knock stood it (polis.js leaves its place in this tab) and comes to the middle. */
+html[data-hexmint]{--my:44vh;--mf:15.8vh;--cta:87.2vh;background:#120a14}
+@media (max-width:699px),(max-aspect-ratio:29/20){html[data-hexmint]{--my:40vh;--mf:22.5vw;--cta:80vh}}
+html[data-hexmint],html[data-hexmint] body{height:100%;overflow:hidden;background:#120a14!important}
+html[data-hexmint] body>:not(main):not(.snowtrace-kit):not(.hexmint):not(.dl-her):not(dialog){visibility:hidden!important;pointer-events:none!important}   /* unseen, and laid out all the same: her portrait's painter is staged in a div of the body */
+html[data-hexmint] main>:not(.genesis),html[data-hexmint] .genesis>:not(.oath-sphere),html[data-hexmint] .oath-sphere>:not(.sphere-stage),html[data-hexmint] .sphere-stage>:not(#genesis-sphere):not(.hexmint-rays){display:none!important}
+html[data-hexmint] main,html[data-hexmint] .genesis,html[data-hexmint] .oath-sphere{position:static!important;margin:0!important;padding:0!important;border:0!important;transform:none!important;background:none!important;min-height:0!important;height:auto!important;overflow:visible!important}
+html[data-hexmint] .sphere-stage{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;height:100dvh!important;margin:0!important;transform:none!important;isolation:isolate;background:radial-gradient(ellipse 62% 66% at 50% var(--my),#241018 0,#170c17 52%,#120a14 100%)!important}
+html[data-hexmint] #genesis-sphere{width:100%!important;height:100%!important;opacity:0;transition:opacity .7s;background:none!important}
+html[data-hexmint-on] #genesis-sphere{opacity:1}
+html[data-hexmint-from] #genesis-sphere{transition-delay:1.04s}
+/* her hexagon before the ball is there to draw it: the knock's own, carried here, wearing her default Lyssajudron as the knock did (A KNOCKER WEARS HER: never a blank) */
+html[data-hexmint] body::before{content:"";position:fixed;z-index:3;left:50vw;top:var(--my);width:calc(var(--mf)*1.7321);height:calc(var(--mf)*2);transform:translate(-50%,-50%);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:#f1ede2 url(./assets/her-default.jpg) center/cover no-repeat;pointer-events:none}
+html[data-hexmint-from] body::before{animation:hexmint-from .9s .14s cubic-bezier(.65,0,.35,1) backwards}
+@keyframes hexmint-from{from{left:var(--from-x);top:var(--from-y);width:calc(var(--from-r)*1.7321);height:calc(var(--from-r)*2)}}
+html[data-hexmint-on] body::before{opacity:0;transition:opacity .12s .78s}
+html[data-hexmint-from][data-hexmint-on] body::before{transition-delay:1.82s}
+/* the light behind the ball: at the opening, and as she lands; what is left of it stands still */
+.hexmint-rays{position:absolute;inset:-40%;z-index:-1;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% calc(50% - .333*(50vh - var(--my))*1.8),rgba(255,214,120,.42) 0,rgba(214,120,52,.2) 20%,transparent 46%),repeating-conic-gradient(from 0deg at 50% calc(50% - .333*(50vh - var(--my))*1.8),rgba(255,226,150,.2) 0 1.3deg,transparent 2.4deg 5.6deg,rgba(255,214,130,.13) 5.6deg 7deg,transparent 8.2deg 12deg,rgba(255,226,150,.24) 12deg 12.9deg,transparent 14deg 20deg);-webkit-mask:radial-gradient(circle at 50% calc(50% - .333*(50vh - var(--my))*1.8),#000 12%,transparent 58%);mask:radial-gradient(circle at 50% calc(50% - .333*(50vh - var(--my))*1.8),#000 12%,transparent 58%)}
+html[data-hexmint="open"] .hexmint-rays{animation:hexmint-burst 1.5s ease-out,hexmint-burst2 1.75s 2.8s ease-out forwards}
+html[data-hexmint="rest"] .hexmint-rays{opacity:.26}
+@keyframes hexmint-burst{0%{opacity:0;transform:scale(.86)}14%{opacity:.8}100%{opacity:0;transform:scale(1.06) rotate(3deg)}} @keyframes hexmint-burst2{0%{opacity:0;transform:scale(.9)}12%{opacity:1}100%{opacity:.26;transform:none}}
+/* the door's own box: one press, then its two roads, where the plates stand */
+html[data-hexmint] .snowtrace-kit:not(.dl-flask-door){display:none!important}
+html[data-hexmint] .dl-flask-door{display:block!important;position:fixed!important;inset:0!important;width:auto!important;height:auto!important;padding:0!important;transform:none!important;pointer-events:none;text-align:center!important;z-index:2147483002}
+html[data-hexmint] .dl-flask-door>:not(.snowtrace-kit-link){display:none!important}
+html[data-hexmint] .dl-flask-door .snowtrace-kit-link{position:fixed!important;left:50%!important;right:auto!important;top:var(--cta)!important;bottom:auto!important;transform:translate(-50%,-50%)!important;display:grid;justify-items:center!important;gap:10px!important;width:max-content;max-width:calc(100vw - 24px);margin:0;text-align:center!important;pointer-events:auto;animation:hexmint-in .36s cubic-bezier(.2,1.5,.3,1) both}
+@keyframes hexmint-in{from{opacity:0;transform:translate(-50%,calc(-50% + 40px))}to{opacity:1;transform:translate(-50%,-50%)}}
+html[data-hexmint] .dl-flask-door .snowtrace-kit-link.dl-egg-call>p.dl-flask-stamp{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+html[data-hexmint] .dl-flask-door .snowtrace-kit-link.dl-egg-call>button.dl-flask-addr{min-height:44px;margin:0 0 2px;padding:6px 16px;border:1px solid rgba(240,207,116,.55);border-radius:99px;background:rgba(5,4,5,.72);color:#f5e7bd;font:600 clamp(14px,1vw,34px)/1 "DM Sans",system-ui,sans-serif;letter-spacing:0;pointer-events:auto;opacity:1}
+html[data-hexmint] .dl-flask-door .snowtrace-kit-link.dl-egg-call>button.dl-flask-addr:not(:disabled){background:#f0cf74;border-color:#f0cf74;color:#120a14}
+html[data-hexmint] .dl-flask-door .snowtrace-kit-link.dl-egg-call>button.dl-flask-addr:disabled{min-height:0;padding:.55em 1.1em}
+html[data-hexmint] .dl-egg-call>button.dl-flask-stamp,html[data-hexmint] .dl-egg-roads button{position:relative!important;isolation:isolate;display:inline-grid!important;justify-items:center;width:auto;min-height:44px;margin:0!important;padding:.34em .5em .2em!important;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;color:#fbf6ea;font:700 clamp(17px,2.7vw,100px)/.9 'Gelasio',Georgia,serif!important;letter-spacing:.02em!important;-webkit-text-stroke:0!important;text-shadow:none!important;cursor:pointer;pointer-events:auto}
+html[data-hexmint] .dl-egg-call>button.dl-flask-stamp{font-size:clamp(22px,3.56vw,130px)!important}
+html[data-hexmint] .dl-egg-call>button[hidden]{display:none!important}
+html[data-hexmint] .dl-egg-call>button.dl-flask-stamp::before,html[data-hexmint] .dl-egg-roads button::before{content:"";position:absolute;z-index:-1;left:-.2em;right:-.2em;top:.86em;height:.95em;transform:translateY(-50%) skewY(-4deg);background:linear-gradient(90deg,transparent,rgba(140,14,30,.92) 12%,rgba(201,161,74,.95) 50%,rgba(140,14,30,.92) 88%,transparent)}
+html[data-hexmint] .dl-egg-roads button:first-child::before{background:linear-gradient(90deg,transparent,rgba(8,16,58,.92) 12%,rgba(64,128,236,.95) 50%,rgba(8,16,58,.92) 88%,transparent)}
+html[data-hexmint] .dl-egg-call :is(button.dl-flask-stamp,.dl-egg-roads button) b{font:inherit;line-height:.9;text-transform:uppercase;white-space:nowrap;-webkit-text-stroke:2px #0b0709;paint-order:stroke fill;text-shadow:0 4px 18px rgba(0,0,0,.85)}
+html[data-hexmint] .dl-egg-call :is(button.dl-flask-stamp,.dl-egg-roads button) span{font-size:0}
+html[data-hexmint] .dl-egg-call :is(button.dl-flask-stamp,.dl-egg-roads button) span::after{content:attr(data-from);display:block;margin-top:calc(clamp(17px,2.7vw,100px)*.34);padding:.3em .5em .3em .8em;border-radius:2px;background:rgba(5,4,5,.84);font:700 clamp(12px,1.05vw,36px)/1.35 'Gelasio',Georgia,serif;letter-spacing:.3em;text-transform:uppercase;white-space:nowrap;color:#f0cf74}
+html[data-hexmint] .dl-egg-call :is(button.dl-flask-stamp,.dl-egg-roads button):is(:hover,:focus-visible)::before{filter:brightness(1.3) saturate(1.25)}
+html[data-hexmint] .dl-egg-call :is(button.dl-flask-stamp,.dl-egg-roads button):focus-visible{outline:0}html[data-hexmint] .dl-egg-call :is(button.dl-flask-stamp,.dl-egg-roads button):focus-visible b{-webkit-text-stroke:2px #f0cf74}
+html[data-hexmint] .dl-egg-call:has(>button.dl-flask-stamp[hidden])::after{content:"Mint your hexagon";font:700 clamp(22px,3.56vw,130px)/.9 'Gelasio',Georgia,serif;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap;color:#fbf6ea;opacity:.3}   /* X comes before the money: the press's name, dim, and no price */
+html[data-hexmint] .dl-egg-call .dl-egg-roads{display:contents!important}
+html[data-hexmint] .dl-egg-call .dl-egg-roads:not(:has(button)){display:none!important}
+html[data-hexmint] .dl-egg-call:has(.dl-egg-roads button)>:is(button.dl-flask-stamp,button.dl-flask-addr){visibility:hidden}
+html[data-hexmint] .dl-egg-call .dl-egg-roads button{position:fixed!important;left:calc(50% - 33.5vw);top:calc(var(--my) - var(--cta) + 50%);transform:translate(-50%,-50%);animation:hexmint-l .34s cubic-bezier(.2,1.4,.3,1) both}
+html[data-hexmint] .dl-egg-call .dl-egg-roads button:last-child{left:calc(50% + 33.5vw);animation-name:hexmint-r}
+@keyframes hexmint-l{from{opacity:0;left:50%;top:50%}} @keyframes hexmint-r{from{opacity:0;left:50%;top:50%}}
+html[data-hexmint] .dl-flask-door .snowtrace-kit-link .snowtrace-kit-say,html[data-hexmint] .dl-flask-door .snowtrace-kit-link[data-at] .snowtrace-kit-say{max-width:min(60vw,calc(100vw - 32px));margin:0;padding:.3em .8em .26em;border:0;background:rgba(5,4,5,.5);font:700 clamp(14px,1.25vw,42px)/1.35 'Gelasio',Georgia,serif;letter-spacing:.08em;text-transform:none;color:#f0cf74}
+html[data-hexmint] .dl-flask-door .snowtrace-kit-link[data-at],html[data-hexmint] .dl-flask-door .snowtrace-kit-link:not(.dl-egg-call):not(:has(.dl-flask-qr)){top:calc(var(--cta) + 7vh)!important}   /* the pour's one line, under the pour */
+html:is([data-hexmint="open"],[data-hexmint="rest"]) .dl-flask-door .snowtrace-kit-link[data-at]{opacity:0;transition:opacity .3s}
+html[data-hexmint] .snowtrace-kit-link:has(.dl-flask-qr)>:is(button.dl-flask-addr:disabled,p.dl-flask-stamp:has(+button.dl-flask-addr:disabled)){display:none}
+html[data-hexmint] .dl-flask-door .snowtrace-kit-link:has(.dl-flask-qr):not([data-at]){top:var(--my)!important;left:calc(50% + 33.5vw)!important}   /* the wallet's road: its code and its address, beside her */
+/* she has landed: her number, what she is, and the two ways on */
+.hexmint{position:fixed;inset:0;z-index:2147483001;pointer-events:none;overflow:hidden;font-size:clamp(17px,2.7vw,100px)}
+html[data-hexmint]:has(.dl-her.on) .hexmint{visibility:hidden}   /* her making over it: the number and the two ways on wait for her */
+.hexmint-number{position:absolute;left:0;top:0;opacity:0;margin:0;padding:.5em 2.2em .6em;text-align:center;white-space:nowrap;text-transform:uppercase;background:radial-gradient(ellipse 50% 50%,rgba(11,7,16,.8),rgba(11,7,16,.4) 60%,transparent)}
+.hexmint-number b{display:block;font:700 clamp(13px,1.25vw,44px)/1.3 "DM Sans",system-ui,sans-serif;letter-spacing:.26em;padding-left:.26em;color:#fff3cf;opacity:0}
+.hexmint-number span{display:block;font:700 clamp(12px,1.05vw,38px)/1.4 'Gelasio',Georgia,serif;letter-spacing:.34em;padding-left:.34em;color:#f0cf74;opacity:0}
+.hexmint[data-number] .hexmint-number{opacity:1}
+.hexmint[data-number] .hexmint-number b,.hexmint[data-stamp] .hexmint-number span{opacity:1;transition:opacity .5s}
+.hexmint .dl-flask-plate{position:absolute;top:var(--my);left:2.2vw;display:inline-grid;justify-items:center;min-height:44px;padding:.34em .5em .2em;text-decoration:none;pointer-events:auto;transform:translateY(-50%);animation:hexmint-pl .34s cubic-bezier(.2,1.5,.3,1) both}
+.hexmint .dl-flask-plate.r{left:auto;right:2.2vw;animation-name:hexmint-pr;animation-delay:.14s}
+.hexmint .dl-flask-plate .slash{top:.86em} .hexmint .dl-flask-plate.blue .slash{background:linear-gradient(90deg,transparent,rgba(8,16,58,.92) 12%,rgba(64,128,236,.95) 50%,rgba(8,16,58,.92) 88%,transparent)}
+.hexmint .dl-flask-plate .stamp{display:block;font-size:clamp(12px,1.05vw,36px);letter-spacing:.12em;padding:.3em .6em;max-width:calc(47.8vw - 42.1vmin - 14px);overflow:hidden;text-overflow:ellipsis}
+@keyframes hexmint-pl{from{opacity:0;transform:translate(-18vw,-50%) skewX(-10deg)}} @keyframes hexmint-pr{from{opacity:0;transform:translate(18vw,-50%) skewX(10deg)}}
+@media (max-width:699px),(max-aspect-ratio:29/20){
+  html[data-hexmint] .dl-egg-call>button.dl-flask-stamp,html[data-hexmint] .dl-egg-call:has(>button.dl-flask-stamp[hidden])::after{font-size:clamp(20px,min(6.7vw,5vh),96px)!important}
+  html[data-hexmint] .dl-egg-roads button{font-size:clamp(18px,min(7.4vw,4vh),90px)!important}
+  html[data-hexmint] .dl-egg-call .dl-egg-roads button{left:50%;top:calc(76.5vh - var(--cta) + 50%)} html[data-hexmint] .dl-egg-call .dl-egg-roads button:last-child{left:50%;top:calc(87.5vh - var(--cta) + 50%)}
+  html[data-hexmint] .dl-flask-door .snowtrace-kit-link:has(.dl-flask-qr):not([data-at]){left:50%!important;top:82vh!important}
+  .hexmint{font-size:clamp(17px,min(7.2vw,3.5vh),80px)} .hexmint .dl-flask-plate,.hexmint .dl-flask-plate.r{left:50%;right:auto;top:73vh;transform:translate(-50%,-50%);animation-name:hexmint-pu} .hexmint .dl-flask-plate.r{top:82.5vh}
+  html[data-hexmint="rest"] .dl-flask-door .snowtrace-kit-link.dl-egg-call{top:93.5vh!important} html[data-hexmint="rest"] .dl-egg-call>button.dl-flask-stamp{font-size:clamp(15px,min(4.6vw,2.6vh),56px)!important} .hexmint .dl-flask-plate .stamp{max-width:88vw;font-size:clamp(12px,1.3vh,30px)}
+}
+@media (max-width:699px) and (max-height:800px){.hexmint .dl-flask-plate{top:70.5vh}.hexmint .dl-flask-plate.r{top:82vh}}
+@keyframes hexmint-pu{from{opacity:0;transform:translate(-50%,calc(-50% + 40px))}}
+@media (prefers-reduced-motion:reduce){html[data-hexmint] .snowtrace-kit-link,html[data-hexmint] .dl-egg-roads button,.hexmint .dl-flask-plate{animation:none!important}html[data-hexmint="open"] .hexmint-rays{animation:none;opacity:.26}html[data-hexmint] #genesis-sphere{transition:none}}

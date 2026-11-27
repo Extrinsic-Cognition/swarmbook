@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="title">
+  <title id="title">Poleis: linked chambers by head and by stake</title>
+  <rect width="960" height="640" fill="#e6eeea"/>
+  <g fill="none" stroke="#7d9690" stroke-width="2">
+    <path d="M480 182V270M480 270H240V382M480 270H720V382M240 382H125V465M240 382H355V465M720 382H605V465M720 382H835V465"/>
+  </g>
+  <g fill="#faf9f5" stroke="#24443d" stroke-width="3">
+    <path d="M480 95l66 48-25 78h-82l-25-78z"/>
+    <path d="M240 298l66 38v76l-66 38-66-38v-76zM720 298l66 38v76l-66 38-66-38v-76z"/>
+    <path d="M125 450l38 28-15 44h-46l-15-44zM355 450l38 28-15 44h-46l-15-44zM605 450l38 28-15 44h-46l-15-44zM835 450l38 28-15 44h-46l-15-44z"/>
+  </g>
+  <g fill="#25a5b8"><circle cx="480" cy="166" r="16"/><circle cx="240" cy="374" r="12"/><circle cx="720" cy="374" r="12"/></g>
+</svg>

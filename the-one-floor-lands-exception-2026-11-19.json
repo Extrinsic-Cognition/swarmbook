@@ -1,0 +1,80 @@
+{
+ "base": "4d7d9f0b82aa12d3c3e6e603b28641c677197bce",
+ "approval": "Hand it, pass +255",
+ "chat": "claude-7209e519, his words typed there: \"Hand it, pass +255\" (Nov 19 2026 20:30:27.154 UTC), the answer to \"Land the branch on main now?\", after he was told the hand lands the plates on the front, the welcome's ball on the same floor, the mint page following the count and the Nest writer, and that it adds 255 net lines of JavaScript",
+ "date": "2026-11-19",
+ "asked": "Land the branch on main now?",
+ "scope": "lane/swarmbook-one-branch at these bytes only: its work since its +808 hand (d96e862c4e): the plates on the front, the welcome's ball on the same floor, the mint page's freeze following the count, lib/mint-floor.mjs, merged with main 4d7d9f0b82; no general JavaScript allowance",
+ "net": 255,
+ "cap": 255,
+ "files": {
+  "embertide-app/ui/intro/assembly-home.mjs": {
+   "before": "b88ad3d3e2c79c85efec7c0d58a058362806e988",
+   "after": "fe306b1e2ee8cb0bb3838ec27abc5a2b79b6e8e6"
+  },
+  "embertide-app/ui/intro/dyson-society/app/assembly-dive.mjs": {
+   "before": "dd32ffe2a12d5ea4995e983ccb44b28ed437f245",
+   "after": "cc5e741164140d6860280c736fdfe270b65f0f42"
+  },
+  "embertide-app/ui/intro/dyson-society/app/assembly-dive.test.mjs": {
+   "before": "b5cc9b32bb9d53e0372ca411a90e525ccbcc0e7f",
+   "after": "8d2ce88a219a3bd4f8a61ea636ab0dad00f73be3"
+  },
+  "embertide-app/ui/intro/dyson-society/app/dl-mint-flask.js": {
+   "before": "3a72c5b7772aceabdd6d1f26b7d12cf3645f98cc",
+   "after": "c449ab3cb7ed90d1640c053941cd0af58edf9744"
+  },
+  "embertide-app/ui/intro/dyson-society/app/dl-mint-ledger.js": {
+   "before": "d27047cb2792d4e013f13b9993ad3ef33f800cd0",
+   "after": "b45be30ba7c1bd9708a128caf101842a9347b443"
+  },
+  "embertide-app/ui/intro/dyson-society/app/dl-mint-ledger.test.mjs": {
+   "before": "3799695b7a92efd57728bad2f400216211bbfea6",
+   "after": "b2893f55a7d0b8266e39a3b265dbf386442ef2a6"
+  },
+  "embertide-app/ui/intro/dyson-society/app/index.html": {
+   "before": "2c3a87a7d7bec14fc99f78338668177de4a40fe7",
+   "after": "b4c2aa4ef21e90888822610ac19195ecacfc8dc1"
+  },
+  "embertide-app/ui/intro/dyson-society/app/swarmbook-floor.mjs": {
+   "before": "d72553cc99a6ca7adf2daed2efa270bb6cf445a0",
+   "after": "43357fcb0133e28bebcfb90d290d4a37f918d212"
+  },
+  "embertide-app/ui/intro/dyson-society/app/swarmbook-floor.test.mjs": {
+   "before": "57684fcffe28db34734fc42a15e4c34d28dcc268",
+   "after": "f01295ae6017ca816cbee61b2e06c31563b15700"
+  },
+  "embertide-app/ui/intro/dyson-society/app/swarmbook.html": {
+   "before": "e5af2fc7362d492ce713b8d60a9d643387892acb",
+   "after": "263add53fc343c6bf804890b1b5d17c3c6619107"
+  },
+  "embertide-app/ui/intro/dyson-society/app/swarmbook.mjs": {
+   "before": "e5bc8d2eebd749d377a370be3e5d5617bcc94eb9",
+   "after": "4a4e71cf4a8511f758e5c7a09445911241c8ef76"
+  },
+  "embertide-app/ui/intro/dyson-society/app/swarmbook.test.mjs": {
+   "before": "8e71590ae1853f8d90ac0774d28b742409811284",
+   "after": "a6448ab8957e2a68bb96ae66a82bff25be56f388"
+  },
+  "embertide-app/ui/intro/dyson-society/app/warm-sphere.js": {
+   "before": "d0c5fb6a1201b630a3f2472ab2f20a1d62066a4b",
+   "after": "df05b863e599626f24a5676da3312b0e7a2f8914"
+  },
+  "embertide-app/ui/intro/room/assembly-floor.mjs": {
+   "before": null,
+   "after": "6395f935bf72f37a29880270b89f8a844863f774"
+  },
+  "tools/embertide-mesh/lib/mint-floor.mjs": {
+   "before": null,
+   "after": "2fc979b38695f96a945c1b3e06837b35d496b9bf"
+  },
+  "tools/embertide-mesh/lib/mint-floor.test.mjs": {
+   "before": null,
+   "after": "8b7e99b81fb34a112d9ad42dc16711d2a6facf22"
+  },
+  "tools/embertide-mesh/tests/the-javascript-only-shrinks.test.mjs": {
+   "before": "c91d8d3097a032a5266cf5a8f967f490f6dd8b7d",
+   "after": "08a7ad6e01338f68e52396af655f1f010cb613e2"
+  }
+ }
+}

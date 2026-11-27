@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open a tracenet · optimism.fit</title><link rel="stylesheet" href="./site-bar.css?v=bar-3"><link rel="stylesheet" href="./holy.css?v=2">
+<!-- creator.html: OPEN A TRACENET (his Oct 23 2026 WEST: "it has to be for more creators to come and do the same as well"; on the first draft of this
+     page: "this shit is ugly as fuck eh"). The mint scene's language (the Gold month's card, Oct 23): her card on the left, one step at a time on the right, almost
+     no words. The steps: the wallet, the handle, then yours (the link, a drop by dropping a file, the card switch). The law: worker/creators.mjs,
+     worker/connect.mjs; the page's half: creator.js. Nothing moves at rest. -->
+<style>
+  @font-face{font-family:'DM Sans';font-weight:400;font-display:swap;src:url('./fonts/dm-sans-400.ttf') format('truetype')}
+  @font-face{font-family:'DM Sans';font-weight:600;font-display:swap;src:url('./fonts/dm-sans-600.ttf') format('truetype')}
+  :root{color-scheme:dark;--ink:#fbf4e2;--gold:#e9c979;--bronze:#d9a77a;--line:rgba(251,244,226,.16);--bg:#070607}
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink)}
+  body{display:grid;place-items:center;align-content:center;gap:28px;min-height:100vh;padding:32px 16px;font:400 16px/1.35 'Gelasio',Georgia,serif;
+    background:radial-gradient(1200px 700px at 30% 40%,rgba(233,201,121,.07),transparent 60%),var(--bg)}
+  main{display:flex;align-items:center;gap:clamp(32px,6vw,88px);max-width:980px;width:100%}
+  .card{flex:none;width:clamp(200px,28vw,330px);image-rendering:pixelated;box-shadow:0 0 0 1px rgba(201,164,90,.25),0 30px 90px rgba(0,0,0,.7)}
+  .side{flex:1;min-width:0;display:flex;flex-direction:column;gap:30px}
+  h1{margin:0;font:400 clamp(30px,3.4vw,44px)/1.08 'Gelasio',Georgia,serif;letter-spacing:-.01em}
+  h1 em{color:var(--gold);font-style:italic}
+  .step{display:flex;flex-direction:column;gap:14px}
+  .label{font:600 10.5px/1 'DM Sans',system-ui;letter-spacing:.24em;text-transform:uppercase;opacity:.5}
+  button{font:inherit;background:none;border:1px solid var(--gold);border-radius:999px;color:var(--gold);padding:.5em 1.3em;cursor:pointer;transition:background .2s,color .2s}
+  button:hover:not(:disabled){background:var(--gold);color:var(--bg)}
+  button:disabled{opacity:.4;cursor:default}
+  button.ghost{border-color:var(--line);color:var(--ink);opacity:.75}
+  .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .handle{display:flex;align-items:baseline;gap:2px;border-bottom:1px solid var(--line);padding-bottom:6px;max-width:420px}
+  .handle span{font-size:clamp(26px,3vw,36px);color:var(--gold)}
+  input{font:inherit;background:transparent;color:var(--ink);border:0;outline:0;padding:0;min-width:0}
+  .handle input{flex:1;font-size:clamp(26px,3vw,36px)}
+  .field{border-bottom:1px solid var(--line);padding:6px 0;max-width:420px}
+  .field input{width:100%}
+  input::placeholder{color:rgba(251,244,226,.3)}
+  .chip{font:400 13px/1 'DM Sans',system-ui;padding:.45em .8em;border:1px solid var(--line);border-radius:999px;opacity:.8}
+  .link{font-size:clamp(20px,2.2vw,26px);color:var(--gold);text-decoration:none;word-break:break-all}
+  .link:hover{text-decoration:underline}
+  .stat{font:400 13px/1.3 'DM Sans',system-ui;opacity:.6}
+  .drop{border:1px dashed rgba(233,201,121,.45);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:12px;max-width:440px;cursor:pointer;transition:background .2s,border-color .2s}
+  .drop:hover,.drop.over{background:rgba(233,201,121,.06);border-color:var(--gold)}
+  .drop strong{font-weight:400;font-size:18px}
+  .drop .stat{opacity:.5}
+  .switch{display:flex;align-items:center;gap:12px;font:400 14px/1 'DM Sans',system-ui;cursor:pointer;opacity:.75;width:max-content}
+  .switch i{width:34px;height:20px;border-radius:999px;border:1px solid var(--line);position:relative;transition:background .2s}
+  .switch i::after{content:'';position:absolute;top:3px;left:3px;width:12px;height:12px;border-radius:50%;background:var(--ink);opacity:.6;transition:left .2s}
+  .switch.on i{background:var(--bronze)}
+  .switch.on i::after{left:17px;opacity:1}
+  .note{font:400 13px/1.35 'DM Sans',system-ui;opacity:.55;min-height:1.35em;margin:0}
+  .note.bad{color:#ff8a7a;opacity:1}
+  [hidden]{display:none!important}
+  @media (max-width:760px){main{flex-direction:column;gap:28px}.card{width:min(60vw,240px)}.side{align-items:center;text-align:center}.handle,.field,.drop{margin:0 auto;width:100%}.row{justify-content:center}}
+</style>
+</head>
+<body>
+<nav class="site-bar" aria-label="Swarmbook"><a data-to="societies" href="./index.html">Societies</a><a data-to="stake" href="./after-the-mint.html?side=pool">Stake</a><a data-to="ride" href="./after-the-mint.html?side=flask">Ride</a><a data-to="tracenet" href="./tracenet.html?of=photons_enjoyor" aria-current="page">Tracenet</a></nav>
+<main>
+  <div class="side">
+    <h1>Open a <em>tracenet.</em></h1>
+
+    <section class="step" id="wallet">
+      <div class="row"><button id="connect" type="button">Connect wallet</button><span id="address" class="chip" hidden></span></div>
+      <p id="wallet-note" class="note"></p>
+    </section>
+
+    <section class="step" id="claim" hidden>
+      <span class="label">Your handle</span>
+      <label class="handle"><span>@</span><input id="handle" placeholder="handle" autocomplete="off" maxlength="32" spellcheck="false"></label>
+      <div class="field"><input id="name" placeholder="your name" maxlength="80"></div>
+      <div class="field"><input id="line" placeholder="what you build, in one line" maxlength="200"></div>
+      <input id="avatar" type="hidden">
+      <div class="row"><button id="create" type="button">Claim</button></div>
+      <p id="claim-note" class="note"></p>
+    </section>
+
+    <section class="step" id="mine" hidden>
+      <a id="page" class="link" href="#"></a>
+      <span id="mine-note" class="stat"></span>
+    </section>
+
+    <section class="step" id="publish" hidden>
+      <label class="drop" id="dropzone">
+        <strong id="drop-what">Drop a trace</strong>
+        <span class="stat">Gold reads it now · Bronze on day 15 · everyone after</span>
+        <input id="file" type="file" hidden>
+      </label>
+      <div class="field" id="title-field" hidden><input id="title" placeholder="its title" maxlength="120"></div>
+      <input id="kind" type="hidden" value="trace">
+      <div class="row" id="drop-row" hidden><button id="drop" type="button">Publish</button></div>
+      <p id="drop-note" class="note"></p>
+    </section>
+
+    <section class="step" id="subs" hidden>
+      <div class="row">
+        <div class="field" style="width:9em"><input id="sub-usd" inputmode="decimal" placeholder="$ / 30 days"></div>
+        <button id="sub-price" type="button" class="ghost">Set</button>
+      </div>
+      <p id="sub-note" class="note"></p>
+    </section>
+
+    <section class="step" id="card" hidden>
+      <label class="switch" id="card-switch"><i></i><span>Cards</span></label>
+      <div class="row" id="card-row" hidden>
+        <div class="field" style="width:9em"><input id="usd" inputmode="numeric" placeholder="$ / month"></div>
+        <button id="price" type="button" class="ghost">Set</button>
+        <button id="onboard" type="button">Stripe</button>
+      </div>
+      <p id="card-note" class="note"></p>
+    </section>
+  </div>
+</main>
+<script type="module" src="./creator.js?v=creator-3"></script>
+</body>
+</html>

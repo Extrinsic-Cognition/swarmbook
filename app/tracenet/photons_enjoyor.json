@@ -1,0 +1,296 @@
+{
+  "schema": "optimism.tracenet/1",
+  "handle": "photons_enjoyor",
+  "name": "extrocco | Latency Guy",
+  "items": [
+    {
+      "id": "2026-11-04-solana-the-tracenets-how-the-money-moves-and-how-a-tracenet",
+      "title": "Solana, the TraceNets: how the money moves and how a tracenet is packaged",
+      "kind": "trace",
+      "file": "solana-tracenets-the-packaging-and-the-storage-hypertrace-2026-10-27.md",
+      "bytes": 13163,
+      "sha256": "c77ed1c884af6f2b830374abdeab06b36aa53553dd2da548bdc4f7a0412ea752",
+      "published": "2026-11-04T06:13:11.795Z",
+      "sanitized": {
+        "ref": "tracenet/sanitized/c77ed1c884af6f2b830374abdeab06b36aa53553dd2da548",
+        "rev": 1,
+        "seat": "mac",
+        "ts": 1793772761030
+      }
+    },
+    {
+      "id": "2026-11-04-the-user-journey-to-the-chamber-the-singleton-before-it-is-w",
+      "title": "THE USER JOURNEY TO THE CHAMBER: the singleton before it is wired to a router",
+      "kind": "trace",
+      "file": "the-user-journey-to-the-chamber-the-singleton-before-the-router-hypertrace-2026-11-02.md",
+      "bytes": 17776,
+      "sha256": "c6fc1803dfa28eb9e589e4598947172981e0076031015c736ece60d0ba052dd5",
+      "published": "2026-11-04T06:12:44.976Z",
+      "sanitized": {
+        "ref": "tracenet/sanitized/c6fc1803dfa28eb9e589e4598947172981e0076031015c73",
+        "rev": 1,
+        "seat": "mac",
+        "ts": 1793772764833
+      }
+    },
+    {
+      "id": "2026-11-04-the-three-pentagons-the-unboxing-and-swarmy",
+      "title": "The three pentagons, the unboxing and SWARMY",
+      "kind": "trace",
+      "file": "the-three-pentagons-the-unboxing-and-swarmy-hypertrace-2026-11-01.md",
+      "bytes": 15872,
+      "sha256": "e3febbc4c3db48c58bb4061e2b1ba9964376de3490fe6a7f9f5d83ac39e7f371",
+      "published": "2026-11-04T06:12:44.648Z",
+      "sanitized": {
+        "ref": "tracenet/sanitized/e3febbc4c3db48c58bb4061e2b1ba9964376de3490fe6a7f",
+        "rev": 1,
+        "seat": "mac",
+        "ts": 1793772764519
+      }
+    },
+    {
+      "id": "2026-11-04-the-welcome-asks-for-x-then-harmony-shows-you-your-own-trace",
+      "title": "The welcome asks for X, then Harmony shows you your own traces as the figure",
+      "kind": "trace",
+      "file": "the-welcome-asks-for-x-then-shows-your-traces-as-the-figure-hypertrace-2026-11-01.md",
+      "bytes": 9985,
+      "sha256": "64a40bca9eb7fc28cd2358b7256878c79c5d16bf7e5ed3497f197266caf4e9e8",
+      "published": "2026-11-04T06:12:44.310Z",
+      "sanitized": {
+        "ref": "tracenet/sanitized/64a40bca9eb7fc28cd2358b7256878c79c5d16bf7e5ed349",
+        "rev": 1,
+        "seat": "mac",
+        "ts": 1793772764166
+      }
+    },
+    {
+      "id": "2026-11-04-warm-the-latest-plans",
+      "title": "$WARM, THE LATEST PLANS",
+      "kind": "trace",
+      "file": "warm-the-latest-plans-hypertrace-2026-10-30.md",
+      "bytes": 26161,
+      "sha256": "2db73783873d17b63e666e7c184cea47982f98adf773569a11af19f2f6cd9a00",
+      "published": "2026-11-04T06:12:43.960Z",
+      "sanitized": {
+        "ref": "tracenet/sanitized/2db73783873d17b63e666e7c184cea47982f98adf773569a",
+        "rev": 1,
+        "seat": "mac",
+        "ts": 1793772763837
+      }
+    },
+    {
+      "id": "2026-11-04-the-vision-the-claw-riders-against-cosign-by-a16z-run-on-spa",
+      "title": "The vision: the Claw Riders against Cosign by a16z, run on Space Router (Project Snowtrace), paid by the stake, governed by the seal",
+      "kind": "trace",
+      "file": "the-vision-claw-riders-against-cosign-hypertrace-2026-10-29.md",
+      "bytes": 7216,
+      "sha256": "708e514e170d10f11fed3590b1cc80a8ca9146372f952e1b79808b2c260c716c",
+      "published": "2026-11-04T06:12:43.631Z",
+      "sanitized": {
+        "ref": "tracenet/sanitized/708e514e170d10f11fed3590b1cc80a8ca9146372f952e1b",
+        "rev": 1,
+        "seat": "mac",
+        "ts": 1793772763516
+      }
+    },
+    {
+      "id": "2026-11-04-the-tracenet-lake-where-the-your-lake-page-comes-from",
+      "title": "The tracenet lake: where the \"Your lake\" page comes from",
+      "kind": "trace",
+      "file": "the-tracenet-lake-hypertrace-2026-11-02.md",
+      "bytes": 14520,
+      "sha256": "77e03323179192d139d156bee0c918cf61f5fd7d979882e36fe6a24abb1db127",
+      "published": "2026-11-04T06:12:43.319Z",
+      "sanitized": {
+        "ref": "tracenet/sanitized/77e03323179192d139d156bee0c918cf61f5fd7d979882e3",
+        "rev": 1,
+        "seat": "mac",
+        "ts": 1793772763195
+      }
+    },
+    {
+      "id": "2026-11-04-the-swarm-that-shares-a-router-what-the-lyssajudron-says-at",
+      "title": "THE SWARM THAT SHARES A ROUTER: what the Lyssajudron says at the conversion, in his words",
+      "kind": "trace",
+      "file": "the-swarm-that-shares-a-router-hypertrace-2026-10-30.md",
+      "bytes": 10603,
+      "sha256": "e99529e0d32aa34fea8ca79a42272dc949dca2a89eb1643160d32cfe11553617",
+      "published": "2026-11-04T06:12:42.997Z",
+      "sanitized": {
+        "ref": "tracenet/sanitized/e99529e0d32aa34fea8ca79a42272dc949dca2a89eb16431",
+        "rev": 1,
+        "seat": "mac",
+        "ts": 1793772762874
+      }
+    },
+    {
+      "id": "2026-11-04-the-optimal-router-from-first-principles",
+      "title": "THE OPTIMAL ROUTER FROM FIRST PRINCIPLES",
+      "kind": "trace",
+      "file": "the-optimal-router-from-first-principles-hypertrace-2026-10-30.md",
+      "bytes": 15647,
+      "sha256": "76993c44d282f5d9c688b774080faaa6d10ab867e36942ffbe05845eb385687f",
+      "published": "2026-11-04T06:12:42.693Z",
+      "sanitized": {
+        "ref": "tracenet/sanitized/76993c44d282f5d9c688b774080faaa6d10ab867e36942ff",
+        "rev": 1,
+        "seat": "mac",
+        "ts": 1793772762577
+      }
+    },
+    {
+      "id": "2026-11-04-the-nature-of-project-snowtrace-in-his-words",
+      "title": "The nature of Project Snowtrace, in his words",
+      "kind": "trace",
+      "file": "the-nature-of-project-snowtrace-hypertrace-2026-10-30.md",
+      "bytes": 18112,
+      "sha256": "82c9a87f2b4169356f54491be5df0aaef83ca79b5e47f2f32e9ad957346b2ff8",
+      "published": "2026-11-04T06:12:42.401Z",
+      "sanitized": {
+        "ref": "tracenet/sanitized/82c9a87f2b4169356f54491be5df0aaef83ca79b5e47f2f3",
+        "rev": 1,
+        "seat": "mac",
+        "ts": 1793772762279
+      }
+    },
+    {
+      "id": "2026-11-04-the-flask-in-space-router-how-it-works-for-minirouter-today",
+      "title": "THE FLASK IN SPACE ROUTER: how it works for MiniRouter today, and what Space Router makes of it",
+      "kind": "trace",
+      "file": "the-flask-in-space-router-how-it-works-for-minirouter-hypertrace-2026-10-30.md",
+      "bytes": 13712,
+      "sha256": "0d7bafe8eca0a5875011ed543c582244cdf2780e8f124da2129cad3bed75e477",
+      "published": "2026-11-04T06:12:42.082Z",
+      "sanitized": {
+        "ref": "tracenet/sanitized/0d7bafe8eca0a5875011ed543c582244cdf2780e8f124da2",
+        "rev": 1,
+        "seat": "mac",
+        "ts": 1793772761949
+      }
+    },
+    {
+      "id": "2026-11-04-the-flask-allocators-and-the-creators-who-fills-and-gives-th",
+      "title": "THE FLASK ALLOCATORS AND THE CREATORS: who fills and gives the flasks, who receives and burns them, and what comes back",
+      "kind": "trace",
+      "file": "the-flask-allocators-and-the-creators-hypertrace-2026-11-02.md",
+      "bytes": 35008,
+      "sha256": "a545f924e59f74df88923d0b93e2966c863ae41676a11d5d7b46f67bd60cc6a2",
+      "published": "2026-11-04T06:12:41.748Z",
+      "sanitized": {
+        "ref": "tracenet/sanitized/a545f924e59f74df88923d0b93e2966c863ae41676a11d5d",
+        "rev": 1,
+        "seat": "mac",
+        "ts": 1793772761621
+      }
+    },
+    {
+      "id": "2026-11-04-swarmy-staking-stake-sol-in-her-keep-the-sol-the-yield-becom",
+      "title": "$SWARMY STAKING: stake SOL in her, keep the SOL, the yield becomes the Swarmy's fuel",
+      "kind": "trace",
+      "file": "swarmy-staking-hypertrace-2026-11-02.md",
+      "bytes": 10289,
+      "sha256": "54a8e8ca597648d2d0433f8d8f8a8006b9a80e6a9d69af5d17adadd85b196877",
+      "published": "2026-11-04T06:12:41.426Z",
+      "sanitized": {
+        "ref": "tracenet/sanitized/54a8e8ca597648d2d0433f8d8f8a8006b9a80e6a9d69af5d",
+        "rev": 1,
+        "seat": "mac",
+        "ts": 1793772761306
+      }
+    },
+    {
+      "id": "2026-11-04-pumpfun-source-what-the-byte-exact-reconstruction-means-for",
+      "title": "pumpfun-source: what the byte-exact reconstruction means for the house and for $WARM",
+      "kind": "trace",
+      "file": "pumpfun-source-what-it-means-for-the-house-and-for-warm-hypertrace-2026-11-02.md",
+      "bytes": 31961,
+      "sha256": "0e344f70318c7be03cacb256cfa311aac1dbc8f02922d5510e4a98d775d3e2af",
+      "published": "2026-11-04T06:12:40.849Z",
+      "sanitized": {
+        "ref": "tracenet/sanitized/0e344f70318c7be03cacb256cfa311aac1dbc8f02922d551",
+        "rev": 1,
+        "seat": "mac",
+        "ts": 1793772760741
+      }
+    },
+    {
+      "id": "2026-11-04-project-snowtrace-where-it-stands",
+      "title": "Project Snowtrace, where it stands",
+      "kind": "trace",
+      "file": "project-snowtrace-where-it-stands-hypertrace-2026-11-04.md",
+      "bytes": 13430,
+      "sha256": "2b081a26f1ac46894e59da38b1795d7d49f473ecce3b1da1b7b8cd261744064e",
+      "published": "2026-11-04T06:12:40.554Z",
+      "sanitized": {
+        "ref": "tracenet/sanitized/2b081a26f1ac46894e59da38b1795d7d49f473ecce3b1da1",
+        "rev": 1,
+        "seat": "mac",
+        "ts": 1793772760430
+      }
+    },
+    {
+      "id": "2026-11-04-paying-for-a-tracenet-what-create-could-do-with-money-in-his",
+      "title": "Paying for a tracenet: what Create could do with money, in his words",
+      "kind": "trace",
+      "file": "paying-for-a-tracenet-hypertrace-2026-11-02.md",
+      "bytes": 11437,
+      "sha256": "d94da2671873f0b116b1bfe7dddb68dfb0627366e3a4e263c26d371e6a7a73bc",
+      "published": "2026-11-04T06:12:40.234Z",
+      "sanitized": {
+        "ref": "tracenet/sanitized/d94da2671873f0b116b1bfe7dddb68dfb0627366e3a4e263",
+        "rev": 1,
+        "seat": "mac",
+        "ts": 1793772760114
+      }
+    },
+    {
+      "id": "2026-11-04-optimism-fit-from-the-domain-to-the-snowtrace-introduction",
+      "title": "optimism.fit, from the domain to the Snowtrace introduction",
+      "kind": "trace",
+      "file": "optimism-fit-from-the-domain-to-the-snowtrace-introduction-hypertrace-2026-10-31.md",
+      "bytes": 15793,
+      "sha256": "e348474b0d14624b57d1db80942fbad9b8800c0cb0d7301a5de55a63667ee54d",
+      "published": "2026-11-04T06:12:39.914Z",
+      "sanitized": {
+        "ref": "tracenet/sanitized/e348474b0d14624b57d1db80942fbad9b8800c0cb0d7301a",
+        "rev": 1,
+        "seat": "mac",
+        "ts": 1793772759780
+      }
+    },
+    {
+      "id": "2026-11-04-claw-riders-the-whole-lineage-feb-2-to-oct-30-2026-and-what",
+      "title": "Claw Riders: the whole lineage, Feb 2 to Oct 30 2026, and what today changed",
+      "kind": "trace",
+      "file": "claw-riders-the-whole-lineage-hypertrace-2026-10-30.md",
+      "bytes": 17618,
+      "sha256": "3083f46ccaaebd6db74e6eb44845c6cfab20e8f0c1bbae951391dc0dc65eb732",
+      "published": "2026-11-04T06:12:39.580Z",
+      "sanitized": {
+        "ref": "tracenet/sanitized/3083f46ccaaebd6db74e6eb44845c6cfab20e8f0c1bbae95",
+        "rev": 1,
+        "seat": "mac",
+        "ts": 1793772759448
+      }
+    },
+    {
+      "id": "2026-10-26-what-was-done-on-oct-26-2026-the-day-s-traces-hypertraced",
+      "title": "What was done on Oct 26 2026: the day's traces, hypertraced",
+      "kind": "trace",
+      "file": "what-was-done-oct-26-hypertrace-2026-10-26.md",
+      "bytes": 23711,
+      "sha256": "b29be0d34cef7b6537b0116ff06b960baa44810f9f161faf48a2a1de9adc1896",
+      "published": "2026-10-26T21:32:55.756Z",
+      "sanitized": {
+        "ref": "tracenet/sanitized/b29be0d34cef7b6537b0116ff06b960baa44810f9f161faf",
+        "rev": 1,
+        "seat": "mac",
+        "ts": 1793406142848
+      }
+    }
+  ],
+  "line": "Traces of OSS work: the house, the Nest, Project Snowtrace.",
+  "x": "https://x.com/photons_enjoyor",
+  "avatar": "https://pbs.twimg.com/profile_images/2043850006566744064/qeOobVml_400x400.jpg",
+  "wallet": "3nJn2tnmR27xbkjzT49YnSnXL2KeddzM7CkEizYiKMba"
+}

@@ -1,0 +1,32 @@
+/* The mint shares the top film's quiet player: sound and pause, no bar. */
+#sphere-stage .dl-twelve-controls {
+  position:absolute;right:3%;bottom:3%;z-index:4;display:flex;gap:8px;
+  opacity:0;pointer-events:none;transition:opacity .2s;
+}
+#sphere-stage:hover .dl-twelve-controls,
+#sphere-stage:focus-within .dl-twelve-controls,
+#sphere-stage.dl-twelve-controls-visible .dl-twelve-controls {
+  opacity:1;pointer-events:auto;
+}
+#sphere-stage .dl-twelve-controls button {
+  min-height:30px;padding:5px 13px;border-radius:999px;
+  font-size:11px;letter-spacing:.02em;color:#2b2620;
+  background:rgb(250 249 245 / .86);border:1px solid rgb(214 191 137 / .5);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+}
+#sphere-stage .dl-twelve-controls button:focus-visible {outline:2px solid #b4944d;outline-offset:3px}
+@media (pointer:coarse) {#sphere-stage .dl-twelve-controls button {min-height:44px}}
+@media (prefers-reduced-motion:reduce) {#sphere-stage .dl-twelve-controls {transition:none}}
+
+/* Canvas portraits are links too: keyboard focus reveals one quiet name. */
+.dl-holder-profiles a {position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.dl-holder-profiles a:focus {clip-path:none;overflow:visible;width:auto;height:auto;margin:0;left:3%;bottom:3%;z-index:5;padding:8px 14px;border:1px solid #b4944d;border-radius:999px;background:#faf9f5;color:#30372c;font:12px 'DM Sans',sans-serif;outline:2px solid #b4944d;outline-offset:3px}
+/* SKIP TO THE MINT (his Oct 28 2026 03:5x WET: "so people cant skip video?"; "put a visible Skip to the mint on the film from its first second"):
+   seen from the film's first second while it plays toward the drawn arrow, never on the stop (her own Skip is there), never behind the hover */
+#sphere-stage .dl-twelve-skip {position:absolute;left:16px;top:14px;z-index:9;padding:9px 14px;border:1px solid rgba(173,135,48,.75);border-radius:999px;
+  background:rgba(14,12,10,.62);color:#f0cf74;font:600 13px/1 'DM Sans',system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+#sphere-stage .dl-twelve-skip:hover {background:rgba(14,12,10,.8);color:#fff1c4}
+#sphere-stage .dl-twelve-skip:focus-visible {outline:2px solid #b4944d;outline-offset:3px}
+#sphere-stage .dl-twelve-skip[hidden] {display:none}
+@media (pointer:coarse) {#sphere-stage .dl-twelve-skip {min-height:40px}}

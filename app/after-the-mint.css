@@ -1,0 +1,116 @@
+/* after-the-mint.css: AFTER THE MINT (lane/after-the-mint, Nov 2 2026): the page / opens on once the $WARM window has closed. Harmony's night, and the snow
+   day under html[data-theme="light"], from their one source (../../harmony-accent.css); the mint's type (../../fonts/fonts.css: 'Bodoni 72' for the titles,
+   Gelasio as Georgia for the plates, DM Sans for the words). The two plates are the freeze's (dl-space-router.js .dl-router-plate: Gelasio 700 skewed
+   -10deg, cream stroked dark, the router's blue band and the warm red-gold one, the gold stamp), settled where the freeze slams them in: no motion here.
+   Their colours are that sheet's own; the test holds every literal colour in this file to it. */
+:root{--am-serif:'Bodoni 72','Didot','Times New Roman',serif;--am-sans:'DM Sans',system-ui,sans-serif;--am-plate:'Gelasio','Georgia',serif;
+  --am-cream:#fbf6ea;--am-stroke:#0b0709;--am-stamp:#f0cf74;
+  --am-router:linear-gradient(90deg,transparent,rgba(8,16,58,.92) 12%,rgba(64,128,236,.95) 50%,rgba(8,16,58,.92) 88%,transparent);
+  --am-warm:linear-gradient(90deg,transparent,rgba(140,14,30,.92) 12%,rgba(201,161,74,.95) 50%,rgba(140,14,30,.92) 88%,transparent)}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body.am{margin:0;min-height:100svh;overflow-x:hidden;background:var(--harmony-sky);color:var(--harmony-text);font:400 16px/1.6 var(--am-sans);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+a:focus-visible{outline:2px solid var(--harmony-go);outline-offset:4px}
+.am-top{display:flex;align-items:baseline;justify-content:space-between;gap:16px;max-width:1180px;margin:0 auto;padding:28px 36px 0}
+.am-brand{font-size:22px}
+.am-society{color:var(--harmony-quiet);font:500 12px/1.4 var(--am-sans);letter-spacing:.2em;text-transform:uppercase}
+.am-main{max-width:1180px;margin:0 auto;padding:18px 36px 40px}
+.am-hero{position:relative;display:grid;grid-template-columns:minmax(0,58fr) minmax(0,42fr);min-height:clamp(520px,66vh,700px);align-items:center}
+/* THE GOLDBERG TREE (his Nov 12 2026 ~07:40 UTC "The mint's, as staged"): the mint's own ball (after-the-mint-tree.mjs) in the hero's left column through both
+   rows, the words in the right one; the deposit door (.am-tree-kit, the mint page's own module) under the words, beside the ball, its stem drawn from the
+   visitor's cell (.am-tree-stem); a phone: the ball a square first, the door under it, then the words */
+.am-hero{grid-template-rows:1fr auto;column-gap:24px}
+.am-tree{position:relative;grid-column:1;grid-row:1 / span 2;align-self:stretch;min-height:clamp(520px,66vh,700px);margin-left:-36px}
+.am-tree-canvas{position:absolute;inset:0;display:block;width:100%;height:100%;touch-action:pan-y}
+.am-say{grid-row:1}
+/* THE ARROW IS LET GO IN THE BALL (Nov 13 2026; after-the-mint-tree.mjs): the film's element is never seen by itself, the ball's core shows it (the sphere's own door). Nothing of the page is hidden for it: its words stand from the first frame, and the arrow's landing scrolls to them (the module's one move) */
+.am-arrow{position:absolute;left:0;top:0;width:1px;height:1px;opacity:0;pointer-events:none}
+.am-tree-kit{position:relative;z-index:2;grid-column:2;grid-row:2;justify-self:center;display:grid;justify-items:center;gap:6px;margin:22px 0 8px;max-width:100%}
+.am-tree-kit .snowtrace-kit-link{display:grid;justify-items:center;gap:6px}
+.am-tree-kit .dl-flask-qr{width:112px;line-height:0;box-shadow:0 0 0 2px #0b0709,0 0 0 4px #f0cf74}
+.am-tree-kit .dl-flask-qr svg{display:block;width:100%;height:auto}
+.am-tree-kit .dl-flask-qr svg rect{fill:#fbf6ea}
+.am-tree-kit .dl-flask-qr svg path{fill:#0b0709}
+.am-tree-kit .dl-flask-stamp{margin:4px 0 0;padding:.22em .3em .16em .72em;color:#f0cf74;font:700 12px/1.2 var(--am-plate);letter-spacing:.42em;text-transform:uppercase;white-space:nowrap}
+.am-tree-kit .dl-flask-addr{max-width:min(340px,100%);overflow-wrap:anywhere;word-break:break-all;text-wrap:balance;padding:.42em .8em;border:1px solid #f0cf74;border-radius:2px;background:#0b0709;color:#fbf6ea;font:11px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace;text-align:center;cursor:copy}   /* THE ADDRESS IS WHOLE (Nov 12 2026, the live walk of 08:37 UTC: it stood cut by an ellipsis): a person sending money reads and checks every letter; a glass too narrow for one line wraps it in even lines (768x1024: 22 and 22), never cuts it */
+.am-tree-kit .snowtrace-kit-say{margin:0;color:var(--harmony-quiet);font:400 13px/1.4 var(--am-sans);text-align:center}
+.am-tree-kit .snowtrace-kit-say:empty{display:none}
+.am-tree-kit [data-at] .snowtrace-kit-say{max-width:min(440px,100%);color:var(--am-cream);font:400 clamp(21px,1.8vw,26px)/1.25 var(--am-serif);text-wrap:balance}   /* THE POUR SPEAKS IN THE TITLE'S FACE (Nov 13 2026, his "think... get good design please" over a door that showed a visitor's code and then a 13 px grey line): once the door pours (the house's address from its press, a visitor's from the pour), its words are the page's own serif in cream, the size of a sentence one reads, where the stem from the cell lands; the waiting door's line stays quiet */
+.am-tree-next{display:none;border-radius:12px;padding:12px 22px;background:var(--harmony-gold);color:var(--harmony-sky);font:500 15px/1.3 var(--am-sans)}
+.am-tree-kit[data-filled] .snowtrace-kit-link{display:none}
+.am-tree-kit[data-filled] .am-tree-next{display:inline-block}
+.am-tree-stem{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:1}
+.am-tree-stem line{stroke:#f0cf74;stroke-width:2}
+.am-tree-kit[hidden]~.am-tree-stem,.am-hero:has(.am-tree-kit[hidden]) .am-tree-stem,.am-hero:has(.am-tree-kit[data-filled]) .am-tree-stem{display:none}
+.am-say{position:relative;z-index:1;grid-column:2;display:grid;justify-items:center;gap:26px;min-width:0;text-align:center}
+.am-plate{position:relative;display:grid;justify-items:center;margin:0;padding:.1em .3em;font-size:clamp(24px,3.1vw,44px);line-height:1}
+.am-slash{position:absolute;left:0;right:0;top:.6em;height:.62em;transform:translateY(-50%) skewY(-4deg)}
+.am-router .am-slash{background:var(--am-router)}
+.am-warm .am-slash{background:var(--am-warm)}
+.am-name{position:relative;font:700 1em/.9 var(--am-plate);letter-spacing:.02em;text-transform:uppercase;white-space:nowrap;color:var(--am-cream);
+  -webkit-text-stroke:2px var(--am-stroke);paint-order:stroke fill;text-shadow:-1px 0 rgba(255,36,56,.35),1px 0 rgba(80,220,255,.3),0 6px 30px rgba(0,0,0,.8);transform:skewX(-10deg)}
+.am-stamp{position:relative;margin-top:.3em;padding-left:.42em;font:700 max(12px,.34em)/1.2 var(--am-plate);letter-spacing:.42em;text-transform:uppercase;white-space:nowrap;
+  color:var(--am-stamp);text-shadow:0 1px 0 #000}
+.am-title{margin:8px 0 0;font:400 clamp(30px,3.4vw,42px)/1.1 var(--am-serif);color:var(--harmony-text)}
+.am-line{margin:0;max-width:430px;color:var(--harmony-quiet);font-size:16px;line-height:1.55}
+.am-doors{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center}
+.am-go{border-radius:12px;padding:12px 22px;background:var(--harmony-gold);color:var(--harmony-sky);font:500 15px/1.3 var(--am-sans)}
+.am-quiet{display:grid;justify-items:center;border:1px solid var(--harmony-quiet);border-radius:12px;padding:11px 20px;color:var(--harmony-text);font:500 15px/1.3 var(--am-sans)}
+.am-quiet small{color:var(--harmony-quiet);font:400 11px/1.3 var(--am-sans)}
+.am-quiet small:empty{display:none}
+.am-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:34px}
+.am-card{border:1px solid var(--harmony-line);border-radius:16px;padding:20px 20px 18px;background:var(--harmony-glass)}
+.am-card h2{margin:0 0 10px;font:400 24px/1.15 var(--am-serif);color:var(--harmony-text)}
+.am-card p{margin:0;color:var(--harmony-quiet);font-size:15px;line-height:1.5}
+.am-card a{display:inline-block;margin-top:14px;color:var(--harmony-go);font:500 14px/1.4 var(--am-sans)}
+.am-coda{margin:34px 0 0;text-align:center;font:400 22px/1.3 var(--am-serif)}
+.am-foot{display:flex;gap:18px;justify-content:center;margin-top:28px;color:var(--harmony-quiet);font-size:12px}
+@media (max-width:760px){
+  .am-top{padding:20px 16px 0}
+  .am-society{display:none}
+  .am-main{padding:8px 16px 32px}
+  .am-hero{display:block;min-height:0}
+  .am-tree{margin:0 -16px;min-height:0;height:min(104vw,560px)}
+  .am-tree-kit{display:grid;margin:14px auto 22px}
+  .am-plate{font-size:clamp(22px,7.2vw,44px)}
+  .am-cards{grid-template-columns:minmax(0,1fr)}
+}
+/* THE SPLIT LEADS WHERE YOU CLICK (his Nov 12 2026 ~06:38 UTC "it gotta split based on what people click... i would probably just jump straight to the space
+   router page"): a visit the split sent (?side=flask, ?side=pool: after-the-mint.mjs html[data-side]) has its side's card first, its border and its slash in
+   the freeze plate's own colours (the flask's crimson and gold, the pool's router blue); the stake's door says the mint page's own word while it is paused. */
+.am-card{position:relative}
+html[data-side="flask"] .am-card[data-side="flask"],html[data-side="pool"] .am-card[data-side="pool"]{order:-1;border-width:2px;padding:19px 19px 17px}
+html[data-side="flask"] .am-card[data-side="flask"]{border-color:rgba(140,14,30,.92)}
+html[data-side="pool"] .am-card[data-side="pool"]{border-color:rgba(64,128,236,.95)}
+html[data-side="flask"] .am-card[data-side="flask"]::before,html[data-side="pool"] .am-card[data-side="pool"]::before{content:"";position:absolute;left:14px;right:14px;top:-3px;height:5px;border-radius:2px;background:var(--am-router)}
+html[data-side="flask"] .am-card[data-side="flask"]::before{background:var(--am-warm)}
+.am-card a[aria-disabled]{color:var(--harmony-quiet);cursor:default}
+.am-card a small{margin-left:.6em;font:600 11px/1.4 var(--am-sans);letter-spacing:.2em;text-transform:uppercase}
+/* THE LIGHT and THE BAR (his Nov 19 2026 ~00:34 UTC: "then have a giant beam of light and then evolve the hero to have 12 pentagons horizontally laid
+   up top bar"): the header stands over the page, and its svg (after-the-mint-tree.mjs light) draws past its own box: the beam from the ball's core up to
+   the window's top, the light at its head; between the mark and the label on a desk, its own row under the mark on a phone */
+.am-top{position:relative;z-index:3}
+/* THE TWELVE STAND ALONE (Nov 19 2026, his "the fucking most important feature of it all (the 12 pentgaons) are left there top together with some
+   dubious ugly shits", over the bar 37 px tall between the mark and a label): the bar is the header, the whole width of the page's column, a pentagon
+   about a twelfth of it; nothing stands beside it. Once it stands the hero lets go of the ball's height: the plates come up under the twelve */
+.am-top{display:block}
+.am-bar{display:block;width:100%;aspect-ratio:12;overflow:visible;pointer-events:none}
+html[data-arrow="bar"] .am-hero{min-height:0;padding:clamp(36px,7vh,80px) 0 clamp(20px,4vh,44px)}
+/* THE TWELVE HOUSES (his Nov 19 2026 02:28 UTC "i think it could be the 12 beginning golden knights... keep the lineage aligned to the golden knights
+   hypertrace cult of athena"; Oct 18 "each pentagon is a house of the zodiac from seya"; the draft of that night, then his "we had drafted already the 12
+   pentagons become the 12 houses of the golden knights"): once the bar stands the twelve flat pentagons give way, where each landed, to the twelve houses
+   (after-the-mint-houses.svg: one drawing made from numbers, a house a slot of the bar; its numerals under the row, a little room over it for the
+   light round the ninth). At once: nothing moves, no script. */
+html[data-arrow="bar"] .am-bar{aspect-ratio:1200/180;margin-top:-2.5%;background:url(./after-the-mint-houses.svg) 0 0/100% 100% no-repeat}
+html[data-arrow="bar"] .am-bar polygon{opacity:0}
+/* THE BAR STANDS (after-the-mint-tree.mjs end): the twelve pentagons are the bar's own polygons in the stamp's gold, edged in the plates' cream;
+   the ball is gone (the film paused in it, the canvas hidden) and the words take the hero's whole width */
+.am-bar polygon{fill:#f0cf74;stroke:#fbf6ea;stroke-width:.14;stroke-linejoin:round}
+html[data-arrow="bar"] .am-tree,html[data-arrow="bar"] .am-tree-stem{display:none}
+html[data-arrow="bar"] .am-say,html[data-arrow="bar"] .am-tree-kit{grid-column:1 / -1}
+/* THE TITLE FITS THE PHONE (Nov 22 2026, read live at 390 px wide: the page 413 px wide, SWARMBOOK's last letter cut at the screen's edge once the bar stands): under 700 px
+   the book's name (swarmbook-book.css, clamp(46px,8.6vw,104px)) is never larger than the screen's width less the page's 16 px sides over the stroke's 8.9 em (the word's 7.9 em
+   and the stroke's .42 em past it on each side), so the word and its stroke stand whole inside the screen; the stroke keeps its measure, the type and colours are the plate's own.
+   At 700 px and wider this rule is not read. */
+@media (max-width:699px){html[data-arrow="bar"] body.am .am-say .am-router{font-size:min(46px,calc((100vw - 32px) / 8.9))}}

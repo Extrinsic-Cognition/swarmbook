@@ -1,0 +1,191 @@
+/* front.css: the front's own sheet (app/index.html), moved whole out of its page's <style> by THE FRONT IS THE MINT'S WORLD (Nov 24 2026): a page keeps only
+   its loaders. It is read where the <style> stood, after swarmbook-front.css, so the cascade is the one the page had. Its last block is the mint's world. */
+  /* the same hex mesh the canvas draws behind the parchment (radius 88, pointy, rows 132 apart, 2px lines), as one tile in parchment
+     ink for the night surfaces; viewport-fixed so it lies exactly over the canvas lines at every scroll position. Constants: the
+     canvas and this tile share them and nothing is set at runtime, so the grid never changes size after first paint */
+  :root { --hex-night: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='152.4205' height='264' viewBox='0 0 152.4205 264'%3E%3Cpath d='M76.2102 0V44M0 88L76.2102 44L152.4205 88M0 88V176M152.4205 88V176M0 176L76.2102 220L152.4205 176M76.2102 220V264' fill='none' stroke='%23F5F0E3' stroke-opacity='.16' stroke-width='2'/%3E%3C/svg%3E"); --hex-night-size: 152.4205px 264px; }
+  main { position: relative; z-index: 1; max-width: 1380px; margin: 0 auto; padding: 0 80px 80px; }
+  @media (max-width: 620px) { main { padding: 0 24px 60px; } }
+  header { display: flex; align-items: baseline; gap: 22px; padding: 26px 0 10px; border-bottom: 1px solid var(--line); }
+  header h1 { font: var(--t1); letter-spacing: 0.34em; margin: 0; }
+  header .sub { font: var(--t3); font-family: var(--display); font-style: italic; color: var(--ink2); }
+  header nav { margin-left: auto; display: flex; gap: 22px; }
+  header nav a { font: var(--t4); letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink2); }
+  header nav a.on { color: var(--ink); border-bottom: 1px solid var(--gold); }
+  /* the journey: a clean hero; the goldberg of goldbergs eases in below it; the twelve descend into the wall; two doors at the end */
+  .hero { --why-size: clamp(34px, 5.2vw, 64px); --dusk-top: clamp(12px, 2vh, 20px); --dusk-bottom: clamp(10px, 2vh, 16px); --edge-gap: 16px; padding: clamp(14px, 2.5vh, 28px) 0 0; } /* no forced height: the crown of the chamber must rise into the first screen; the title close under the bar (his Nov 19 2026 "reduce gap there top") */
+  .hero .why, .journey-how { display: inline-block; vertical-align: baseline; font: var(--t1); font-size: clamp(34px, 5.2vw, 64px); letter-spacing: 0.06em; text-transform: uppercase; line-height: 1; color: var(--bronze); background: var(--panel); border: 2px solid var(--gold); box-shadow: var(--sh); padding: 0.06em 0.26em 0.02em; text-decoration: none; transition: color 0.3s, background 0.3s; }
+  /* Keep the sculpture and dusk boundary fixed; place the two invitations on either side. */
+  .hero .why { position: relative; z-index: 4; margin-top: 24px; font-size: var(--why-size); transform: translateY(calc(100% + var(--dusk-top) + var(--dusk-bottom) + var(--edge-gap))); }
+  .journey-how-wrap { margin: clamp(32px, 4vw, 48px) 0 0; text-align: center; }
+  .hero .why:focus-visible, .journey-how:focus-visible { outline: 2px solid var(--gold); outline-offset: 5px; }
+  .hero .why:hover, .journey-how:hover { color: var(--ink); background: color-mix(in srgb, var(--gold) 16%, var(--panel)); }
+  /* dusk: the numbers stand on a full-bleed band that fades the parchment into the night of the chamber below, so the two
+     surfaces meet without a seam; the numbers sit in the dark part, lit like the chamber's own stats */
+  .hero .numbers { position: relative; display: flex; gap: clamp(24px, 4vw, 64px); flex-wrap: wrap; margin: 0; padding: var(--dusk-top) 0 var(--dusk-bottom); }
+  .hero .mint-big { display: flex; flex-direction: column; gap: 30px; max-width: 1100px; text-decoration: none; color: var(--ink); }
+  .hero .mint-big-title { margin: 0; font: 400 clamp(64px, 8.6vw, 128px)/.88 'Bodoni 72', Didot, 'Times New Roman', serif; letter-spacing: -.045em; color: var(--ink); }
+  .hero .mint-big-kicker { font: var(--t4); letter-spacing: .22em; text-transform: uppercase; color: var(--ink2); }
+  /* THE LINE SITS UNDER THE NAME (Nov 19 2026, his arrow between the title and this line: "thsi shit too large... decrease spacing there"): the line was pushed 66 px down from the title to stand over the edge; with a one-line title that left 97 px between them. It now keeps the block's own 30 px under the title, and what follows comes up by the same measure, so its distance to the WHY plate and the edge is as it was. */
+  .hero .mint-big { margin-bottom: calc(-1 * (var(--why-size) * 1.08 + 4px + 24px - var(--edge-gap))); }
+  .hero .numbers::before, .hero .numbers::after { content: ""; position: absolute; z-index: -1; top: 0; bottom: -2px; left: calc(50% - 50vw); width: 100vw; pointer-events: none; } /* 2px under the chamber: no hairline of parchment between two fractional edges */
+  .hero .numbers::before { background: linear-gradient(to bottom, rgba(23,26,22,0) 0%, rgba(58,55,42,.6) 30%, #262920 58%, #171A16 100%); }
+  /* the mesh comes back in light as the dusk deepens: same tile as the night below, faded in on the same ramp */
+  .hero .numbers::after { background: var(--hex-night) 0 0 / var(--hex-night-size) repeat fixed;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.3) 30%, rgba(0,0,0,.8) 58%, #000 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.3) 30%, rgba(0,0,0,.8) 58%, #000 100%); }
+  @media (max-width: 620px) {
+    .hero { --dusk-top: 12px; }
+    .hero .numbers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 16px; padding-top: 12px; }
+  }
+  .wall-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px 24px; flex-wrap: wrap; padding-top: 14px; }
+  .wall-head .views a { margin-left: 14px; }
+  .wall-head .views a.on { color: var(--ink); border-bottom: 1px solid var(--gold); }
+  .wall-head .views .bar { margin-left: 14px; color: var(--ink2); }   /* after it, at the door: a filter over the chain, never a staged scene */
+  .wish-card input:not([type=range]) { display: block; width: 100%; font: var(--t3); color: var(--ink); padding: 6px 0; border: 0; border-bottom: 1px solid var(--line); background: transparent; min-height: 44px; }
+  .wish-card .wish-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; margin-top: 10px; } .wish-card .wish-row label { flex: 1 1 120px; } .wish-card :is(label, output) { font: var(--tm); color: var(--ink2); }
+  .wish-card input[type=range] { width: 100%; height: 44px; margin: 0; accent-color: var(--gold); } .wish-card .plug { min-height: 44px; padding: 10px 14px; font-size: 13px; cursor: pointer; }
+  .wall { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 14px; }
+  @media (max-width: 980px) { .wall { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 620px) { .wall { grid-template-columns: 1fr; } }
+  .tile { position: relative; min-width: 0; background: var(--panel); border: 1px solid var(--line); box-shadow: var(--sh); display: flex; flex-direction: column; transition: border-color 0.3s; }
+  .tile:hover { border-color: var(--gold); }
+  .tile canvas { display: block; width: 100%; aspect-ratio: 1 / 1; height: auto; margin: 0 auto; }
+  .tile .cap { position: relative; padding: 10px 16px 12px; border-top: 1px solid var(--line); background: var(--panel2); }
+  /* the rest of the ledger waits under the caption and slides up over the drawing on hover */
+  .tile .more { position: absolute; left: 0; right: 0; bottom: 100%; padding: 10px 16px 8px; border-top: 1px solid var(--line); background: var(--panel2); opacity: 0; transform: translateY(14px); pointer-events: none; transition: opacity 0.25s ease, transform 0.25s ease; }
+  .tile:hover .more, .tile:focus-visible .more { opacity: 1; transform: translateY(0); }
+  .tile .facts { display: flex; gap: 14px; flex-wrap: wrap; }
+  .tile .facts span { font: var(--tm); color: var(--ink2); }
+  .tile .facts b { font-weight: 400; color: var(--ink); }
+  .tile .chip { position: absolute; top: 12px; left: 16px; font: var(--t4); letter-spacing: 0.2em; text-transform: uppercase; padding: 4px 8px; border: 1px solid var(--line); background: #fff; color: var(--ink2); }
+  .tile .chip.RATUM { color: #166534; border-color: #166534; background: #E4F5E4; }
+  .tile .chip.REIECTUM { color: #991B1B; border-color: #991B1B; background: #F8E3E3; }
+  .tile .chip.DISSENSIO { color: #1f6f80; border-color: #2A9FB8; background: #E0F3F7; }
+  .tile .chip.SUFFRAGIUM { color: var(--bronze); border-color: var(--gold); }
+  .tile .name { font: var(--t2); margin: 0 0 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tile .stat { margin-top: 8px; }
+  .tile .decision { position: absolute; top: 12px; right: 16px; font: var(--tm); color: var(--ink2); text-align: right; }
+  /* the end of the journey: the same $WARM block as WHY and HOW, then two doors, SWARM and ANTIMIRROR */
+  .join { margin: 66px 0 0; }
+  .plug-wrap { text-align: center; margin: 4px 0 8px; }
+  .plug { display: inline-block; padding: 15px 28px; border: 1px solid var(--gold); color: var(--ink); font: var(--t4); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; background: var(--panel); box-shadow: var(--sh); transition: background .25s, color .25s; }
+  .plug .door-arrow { margin-left: 10px; }
+  .plug:hover, .plug:focus-visible { background: var(--gold); color: var(--panel); }
+  .plug:hover .door-arrow, .plug:focus-visible .door-arrow { color: var(--panel); transform: translate(2px, -2px); }
+  .plug-sub { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 24px; margin-top: 12px; font: var(--t3); color: var(--ink2); }
+  .plug-sub a { border-bottom: 1px solid var(--line2); }
+  .plug-sub a:hover { color: var(--ink); border-color: var(--gold); }
+  .arrival { margin: 82px 0 0; position: relative; border-top: 1px solid var(--line); }
+  .arrival-fork { display: block; width: 100%; height: 92px; overflow: visible; }
+  .arrival-fork path { fill: none; stroke: var(--bronze); stroke-width: 1; vector-effect: non-scaling-stroke; opacity: .45; }
+  .arrival-fork circle { fill: var(--gold); }
+  .doors { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+  .door { position: relative; text-align: center; display: block; padding: 0 0 34px; border-bottom: 1px solid var(--line); isolation: isolate; color: inherit; text-decoration: none; }
+  .door-figure { position: relative; display: block; max-width: 460px; margin: 0 auto 26px; aspect-ratio: 5 / 3; }
+  .door-figure::before { content: ''; position: absolute; inset: 0 20% -8px; border: 1px solid var(--line); border-bottom: 0; border-radius: 50% 50% 0 0; opacity: .65; transition: border-color .3s, opacity .3s; }
+  .door-figure::after { content: ''; position: absolute; inset: 9px calc(20% + 9px) -8px; border: 1px solid var(--line); border-bottom: 0; border-radius: 50% 50% 0 0; opacity: .3; }
+  .door canvas { position: relative; width: 100%; height: 100%; display: block; transition: transform .45s ease; }
+  .door b { display: block; font: var(--t1); letter-spacing: .12em; margin: 0 0 10px; }
+  .door .door-sub { font: var(--t3); color: var(--ink2); display: block; }
+  .door .door-arrow { color: var(--bronze); margin-left: 8px; display: inline-block; transition: transform .3s; }
+  .door .door-line { display: block; margin-top: 12px; font: 10px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--ink2); }
+  .door:hover .door-figure::before, .door:focus-visible .door-figure::before { border-color: var(--gold); opacity: 1; }
+  .door:hover canvas, .door:focus-visible canvas { transform: translateY(-6px); }
+  .door:hover .door-arrow, .door:focus-visible .door-arrow { transform: translate(2px, -2px); }
+  @media (max-width: 760px) { .doors { gap: 24px; } }
+  @media (max-width: 620px) { .join { margin-top: 40px; } .plug { padding: 13px 16px; font-size: 10px; letter-spacing: .16em; } .arrival { margin-top: 56px; } .arrival-fork { display: none; } .doors { grid-template-columns: 1fr; gap: 0; } .door { padding: 34px 0 28px; } .door-figure { max-width: 340px; margin-bottom: 20px; } }
+  .roster[hidden] { display: none; }
+  .roster { margin-top: 18px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 980px) { .roster { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 620px) { .roster { grid-template-columns: 1fr; } }
+  .roster a { display: flex; justify-content: space-between; gap: 12px; padding: 12px 14px; background: var(--panel); border: 1px solid var(--line); }
+  .roster a:hover { border-color: var(--gold); }
+  .roster .n { font: var(--t2); font-size: 15px; } .roster .m { font: var(--tm); color: var(--ink2); text-align: right; }
+  .roster .open { color: var(--laurel); }
+  #status { font: var(--tm); color: var(--ink2); }
+
+/* THE FRONT IS THE MINT'S WORLD (his Nov 24 2026 ~20:4x UTC "Yes, rebuild it", to "Rebuild the front in the mint's world, her at the centre?", after he set this
+   page beside after-the-mint.html?side=pool: "what? dont you get the dissonance between the 2?"). The whole front on the page after the mint's ground: its night
+   (#0e1c2d, harmony-accent.css --harmony-sky, as after-the-mint.css stands on it) falling to the holy ground (#07060b) under the chamber, the film's gold, the
+   mint's type (Bodoni titles, DM Sans words, the plates' Gelasio); no parchment, no hex mesh, no dusk. Her canvas stands where the ball stood (assembly.js
+   places it); the film is never seen by itself, her sphere shows it (after-the-mint.css .am-arrow). The reference: harmony-appearance.json site.front. */
+html, body { background: #07060b; color: #fbf6ea; }
+body { --stone: #0e1c2d; --panel: rgba(251,246,234,.045); --panel2: rgba(251,246,234,.08); --line: rgba(240,207,116,.24); --line2: rgba(240,207,116,.4);
+  --ink: #fbf6ea; --ink2: rgba(251,246,234,.7); --gold: #f0cf74; --bronze: #c9a14a; --sh: none;
+  --t3: 400 15px/1.6 var(--words); --t4: 600 13px/1.4 var(--words); --tm: 400 13px/1.5 var(--words);
+  background: linear-gradient(180deg, #0e1c2d 0, #0e1c2d 160svh, #07060b 260svh) no-repeat, #07060b; }
+main > header::before { background: rgba(14,28,45,.88); box-shadow: 0 1px 0 0 rgba(240,207,116,.24); }
+.hero .numbers::before, .hero .numbers::after { display: none; }
+.hero .why { color: #fbf6ea; background: rgba(7,6,11,.6); }
+.assembly-story { --assembly-night: #0e1c2d; }
+.assembly-band::before { background: radial-gradient(ellipse at 50% 44%, rgba(64,128,236,.18) 0, rgba(14,28,45,0) 58%), #0e1c2d; }
+.front-her { position: absolute; z-index: 2; top: 0; left: calc(50% - 50vw); width: 0; height: 0; transform-origin: 50% 50%; pointer-events: auto; touch-action: pan-y;
+  opacity: var(--her-shown, 1) !important; }   /* after-the-mint-tree.mjs fades her canvas out at its film's end (the bar takes her place there); on the front she stays, as the chamber shows her */
+/* the wish, the wall's first card, is no world: it stays in the wall, so while the chamber shows her it is not drawn over her (the diving one's --assembly-dive hid it
+   there before); under reduced motion the wall stands under the chamber and the card shows */
+.descent { --descent-ink: var(--ink); --descent-ground: #07060b; }
+.descent-dev { background: rgba(7,6,11,.92); }
+.tile .cap { flex: 1; }
+.wish-card .wish-orb { height: 186px; margin-top: 10px; }
+.wish-card .wish-orb canvas { height: 100%; aspect-ratio: auto; }
+.tile .chip, .tile .chip.OTIUM { background: rgba(7,6,11,.82); color: var(--ink2); border-color: var(--line); }
+.tile .chip.DISCUSSIO { background: rgba(16,38,34,.88); color: #8ad8c4; border-color: rgba(138,216,196,.42); }
+.tile .chip.RATUM { background: rgba(16,42,24,.88); color: #86efac; border-color: rgba(134,239,172,.42); }
+.tile .chip.REIECTUM { background: rgba(48,16,20,.88); color: #fca5a5; border-color: rgba(252,165,165,.42); }
+.tile .chip.DISSENSIO { background: rgba(14,36,46,.88); color: #7dd3fc; border-color: rgba(125,211,252,.42); }
+.tile .chip.SUFFRAGIUM { background: rgba(34,26,12,.88); color: var(--gold); border-color: var(--line2); }
+.wish-card .chip.PREVIEW { background: rgba(7,6,11,.85); color: var(--gold); border-color: var(--line2); }
+.warm-entry .warm-title { letter-spacing: 0.01em; }
+.hero { position: relative; }
+#assembly-canvas { z-index: 3; pointer-events: none; }
+.unit0-pantheon { cursor: pointer; pointer-events: auto; position: absolute; right: 0; bottom: 0; transform: translateY(calc(100% + var(--dusk-top) + var(--dusk-bottom) + var(--edge-gap))); z-index: 20; display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px; border: 1px solid rgba(240,207,116,.44); border-radius: 999px; background: rgba(11,22,38,.86); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); color: #fbf6ea; font: 600 13px/1 var(--words); letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; transition: border-color .2s, background .2s, opacity .25s; }
+.unit0-pantheon b { font-weight: 700; color: #f0cf74; }
+.unit0-pantheon span { font-weight: 500; color: rgba(251,246,234,.78); letter-spacing: .04em; text-transform: none; }
+.unit0-pantheon i { font-style: normal; color: #f0cf74; }
+.unit0-pantheon:hover, .unit0-pantheon:focus-visible { border-color: #f0cf74; background: rgba(24,44,74,.94); outline: 0; }
+body:has(#assembly[data-drawer="open"]) .unit0-pantheon { opacity: 0; pointer-events: none; }
+#assembly:not([data-phase="whole"]) .unit0-tip { pointer-events: none; opacity: 0; }
+#assembly[data-drawer="open"] .unit0-tip { opacity: 0; pointer-events: none; }
+#assembly .assembly-band canvas, #assembly #wall { transition: transform .36s cubic-bezier(.22,1,.36,1); }
+#assembly[data-drawer="open"] .assembly-band canvas { transform: translateX(calc(-50% - 21vw)); }
+#assembly[data-drawer="open"] #wall { transform: translateX(-21vw); }
+.unit0-drawer { position: fixed; right: 14px; top: 68px; bottom: 14px; width: min(410px, 44vw); z-index: 200; display: flex; flex-direction: column; gap: 10px; padding: 14px 16px 18px; overflow-y: auto; border: 1px solid rgba(240,207,116,.5); border-radius: 16px; background: rgba(11,22,38,.96); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); color: #eef6fa; box-shadow: 0 24px 64px rgba(0,0,0,.7); }
+.unit0-drawer[hidden] { display: none; }
+.u0d-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-bottom: 10px; border-bottom: 1px solid #16304c; }
+.u0d-top b { display: block; font: 600 18px/1.1 var(--display, Georgia, serif); letter-spacing: .08em; color: #f0cf74; }
+.u0d-top small { display: block; margin-top: 3px; font: 500 11.5px/1.2 var(--words); color: #93a7b3; }
+.u0d-acts { display: inline-flex; align-items: center; gap: 8px; }
+.u0d-acts a { padding: 7px 11px; border: 1px solid rgba(240,207,116,.45); border-radius: 999px; color: #f0cf74; font: 600 12px/1 var(--words); text-decoration: none; white-space: nowrap; }
+.u0d-acts a:hover { background: rgba(240,207,116,.14); }
+.u0d-acts button { width: 34px; height: 34px; border: 1px solid #24405f; border-radius: 50%; background: rgba(20,37,55,.8); color: #eef6fa; font: 400 20px/1 sans-serif; cursor: pointer; }
+.u0d-acts button:hover { border-color: #f0cf74; color: #f0cf74; }
+.u0d-arena { width: min(320px, 100%); aspect-ratio: 1; margin: 0 auto; background: url(./assets/pantheon-hall.svg) center/100% no-repeat; }
+.u0d-arena svg { width: 100%; height: 100%; display: block; }
+.u0d-arena .throne { cursor: pointer; } .u0d-arena .throne:hover path, .u0d-arena .throne.is-hover path { fill: #214472; stroke: #fff6d8; stroke-width: 3.2; filter: drop-shadow(0 0 10px rgba(240,207,116,.85)); } .u0d-arena .throne.is-hover .tg { fill: #fff6d8; }
+.u0d-arena .throne .tg { font-size: 32px; fill: #eef6fa; } .u0d-arena .tg.oc { font-size: 14px; fill: #f0cf74; letter-spacing: .08em; }
+.u0d-arena .td { font-size: 11.5px; fill: #93a7b3; } .u0d-arena .tp { font-size: 12px; fill: #eef6fa; }
+.u0d-ctrl { display: grid; gap: 11px; }
+.u0d-sl { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 4px 10px; align-items: baseline; font: 500 12.5px/1.3 var(--words); color: #93a7b3; }
+.u0d-sl b { color: #eef6fa; font-weight: 700; font-variant-numeric: tabular-nums; }
+.u0d-sl input { grid-column: 1/-1; width: 100%; margin: 2px 0; accent-color: #4080ec; cursor: pointer; }
+.u0d-ticks { grid-column: 1/-1; display: flex; justify-content: space-between; font: 500 11px/1 var(--words); font-style: normal; color: #7f95a6; }
+.u0d-metrics { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; }
+.u0d-metrics > div { padding: 8px 6px; border: 1px solid #16304c; border-radius: 9px; background: #142537; text-align: center; }
+.u0d-metrics span { display: block; font: 500 11px/1.2 var(--words); color: #93a7b3; }
+.u0d-metrics b { display: block; margin-top: 3px; font: 700 14px/1.2 var(--words); color: #f0cf74; font-variant-numeric: tabular-nums; }
+.u0d-metrics > div:nth-child(2) b { color: #f78cd9; } .u0d-metrics > div:nth-child(3) b { color: #9fc3ff; }
+.u0d-aim { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.u0d-aim button { min-height: 40px; border: 1px solid #1d3c5c; border-radius: 9px; background: #142537; color: #93a7b3; font: 600 13px/1 var(--words); cursor: pointer; }
+.u0d-aim button.is-on { border-color: #4080ec; background: rgba(64,128,236,.22); color: #fbf6ea; }
+.u0d-note { margin: 0; font: 400 12.5px/1.45 var(--words); color: #b8c6d4; border-top: 1px solid #16304c; padding-top: 8px; }
+.hall-live-rst { margin-left: 6px; padding: 2px 8px; border: 1px solid rgba(240,207,116,.55); border-radius: 999px; background: rgba(240,207,116,.14); color: #f0cf74; font: 600 11px/1.2 var(--words); cursor: pointer; }
+.unit0-tip { position: fixed; left: 0; top: 0; z-index: 30; pointer-events: none; padding: 7px 12px; border: 1px solid rgba(240,207,116,.65); border-radius: 999px; background: rgba(11,22,38,.94); color: #fbf6ea; font: 600 12.5px/1 var(--words); letter-spacing: .04em; white-space: nowrap; box-shadow: 0 10px 28px rgba(0,0,0,.45); transform: translate3d(14px, 14px, 0); }
+.unit0-tip b { color: #f0cf74; margin-right: 4px; }
+@media (max-width: 760px) { .unit0-pantheon { gap: 6px; padding: 0 13px; } .unit0-pantheon span, .unit0-tip { display: none; } #assembly[data-drawer="open"] .assembly-band canvas { transform: none; } .unit0-drawer { width: calc(100vw - 28px); } }
+@media (prefers-reduced-motion: no-preference) {
+  #assembly #wall > .wish-card { opacity: var(--assembly-chrome); }
+  #assembly:not([data-phase="wall"]) #wall > .wish-card { pointer-events: none; }
+  #assembly:is([data-phase="whole"], [data-phase="assembling"]) #wall > .wish-card { visibility: hidden; }
+}
+.am-arrow { position: absolute; left: 0; top: 0; width: 1px; height: 1px; opacity: 0; pointer-events: none; }

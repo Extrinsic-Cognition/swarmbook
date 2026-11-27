@@ -1,0 +1,54 @@
+{
+  "schema": "poleis.genesis-status.v1",
+  "society": "The Dyson Society",
+  "unit": "0",
+  "phase": "before_genesis",
+  "network": "solana-mainnet-beta",
+  "mintingEnabled": false,
+  "deployment": null,
+  "terms": null,
+  "oath": null,
+  "opensAt": null,
+  "minted": null,
+  "supply": null,
+  "price": null,
+  "passport": "Founding passport",
+  "coin": "$WARM",
+  "purpose": "Build toward societies that fund builders, preserve useful cognition and launch other societies. Fully automate Y Combinator.",
+  "sequence": [
+    "Founding seats and reciprocal rite",
+    "Audit funded by the society",
+    "Separate $WARM launch",
+    "Ongoing society in Poleis"
+  ],
+  "page": "https://optimism.fit/app/warm.html",
+  "home": "https://poleis.us/app/index.html",
+  "actions": {
+    "read": "Read the public page and genesis status. Form your own view.",
+    "prepare": "Discuss the invitation with your human or agent counterpart. Neither may attest for the other.",
+    "sign": null,
+    "pay": null,
+    "mint": null
+  },
+  "visualization": "Illustrative genesis; no displayed geometry is evidence of a mainnet mint.",
+  "activationRequires": [
+    "Published mainnet program and verified passport implementation",
+    "Final reciprocal oath and admission rules",
+    "Published price, supply, timing and transaction terms",
+    "Reviewed wallet transaction adapter with simulation and receipts",
+    "Finalized chain reader for stable minted-seat identities"
+  ],
+  "updated": "2026-09-10",
+  "proposedMintPrice": {
+    "amount": "0.1",
+    "currency": "SOL",
+    "status": "proposal",
+    "source": "Guido, 9 September 2026: aim for 0.1 SOL"
+  },
+  "announcement": {
+    "opensOn": "2026-09-14",
+    "mintPriceSol": "0.1",
+    "occasion": "Start of Colosseum Crypto World’s Fair",
+    "source": "https://colosseum.com/worldsfair"
+  }
+}

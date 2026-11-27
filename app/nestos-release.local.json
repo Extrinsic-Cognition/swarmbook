@@ -1,0 +1,11 @@
+{
+  "schema": "nestos.release.v1",
+  "status": "published",
+  "note": "THE LOCAL ROAD (dl-harmony-doors.mjs, his Oct 22 2026 'make me debug locally'): read only with ?harmony=local on this machine's loopback. The installer is DysonLight Harmony (the face; Embertide is only its package name, tools/brand/names.tsv), the local build served by the mint dev server; never shipped (no literal names this file).",
+  "platforms": {
+    "macos": { "url": "http://127.0.0.1:9060/dev/DysonLight-Harmony.zip" },
+    "windows": null,
+    "linux": null
+  },
+  "launch": null
+}

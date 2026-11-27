@@ -1,0 +1,46 @@
+/* THE LYSSAJUDRON ENTERS (Nov 11 2026; his "final thing is... i would like a more cinematic intro to lyssajudron... it is quite sterilwe atm...", then over
+   the mock of this, "bruv... the unit1s cant be static... come on... make them go wild dude", and "i literally had moments ago the pulsating dodecahedron egg
+   leading to lyssajudron"). Her making's first seconds after the egg lands (dl-her-colours.js enter()): the bars, the egg alone in the dark pulsing three
+   times, its charge into a whole white, the hit (her name card over her, large), then she settles to her place and the creator's controls rise. Every time
+   here is a share of the one clock dl-her-colours.js ENTER names (ms 5400, hit 2800); the class `enter` on .dl-her is the whole of it, and taking it off is
+   the skip. Her twelve's race and burst are her renderer's (stageHer enter()). Nothing here runs under prefers-reduced-motion: the class is never set. */
+.dl-her{--dl-her-enter:1}.dl-her-e{display:contents}
+.dl-her.enter{overflow:hidden;animation:dl-her-e-jolt 2.95s linear both}
+@keyframes dl-her-e-jolt{0%,31%{translate:0 0}32%{translate:6px -4px}33.2%{translate:-5px 3px}34.4%{translate:2px -1px}35.6%,52%{translate:0 0}53%{translate:-7px 4px}54.2%{translate:6px -3px}55.4%{translate:-2px 1px}56.6%,73%{translate:0 0}74%{translate:8px 5px}75.2%{translate:-7px -4px}76.4%{translate:3px 2px}77.6%,95%{translate:0 0}96%{translate:-12px 8px}97.3%{translate:11px -7px}98.6%{translate:-5px 3px}100%{translate:0 0}}
+.dl-her.enter>.dl-her-say,.dl-her.enter>.dl-her-name,.dl-her.enter>.dl-her-pick,.dl-her.enter>.dl-her-go{animation:dl-her-e-rise .6s cubic-bezier(.2,.8,.2,1) 5.3s both}
+.dl-her.enter>.dl-her-say{animation-delay:4.85s}
+.dl-her.enter .dl-her-ring{animation:dl-her-e-rise .6s ease 5.5s both}
+.dl-her.enter>.dl-her-wishes{animation:dl-her-e-bar .34s cubic-bezier(.2,1.5,.3,1) 4.3s both}
+.dl-her.enter>.dl-her-stage{animation:dl-her-e-stage 5.4s linear both;transform-origin:50% 50%}
+@keyframes dl-her-e-rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes dl-her-e-bar{from{opacity:0;transform:scale(1.7)}to{opacity:1;transform:none}}
+@keyframes dl-her-e-stage{0%,51.2%{opacity:0;scale:2.5;translate:0 13vh}51.6%{opacity:1;scale:2.75;translate:0 13vh}54%,79.6%{opacity:1;scale:2.5;translate:0 13vh;animation-timing-function:cubic-bezier(.3,0,.2,1)}100%{opacity:1;scale:1;translate:0 0}}
+.dl-her-e-bar{position:absolute;left:0;right:0;height:12%;background:#050405;z-index:6;transform:scaleY(0);animation:dl-her-e-lb 5.3s cubic-bezier(.2,.8,.2,1) both}
+.dl-her-e-bar.t{top:0;transform-origin:top}.dl-her-e-bar.b{bottom:0;transform-origin:bottom}
+@keyframes dl-her-e-lb{0%{transform:scaleY(0)}7%,91%{transform:scaleY(1)}100%{transform:scaleY(0)}}
+.dl-her-e-egg{position:absolute;left:50%;top:50%;height:36vh;width:auto;translate:-50% -50%;image-rendering:pixelated;z-index:5;animation:dl-her-e-egg 2.82s linear both}
+@keyframes dl-her-e-egg{0%{scale:.8;opacity:0;filter:brightness(.2)}9%{scale:.82;opacity:1;filter:brightness(.42) drop-shadow(0 0 12px rgba(255,196,64,.25))}
+  31%{scale:.84;filter:brightness(.46) drop-shadow(0 0 12px rgba(255,196,64,.25))}32.5%{scale:.94;filter:brightness(1.7) drop-shadow(0 0 60px rgba(255,220,120,.95))}37%{scale:.85;filter:brightness(.55) drop-shadow(0 0 16px rgba(255,196,64,.3))}
+  52%{scale:.86;filter:brightness(.58) drop-shadow(0 0 16px rgba(255,196,64,.3))}53.5%{scale:.98;filter:brightness(1.9) drop-shadow(0 0 70px rgba(255,220,120,1))}58%{scale:.88;filter:brightness(.7) drop-shadow(0 0 20px rgba(255,196,64,.4))}
+  73%{scale:.89;filter:brightness(.74) drop-shadow(0 0 20px rgba(255,196,64,.4))}74.5%{scale:1.04;filter:brightness(2.1) drop-shadow(0 0 80px rgba(255,230,140,1))}79%{scale:.92;filter:brightness(.9) drop-shadow(0 0 26px rgba(255,196,64,.5))}
+  88.5%{scale:.94;filter:brightness(1.1) drop-shadow(0 0 30px rgba(255,196,64,.6));opacity:1}98.6%{scale:5.4;filter:brightness(3.2) drop-shadow(0 0 90px #fff);opacity:1}100%{scale:5.8;opacity:0}}
+.dl-her-e-white{position:absolute;inset:0;background:#fff;opacity:0;z-index:9;animation:dl-her-e-white .5s ease-out 2.76s forwards}
+@keyframes dl-her-e-white{0%{opacity:.96}100%{opacity:0}}
+.dl-her-e-lines{position:absolute;inset:-20%;opacity:0;z-index:7;background:repeating-conic-gradient(from 3deg at 50% 50%,rgba(8,6,10,.9) 0deg 1.1deg,transparent 1.1deg 5.3deg);
+  -webkit-mask:radial-gradient(circle at 50% 50%,transparent 26%,#000 62%);mask:radial-gradient(circle at 50% 50%,transparent 26%,#000 62%);animation:dl-her-e-lines 1.5s ease-out 2.78s forwards}
+@keyframes dl-her-e-lines{0%{opacity:.95;transform:scale(1.25) rotate(0deg)}30%{opacity:.5;transform:scale(1.04) rotate(1.4deg)}100%{opacity:0;transform:scale(1) rotate(2deg)}}
+.dl-her-e-sfx{position:absolute;z-index:8;color:#f6f0e1;font:900 clamp(46px,8.5vw,116px)/1 'Hiragino Sans','Yu Gothic',sans-serif;letter-spacing:-.14em;-webkit-text-stroke:7px #161713;paint-order:stroke fill;text-shadow:6px 6px 0 #000;opacity:0}
+.dl-her-e-sfx.g{left:7%;bottom:19%;transform:rotate(-8deg) skewY(-5deg);animation:dl-her-e-sfx-g 1.85s .9s forwards}
+.dl-her-e-sfx.d{left:7%;top:17%;transform:rotate(-11deg) skewY(-6deg);animation:dl-her-e-sfx-d 1.5s 2.78s forwards}
+@keyframes dl-her-e-sfx-g{0%{opacity:0;scale:1.12}7%{opacity:1;scale:1}93%{opacity:1}100%{opacity:0}}
+@keyframes dl-her-e-sfx-d{0%{opacity:0;scale:1.3}7%{opacity:1;scale:1}86%{opacity:1}100%{opacity:0}}
+.dl-her-e-card{position:absolute;left:0;right:0;top:66%;transform:translateY(-50%);display:grid;justify-items:center;gap:.4em;z-index:8;opacity:0;animation:dl-her-e-card 1.6s 2.8s forwards}
+@keyframes dl-her-e-card{0%,88%{opacity:1;transform:translateY(-50%)}100%{opacity:0;transform:translateY(-50%) scale(.97)}}
+.dl-her-e-slash{position:absolute;left:-10%;right:-10%;top:50%;height:46%;transform:translateY(-50%) skewY(-4deg) scaleX(0);transform-origin:left;background:linear-gradient(90deg,transparent,rgba(140,14,30,.92) 12%,rgba(201,161,74,.95) 50%,rgba(140,14,30,.92) 88%,transparent);animation:dl-her-e-slash .22s cubic-bezier(.3,1.4,.4,1) 2.8s forwards}
+@keyframes dl-her-e-slash{to{transform:translateY(-50%) skewY(-4deg) scaleX(1)}}
+.dl-her-e-epithet{position:relative;font:600 clamp(13px,2.1vw,30px)/1.2 'Gelasio',Georgia,serif;letter-spacing:.42em;text-transform:uppercase;color:#f0cf74;text-shadow:0 1px 0 #000,0 0 6px #000,0 0 18px rgba(0,0,0,.95);opacity:0;animation:dl-her-e-in .3s 2.98s ease-out forwards}
+.dl-her-e-name{position:relative;font:700 clamp(40px,9vw,170px)/.9 'Gelasio',Georgia,serif;letter-spacing:.02em;text-transform:uppercase;color:#fbf6ea;-webkit-text-stroke:2px #0b0709;paint-order:stroke fill;
+  text-shadow:-4px 0 rgba(255,36,56,.85),4px 0 rgba(80,220,255,.7),0 6px 30px rgba(0,0,0,.8);transform:scale(2.6) skewX(-10deg);opacity:0;animation:dl-her-e-slam .17s cubic-bezier(.2,1.6,.3,1) 2.8s forwards,dl-her-e-settle .9s 2.97s ease-out forwards}
+@keyframes dl-her-e-slam{to{transform:scale(1) skewX(-10deg);opacity:1}}
+@keyframes dl-her-e-settle{to{text-shadow:-1px 0 rgba(255,36,56,.35),1px 0 rgba(80,220,255,.3),0 6px 30px rgba(0,0,0,.8)}}
+@keyframes dl-her-e-in{from{opacity:0;transform:translateY(.4em)}to{opacity:1;transform:none}}

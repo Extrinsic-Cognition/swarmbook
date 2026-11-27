@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Unit0 liquid · local visual check</title>
+<style>
+html,body{margin:0;height:100%;background:#071215;color:#dadfd2;font:12px ui-monospace,monospace}canvas{display:block;width:100%;height:100%}
+aside{position:fixed;bottom:20px;left:20px;right:20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}button,select{background:#142529;border:1px solid #496365;border-radius:4px;color:inherit;padding:10px;font:inherit}output{opacity:.7}
+</style>
+<canvas aria-label="Unit0 liquid preview"></canvas>
+<aside><span>Sample fill</span><select aria-label="Sample fill"><option value=".55">55%</option><option value="0">Empty</option><option value=".1">10%</option><option value="1">Full</option><option value="unknown">Unknown</option></select><button id="shake">Shake</button><button id="half">Hold mid-slosh</button><output aria-live="polite"></output></aside>
+<script type="module">
+import * as T from '../vendor/embertide-app/ui/intro/room/procedural/three.module.js';
+import {createProfileLyssajudron} from '../app/tracenet-lyssajudron.mjs';
+import {LIQUID} from '../vendor/embertide-app/ui/intro/room/unit0-liquid.mjs';
+const canvas=document.querySelector('canvas'), out=document.querySelector('output');
+const renderer=new T.WebGLRenderer({canvas,antialias:true,powerPreference:'low-power'});
+renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));renderer.outputColorSpace=T.SRGBColorSpace;
+renderer.toneMapping=T.ACESFilmicToneMapping;
+const scene=new T.Scene(), camera=new T.PerspectiveCamera(36,1,.1,100);
+camera.position.set(0,2.5,5.8);camera.lookAt(0,1.45,0);
+scene.add(new T.HemisphereLight(0xd9f4ff,0x1a0c04,2));
+const key=new T.DirectionalLight(0xffecd2,3);key.position.set(-2,3,4);scene.add(key);
+const body=createProfileLyssajudron();scene.add(body.group);
+let raf=0,start=null,level=.55,frames=0,total=0;
+function paint(){const before=performance.now();renderer.render(scene,camera);total+=performance.now()-before;frames++;out.textContent=`${renderer.info.render.calls} draws · ${renderer.info.render.triangles} triangles · ${renderer.info.render.points} points · ${frames} paints · JS ${(total/frames).toFixed(2)} ms · ${raf?'moving':'settled'}`;}
+function stop(){if(raf)cancelAnimationFrame(raf);raf=0;start=null;}
+function draw(now){start??=now;const elapsed=now-start,t=Math.min(1,elapsed/LIQUID.settleMs);body.slosh(elapsed/1000,(1-t)**2);raf=t<1?requestAnimationFrame(draw):0;paint();}
+function shake(){stop();if(level>0&&!matchMedia('(prefers-reduced-motion: reduce)').matches)raf=requestAnimationFrame(draw);else{body.slosh(0,0);paint();}}
+function resize(){renderer.setSize(innerWidth,innerHeight,false);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();paint();}
+document.querySelector('select').onchange=e=>{level=e.target.value==='unknown'?null:Number(e.target.value);body.fuel(level);shake();};
+document.querySelector('#shake').onclick=shake;
+document.querySelector('#half').onclick=()=>{stop();body.slosh(.25,1);paint();};
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();else paint();});
+addEventListener('resize',resize);addEventListener('pagehide',()=>{stop();body.dispose();renderer.dispose();},{once:true});
+body.fuel(level);resize();shake();
+</script>
+</html>

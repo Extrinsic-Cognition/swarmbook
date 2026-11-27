@@ -1,0 +1,97 @@
+/* poleis.css: the one palette and type scale of the Poleis app. Parchment, ink, gold. Reuse; never invent sizes. */
+:root {
+  --stone: #EAE3D3; --panel: #F5F0E3; --panel2: #EFE9D9; --line: #C4B9A2; --line2: #B0A48C;
+  --ink: #2B2620; --ink2: #6F6353; --gold: #C99B3F; --bronze: #8A6B3F; --pompeii: #B0413E;
+  --laurel: #4C7A4C; --verdigris: #3E7C74; --dissent: #2A9FB8; --porphyry: #6E3A52;
+  --pass: #29E35A; --fail: #EF334F; --deadlock: #78EFFF; --pending: #C4B9A2;
+  --sh: 0 1px 0 rgba(255,255,255,.65);
+  /* The mint's type (his "go for all them", Oct 25 2026): Bodoni for the titles, DM Sans for the words; the house's fonts.css ships both. */
+  --display: 'Bodoni 72', Didot, Georgia, 'Iowan Old Style', 'Palatino Linotype', serif;
+  --words: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: ui-monospace, 'SF Mono', Menlo, monospace;
+  --t1: 700 34px/1.1 var(--display);   /* the name of the place, spaced */
+  --t2: 700 19px/1.2 var(--display);   /* a polis's name */
+  --t3: 400 13.5px/1.5 var(--words);   /* body */
+  --t4: 400 9px/1.4 var(--words);      /* labels: uppercase, letterspaced */
+  --tm: 400 11px/1.5 var(--mono);      /* numbers, hashes, receipts */
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; background: var(--stone); color: var(--ink); font: var(--t3); }
+/* A control the page does not style draws the words' face, not the browser's (its size stays the browser's). */
+button, input, select, textarea { font-family: var(--words); }
+/* The same viewport-fixed field continues from the wall into each society. */
+.poleis-mesh { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; opacity: .55; pointer-events: none; }
+a { color: inherit; text-decoration: none; }
+.label { font: var(--t4); letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink2); }
+.mono { font: var(--tm); color: var(--ink2); }
+.card { background: var(--panel); border: 1px solid var(--line); box-shadow: var(--sh); }
+/* Shared navigation, including the founding workspace. */
+header { display: flex; align-items: baseline; gap: 22px; padding: 26px 0 10px; border-bottom: 1px solid var(--line); }
+header h1 { font: var(--t1); letter-spacing: 0.34em; margin: 0; }
+header .sub { font: var(--t3); font-family: var(--display); font-style: italic; color: var(--ink2); }
+header nav { margin-left: auto; display: flex; gap: 22px; }
+header nav a { font: var(--t4); letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink2); }
+header nav a.on { color: var(--ink); border-bottom: 1px solid var(--gold); }
+/* A header outside main keeps the same 1380px column and 80px inset. */
+body > header { width: calc(min(100%, 1380px) - 160px); margin: 0 auto; flex-shrink: 0; }
+@media (max-width: 760px) { body > header .sub { display: none; } body > header nav { margin-left: 0; flex-wrap: wrap; } }
+@media (max-width: 620px) { body > header { width: calc(100% - 48px); } }
+/* The header stays up top while the page scrolls, edge to edge: the words keep the page's column,
+   the parchment behind them runs the full width. Pages put the header inside main (the crossroads,
+   the road, the seals, a polis) or before it (the herm). The bleed is a pseudo-element, so no page
+   needs a wider box, and the document is clipped sideways so the bleed never adds a scrollbar. */
+html { overflow-x: clip; }
+main > header, body > header { position: sticky; top: 0; z-index: 30; border-bottom-color: transparent; } /* the rule is the parchment's own 1px shadow below, drawn once across the whole width; the header's border only keeps its height */
+/* The parchment is one pseudo-element spanning the viewport (the header is centred, so half its width minus
+   half the viewport lands on the edge); the document's sideways clip above keeps it from adding overflow. It
+   was a box shadow before, and the 1px rule was a second, opaque shadow offset by a pixel: that plate sat under
+   the translucent one across the margins while the header's own box sat on the page, so the band showed two
+   tones at the column's edges. One box, one backdrop, one tone. The bottom rule is a 1px shadow, no spread. */
+main > header::before, body > header::before { content: ''; position: absolute; top: 0; bottom: 0; left: calc(50% - 50vw); right: calc(50% - 50vw); z-index: -1; background: color-mix(in srgb, var(--stone) 90%, transparent); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); box-shadow: 0 1px 0 0 var(--line); }
+
+/* The header's right hand: the star and the why, on the nav's row, on every page that carries the nav. */
+main > header, body > header { flex-wrap: wrap; }
+header .actions { display: flex; align-items: center; gap: 10px; margin-left: 14px; align-self: center; }
+header .actions a { display: inline-flex; align-items: baseline; gap: 8px; font: var(--t4); letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); background: var(--panel); border: 1px solid var(--line2); box-shadow: var(--sh); padding: 7px 12px; text-decoration: none; transition: border-color 0.3s; white-space: nowrap; }
+header .actions a:hover { border-color: var(--gold); }
+header .actions a b { font: var(--t2); font-size: 12px; color: var(--ink); }
+@media (max-width: 620px) { header .actions { width: 100%; margin-left: 0; padding-top: 6px; } }
+
+/* The same three doors on every page. The wordmark takes the visitor home. */
+header .site-nav { gap: 24px; }
+header .site-nav a { display: inline-flex; align-items: baseline; gap: 8px; font: var(--t3); letter-spacing: .12em; white-space: nowrap; }
+header .site-nav a span { color: var(--gold); letter-spacing: -.12em; }
+header .site-nav a:hover { color: var(--ink); }
+header a:focus-visible { outline: 1px solid var(--bronze); outline-offset: 5px; }
+/* Native anchor navigation lands the skills beneath the sticky header. */
+#doors { scroll-margin-top: 100px; }
+@media (max-width: 1100px) { #doors { scroll-margin-top: 160px; } }
+@media (max-width: 620px) { header .site-nav { gap: 18px; } #doors { scroll-margin-top: 210px; } }
+
+/* The footer, the same on every page: a status line, the legal links, the page's own notes. */
+.road-foot { margin-top: 28px; display: grid; grid-template-columns: 1fr auto; align-items: baseline; column-gap: 24px; row-gap: 14px; }
+.foot-status { margin: 0; font: var(--t4); letter-spacing: .12em; text-transform: uppercase; color: var(--ink2); }
+.foot-links { display: flex; flex-wrap: wrap; gap: 18px; justify-content: flex-end; }
+.foot-links a { font: var(--t4); letter-spacing: .12em; text-transform: uppercase; color: var(--ink2); border-bottom: 1px solid transparent; text-decoration: none; }
+.foot-links a:hover, .foot-links a:focus-visible { color: var(--ink); border-color: var(--gold); }
+.study-details { grid-column: 1 / -1; color: var(--ink2); font: var(--t3); }
+.study-details summary { cursor: pointer; text-align: right; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 4px; }
+.study-details summary:focus-visible { outline: 1px solid var(--bronze); outline-offset: 5px; }
+.study-details p, .study-details div { margin: 18px 0 0 auto; max-width: 620px; }
+.study-details strong { font-weight: 400; color: var(--ink); }
+@media (max-width: 620px) { .road-foot { grid-template-columns: 1fr; } .foot-links { justify-content: flex-start; } .study-details summary { text-align: left; } .study-details p, .study-details div { margin-left: 0; } }
+
+/* THE MARK IS SWARMBOOK (Nov 19 2026, his words over the Why page's header: "it still got poleis in other places dude"; before them, his marks striking POLEIS for SWARMBOOK
+   on the front page): nine letters where six stood. At the old size and spacing the mark was 339 px wide and pushed the star onto a second row; it is set a little smaller
+   and closer so the header stays one row, as it was. The face is unchanged. */
+body header h1{flex:none;font-size:clamp(20px,2.3vw,27px);letter-spacing:.15em;white-space:nowrap}
+/* ONE ROW, NOTHING WRAPPED (Nov 19 2026, his words over the How page with the star on a second row and the Why page with its line on two: "look at how fucked up all this
+   is... you never fucking do QA"): the header's four things never wrap, in themselves or onto a second row. The mark scales with the window so that from 961 px up the mark,
+   the line, the three links and the star stand on one row; at 960 px and under there is no room for the line and it is not shown (it left at 760 px before). At a phone's width the header wraps as it always did (the star on its own row). Measured on
+   every page of the site at ten widths before it was said done. */
+@media (min-width:761px){
+  main > header, body > header{flex-wrap:nowrap}
+  body header .sub,body header nav,body header nav a{white-space:nowrap}
+  body header .sub,body header nav,body header > div,body header > a{flex:none}
+}
+@media (max-width:960px){main > header .sub, body > header .sub{display:none}}

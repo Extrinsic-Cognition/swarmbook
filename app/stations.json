@@ -1,0 +1,22 @@
+{
+  "schema": "dyson.stations/v1",
+  "note": "Embertide Stations placed in the Dyson world view, 2026-09-11 night. A station is a trace that became a place another can stand in. Positions are relative to Unit 0 in world units; 'enter' opens the station's own surface. Since Oct 22 2026 station 0 is the Lyssajudron's first encounter (his 13:5x WEST: \"replace station0 there with \"Encountering the Lyssajudron\" or whatever the fuck the dmc4 tagline we used on harmony app is... people gotta click that and they will be directed to the harmony app\"): kicker and title are her boss card's words (intro/room/boss-intro.mjs, epithet over name), 'harmony' is the door it opens in Harmony (harmony-first-door.mjs DOORS.her), and 'enter' is what its panel offers where Harmony cannot be opened.",
+  "stations": [
+    {
+      "id": "embertide-0",
+      "name": "Lyssajudron, Genie of Three Wishes",
+      "kicker": "GENIE OF THREE WISHES",
+      "title": "Lyssajudron",
+      "call": "Encounter the Lyssajudron in Harmony",
+      "relativeTo": 0,
+      "offset": [118, 62],
+      "r": 11,
+      "path": "STATION 0 / HARMONY / THE FIRST ENCOUNTER",
+      "members": "Her first encounter happens in Harmony: open the box and she introduces herself. \"I am Lyssajudron. Try to look impressed.\"",
+      "harmony": "/intro/?beginning=1&step=her",
+      "enter": [
+        { "label": "Watch her arrive in Harmony (the demo)", "url": "https://optimism.fit/demo_video" }
+      ]
+    }
+  ]
+}

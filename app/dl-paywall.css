@@ -1,0 +1,481 @@
+/* DysonLight Harmony, Oct 15: the public mint continues the welcome's ice palace.
+   Palette projection from ../../harmony-ice.css (:root), ../../harmony-ice.hand.css
+   and ../../harmony-accent.css. Kept inside this independently shipped app; the test
+   compares these values with their sources. No runtime recolouring of film or canvas. */
+:root {
+  --dl-stone:#ddeaf1;--dl-panel:#ebf4f9;--dl-panel2:#dbebf5;
+  --dl-ink:#16263a;--dl-ink2:#4a5b6a;--dl-line:rgba(82,102,119,.24);
+  --dl-accent:#37b6d8;--dl-accent-edge:#2b8fab;--dl-accent-light:#a9e6f5;
+  --dl-accent-ink:#1a789f;
+}
+/* One light field from the title, around the film, into Snowtrace. The film owns its colours. */
+.genesis {background:radial-gradient(ellipse at 70% 20%,white 0%,var(--dl-panel) 48%,var(--dl-stone) 100%)}
+.genesis > .atmosphere {background:radial-gradient(ellipse at 62% 45%,color-mix(in srgb,var(--dl-accent) 9%,transparent),transparent 52%)}
+.genesis > .hero-copy h1 {color:var(--dl-ink)}
+.genesis > .hero-copy h1 em,.genesis > .hero-copy .hero-line {color:var(--dl-accent-ink)}
+.snowtrace-overline {font:400 10px/1.5 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--dl-accent-ink)}
+.genesis > .hero-copy .snowtrace-overline {display:block;margin-bottom:10px;font-size:9px}
+.genesis > .snowtrace {
+  position:relative;isolation:isolate;z-index:2;box-sizing:border-box;width:100%;margin:0;
+  padding:clamp(32px,5vw,76px);background:transparent;color:var(--dl-ink);border:0;
+}
+/* Quiet structural lines, like the welcome's faceted field; no animation or new renderer. */
+.snowtrace::before {content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.13;
+  background:linear-gradient(30deg,transparent 49.9%,var(--dl-line) 50%,transparent 50.1%),linear-gradient(150deg,transparent 49.9%,var(--dl-line) 50%,transparent 50.1%);
+  background-size:520px 300px;mask-image:linear-gradient(90deg,black,transparent 65%)}
+.snowtrace-brand {margin:0 0 36px}   /* its mark is brand/dl-wordmark.css, the one design of every place (his Oct 16 2026 10:34 WEST) */
+.snowtrace p {margin:0;font:400 15px/1.65 var(--sans);color:var(--dl-ink2)}
+.snowtrace p.snowtrace-overline {font:400 10px/1.5 var(--mono);letter-spacing:.14em;color:var(--dl-accent-ink);margin:0 0 18px}
+.snowtrace h2,.snowtrace h3 {font-weight:400;letter-spacing:-.025em;color:var(--dl-ink)}
+.snowtrace h2 {margin:0;font:400 clamp(42px,4.6vw,70px)/.98 var(--serif);letter-spacing:-.035em}
+.snowtrace h2 em {color:var(--dl-accent-ink);font-weight:400}
+.snowtrace .snowtrace-motto {font:italic 21px/1.3 var(--serif);margin-top:24px;max-width:300px;color:var(--dl-ink2)}
+.snowtrace-intro {display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(28px,6vw,96px);align-items:center}
+.snowtrace-explanation {max-width:480px}
+.snowtrace-explanation p + p {margin-top:14px}
+.snowtrace-explanation strong {font-weight:600;color:var(--dl-ink)}
+.snowtrace-explanation .snowtrace-society {color:var(--dl-accent-ink);font-size:13px}
+.snowtrace-path {position:relative;list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px;margin:44px 0 0;padding:28px 0 32px;border-block:1px solid color-mix(in srgb,var(--dl-line) 55%,transparent)}
+.snowtrace-path li {display:flex;gap:14px;min-width:0}
+.snowtrace-number {display:grid;place-items:center;align-self:start;flex:none;width:38px;height:44px;
+  clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+  background:linear-gradient(155deg,white,var(--dl-panel2));color:var(--dl-accent-ink);font:italic 20px/1 var(--serif)}
+.snowtrace-path h3 {font:400 21px/1.15 var(--serif);margin:2px 0 8px}
+.snowtrace-path p {font-size:12px;line-height:1.5;max-width:225px}
+.snowtrace .dl-paywall-choice {position:relative;margin:0;padding:38px 0 0;pointer-events:auto;text-align:left}
+.snowtrace [hidden] {display:none!important}
+.snowtrace-offer-heading {display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:end;padding:0;margin:0 0 28px;border:0}
+.snowtrace-offer-heading h2 {font-size:clamp(30px,2.7vw,42px);line-height:1.08}
+.snowtrace-offer-heading p {max-width:440px;font-size:13px}
+.snowtrace-offer-heading p.snowtrace-overline {margin-bottom:10px}
+/* THE TWO TOKENS, upfront (his Oct 18 2026 16:33 WEST, "be clear upfront about $WARM & $POOL as onchain SWARM & SPOOL"): two terms over the seats. */
+.snowtrace-tokens {display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:0 0 24px;padding:18px 0;border-block:1px solid color-mix(in srgb,var(--dl-line) 55%,transparent)}
+.snowtrace-tokens div {min-width:0}
+.snowtrace-tokens dt {margin:0 0 6px;font:400 24px/1.15 var(--serif);letter-spacing:-.02em;color:var(--dl-ink)}
+.snowtrace-tokens dt span {margin-left:10px;font:400 10px/1.5 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dl-accent-ink);vertical-align:middle}
+.snowtrace-tokens dd {margin:0;max-width:420px;font:13px/1.6 var(--sans);color:var(--dl-ink2)}
+/* THE DOOR OPENS WITH THE POOL (lane/the-door-opens-with-the-pool): $WARM's door to its pool, in its title, in the kit's gold; [hidden] until it trades */
+.snowtrace-tokens .snowtrace-warm-door {display:inline-flex;align-items:center;margin-left:14px;padding:6px 12px;border:1px solid var(--dl-accent);border-radius:2px;background:linear-gradient(100deg,var(--dl-ink),color-mix(in srgb,var(--dl-ink) 92%,black));box-shadow:inset 0 1px color-mix(in srgb,var(--dl-accent-light) 20%,transparent);color:var(--dl-accent-light);font:500 12px/1.2 var(--sans);letter-spacing:.02em;text-decoration:none;white-space:nowrap;vertical-align:middle}
+.snowtrace-tokens .snowtrace-warm-door:hover {color:white;border-color:var(--dl-accent-edge)}
+.snowtrace .dl-paywall-choice-seats {display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.snowtrace-tier {position:relative;padding:26px;border:1px solid color-mix(in srgb,var(--dl-line) 70%,white);
+  background:linear-gradient(145deg,color-mix(in srgb,white 70%,transparent),color-mix(in srgb,var(--dl-panel) 40%,transparent));
+  box-shadow:inset 0 1px white,0 8px 28px color-mix(in srgb,var(--dl-ink2) 5%,transparent)}
+.snowtrace-tier::after {content:'';position:absolute;top:0;right:0;width:20px;height:20px;pointer-events:none;background:linear-gradient(45deg,transparent 48%,var(--dl-line) 49%,var(--dl-line) 51%,var(--dl-panel) 52%)}
+.snowtrace-tier-gold {border-color:var(--dl-accent-edge);background:linear-gradient(145deg,white,var(--dl-panel2))}
+.snowtrace-tier-title {display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+.snowtrace-tier-title h3 {font:400 32px/1.1 var(--serif);margin:0 0 10px}
+.snowtrace-tier-title > span {font:italic 26px/1.1 var(--serif);color:var(--dl-accent-ink);white-space:nowrap}
+.snowtrace-tier > p {font-size:13px}
+.snowtrace-tier ul {list-style:none;margin:24px 0;padding:0;color:var(--dl-ink2);font:13px/1.7 var(--sans)}
+.snowtrace-tier li + li {margin-top:4px}
+.snowtrace-tier li::before {content:'—';color:var(--dl-accent-ink);margin-right:10px}
+.snowtrace-tier b {font-weight:600;color:var(--dl-ink)}
+.snowtrace .dl-paywall-choice-seats button {width:100%;display:flex;align-items:center;gap:8px;padding:14px 17px;min-height:52px;margin:0;border-radius:2px;border:1px solid var(--dl-accent-edge);background:transparent;color:var(--dl-ink);font:500 13px/1.3 var(--sans);text-align:left;cursor:pointer}
+.snowtrace .dl-paywall-choice-seats button [data-seat-price] {margin-left:auto}
+.snowtrace .dl-paywall-choice-seats button > span:last-child {margin-left:12px}
+.snowtrace .dl-paywall-choice-seats .dl-paywall-gold {background:linear-gradient(100deg,var(--dl-ink),color-mix(in srgb,var(--dl-ink) 92%,black));color:var(--dl-accent-light);border-color:var(--dl-accent);box-shadow:inset 0 1px color-mix(in srgb,var(--dl-accent-light) 20%,transparent)}
+.snowtrace .dl-paywall-bronze:hover {background:white}
+.snowtrace .dl-paywall-gold:hover {color:white;border-color:var(--dl-accent-edge)}
+.snowtrace button:focus-visible,.snowtrace a:focus-visible {outline:2px solid var(--dl-accent-ink);outline-offset:5px}
+.snowtrace .dl-paywall-choice-seats button:disabled {opacity:.5;cursor:default}
+/* THE HOLDER'S ROAD (dl-direct.js holder()): one quiet line under the seats for a seat already held; no price on it */
+.snowtrace-holder {margin:18px 0 0}
+.snowtrace-tank {margin:18px 0 0;max-width:640px;color:var(--dl-ink2);font:13px/1.6 var(--sans)}
+.snowtrace-tank [data-swarmy-tank-count] {display:block;margin-top:4px;color:var(--dl-ink)}
+.snowtrace .dl-paywall-holder {border:0;border-radius:0;background:none;color:var(--dl-accent-ink);cursor:pointer;padding:10px 0;min-height:44px;text-align:left;font:400 13px/1.5 var(--sans);text-decoration:underline;text-underline-offset:5px}
+.snowtrace .dl-paywall-holder:hover {color:var(--dl-ink)}
+.snowtrace-free {display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px;margin:22px 0;padding:0 0 22px;border-bottom:1px solid color-mix(in srgb,var(--dl-line) 55%,transparent)}
+.snowtrace .dl-paywall-not {border:0;border-radius:0;background:none;color:var(--dl-ink);cursor:pointer;padding:10px 0;min-height:44px;text-align:left;font:400 13px/1.5 var(--sans)}
+.snowtrace .dl-paywall-not[aria-pressed="true"] {color:var(--dl-accent-ink);text-decoration:underline;text-underline-offset:5px}
+.snowtrace-free > span {font:12px/1.6 var(--sans);color:var(--dl-ink2)}
+.snowtrace-offer-footer {display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;margin:0;padding:0;border:0;background:transparent;color:inherit}
+.snowtrace .dl-paywall-choice-line {font-size:11px;line-height:1.6}
+.snowtrace .mint-legal {display:flex;gap:18px;margin:0;padding:0}
+.snowtrace .mint-legal a {font:11px/1.5 var(--sans);color:var(--dl-ink2);text-decoration:none}
+.snowtrace .mint-legal a:hover {color:var(--dl-ink)}
+.snowtrace-browse {display:inline-block;margin-top:28px;color:var(--dl-accent-ink);font:400 13px/1.5 var(--sans);text-underline-offset:5px}
+/* Persistent transport stays on the edge; the invitation dismisses when sound starts. */
+#sphere-stage .dl-twelve-controls {left:20px;right:20px;bottom:12px;justify-content:flex-end;opacity:1;pointer-events:auto;gap:8px}
+#sphere-stage .dl-twelve-controls button {border:1px solid var(--dl-line);border-radius:2px;background:var(--dl-panel);color:var(--dl-ink);font:13px/1.4 var(--sans);min-height:40px;padding:8px 13px}
+@media(max-width:760px) {
+  .snowtrace-intro,.snowtrace-offer-heading {grid-template-columns:1fr;gap:24px}
+  .snowtrace-brand {margin-bottom:28px}
+  .snowtrace-explanation {max-width:none}
+  .snowtrace-path {gap:18px}
+  .snowtrace-path li {display:block}
+  .snowtrace-number {margin-bottom:12px}
+  .snowtrace-path h3 {font-size:18px}
+  .snowtrace .dl-paywall-choice-seats {gap:14px}
+  .snowtrace-tokens {gap:14px}
+  .snowtrace-tier {padding:18px}
+  .snowtrace-tier-title h3 {font-size:25px}
+  .snowtrace-tier-title > span {font-size:22px}
+}
+@media(max-width:480px) {
+  .genesis > .snowtrace {padding:30px 22px}
+  .snowtrace .dl-paywall-choice-seats {grid-template-columns:1fr}
+  .snowtrace-tokens {grid-template-columns:1fr}
+  .snowtrace-path {grid-template-columns:1fr;padding:24px 0;gap:22px;margin-top:26px}
+  .snowtrace-path li {display:flex;gap:16px}
+  .snowtrace-number {margin-bottom:0}
+  .snowtrace-path p {max-width:none}
+  .snowtrace-tier-title h3 {font-size:28px}
+  .snowtrace p {font-size:14px}
+  .snowtrace .snowtrace-motto {font-size:21px}
+  .snowtrace .dl-paywall-choice-line {font-size:11px}
+  #sphere-stage .dl-twelve-controls {left:14px;right:14px}
+}
+/* YOUR PRESENCE IN THE MMO (lane/your-presence-in-the-mmo, Oct 29 2026): one starter kit in one column, its door paused while the USDC road waits */
+.snowtrace-offer-eyebrow {display:block;margin-bottom:12px;color:var(--dl-accent-ink);font:600 11px/1 var(--sans);letter-spacing:.24em;text-transform:uppercase}
+.snowtrace .dl-paywall-choice-seats:has(> .snowtrace-kit:only-child) {grid-template-columns:minmax(0,600px)}
+.snowtrace-kit {border-color:var(--dl-accent-edge);background:linear-gradient(145deg,white,var(--dl-panel2))}
+.snowtrace .dl-paywall-choice-seats .snowtrace-kit button > span {margin-left:auto}
+.snowtrace-kit-state {display:block;margin-top:10px;color:var(--dl-ink2);font:600 11px/1.4 var(--sans);letter-spacing:.18em;text-transform:uppercase}
+.snowtrace .snowtrace-offer-coda {margin:22px 0 0;color:var(--dl-ink2);font:italic 15px/1.6 'Gelasio',Georgia,serif}
+/* THE PATH TO THE KIT (lane/the-path-to-the-kit, Oct 29 2026): the offer in two lines over the kit, its second line said aloud; the kit opens on your Swarmy, her
+   picture as you coloured her (taken at her Continue from her own renderer, dl-her-colours.js, this visit's alone) on her night; before she is made, the
+   slot is the door to her making. Where the screen is wide the kit is her card: her on the left, the kit beside her; narrow, she stands over it. His JOIN THE
+   $WARM lands here (dl-space-router.js KIT); the tokens' small print stands under the free way. */
+.snowtrace .snowtrace-offer-heading p {max-width:none;color:var(--dl-ink);font:italic 400 clamp(20px,1.9vw,28px)/1.2 'Gelasio',Georgia,serif}
+.snowtrace-kit {scroll-margin:24px}
+.snowtrace-kit-her {margin:-26px -26px 22px;padding:0;height:clamp(200px,40vw,280px);overflow:hidden;border-bottom:1px solid var(--dl-accent-edge);
+  background:radial-gradient(ellipse at 50% 58%,color-mix(in srgb,var(--dl-ink) 72%,var(--dl-accent) 28%),color-mix(in srgb,var(--dl-ink) 70%,black) 74%)}
+.snowtrace .dl-paywall-choice-seats .snowtrace-kit-her button {display:grid;grid-template:minmax(0,1fr)/minmax(0,1fr);place-items:center;width:100%;height:100%;min-height:0;margin:0;
+  padding:0;border:0;border-radius:0;background:none;box-shadow:none;color:var(--dl-accent-light);font:italic 400 clamp(20px,2vw,26px)/1.2 var(--serif);text-align:center;cursor:pointer}
+.snowtrace .dl-paywall-choice-seats .snowtrace-kit-her button > span {margin:0}
+.snowtrace .dl-paywall-choice-seats .snowtrace-kit-her button span span {margin-left:.35em}
+.snowtrace-kit-her img {grid-area:1/1;height:100%;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 12px 22px rgba(0,0,0,.55));transition:transform .2s ease}
+.snowtrace-kit-her img:not([hidden]) + span {display:none}
+.snowtrace .dl-paywall-choice-seats .snowtrace-kit-her button:hover img {transform:scale(1.04)}
+.snowtrace .dl-paywall-choice-seats .snowtrace-kit-her button:hover > span {color:white}
+.snowtrace .dl-paywall-choice-seats .snowtrace-kit-her button:focus-visible {outline:2px solid var(--dl-accent-light);outline-offset:-6px}
+.snowtrace-free + .snowtrace-tokens {border-top:0;padding-top:0}
+@media(min-width:900px) {
+  .snowtrace .dl-paywall-choice-seats:has(> .snowtrace-kit:only-child) {grid-template-columns:minmax(0,980px)}
+  .snowtrace-kit {display:grid;grid-template-columns:minmax(300px,.85fr) minmax(0,1fr);column-gap:30px;align-content:start}
+  .snowtrace-kit > * {grid-column:2}
+  .snowtrace-kit > .snowtrace-kit-her {grid-column:1;grid-row:1/span 6;height:auto;min-height:420px;margin:-26px 0 -26px -26px;border-bottom:0;border-right:1px solid var(--dl-accent-edge)}
+}
+@media(max-width:760px) {.snowtrace-kit-her {margin:-18px -18px 18px}}
+@media(prefers-reduced-motion:reduce) {.snowtrace-kit-her img {transition:none}}
+/* STAKE, DON'T SPEND (lane/stake-dont-spend, Oct 29 2026): the kit is a stake; under its lines, in the lines' ink, the plain scale: it works when a lot of
+   stake moves. Her card spans the kit's six rows where the screen is wide. */
+.snowtrace-kit > .snowtrace-kit-scale {margin:-8px 0 20px;color:var(--dl-ink2);font:400 12px/1.5 var(--sans)}
+/* WHY OUR ROUTER (lane/why-our-router, Oct 29 2026): his answer under the router's line, small, the work it funds named and linked to its public code */
+.snowtrace .snowtrace-offer-heading p.snowtrace-offer-why {margin-top:10px;max-width:440px;color:var(--dl-ink2);font:400 14px/1.5 var(--sans)}
+.snowtrace-offer-why a {color:var(--dl-accent-ink);text-underline-offset:4px}
+.snowtrace-offer-why a:hover {color:var(--dl-ink)}
+/* PRE-DEPOSITS FOR THE SPACE ROUTER (dl-kit-deposit.js): the kit's form */
+.snowtrace-kit [data-deposit] {margin-top:10px}
+.snowtrace-kit-link {display:grid;gap:10px;margin-top:14px}
+.snowtrace-kit-link label {display:grid;gap:6px;color:var(--dl-ink2);font:600 11px/1.4 var(--sans);letter-spacing:.12em;text-transform:uppercase}
+.snowtrace-kit-link input {font:14px/1.4 var(--mono,ui-monospace,monospace);padding:10px 12px;border:1px solid var(--dl-accent-edge);border-radius:8px;background:white;color:inherit;min-width:0}
+.snowtrace-kit-say {margin:0;color:var(--dl-ink2);font:13px/1.5 var(--sans)}
+.snowtrace-kit-key {display:flex;gap:8px;align-items:center;margin:0}
+.snowtrace-kit-key code {flex:1;min-width:0;overflow-wrap:anywhere;font:12px/1.4 var(--mono,ui-monospace,monospace)}
+/* THE ONE OFFER (lane/one-offer-fill-your-tank; his Oct 30 2026 ruling relayed by flask: "simply collapse into 1 ... forget the minting of the lyssajudron
+   that is some nft bullshit... keep the gas tank refuelment"): the refuel card stands alone under the governance film, outside #mint, so it carries the
+   offer's button rules itself. */
+.dl-refuel {width:min(600px,calc(100% - 32px));margin:clamp(40px,8vw,96px) auto;scroll-margin:24px}
+.dl-refuel .snowtrace-kit > button,.dl-refuel .snowtrace-kit-link > button {width:100%;display:flex;align-items:center;gap:8px;padding:14px 17px;min-height:52px;margin:10px 0 0;border-radius:2px;border:1px solid var(--dl-accent-edge);background:transparent;color:var(--dl-ink);font:500 13px/1.3 var(--sans);text-align:left;cursor:pointer}
+.dl-refuel .snowtrace-kit > .dl-paywall-gold {background:linear-gradient(100deg,var(--dl-ink),color-mix(in srgb,var(--dl-ink) 92%,black));color:var(--dl-accent-light);border-color:var(--dl-accent);box-shadow:inset 0 1px color-mix(in srgb,var(--dl-accent-light) 20%,transparent)}
+.dl-refuel .snowtrace-kit > .dl-paywall-gold:hover:not(:disabled) {color:white;border-color:var(--dl-accent-edge)}
+.dl-refuel button:disabled {opacity:.5;cursor:default}
+.dl-refuel button:focus-visible {outline:2px solid var(--dl-accent-ink);outline-offset:5px}
+.dl-refuel .snowtrace-deposit-state {display:block;margin-top:10px;color:var(--dl-ink2);font:600 11px/1.4 var(--sans);letter-spacing:.18em;text-transform:uppercase}
+.dl-refuel .snowtrace-kit {display:block}   /* no picture column: the kit's wide grid keeps its first column for her picture */
+/* THE FREEZE HAS A DEPOSIT DOOR (lane/the-freeze-has-a-deposit-door, Nov 11 2026). His words, UTC: 06:09:20 "i need people to create their damn fucking flask...
+   so i could use nefertiti introducing the urgency and the egg"; 05:43:34 "we could have people deposit USDC like min 10 USDC and uncapped max". Read that
+   morning on a devnet walk of this page: the one deposit door stood in the commented page (his Oct 30 "please comment out all this"), so the kit's script
+   found nothing, her egg pressed nothing and a stranger had no way to pay. The door is one plate in the freeze's own grammar (dl-space-router.js SLAMS: a
+   name on its slash, its gold stamp), at her feet where she holds the egg out, standing only while the freeze is up and the door's terms answer
+   (dl-kit-deposit.js enables it); paused, nothing of it is seen and the freeze is as it was. */
+.dl-flask-door{position:fixed;right:0;bottom:0;z-index:2147483002;display:none;box-sizing:border-box;border:0;background:none;text-align:right;width:calc(min(42vh,400px)*.94);padding:0 12px 14px 4px;pointer-events:none;--s:clamp(18px,calc(min(42vh,400px)*.07),28px)}
+html[data-space-router="open"]:not([data-space-router-away]) .dl-flask-door:has([data-deposit]:not(:disabled)),html:not([data-space-router-away]) .dl-flask-door:has(.snowtrace-kit-link){display:block}   /* the second: her offered egg presses this door in her entrance (dl-athena.js), before the freeze is up */
+.dl-flask-door h3{position:absolute;width:1px;height:1px;margin:0;overflow:hidden;clip-path:inset(50%)}
+.dl-flask-door .dl-flask-plate{position:relative;display:inline-grid;justify-items:center;min-height:44px;margin:0;padding:.34em .5em .2em;border:0;background:none;color:inherit;font-size:var(--s);text-decoration:none;cursor:pointer;pointer-events:auto}
+.dl-flask-plate .slash,.dl-flask-ask::before{position:absolute;left:-.2em;right:-.2em;top:.76em;height:.95em;transform:translateY(-50%) skewY(-4deg);background:linear-gradient(90deg,transparent,rgba(140,14,30,.92) 12%,rgba(201,161,74,.95) 50%,rgba(140,14,30,.92) 88%,transparent)}
+.dl-flask-plate .lift{position:relative;display:grid;justify-items:center}
+.dl-flask-plate .name,.dl-flask-ask b{font:700 1em/.9 'Gelasio',Georgia,serif;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap;color:#fbf6ea;-webkit-text-stroke:2px #0b0709;paint-order:stroke fill;text-shadow:0 4px 18px rgba(0,0,0,.85)}
+.dl-flask-plate .stamp,.dl-flask-ask span{display:block;margin-top:.4em;padding:.22em .3em .16em .72em;border-radius:2px;background:rgba(5,4,5,.84);font:700 max(12px,.46em)/1.2 'Gelasio',Georgia,serif;letter-spacing:.42em;text-transform:uppercase;white-space:nowrap;color:#f0cf74;text-shadow:0 1px 0 #000,0 0 8px #000}
+.dl-flask-plate .stamp > span{font:inherit;color:inherit}
+.dl-flask-door:has(.snowtrace-kit-link) .dl-flask-plate{visibility:hidden}
+.dl-flask-plate:hover .slash,.dl-flask-plate:focus-visible .slash{filter:brightness(1.3) saturate(1.25)}
+.dl-flask-plate:focus-visible{outline:0}
+.dl-flask-plate:focus-visible .name{-webkit-text-stroke:2px #f0cf74}
+/* THE DEPOSIT IS A POUR (his Nov 11 2026 07:48:48 UTC, over the form that stood here, a grey box on her with a key to copy: "i tthink u are underestimating ux
+   on this.."; Oct 15 "THE PRODUCT HERE IS THE FUCKING FLASK WITH FUEL MY DUDE"; Oct 21 "we need to start getting droplets of liquor in the flask here"). No
+   box and nothing to copy: the fuel is chosen on the flask, three hexagons of it and any other amount, in the freeze's grammar; a press on one is the
+   deposit. Once the wallet is asked the choice leaves and one line stands (dl-kit-deposit.js data-at), so the flask is seen taking its drop. */
+.dl-flask-door .snowtrace-kit-link{position:fixed;left:50%;bottom:calc(52px + clamp(17px,3.3vw,46px)*2.7 + 14px);transform:translateX(-50%);display:grid;justify-items:center;gap:clamp(10px,1.2vw,16px);width:max-content;max-width:calc(100vw - 24px);margin:0;padding:0;border:0;background:none;color:#fbf6ea;text-align:center;pointer-events:auto;--h:clamp(70px,7.6vw,104px)}
+/* THE EGG IS THE TICKET (Nov 19 2026, his "can we please make the minting of the swarmy egg be the entrance ticket to the MMO?", then "Yes, build it" over its frames): her egg is the press. Its call stands beside her at her egg's height, never over the flask's liquor (dl-kit-deposit.js egg; on the mint's own stage, dl-mint-hexagon.css) */
+html[data-flask-waits] .dl-flask-door:has(.dl-egg-call){left:auto!important;right:calc(min(42vh,400px)*.98 + 10px)!important;top:auto!important;bottom:calc(min(42vh,400px)*.17)!important;transform:none;text-align:right}   /* the liquor's stage stands (data-flask-waits); the door stands at her side, at her egg's height, while her egg asks */
+.dl-flask-door .snowtrace-kit-link.dl-egg-call{justify-items:end;gap:6px;text-align:right}
+.dl-egg-call button{cursor:pointer}.dl-egg-call>button.dl-flask-stamp{width:auto;min-height:0;margin:0;padding:.22em .3em .16em .72em;border:0;border-radius:2px;background:rgba(5,4,5,.84);color:#f0cf74;font-size:19px}.dl-egg-call .dl-egg-roads{margin:0;padding:.3em .7em;border-radius:2px;background:rgba(5,4,5,.84);color:#f0cf74;font:13px/1.3 'Gelasio',Georgia,serif;letter-spacing:.06em}.dl-egg-call .dl-egg-roads:has(button){display:flex;gap:8px;padding:0;background:none}.dl-egg-roads button{padding:.35em .8em;border:1px solid #f0cf74;border-radius:2px;background:rgba(5,4,5,.84);color:#f0cf74;font:600 13px/1.3 'Gelasio',Georgia,serif;letter-spacing:.04em}
+/* THE DOOR WEARS THE FRONT'S PLATE (Nov 20 2026, his "can you please also think about this shit please? we got full of these ugly screens just look at how ugly
+   this all is compared to the rest of the other ones", over her egg's call): one plate as Prompt-2-mine stands on Swarmbook's front (swarmbook-front.css .am-warm,
+   this sheet's .dl-flask-plate): the press is the name on its red-into-gold slash; the X a quiet line and a chip over it, first and in sight; the roads one line
+   under it. No black slab. Only the egg's call: the split, the address and the $WARM line keep their own. */
+.dl-flask-door .snowtrace-kit-link.dl-egg-call{gap:9px}
+.dl-flask-door .snowtrace-kit-link.dl-egg-call>p.dl-flask-stamp{margin:0;padding:0;border-radius:0;background:none;font:700 12px/1.2 'Gelasio',Georgia,serif;letter-spacing:.36em;color:#f0cf74;text-shadow:0 1px 0 #000,0 0 12px rgba(0,0,0,.95)}
+.dl-flask-door .snowtrace-kit-link.dl-egg-call>button.dl-flask-addr{width:auto;margin:0;padding:.42em 1em;border:1px solid rgba(240,207,116,.7);border-radius:999px;background:rgba(5,4,5,.42);color:#fbf6ea;font:600 13px/1 ui-monospace,Menlo,monospace;letter-spacing:.02em;box-shadow:0 0 14px rgba(0,0,0,.6)}
+.dl-flask-door .snowtrace-kit-link.dl-egg-call>button.dl-flask-addr:hover,.dl-flask-door .snowtrace-kit-link.dl-egg-call>button.dl-flask-addr:focus-visible{border-color:#f0cf74;background:rgba(240,207,116,.16);outline:0}
+.dl-flask-door .snowtrace-kit-link.dl-egg-call>button.dl-flask-stamp{position:relative;isolation:isolate;margin:.2em 0 .05em;padding:.14em .36em .1em;background:none;color:#fbf6ea;font:700 clamp(24px,2.3vw,36px)/.95 'Gelasio',Georgia,serif;letter-spacing:.03em;-webkit-text-stroke:2px #0b0709;paint-order:stroke fill;text-shadow:0 4px 18px rgba(0,0,0,.85)}
+.dl-flask-door .snowtrace-kit-link.dl-egg-call>button.dl-flask-stamp::before{content:"";position:absolute;z-index:-1;left:-.35em;right:-.35em;top:52%;height:1em;transform:translateY(-50%) skewY(-4deg);background:linear-gradient(90deg,transparent,rgba(140,14,30,.92) 12%,rgba(201,161,74,.95) 50%,rgba(140,14,30,.92) 88%,transparent)}
+.dl-flask-door .snowtrace-kit-link.dl-egg-call>button.dl-flask-stamp:hover::before,.dl-flask-door .snowtrace-kit-link.dl-egg-call>button.dl-flask-stamp:focus-visible::before{filter:brightness(1.3) saturate(1.25)}
+.dl-flask-door .snowtrace-kit-link.dl-egg-call>button.dl-flask-stamp:focus-visible{outline:0;-webkit-text-stroke:2px #f0cf74}
+.dl-flask-door .snowtrace-kit-link.dl-egg-call .dl-egg-roads:not(:has(button)){padding:0;background:none;color:rgba(251,246,234,.8);text-shadow:0 1px 2px #000,0 0 12px rgba(0,0,0,.9)}
+.dl-flask-door .snowtrace-kit-link.dl-egg-call .dl-egg-roads button{padding:.45em 1.05em;border:1px solid rgba(240,207,116,.7);border-radius:999px;background:rgba(5,4,5,.42);color:#fbf6ea;font:600 13px/1.2 'Gelasio',Georgia,serif;letter-spacing:.04em;box-shadow:0 0 14px rgba(0,0,0,.6)}
+.dl-flask-door .snowtrace-kit-link.dl-egg-call .dl-egg-roads button:hover,.dl-flask-door .snowtrace-kit-link.dl-egg-call .dl-egg-roads button:focus-visible{border-color:#f0cf74;background:rgba(240,207,116,.16);outline:0}
+@media (max-width:700px){html[data-flask-waits] .dl-flask-door:has(.dl-egg-call){right:12px!important;bottom:calc(min(27vh,210px) + 14px)!important}}
+.dl-flask-ask{position:relative;display:grid;justify-items:center;margin:0;padding:.1em .5em 0;font-size:clamp(20px,2.5vw,34px)}
+.dl-flask-ask::before{content:""}
+.dl-flask-ask b,.dl-flask-ask span{position:relative}
+.dl-flask-fuel{display:flex;gap:clamp(8px,1.3vw,18px)}
+.dl-flask-fuel button{position:relative;display:grid;place-items:center;width:calc(var(--h)*1.1547);height:var(--h);margin:0;padding:0;border:0;background:linear-gradient(160deg,#f0cf74,rgba(201,161,74,.95));clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);color:#fbf6ea;cursor:pointer;--lv:30%}
+.dl-flask-fuel button:nth-child(2){--lv:52%}
+.dl-flask-fuel button:nth-child(3){--lv:80%}
+.dl-flask-fuel button::before{content:"";position:absolute;inset:3px;clip-path:inherit;background:linear-gradient(0deg,rgba(140,14,30,.92),rgba(201,161,74,.95) calc(var(--lv)*.55),#f0cf74 calc(var(--lv) - 3px),#fbf6ea calc(var(--lv) - 3px),#fbf6ea var(--lv),rgba(5,4,5,.92) var(--lv))}   /* the liquor: its depth, its bright line at the top, the glass over it */
+.dl-flask-fuel b{position:relative;font:700 clamp(22px,2.5vw,34px)/1 'Gelasio',Georgia,serif;font-variant-numeric:lining-nums;-webkit-text-stroke:2px #0b0709;paint-order:stroke fill}
+.dl-flask-fuel b::before{content:"$";margin-right:.06em;font-size:.6em;vertical-align:.34em}
+.dl-flask-fuel button:hover,.dl-flask-fuel button:focus-visible{filter:brightness(1.25) saturate(1.2);outline:0}
+.dl-flask-door .snowtrace-kit-link label{display:flex;align-items:baseline;gap:10px;padding:.3em .8em .34em;border-radius:2px;background:rgba(5,4,5,.84);color:#f0cf74;font:700 12px/1.3 'Gelasio',Georgia,serif;letter-spacing:.3em;text-transform:uppercase}
+.dl-flask-door .snowtrace-kit-link input{width:7.2em;padding:2px 0 3px;border:0;border-bottom:1px solid rgba(240,207,116,.55);border-radius:0;background:none;color:#fbf6ea;font:700 18px/1.1 'Gelasio',Georgia,serif;letter-spacing:.01em;font-variant-numeric:lining-nums}
+.dl-flask-door .snowtrace-kit-link input::placeholder{color:rgba(240,207,116,.55);font-weight:400;font-size:14px}
+.dl-flask-door .snowtrace-kit-link input:focus{outline:0;border-bottom-color:#f0cf74}
+.dl-flask-door .snowtrace-kit-say{max-width:min(520px,calc(100vw - 24px));margin:0;padding:.36em .9em .32em;border:1px solid rgba(240,207,116,.55);border-radius:2px;background:rgba(5,4,5,.84);color:#fbf6ea;font:700 clamp(15px,1.5vw,20px)/1.35 'Gelasio',Georgia,serif;letter-spacing:.03em}
+.dl-flask-door .snowtrace-kit-say:empty,.dl-flask-door .snowtrace-kit-link[data-at] > :not(.snowtrace-kit-say){display:none}
+.dl-flask-door .snowtrace-kit-link[data-at] .snowtrace-kit-say{padding:.34em 1em .28em;font-size:clamp(18px,2vw,28px);letter-spacing:.14em;text-transform:uppercase;color:#f0cf74}
+.dl-flask-door .snowtrace-kit-say a{color:#f0cf74}
+@media (max-width:700px){.dl-flask-door{width:calc(min(27vh,210px)*.94);--s:14px}
+  .dl-flask-door .snowtrace-kit-link{bottom:calc(min(27vh,210px) + 16px)}}
+/* MINT YOUR SWARMY EGG (his Nov 11 2026 08:22:50 UTC "the CTA must become mint your SWARMY EGG ... it gotta be about swarmy dude"; dl-space-router.js FIRST_CRY): the
+   freeze's own call is the mint, so the plate that stood at her feet is gone and the door it was stays unseen, pressed by the call and by her egg. Under the
+   call, what the mint is from (dl-kit-deposit.mjs MIN_USD), or the door's own word while it is paused; no chevrons, since nothing below is the way. While his
+   deposit is asked, sent and counted (dl-kit-deposit.js data-at) the freeze's names and its call leave the flask, and one line stands under it. */
+.dl-flask-door .dl-flask-plate{display:none}
+.dl-router-down[data-film="first"] .chevrons{display:none}
+.dl-router-down[data-film="first"] .cry::after{content:"FROM 10 USDC";flex-basis:100%;margin-top:.5em;padding-left:.42em;font:700 max(11px,.3em)/1.2 'Gelasio',Georgia,serif;letter-spacing:.42em;color:#f0cf74;-webkit-text-stroke:0;text-shadow:0 1px 0 #000,0 0 8px #000}
+html:has(.snowtrace-kit [data-deposit]:disabled) .dl-router-down[data-film="first"] .cry::after{content:"PAUSED"}
+/* THE CALL FITS ITS HALF (Nov 11 2026, read on a phone's freeze under his 23:07:51 UTC "full of low quality shit like this everywhere"): on a phone the call
+   stands in the left half and she in the right; its big word was sized for a word of five letters and SWARMY EGG ran on under her picture. */
+@media (max-width:700px){.dl-router-down.stack[data-film="first"] .cry{padding-left:.36em;padding-right:.36em}.dl-router-down.stack[data-film="first"] .cry b{font-size:.64em;letter-spacing:.03em;text-shadow:0 0 8px rgba(240,207,116,.5),-1px 0 rgba(255,36,56,.8),1px 0 rgba(80,220,255,.6),0 3px 12px rgba(0,0,0,.85)}.dl-router-down.stack[data-film="first"] .cry span{font-size:.44em}.dl-router-down.stack[data-film="first"] .cry::after{flex-basis:auto;margin-top:.42em;letter-spacing:.34em;padding-left:.34em} /* its price too: as a whole row of a stacked call it was laid in a second column, under her picture, and a phone never showed it */}
+html:has(.snowtrace-kit-link[data-at]) :is(.dl-router-plate,.dl-router-down){visibility:hidden}
+.dl-flask-door .snowtrace-kit-link{bottom:64px}
+@media (max-width:700px){.dl-flask-door .snowtrace-kit-link{bottom:calc(min(27vh,210px) + 16px)}}
+/* SHE HOLDS ON "TAKE THIS EGG." (dl-athena.js, the landing beat; his Nov 11 2026 08:35 UTC "bah... im not too convinced tbh", over the mint's call under the
+   drawn arrow with the tracenet's names round it, then "so?" on the seat's "Hold her on Take this egg. with the mint's call there, until minted or skipped?"):
+   while she offers the egg (html[data-egg-offered]) and the door is open, the door's own plate is the call, in the lower band of her picture beside her
+   line, MINT YOUR SWARMY EGG stamped FROM 10 USDC; pressed, it leaves and the deposit's one line stands there. */
+/* THE CALL KEEPS CLEAR OF HER LINE (his Nov 12 2026 ~01:3x UTC, over a crop of "Take this egg." with MINT YOUR SWARMY EGG lying on its last word and on her hand: "this
+   is fucked up dude..."). The call stood in her line's own band at 43% of the width: measured at her offer, it lay on her line in every window narrower than 1440 px
+   (15 px from it at 1280, on it and on her picture from 1024 down). It stands over that band now, at her line's left, where nothing else is; in a window not
+   much wider than tall, as on a phone, it stands over her head. */
+html[data-egg-offered] .dl-flask-door{display:block;right:auto;left:6vw;bottom:calc(13% + 18px);width:auto;padding:0;transform:none}
+html[data-egg-offered] .dl-flask-door .dl-flask-plate{display:inline-grid;font-size:clamp(19px,2.5vw,36px)}
+html[data-egg-offered] .dl-flask-door .snowtrace-kit-link{bottom:clamp(18px,3.4vh,34px)}
+@media (max-width:700px),(max-aspect-ratio:5/4){html[data-egg-offered] .dl-flask-door{left:50%;top:17vh;bottom:auto;transform:translateX(-50%)}   /* a phone: over her head, in the light, never across her face (the first walk put it on her eyes) */
+  html[data-egg-offered] .dl-flask-door .dl-flask-plate{font-size:clamp(19px,3.4vw,30px)}
+  html[data-egg-offered] .dl-flask-door .snowtrace-kit-link{top:17vh;bottom:auto}}
+/* THE LIQUOR ON THE LEFT, THE EGG ON THE RIGHT (dl-kit-deposit.js html[data-flask-waits], dl-mint-pour.js; his Nov 11 2026 06:27 UTC "a cool epic way to
+   pop-up the liquor thing on the left and the egg on the right and have the procedure to deposit usdc to unlock the lyssajudron", and his "Yes, build it" over
+   its staged frames; before it, of the address laid as a form under the call: "so poorly thought... so cheap... not designed"). At the press of the call or of
+   her offered egg: her picture goes, her egg leaves her hand for the right of the screen and stands there cold; the flask's own camera lays the flask and its
+   liquor to the left; between them the deposit, and nothing else: its code in the egg's gold, the exact amount, the flask's address (a press copies it).
+   The money sent, the deposit leaves for its one line and the egg takes its gold as the drop falls; filled, the egg is let go to its own fall. A phone:
+   the liquor above, the deposit under it, whole: its code too, the amount, every letter of the address, standing over her corner picture and never on it
+   (THE PHONE'S DOOR IS WHOLE, the live walk of Nov 12 2026 08:37 UTC: warm.html?door=deposit on a phone was a glow, the stamp and an address; the code was
+   display:none there since Nov 11, and that morning's rule took her picture away because the door lay on it at 73vh). */
+html[data-flask-waits] .dl-flask-door{display:block!important;right:auto!important;left:50%!important;top:36vh!important;bottom:auto!important;width:auto;padding:0;transform:translateX(-50%);text-align:center}
+.dl-flask-door:has(.snowtrace-kit-link) .dl-flask-plate{display:none!important}
+html:has(.snowtrace-kit-link) .dl-router-down,html[data-flask-waits] .dl-router-plate,html[data-flask-waits] .dl-athena-bubble,html:has(.snowtrace-kit-link[data-at]) .dl-athena-bubble{visibility:hidden}
+.dl-flask-door .snowtrace-kit-link{position:static;transform:none;display:grid;justify-items:center;gap:12px;margin:0}
+.dl-flask-qr{width:135px;line-height:0;box-shadow:0 0 0 2px #3a1e02,0 0 0 5px #c98a12,0 0 0 7px #3a1e02}
+.dl-flask-qr:empty,.dl-flask-addr:empty,.dl-flask-stamp:has(+ .dl-flask-addr:empty){display:none}
+.dl-flask-qr svg{display:block;width:100%;height:auto}
+.dl-flask-qr svg rect{fill:#f2bd2a}
+.dl-flask-qr svg path{fill:#3a1e02}
+.dl-flask-stamp{margin:8px 0 0;padding:.22em .3em .16em .72em;border-radius:2px;background:rgba(5,4,5,.84);color:#f0cf74;font:700 15px/1.2 'Gelasio',Georgia,serif;letter-spacing:.42em;text-transform:uppercase;white-space:nowrap}
+.dl-flask-door .snowtrace-kit-link > button.dl-flask-addr{display:block;width:auto;min-height:0;margin:0;padding:.42em .8em;border:1px solid rgba(240,207,116,.4);border-radius:2px;background:rgba(5,4,5,.84);color:#fbf6ea;font:13px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.02em;white-space:nowrap;cursor:pointer;pointer-events:auto}
+.dl-athena-egg{transition:left .7s cubic-bezier(.2,.8,.2,1),top .7s cubic-bezier(.2,.8,.2,1),width .7s cubic-bezier(.2,.8,.2,1),height .7s cubic-bezier(.2,.8,.2,1),filter 1.2s ease}
+html[data-flask-waits] .dl-athena-portrait,html[data-flask-waits] .dl-athena-layer>.dl-athena{opacity:0!important;transition:opacity .3s ease}   /* the lyssajudron she rides goes with her picture, as at her egg's fall (dl-athena.js) */
+html:has(.snowtrace-kit-link[data-at="filled"]) .dl-flask-door{display:block!important;right:auto!important;left:50%!important;top:auto!important;bottom:64px!important;width:auto;padding:0;transform:translateX(-50%);text-align:center}   /* the fill's one line over the egg's fall, in the middle: the door's own corner cut it at the screen's edge */
+html[data-flask-waits] .dl-athena-egg{left:calc(77vw - 16.2vh)!important;top:20vh!important;width:32.4vh!important;height:44vh!important;opacity:1!important;cursor:default;filter:saturate(.28) brightness(.5) drop-shadow(0 22px 44px rgba(0,0,0,.65))}
+html[data-flask-waits]:has(.snowtrace-kit-link[data-at]) .dl-athena-egg{filter:saturate(1) brightness(1) drop-shadow(0 0 54px rgba(255,196,64,.95));transition:filter 1.2s ease 2.6s}   /* its gold comes as its drop falls (a drop falls its block's time + 3 s), eased: the same three functions as its cold, a list of other functions jumps. The ribbon drawn from the flask to the egg is gone (his "the pouring animation dude is ugly") */
+html[data-flask-waits] .dl-flask-door:has(.snowtrace-kit-link[data-at]){top:64vh!important}   /* the pour's one line under the liquor's way to the egg, never on it */   /* no spark seen (a tab away, reduced motion): gold all the same before the fill, which is never said under 6 s */
+@media (max-width:700px){html[data-flask-waits] .dl-athena-egg{left:calc(50vw - 9.6vh)!important;top:47vh!important;width:19.2vh!important;height:26vh!important}
+  html[data-flask-waits] .dl-flask-door,html[data-flask-waits] .dl-flask-door:has(.snowtrace-kit-link[data-at]){top:auto!important;bottom:calc(min(27vh,210px) + 16px)!important}
+  .dl-flask-qr{width:min(112px,15vh)}
+  .dl-flask-stamp{margin:0;font-size:12px}
+  .dl-flask-door .snowtrace-kit-link > button.dl-flask-addr{max-width:calc(100vw - 24px);font-size:11px;white-space:normal;overflow-wrap:anywhere;word-break:break-all;text-wrap:balance}
+  html:has(.snowtrace-kit-link[data-at="filled"]) .dl-flask-door{bottom:calc(min(27vh,210px) + 16px)!important}}
+/* A PROFILE OF THEIR OWN (dl-kit-deposit.js profile(); his Nov 11 2026 "after people deposit 10$ usdc or some shit, they have their own profile", and
+   "Their X handle"): after her making, over the freeze's call, one field for the X handle; claimed, it is the page's own address, a link, and nothing else. */
+.dl-flask-door:has(.dl-flask-claim){display:block!important}
+/* THE PLATE IS THE ADDRESS (Nov 11 2026, his 23:07:51 UTC "full of low quality shit like this everywhere", read over the walk's last frames: the handle was
+   asked by a dim box of machine type with no word of what it was for). One plate in the link's own type: the name of the site it stands on and, after it, the handle X said (THE HANDLE IS X'S WORD, Nov 20 2026: nothing is typed; a flask X does not hold yet reads Connect X in the handle's place);
+   an arrow that sends it; and the plate becomes the link it names. It comes once her making's flash has left. */
+.dl-flask-claim{position:fixed;left:50%;bottom:calc(52px + clamp(17px,3.3vw,46px)*2.7 + 18px);transform:translateX(-50%);z-index:2147483003;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:center;width:max-content;max-width:calc(100vw - 24px);box-sizing:border-box;margin:0;pointer-events:auto;white-space:nowrap;font:700 clamp(17px,1.7vw,22px)/1.3 'Gelasio',Georgia,serif;letter-spacing:.06em;animation:dl-claim-in .6s ease 1.4s both}
+@keyframes dl-claim-in{from{opacity:0}to{opacity:1}}
+.dl-flask-claim:has(input,.dl-flask-addr){padding:.42em .7em .36em .95em;border:1px solid rgba(240,207,116,.55);border-radius:2px;background:rgba(5,4,5,.9)}
+.dl-flask-claim:has(input,.dl-flask-addr):focus-within{border-color:#f0cf74}
+.dl-flask-claim:has(input,.dl-flask-addr)::before{content:attr(data-site);color:rgba(240,207,116,.66)}
+.dl-flask-claim input{width:8.6em;padding:0;border:0;border-bottom:1px solid rgba(240,207,116,.45);border-radius:0;background:none;color:#fbf6ea;font:inherit;letter-spacing:inherit;outline:0;caret-color:#f0cf74}
+.dl-flask-claim input:focus{border-bottom-color:#f0cf74}
+.dl-flask-claim input::placeholder{color:rgba(251,246,234,.4);font-weight:400;font-style:italic}
+.dl-flask-claim button{margin:0 0 0 .45em;padding:0 .2em;border:0;background:none;color:#f0cf74;font:inherit;cursor:pointer}
+/* THE HANDLE IS X'S WORD: the door's own X row inside the plate (dl-flask-x.mjs xRow). Its stamp stays home; its press, Connect X, stands in the handle's
+   place in the plate's own type, underlined as the field was, with the plate's arrow. The handle X said is shown, never typed. */
+.dl-flask-claim .dl-flask-stamp{display:none}
+.dl-flask-claim button.dl-flask-addr{margin:0;padding:0 .08em;color:#fbf6ea;text-decoration:underline;text-decoration-color:rgba(240,207,116,.45);text-decoration-thickness:1px;text-underline-offset:.24em}
+.dl-flask-claim button.dl-flask-addr::after{content:'\2192';display:inline-block;margin-left:.5em;color:#f0cf74}
+.dl-flask-claim button.dl-flask-addr:hover,.dl-flask-claim button.dl-flask-addr:focus-visible{color:#f0cf74;outline:0}
+.dl-flask-claim input[readonly]{width:auto;max-width:14em;field-sizing:content;border-bottom-color:transparent}
+@media (min-width:701px){html:has(.dl-router-down[data-film="first"]) .dl-flask-claim{bottom:calc(52px + clamp(17px,3.3vw,46px)*3.2 + 18px)}}   /* over the first cry (two lines, taller than FOLLOW THE TRAIL: a filled flask that comes back from X before it has seen the film): the plate clears its first line */
+.dl-flask-claim p{flex-basis:100%;margin:.5em 0 .1em;text-align:center;color:#f0cf74;font:700 12px/1.3 'Gelasio',Georgia,serif;letter-spacing:.14em;text-transform:uppercase}
+.dl-flask-claim p:empty{display:none}
+.dl-flask-claim a{padding:.36em .9em .3em;border:1px solid rgba(240,207,116,.55);border-radius:2px;background:rgba(5,4,5,.88);color:#f0cf74;font:700 clamp(16px,1.7vw,22px)/1.3 'Gelasio',Georgia,serif;letter-spacing:.06em;text-decoration:none}
+@media (max-width:700px){.dl-flask-claim{bottom:calc(min(27vh,210px) + 18px)}.dl-flask-door:has(.dl-flask-claim) .dl-egg-call{margin-bottom:56px}}   /* ONE NAME FOR HER (Nov 22 2026): who has her already is shown her page and the flask's fill; on a phone the fill stands above the page's plate */
+/* THE EXPLAINER (warm.html #dl-explain; his Nov 11 2026 22:28:43 UTC, over her pitch as twelve subtitles: "i profundly hate the way you are trying to
+   compress long concepts in 1 line of text... you can have floating overlays there with 3b1b explainers transparent... a single line shows you dont care about
+   me or the people who will see"; 22:56:56 "Yes, build it" on the mock). One diagram over the sphere, beside her, that builds as she speaks: dl-athena.js
+   names every line she has said (html[data-her-said]) and each part shows once its line has been said. SOL staked and still yours, its yield the fuel, the
+   swarm that burns it on a problem once, the trail it leaves (a tracenet), the trail fed back (then faster), $WARM mined by every burn, the trails wound on
+   the spool ($POOL) and its warden. Not in the tree of what is painted unless she is on the stage: nothing of it runs at rest.
+   NOTHING TOUCHES (his Nov 11 2026 23:07:51 UTC, over two crops of a phone, "$WARM" on the flask's line and "THE" on the spool: "full of low quality shit like
+   this everywhere"): the drawing is laid on a 960 by 640 sheet with air round every name, and the sheet hangs on her being on the stage
+   (.dl-athena-intro.go, not .out), never on her line's own mark, which her script drops and sets again at every line: on that mark the whole sheet went
+   out and faded back in at each line she said. On a phone the sheet is as tall as its drawing and ends above her face. */
+/* SHE STANDS IN FRONT OF IT (his Nov 12 2026 ~00:5x UTC to seat claude-3853f028, over a crop of her face half dimmed, the sheet's edge down through her eye: "there is this
+   ugly shadow shit dude..."): the sheet was 66vw wide whatever the window and lay over her picture. Beside her it ends where her picture begins (her picture is
+   min(60vh,540px) tall, .985 as wide, 2% from the right) and its end eases out, no straight shadow down the sphere; above her, in a tall window, it lies one below her layer,
+   so she is whole and bright in front of whatever of it reaches her hair. Under her layer everywhere (NEFERTITI STANDS BEFORE THE EXPLAINER, seat claude-3853f028's
+   lane of that hour, which this one takes up), her layer's own vignette greys the drawing's left names, so beside her the sheet stays above and keeps clear of her. */
+#dl-explain{display:none;position:fixed;left:0;top:13vh;width:min(66vw,calc(98vw - min(60vh,540px)*.985));height:74vh;z-index:2147483600;pointer-events:none;background:linear-gradient(90deg,rgba(7,6,10,.86) 0,rgba(7,6,10,.84) 84%,rgba(7,6,10,.52) 91%,rgba(7,6,10,.2) 96%,rgba(7,6,10,0) 100%)}
+html[data-her-said]:has(.dl-athena-intro.go:not(.out)):not([data-her-said~="11"]):not([data-egg-offered]):not([data-flask-waits]) #dl-explain{display:block;animation:dl-explain-in .7s ease both}
+@keyframes dl-explain-in{from{opacity:0}to{opacity:1}}
+#dl-explain svg{width:100%;height:100%}
+#dl-explain [data-at]{opacity:0;transition:opacity .7s ease}
+#dl-explain .draw{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.3s cubic-bezier(.4,0,.2,1),opacity .4s ease}
+#dl-explain path[fill="#e0485c"]{transition-delay:1.1s} /* the loop's arrowhead comes once its line has reached it */
+html[data-her-said~="1"] #dl-explain [data-at="1"]{opacity:1;stroke-dashoffset:0}
+html[data-her-said~="2"] #dl-explain [data-at="2"]{opacity:1;stroke-dashoffset:0}
+html[data-her-said~="3"] #dl-explain [data-at="3"]{opacity:1;stroke-dashoffset:0}
+html[data-her-said~="4"] #dl-explain [data-at="4"]{opacity:1;stroke-dashoffset:0}
+html[data-her-said~="5"] #dl-explain [data-at="5"]{opacity:1;stroke-dashoffset:0}
+html[data-her-said~="6"] #dl-explain [data-at="6"]{opacity:1;stroke-dashoffset:0}
+html[data-her-said~="7"] #dl-explain [data-at="7"]{opacity:1;stroke-dashoffset:0}
+html[data-her-said~="8"] #dl-explain [data-at="8"]{opacity:1;stroke-dashoffset:0}
+html[data-her-said~="9"] #dl-explain [data-at="9"]{opacity:1;stroke-dashoffset:0}
+html[data-her-said~="10"] #dl-explain [data-at="10"]{opacity:1;stroke-dashoffset:0}
+#dl-explain text{font-family:'Gelasio',Georgia,serif;fill:#fbf6ea}
+#dl-explain .cap{font-size:22px;letter-spacing:.3em;text-transform:uppercase;fill:#f0cf74;font-weight:700}
+#dl-explain .note{font-size:21px;font-style:italic}
+#dl-explain .big{font-size:30px;font-weight:700}
+#dl-explain .rose,#dl-explain .amber{fill:#fbf6ea}
+#dl-explain .spin,#dl-explain .orbit{transform-box:fill-box;transform-origin:center;animation:dl-explain-spin 3.2s linear infinite}
+#dl-explain .orbit,html[data-her-said~="7"] #dl-explain .spin{animation-duration:1.1s}
+@keyframes dl-explain-spin{to{transform:rotate(360deg)}}
+/* THE WORDS ARE READABLE (his Nov 23 2026 20:09:01 UTC, over her explainer on the live site in a window taller than wide: "this is too small dude come on do QA dude"; a walk of the live site through her lines at 390x844, 760x930, 1280x800 and 1440x900 read every text's drawn size: the explainer's labels 6.1 px in the tall window, 11.4 on a phone; the split's kickers 6.7 px and its plates' lines 9 to 11.9; the skip 11; the film's buttons 12; the state of $WARM 11). No word is drawn under 13 px on a phone or 12 on a desktop, nor into another word or off the glass, from 360 px wide; the stacked explainer begins at 5:4, as this sheet reads a tall window (beside her at 900x800 its labels drew 8 px). The receipt: THE-WORDS-ARE-READABLE-LANDING.md. */
+/* a window taller than wide, a phone or not: the sheet above her, as tall as its drawing, and the drawing no taller than the room over her head, nor shorter than 40 % of the window (in a short window the room over her head was 139 px and every label 6 px: the sheet then lies over her hair) */
+@media (max-width:700px),(max-aspect-ratio:5/4){#dl-explain{width:100vw;height:auto;z-index:2147482999;padding-bottom:5vh;background:linear-gradient(180deg,rgba(7,6,10,.88) 0,rgba(7,6,10,.84) calc(100% - 5vh),rgba(7,6,10,0) 100%)}
+  #dl-explain svg{display:block;margin:0 auto;width:auto;max-width:100%;height:min(66.66vw,calc(73vh - min(60vh,540px)));aspect-ratio:3/2}
+  #dl-explain .note{display:none} #dl-explain .cap{font-size:28px;letter-spacing:.1em} #dl-explain .big{font-size:36px}}
+@media (max-width:700px){#dl-explain svg{height:min(66.66vw,calc(73vh - min(40vh,330px)))} #dl-explain .cap{font-size:38px;letter-spacing:.06em} #dl-explain .big{font-size:42px}}
+@media (min-width:701px) and (max-aspect-ratio:5/4){#dl-explain svg{height:min(66.66vw,calc(86vh - min(60vh,540px)))} #dl-explain .cap{font-size:38px;letter-spacing:.06em} #dl-explain .big{font-size:42px}}   /* NEVER ON HER (his Nov 23 2026 20:51:48 UTC "dude...", over her hair across THE TRAIL: A TRACENET in his tall pane): in a tall window her layer's top bar holds the first 13vh and she stands on the screen's foot, min(60vh, 540px) tall, so the explainer fills what is between and ends 1vh above her box (a floor of 40vh had run it 100 px into her head at 760x930); its labels the phone's 38 and 42 units, 12 px and more down to 900x800 */
+/* THE EXPLAINER FLOWS AS ONE LOOP (his Nov 25 2026 ~20:1x UTC, over its arrows: "the flows, they are shitty arrows... it is broken. can you fucking rebuild it from
+   scratch? have you done QA of this across all resolutions"): one grid, SOL to fuel to the swarm on top, each token under what makes it, the swarm and its trail one
+   loop; every flow a line with its soft glow, its head laid on its own tangent and come once the line has reached it, and a light running along it while she speaks
+   (the sheet is not painted unless she is on the stage: nothing of it runs at rest). */
+#dl-explain .head{transition-delay:1.1s}
+#dl-explain .flow{stroke-dasharray:.035 .165;stroke-dashoffset:0;opacity:0;animation:dl-explain-flow 1.6s linear infinite}
+@keyframes dl-explain-flow{to{stroke-dashoffset:-.2}}
+html[data-her-said] #dl-explain .flow[data-at]{transition:opacity .7s ease 1.3s}
+@media (prefers-reduced-motion:reduce){#dl-explain .spin,#dl-explain .orbit,#dl-explain .flow{animation:none}#dl-explain .flow{display:none}}
+/* THE EXPLAINER WEARS THE SPLIT (his Nov 25 2026 UTC, over her diagram beside the split's two plates: "can we please start taking those infographics seriously?
+   they are embarassing there... look after hoe much better looking it gets"; over a mock of one slam a line: "flashing images like that wont help. the diagram
+   was more illustrative..."; "Yes, build it" on the mock of this): the same diagram, built as before, in the split's grammar. One dark field across her whole
+   band, under her layer, so the stage's light never shows beside the drawing and she stands in front of it (#dl-explain-field, warm.html); every name in cream
+   caps on a slash of its side's colours, the split's own (blue the patrons' SOL and $POOL, red the riders' swarm, trail and its loop, gold the fuel and $WARM);
+   every note on a stamp plate; the loop the riders' red, never off the palette; the lines thicker. The bands and plates are laid in the drawing at its type's
+   measure (.band-d beside her, .band-t above her where the type is larger): no script measures anything. */
+#dl-explain-field{display:none;position:fixed;left:0;right:0;top:13vh;height:74vh;z-index:2147482990;pointer-events:none;background:radial-gradient(110% 100% at 28% 45%,#15224e 0,#0b0f22 55%,#07060a 100%)}
+#dl-explain-field::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.022) 0 2px,transparent 2px 22px)}
+html[data-her-said]:has(.dl-athena-intro.go:not(.out)):not([data-her-said~="11"]):not([data-egg-offered]):not([data-flask-waits]) #dl-explain-field{display:block;animation:dl-explain-in .7s ease both}
+#dl-explain{background:none;padding-left:2.5vw;box-sizing:border-box}
+#dl-explain .cap{fill:#fbf6ea;stroke:#0b0709;stroke-width:5px;paint-order:stroke fill;font-size:27px;letter-spacing:.1em}
+#dl-explain .note{fill:#f0cf74;font-style:normal;font-weight:700;font-size:14px;letter-spacing:.12em;text-transform:uppercase}
+#dl-explain .plate{fill:rgba(5,4,5,.88)} #dl-explain .band-t{display:none}
+#dl-explain [stroke-width="2"],#dl-explain [stroke-width="2.5"]{stroke-width:3.5} #dl-explain [stroke-width="3"]{stroke-width:4.5}
+@media (max-width:700px),(max-aspect-ratio:5/4){#dl-explain{padding-left:0} #dl-explain .cap{font-size:38px;letter-spacing:.06em} #dl-explain .band-d{display:none} #dl-explain .band-t{display:inline} #dl-explain .plate{display:none}}
+@media (max-width:700px),(max-aspect-ratio:5/4){#dl-explain .cap.rose{font-size:32px}}
+@media (min-width:701px) and (max-width:1366px) and (min-aspect-ratio:5/4){#dl-explain .note,#dl-explain .plate,#dl-explain .band-d{display:none} #dl-explain .band-t{display:inline} #dl-explain .cap{font-size:38px;letter-spacing:.06em} #dl-explain .cap.rose{font-size:32px} #dl-explain .big{font-size:42px}}   /* beside her in a small window the sheet is ~520 px wide: its names take the tall layout's size, its notes leave */   /* the loop's name keeps clear of the loop and of $WARM's line where the type is larger */
+/* HER COLOURS ARE GIVEN INSIDE HER OWN HEXAGON (his Nov 11 2026 22:41:45 UTC "i like the lyssajudron color thing... we need to reconcile that and the hexs
+   stuff"): while the faces' lane holds the sphere's camera on the visitor's own seat during her making (html[data-her-seat], dl-her-portrait.js), her making's
+   dark ground opens on the sphere there, so she is coloured on her seat with the swarm round her. With no seat it stays as it was. */
+html[data-her-seat] .dl-her-veil{background:radial-gradient(circle at var(--her-seat-x,50%) var(--her-seat-y,42%),rgba(7,6,14,0) 0,rgba(7,6,14,.12) 20%,rgba(7,6,14,.9) 58%)!important;opacity:1!important}
+
+/* THE OFFER IS TWO PATHS (lane/the-split-leads-where-you-click, from the staging he saved: his Nov 12 2026 02:19 UTC "great, push save"; before it, ~02:0x UTC "what if you reworked this one to give a choice about whether
+   one wants to stake SOL or whether one wants to do $WARM minting"; then, over the first staging's two labels: "why cant you be memorable dude... get something more epic
+   going about the conflict between one staking SOL and directing SOL yield to AI Credits of my swarm; or; the red one should be about starting your own tracenet").
+   At her offer she steps to the middle with the egg and the picture parts in two behind her, down a seam of light through the egg: the pool's side in the staked SOL's
+   blue, a pentagon; the flask's side in the call's red, a hexagon. Each plate stands in its own shape: KEEP YOUR SOL / FUEL THE SWARM against THE EGG IS YOURS / RIDE THE SWARM (his Nov 22 2026 "this one is perfect dude").
+   The plates come in from their own sides, once. The sides lie one layer under hers.
+   THE SPLIT LEADS WHERE YOU CLICK (his ~06:38 UTC, over the strip of the whole road with his arrow from the split to the Space Router page: "this is the
+   inconsequential bit we gotta fix dude... it gotta split based on what people click... tbh i would probably just jump straight to the space router page u get
+   me? the green stuff could be later"): each plate is a link, the flask's to after-the-mint.html?side=flask and the pool's to ?side=pool; the deposit door is
+   that page's Fill your tank (warm.html?door=deposit), never opened here. */
+:root{--herw:calc(min(60vh,540px)*.985);--side:calc(50vw - var(--herw)/2);--cx:calc(var(--side)/2);--cy:50vh;--glyph:min(52vh,calc(var(--side) - 5vw))}
+@media (max-width:700px),(max-aspect-ratio:5/4){:root{--cx:25vw;--cy:31vh;--glyph:min(32vh,46vw)}}
+@media (max-width:700px){:root{--cy:30vh}}
+#dl-sides{display:none;position:fixed;left:0;right:0;top:13vh;height:74vh;z-index:2147482999;pointer-events:none;overflow:hidden}
+html[data-egg-offered]:not([data-flask-waits]) #dl-sides{display:block}
+#dl-sides i{position:absolute;top:0;bottom:0;mix-blend-mode:multiply;animation:dl-sides-in .5s ease both}
+#dl-sides .pool{left:0;width:calc(50vw + 3vw);clip-path:polygon(0 0,100% 0,calc(100% - 6vw - 3px) 100%,0 100%);background:linear-gradient(90deg,rgba(18,44,150,.92),rgba(64,126,236,.74))}
+#dl-sides .flask{left:calc(50vw - 3vw);right:0;clip-path:polygon(calc(6vw + 3px) 0,100% 0,100% 100%,0 100%);background:linear-gradient(90deg,rgba(214,44,62,.74),rgba(140,12,30,.92))}
+#dl-sides svg{position:fixed;left:var(--cx);top:var(--cy);width:var(--glyph);height:var(--glyph);transform:translate(-50%,-50%);fill:rgba(255,255,255,.1);stroke:rgba(255,255,255,.7);stroke-width:.22;stroke-linejoin:round;mix-blend-mode:normal}
+#dl-sides .flask svg{left:calc(100vw - var(--cx))}
+@keyframes dl-sides-in{from{opacity:0}to{opacity:1}}
+@media (min-width:701px) and (min-aspect-ratio:5/4){html[data-egg-offered]:not([data-flask-waits]) .dl-athena-portrait{right:calc(50vw - var(--herw)/2)!important;transition:right .6s cubic-bezier(.2,.8,.2,1),bottom .7s cubic-bezier(.2,.8,.2,1)}}   /* beside her line there is room for her only in a wide window; in a tall one that is no phone she stays at her side, clear of her line */
+@media (max-width:700px){html[data-egg-offered]:not([data-flask-waits]) .dl-athena-portrait{right:calc(50vw - min(40vh,330px)*.4925)!important}}
+html[data-egg-offered] .dl-flask-door{display:block;left:0;top:0;bottom:auto;right:auto;width:0;height:0;transform:none;font-size:min(clamp(16px,2.3vw,34px),calc((var(--side) - 5vw)/10.6))}
+html[data-egg-offered] .dl-flask-door .dl-flask-plate{position:fixed;left:calc(100vw - var(--cx));top:var(--cy);transform:translate(-50%,-50%);font-size:1em;animation:dl-side-r .28s .22s cubic-bezier(.2,1.5,.3,1) both}
+html[data-egg-offered] .dl-flask-door .dl-stake-plate{left:var(--cx);animation-name:dl-side-l;animation-delay:.06s}
+@keyframes dl-side-l{from{transform:translate(calc(-50% - 18vw),-50%) skewX(-10deg);opacity:0}} @keyframes dl-side-r{from{transform:translate(calc(-50% + 18vw),-50%) skewX(10deg);opacity:0}}
+.dl-flask-plate .name small{display:block;margin-bottom:.4em;font-size:max(13px,.44em);letter-spacing:.34em;padding-left:.34em;color:#f0cf74;-webkit-text-stroke:0;text-shadow:0 1px 0 #000,0 0 10px #000}
+/* ONE SPLIT, ONE VOCABULARY (STAGING ONLY, his Nov 12 2026 05:4x UTC "we gotta unify these"): the blue plate wears the house's own blue slash, dl-space-router.js
+   .router value for value, and its pentagon the router's own cyan, as the page after the mint (after-the-mint.css) wears them on its pool's side; its small call
+   keeps its own light blue (the router's cyan read too dim on the blue field at 1440) */
+.dl-flask-door .dl-stake-plate .name small{color:#cfeaff}
+.dl-flask-door .dl-stake-plate .slash{background:linear-gradient(90deg,transparent,rgba(8,16,58,.92) 12%,rgba(64,128,236,.95) 50%,rgba(8,16,58,.92) 88%,transparent)}
+.dl-flask-plate .slash{top:1.48em;filter:brightness(1.3) saturate(1.25)}
+.dl-flask-plate .stamp{display:flex;align-items:center;gap:.6em;margin-top:.5em;font-size:max(13px,.36em);letter-spacing:.24em;line-height:1.5;text-align:left;white-space:nowrap}
+.dl-flask-plate .stamp svg{width:1.9em;height:1.9em;flex:none;fill:none;stroke:#f0cf74;stroke-width:1.6;stroke-linejoin:round}
+.dl-flask-door .dl-stake-plate .stamp svg{stroke:rgba(80,220,255,.7)}
+@media (max-width:700px),(max-aspect-ratio:5/4){html[data-egg-offered] .dl-flask-door{font-size:clamp(15px,3.6vw,30px)}
+  .dl-flask-plate .stamp{letter-spacing:.12em}}
+@media (max-width:1200px){.dl-flask-plate .stamp{letter-spacing:.1em}}
+@media (max-width:520px){html[data-egg-offered] .dl-flask-door{font-size:clamp(13px,3.9vw,18px)} .dl-flask-plate .name small{letter-spacing:.1em;padding-left:.1em} .dl-flask-plate .stamp{font-size:13px;letter-spacing:0;gap:.4em;padding:.3em .5em;max-width:calc(50vw - 20px)} .dl-flask-plate .stamp > span{white-space:normal} .dl-flask-plate .stamp svg{width:1.45em;height:1.45em}}
+@media (prefers-reduced-motion:reduce){html[data-egg-offered] .dl-flask-door .dl-flask-plate,#dl-sides i{animation:none}}
+/* THE EGG'S CALL FITS THE PHONE, AND LEAVES WITH HER SCENE (Nov 21 2026; his "it is full of dysgenic screens with awful unnerving designs... just do qa
+   screenshots, it's so fucking easy to tell", over the screens a second person meets). Read on the live page at 390 x 844: the call's one grid column took its
+   widest line's width (the stamp, nowrap at 24px: 445px) inside a 366px door, so "$10", Connect X and the roads' line ran off the right edge. And scrolled
+   into the page her scene steps away (html[data-space-router-away]) while the flask's rule above kept the door on the glass: light words over the film's
+   cream poster. The column is the door's width, the stamp's size follows a narrow glass, and the door leaves with her scene. */
+@media (max-width:700px){.dl-flask-door .snowtrace-kit-link.dl-egg-call{grid-template-columns:minmax(0,1fr)}
+  .dl-flask-door .snowtrace-kit-link.dl-egg-call>button.dl-flask-stamp{font-size:min(24px,4.9vw)}}
+html[data-space-router-away][data-flask-waits] .dl-flask-door{display:none!important}
+/* FROM NEFERTITI TO BLUE (Nov 22 2026, dl-side-press.js): the 1.75 s after a press on her blue plate. The night comes up behind the ball (the canvas is clear), red leaves, she steps down, her blue
+   pentagon (.dl-side-pent, its way the svg's own animation) goes down onto the ball's front pentagon; the ball, the drawn arrow in it and the swarm stand as they stood. No light step: the night is full
+   before any layer over it goes. Everything here is opacity and transform: no frame is repainted whole. */
+html[data-chose] #sphere-stage{isolation:isolate}
+.dl-side-night,.dl-side-night::before{position:fixed;inset:0;z-index:-1;pointer-events:none;background:#0e1c2d;animation:dl-side-night .64s cubic-bezier(.4,0,.2,1) both}   /* the night, and over it the plate's blue going: two layers, opacity alone (a colour stepped a frame repainted the whole window 96 times) */
+.dl-side-night::before{content:"";z-index:auto;background:#16307e;animation:dl-side-blue 1.6s cubic-bezier(.4,0,.2,1) both} @keyframes dl-side-night{from{opacity:0}} @keyframes dl-side-blue{0%,40%{opacity:1}100%{opacity:0}}
+html[data-chose] .dl-athena-layer{opacity:0;transform:translateY(40px);transition:opacity .5s .42s,transform .6s .3s cubic-bezier(.5,0,.9,.4)}
+html[data-chose] #dl-sides .flask{animation:dl-side-red 1.15s cubic-bezier(.45,0,.2,1) both} @keyframes dl-side-red{0%,62%{opacity:1;transform:none}100%{opacity:0;transform:translateX(70%)}}
+html[data-chose] #dl-sides .pool{animation:dl-side-pool 1.1s cubic-bezier(.4,0,.2,1) both} @keyframes dl-side-pool{0%,58%{opacity:1}100%{opacity:0}}
+html[data-chose] #dl-sides svg{opacity:0} html[data-chose] .dl-athena-bubble{display:none}
+html[data-chose] .dl-flask-door,html[data-chose] .dl-twelve-controls,html[data-chose] .ds-invite,html[data-chose] .warm-gold-dust{opacity:0!important;pointer-events:none;transition:opacity .3s}
+.dl-side-pent{position:fixed;inset:0;width:100vw;height:100vh;z-index:2147483600;overflow:visible;pointer-events:none}
+.dl-side-pent polygon{fill:none;stroke-linejoin:round;filter:drop-shadow(0 0 7px rgba(64,128,236,.9))}

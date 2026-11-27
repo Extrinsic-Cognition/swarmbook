@@ -1,0 +1,44 @@
+{
+  "base": "a04aec943639824a1dc06e403df50dce60c70e1a",
+  "approval": "Yes, pass +175",
+  "chat": "claude-eee8b377, this lane's own chat, his answer there: \"Yes, pass +175\" (Nov 20 2026 05:08 UTC), to \"Pass +175 lines of JavaScript for the egg ticket?\"",
+  "date": "2026-11-20",
+  "asked": "Pass +175 lines of JavaScript for the egg ticket?",
+  "scope": "lane/the-egg-is-the-ticket only: her egg's call and the card's return on the deposit door (app/dl-kit-deposit.js, its path in app/dl-kit-deposit.mjs), the card road (worker/space-router-card.mjs) and its route and webhook branch (worker/premint.mjs, worker/bronze.mjs), their tests (app/dl-kit-deposit.test.mjs, worker/space-router-card.test.mjs), at these bytes; no general JavaScript allowance",
+  "net": 175,
+  "cap": 175,
+  "files": {
+    "embertide-app/ui/intro/dyson-society/app/dl-kit-deposit.js": {
+      "before": "4cc7a729544bdae0288c5d84c72b8fe36403f896",
+      "after": "00695d0733d821d827e5da2f6fbeffe64e897a9c"
+    },
+    "embertide-app/ui/intro/dyson-society/app/dl-kit-deposit.mjs": {
+      "before": "802bdafee478b089196ecac377dae60b9dd6de67",
+      "after": "45962215f17f2507099ecd568fdc9b3c95a8b930"
+    },
+    "embertide-app/ui/intro/dyson-society/app/dl-kit-deposit.test.mjs": {
+      "before": "d40d815025b9d9b78b5d2cd3c00899b9bae5f55d",
+      "after": "bac10c79f34d91ab2cf65ec521d88717a0835c12"
+    },
+    "embertide-app/ui/intro/dyson-society/worker/bronze.mjs": {
+      "before": "5c4fef20c3084e2f61f189e810e2a9f8fa89a3c4",
+      "after": "9366d5af7ab74f811fa8f0ac5e9fe4283b60d705"
+    },
+    "embertide-app/ui/intro/dyson-society/worker/premint.mjs": {
+      "before": "6ce37322eed835bd8af843bdfa7cfac0332b5959",
+      "after": "dcb92180cfeb883ceb68df135c76fbc921f31c69"
+    },
+    "embertide-app/ui/intro/dyson-society/worker/space-router-card.mjs": {
+      "before": null,
+      "after": "cc3ff4367a71f483956d194afce2e1cfed3ab3c1"
+    },
+    "embertide-app/ui/intro/dyson-society/worker/space-router-card.test.mjs": {
+      "before": null,
+      "after": "ef0da5e9c6c1484f3f27261fbcf48a5fd3172eb3"
+    },
+    "tools/embertide-mesh/tests/the-javascript-only-shrinks.test.mjs": {
+      "before": "08a7ad6e01338f68e52396af655f1f010cb613e2",
+      "after": "162f82354041bb3ce9d9c491a8688f13e0661992"
+    }
+  }
+}

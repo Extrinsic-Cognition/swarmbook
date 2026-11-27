@@ -1,0 +1,40 @@
+{
+ "base": "c6f1b81699c1f744491af5360d99d8fe834918be",
+ "approval": "Pass +10",
+ "chat": "claude-7209e519, his words typed there: \"Pass +10\" (Nov 20 2026 05:47:36.493 UTC), the answer to \"The JS gate's own check refuses any pass under +10. How do I land the fix?\", after his \"Hand it, pass +8\" (05:29:53.410 UTC) could not be written: the gate's check of every pass samples a net of 10",
+ "date": "2026-11-20",
+ "asked": "The JS gate's own check refuses any pass under +10. How do I land the fix?",
+ "scope": "lane/swarmbook-one-branch at these bytes only: the fix 9157c4b4d6 (room/assembly-floor.mjs reaching into no other folder; the pages handing the land law's skin), merged with main c6f1b81699; net +8 under a cap of 10; no general JavaScript allowance",
+ "net": 8,
+ "cap": 10,
+ "files": {
+  "embertide-app/ui/intro/assembly-home.mjs": {
+   "before": "fe306b1e2ee8cb0bb3838ec27abc5a2b79b6e8e6",
+   "after": "fd29c2b83d04ad2c87854dc60e2792857892f0c1"
+  },
+  "embertide-app/ui/intro/dyson-society/app/assembly-dive.mjs": {
+   "before": "cc5e741164140d6860280c736fdfe270b65f0f42",
+   "after": "ccf277ba45c39d06fa213f293a75ed5b3cf3fb5a"
+  },
+  "embertide-app/ui/intro/dyson-society/app/assembly-dive.test.mjs": {
+   "before": "8d2ce88a219a3bd4f8a61ea636ab0dad00f73be3",
+   "after": "f659acb4a04b8a0beb525f89ac65a6114ebdde6e"
+  },
+  "embertide-app/ui/intro/dyson-society/app/swarmbook.mjs": {
+   "before": "4a4e71cf4a8511f758e5c7a09445911241c8ef76",
+   "after": "c1f4ed9ba923e7b8373b3dd8b27dea394ff112d9"
+  },
+  "embertide-app/ui/intro/dyson-society/app/swarmbook.test.mjs": {
+   "before": "a6448ab8957e2a68bb96ae66a82bff25be56f388",
+   "after": "92cc0ce9c43ff79368dad9d3b282538888cb769c"
+  },
+  "embertide-app/ui/intro/room/assembly-floor.mjs": {
+   "before": "6395f935bf72f37a29880270b89f8a844863f774",
+   "after": "ae5e5ec4d7ce266313835deaa9c9123c5c18d50a"
+  },
+  "tools/embertide-mesh/tests/the-javascript-only-shrinks.test.mjs": {
+   "before": "b936685ee34b714e595855f4c0e555d97567dd33",
+   "after": "494b882d70545cd0e7729016d8e75397baf82318"
+  }
+ }
+}

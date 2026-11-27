@@ -1,0 +1,60 @@
+{
+  "base": "adaad2eb10e59d78b0621df9afa3e41ae90a3c46",
+  "approval": "Yes, pass +355",
+  "chat": "claude-1cd371e0, this lane's own chat, his words typed there: \"Yes, pass +355\" (Nov 19 2026 18:2x UTC), to \"Pass the +355 lines of JavaScript on this lane?\"",
+  "date": "2026-11-19",
+  "asked": "Pass the +355 lines of JavaScript on this lane?",
+  "scope": "lane/a-flask-lets-its-harmony-spend only: the grant law and door (app/space-router-grant.mjs, worker/space-router-grant.mjs) and the spend in worker/space-router.mjs and its route in premint.mjs, the page's ask (app/dl-flask-grant.mjs, app/dl-kit-deposit.js), Harmony's key and link (lib/tracenet-create.mjs, harmony-aiolos.mjs), their test and proof, at these bytes; no general JavaScript allowance",
+  "net": 355,
+  "cap": 355,
+  "files": {
+    "embertide-app/ui/intro/dyson-society/app/dl-flask-grant.mjs": {
+      "before": null,
+      "after": "e36cf00bb373acb5034975009cbf1666811dcbac"
+    },
+    "embertide-app/ui/intro/dyson-society/app/dl-kit-deposit.js": {
+      "before": "0b224c99127ae9a9e975ec4b86ed605e067b973b",
+      "after": "11cd265dc9127591a3bc01455a9a923fadeefda2"
+    },
+    "embertide-app/ui/intro/dyson-society/app/space-router-grant.mjs": {
+      "before": null,
+      "after": "828fdcb631ba2d92958905dfd7b430b3c10b7daf"
+    },
+    "embertide-app/ui/intro/dyson-society/tools/flask-grant.proof.mjs": {
+      "before": null,
+      "after": "a1b8f9259d4752c23a4f1029d227525354e70350"
+    },
+    "embertide-app/ui/intro/dyson-society/worker/premint.mjs": {
+      "before": "6c3eded0e100b9f104ce198b227505a306ed2134",
+      "after": "b33f4f6c9ca7c0a2e73dcb72f7d86366f6582f87"
+    },
+    "embertide-app/ui/intro/dyson-society/worker/space-router-grant.mjs": {
+      "before": null,
+      "after": "a3199948c805dba36f62633bffcc08022f76bb7f"
+    },
+    "embertide-app/ui/intro/dyson-society/worker/space-router-grant.test.mjs": {
+      "before": null,
+      "after": "69c388dc0ad8285a983e2cfdce4c476a45963d6a"
+    },
+    "embertide-app/ui/intro/dyson-society/worker/space-router.mjs": {
+      "before": "b9cbd5ad10e26cbaca3bfc68672cb0e8b3ef7be4",
+      "after": "c303acdb721b9275d60c0a5b3d3f52889762d074"
+    },
+    "tools/embertide-mesh/harmony-aiolos.mjs": {
+      "before": "bbd77c33b552aeb8c3998a16838286f4aa07a327",
+      "after": "60b8e8cc72117ab0f164359286f1289e433ed555"
+    },
+    "tools/embertide-mesh/lib/tracenet-create.mjs": {
+      "before": "9aa63118705996fda11e99ecd04286968fa85cb7",
+      "after": "00e0643d677d40a86fb295749e69e9ff0d2742dd"
+    },
+    "tools/embertide-mesh/lib/tracenet-create.test.mjs": {
+      "before": "c599b048bfab918f49f6474395f310e93ad327df",
+      "after": "4763d796967de63fdce526a8c24a8ace27d2b2e2"
+    },
+    "tools/embertide-mesh/tests/the-javascript-only-shrinks.test.mjs": {
+      "before": "86d7466359caf359c204d1aecce01b63d459c5e3",
+      "after": "d978705224523545a6d3e59f01ef20e6884536f7"
+    }
+  }
+}

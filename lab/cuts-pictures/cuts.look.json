@@ -1,0 +1,179 @@
+{
+ "at": "2026-10-14T14:58:01.766Z",
+ "chrome": "~/Library/Caches/ms-playwright/chromium-1248/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+ "host": "guidos-MacBook-Pro-2.local",
+ "load": [
+  10.22,
+  10.23,
+  11.09
+ ],
+ "size": [
+  1280,
+  800
+ ],
+ "dpr": 2,
+ "browser": "Chrome/156.0.8078.4",
+ "ready": {
+  "tags": 3,
+  "shots": 18,
+  "tagsFrom": "the Nest, rev 1",
+  "rev": 1,
+  "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Max, Unspecified Version)",
+  "timer": true,
+  "dpr": 2
+ },
+ "pictures": [
+  {
+   "second": 27.5,
+   "file": "look-27.500.jpg",
+   "bytes": 44978,
+   "t": 27.5,
+   "pass": "picture",
+   "passFrame": null,
+   "blocks": null,
+   "chips": [
+    "10.835 SACRIFICE #29c5dc face 8"
+   ],
+   "held": [
+    null,
+    null
+   ],
+   "draws": 3,
+   "keeps": 0
+  },
+  {
+   "second": 27.6,
+   "file": "look-27.600.jpg",
+   "bytes": 45175,
+   "t": 27.6,
+   "pass": "picture",
+   "passFrame": null,
+   "blocks": null,
+   "chips": [
+    "10.835 SACRIFICE #29c5dc face 8"
+   ],
+   "held": [
+    null,
+    null
+   ],
+   "draws": 4,
+   "keeps": 0
+  },
+  {
+   "second": 29.5,
+   "file": "look-29.500.jpg",
+   "bytes": 42993,
+   "t": 29.5,
+   "pass": "picture",
+   "passFrame": null,
+   "blocks": null,
+   "chips": [
+    "10.835 SACRIFICE #29c5dc face 8"
+   ],
+   "held": [
+    null,
+    null
+   ],
+   "draws": 5,
+   "keeps": 0
+  },
+  {
+   "second": 29.6,
+   "file": "look-29.600.jpg",
+   "bytes": 44848,
+   "t": 29.6,
+   "pass": "picture",
+   "passFrame": null,
+   "blocks": null,
+   "chips": [
+    "10.835 SACRIFICE #29c5dc face 8"
+   ],
+   "held": [
+    null,
+    null
+   ],
+   "draws": 6,
+   "keeps": 0
+  },
+  {
+   "second": 74.95,
+   "file": "look-74.950.jpg",
+   "bytes": 46135,
+   "t": 74.95,
+   "pass": "picture",
+   "passFrame": null,
+   "blocks": null,
+   "chips": [
+    "10.835 SACRIFICE #29c5dc face 8",
+    "37.132 AIOLOS #f2cb2c face 11",
+    "61.767 CONVERSION #3466f6 face 2"
+   ],
+   "held": [
+    null,
+    null
+   ],
+   "draws": 7,
+   "keeps": 0
+  },
+  {
+   "second": 75,
+   "file": "look-75.000.jpg",
+   "bytes": 48292,
+   "t": 75,
+   "pass": "picture",
+   "passFrame": null,
+   "blocks": null,
+   "chips": [
+    "10.835 SACRIFICE #29c5dc face 8",
+    "37.132 AIOLOS #f2cb2c face 11",
+    "61.767 CONVERSION #3466f6 face 2"
+   ],
+   "held": [
+    null,
+    null
+   ],
+   "draws": 8,
+   "keeps": 0
+  },
+  {
+   "second": 76.95,
+   "file": "look-76.950.jpg",
+   "bytes": 47597,
+   "t": 76.95,
+   "pass": "picture",
+   "passFrame": null,
+   "blocks": null,
+   "chips": [
+    "10.835 SACRIFICE #29c5dc face 8",
+    "37.132 AIOLOS #f2cb2c face 11",
+    "61.767 CONVERSION #3466f6 face 2"
+   ],
+   "held": [
+    null,
+    null
+   ],
+   "draws": 9,
+   "keeps": 0
+  },
+  {
+   "second": 77,
+   "file": "look-77.000.jpg",
+   "bytes": 56484,
+   "t": 77,
+   "pass": "picture",
+   "passFrame": null,
+   "blocks": null,
+   "chips": [
+    "10.835 SACRIFICE #29c5dc face 8",
+    "37.132 AIOLOS #f2cb2c face 11",
+    "61.767 CONVERSION #3466f6 face 2"
+   ],
+   "held": [
+    null,
+    null
+   ],
+   "draws": 10,
+   "keeps": 0
+  }
+ ]
+}

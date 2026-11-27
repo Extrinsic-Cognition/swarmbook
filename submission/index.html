@@ -1,0 +1,162 @@
+<!doctype html>
+<!-- THE SUBMISSION'S VIDEOS (his Oct 13 2026 04:4x WEST: "use some link at optimism.fit/submission_video or something"). The Colosseum form's
+     two video fields point here: optimism.fit/demo_video and /pitch_video open this page with that film first, /submission_video with the demo
+     first. demo.mp4 and pitch.mp4 sit beside this file and are not in git (web cuts of ~/Movies/Project Snowtrace; see
+     tools/build-optimism-fit.mjs). No link from here to the mint page. -->
+<html lang="en" data-first="demo">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>DysonLight: Harmony · Submission videos</title>
+<style>
+:root{--ink:#090d0d;--paper:#e9e5d9;--white:#f4f0e4;--gold:#c4a365;--muted:#9ba09a;--line:#c4a36547;
+  --sans:'DM Sans',system-ui,sans-serif;--serif:'Bodoni 72','Didot','Times New Roman',serif;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--ink)}
+body{color:var(--paper);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+main{max-width:1040px;margin:0 auto;padding:44px 16px 72px}
+.eyebrow{margin:0 0 10px;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+h1{margin:0;font-family:var(--serif);font-weight:400;font-size:clamp(2.1rem,6.4vw,3.4rem);line-height:1.04;color:var(--white);text-wrap:balance}
+.by{margin:10px 0 0;color:var(--muted);font-size:.95rem}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 0}
+nav a{padding:8px 16px;border:1px solid var(--line);border-radius:999px;color:var(--paper);font-size:.9rem;text-decoration:none}
+nav a:hover{border-color:var(--gold)}
+nav a[aria-current=true]{background:var(--gold);border-color:var(--gold);color:var(--ink);font-weight:600}
+.videos{display:flex;flex-direction:column;gap:52px;margin-top:34px}
+[data-first=pitch] #video-pitch{order:-1}
+h2{display:flex;align-items:baseline;gap:12px;margin:0 0 12px;font-family:var(--serif);font-weight:400;font-size:1.6rem;color:var(--white)}
+h2 span{font-family:var(--sans);font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.frame{position:relative;aspect-ratio:16/9;background:#000;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.frame video{position:absolute;inset:0;width:100%;height:100%;display:block;background:#000}
+.cover{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;width:100%;padding:16px;
+  border:0;background:radial-gradient(120% 90% at 50% 40%,#18211c 0%,#090d0d 70%);color:var(--white);font:inherit;cursor:pointer}
+.cover[hidden]{display:none}
+.cover svg{width:clamp(56px,11vw,84px);height:auto}
+.cover b{font-family:var(--serif);font-weight:400;font-size:clamp(1.15rem,3.4vw,1.7rem);font-variant-numeric:tabular-nums;text-align:center}
+.cover:hover circle{fill:var(--gold)}
+.cover:hover path{fill:var(--ink)}
+.note{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);margin:0;padding:8px 14px;border-radius:999px;background:#090d0dd9;
+  color:var(--white);font-size:.9rem;font-variant-numeric:tabular-nums;text-align:center;pointer-events:none}
+.note[hidden]{display:none}
+.file{margin:10px 0 0;font-size:.85rem;color:var(--muted)}
+a{color:var(--gold)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+</style>
+<noscript><style>.cover{display:none}</style></noscript>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow">Colosseum · Crypto World's Fair</p>
+    <h1>DysonLight: Harmony</h1>
+    <p class="by">Submission videos · Extrinsic Cognition</p>
+    <nav aria-label="Videos">
+      <a href="#demo" data-pick="demo" aria-current="true">Product demo</a>
+      <a href="#pitch" data-pick="pitch">Pitch</a>
+    </nav>
+  </header>
+
+  <div class="videos">
+    <section id="video-demo" aria-labelledby="demo-title">
+      <h2 id="demo-title">Product demo <span>1:15</span></h2>
+      <div class="frame">
+        <video controls playsinline preload="none" src="./demo.mp4" aria-labelledby="demo-title"></video>
+        <button class="cover" type="button" aria-label="Play the product demo, 1 minute 15 seconds">
+          <svg viewBox="0 0 84 84" aria-hidden="true"><circle cx="42" cy="42" r="40" fill="none" stroke="#c4a365" stroke-width="2"/><path d="M35 27l24 15-24 15z" fill="#c4a365"/></svg>
+          <b>Play the product demo</b>
+        </button>
+        <p class="note" role="status" hidden></p>
+      </div>
+      <p class="file"><a href="./demo.mp4" download="dysonlight-harmony-demo.mp4">Download the file</a> · MP4, 1080p, 23.6 MB</p>
+    </section>
+
+    <section id="video-pitch" aria-labelledby="pitch-title">
+      <h2 id="pitch-title">Pitch <span>1:59</span></h2>
+      <div class="frame">
+        <video controls playsinline preload="none" src="./pitch.mp4" aria-labelledby="pitch-title"></video>
+        <button class="cover" type="button" aria-label="Play the pitch, 1 minute 59 seconds">
+          <svg viewBox="0 0 84 84" aria-hidden="true"><circle cx="42" cy="42" r="40" fill="none" stroke="#c4a365" stroke-width="2"/><path d="M35 27l24 15-24 15z" fill="#c4a365"/></svg>
+          <b>Play the pitch</b>
+        </button>
+        <p class="note" role="status" hidden></p>
+      </div>
+      <p class="file"><a href="./pitch.mp4" download="dysonlight-harmony-pitch.mp4">Download the file</a> · MP4, 1080p, 8.5 MB</p>
+    </section>
+  </div>
+
+  <footer>DysonLight: Harmony, by Extrinsic Cognition.</footer>
+</main>
+<script>
+(() => {
+  // The worker's static assets answer a Range request with the whole file (200, never 206): Chrome plays such a stream but cannot seek in it,
+  // WebKit refuses it outright. So each film is fetched whole, once, and played from memory, where every browser seeks freely. The film this
+  // link is for starts arriving as the page opens; the other follows it. The markup's src stays for browsers without script (preload=none
+  // fetched nothing before this ran).
+  const root = document.documentElement;
+  const players = {};
+  const order = () => location.hash === '#pitch' ? ['pitch', 'demo'] : ['demo', 'pitch'];
+
+  for (const pick of ['demo', 'pitch']) {
+    const frame = document.querySelector(`#video-${pick} .frame`);
+    const video = frame.querySelector('video'), cover = frame.querySelector('.cover'), label = cover.querySelector('b'), note = frame.querySelector('.note');
+    const url = video.getAttribute('src'), title = label.textContent;
+    video.removeAttribute('src');
+    let fetching = null, ready = false, wanted = false;
+
+    const say = text => { note.textContent = text; note.hidden = !text; };
+    const progress = text => { if (wanted) say(text); else label.textContent = text; };
+    const start = () => video.play().then(() => say(''), () => {
+      say('Ready: press play.');
+      video.addEventListener('play', () => say(''), { once: true });
+    });
+    const fetchWhole = () => fetching ||= (async () => {
+      const res = await fetch(url);
+      if (!res.ok || !res.body) throw new Error(`HTTP ${res.status}`);
+      const total = Number(res.headers.get('content-length')) || 0, reader = res.body.getReader(), parts = [];
+      for (let got = 0; ;) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        parts.push(value);
+        got += value.length;
+        progress(total ? `Loading ${Math.round(100 * got / total)}%` : `Loading ${(got / 1048576).toFixed(1)} MB`);
+      }
+      video.preload = 'auto';
+      video.src = URL.createObjectURL(new Blob(parts, { type: 'video/mp4' }));
+      ready = true;
+      label.textContent = title;
+      if (wanted) start();
+    })().catch(err => {
+      fetching = null;
+      wanted = false;
+      say('');
+      label.textContent = 'The video did not arrive. Tap to try again.';
+      cover.hidden = false;
+      throw err;
+    });
+
+    cover.addEventListener('click', () => {
+      cover.hidden = true;
+      wanted = true;
+      if (ready) { start(); return; }
+      say(label.textContent.startsWith('Loading') ? label.textContent : 'Loading');
+      fetchWhole().catch(() => {});
+    });
+    video.addEventListener('play', () => { for (const other of Object.values(players)) if (other.video !== video) other.video.pause(); });
+    players[pick] = { video, fetchWhole };
+  }
+
+  const first = () => {
+    const [pick] = order();
+    root.dataset.first = pick;
+    for (const a of document.querySelectorAll('nav a')) a.setAttribute('aria-current', String(a.dataset.pick === pick));
+    document.title = `${pick === 'pitch' ? 'Pitch' : 'Product demo'} · DysonLight: Harmony`;
+  };
+  addEventListener('hashchange', () => { first(); scrollTo({ top: 0 }); });
+  first();
+  (async () => { for (const pick of order()) await players[pick].fetchWhole().catch(() => {}); })();
+})();
+</script>
+</body>
+</html>

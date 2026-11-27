@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Line of time</title>
+<!--
+  LINE OF TIME: his tags on the mint's Saint Seiya film (Oct 14 2026 11:4x WEST). His words: "ADD A FUCKING LINE OF TIME THAT ALLOWS ME TO
+  DROP COMMENTED TAGS TO TIMESTEPS", after "WHY THE FUCK YOU DONT ASK ME FIRST": the hero's moments are his to name. f7396871 wired the
+  sphere to a seat's own reading of the film (the burn from 100.25 s, the growth over the Ryu Sei Ken's meteors from 107 s to 112 s, the fold
+  under the end card at 147.5 s) without asking him. That guess is the faint dashed row here; the hero follows his tags once he says so.
+  THE FILM is app/saint-seiya.mp4 with its own sound (its AAC track is the mint's saint-seiya.m4a, the same samples): 29.97 fps, 4624 frames,
+  154.311 s. Nothing of the mint changes here: a lab page, none in the build.
+  THE TAGS are one Nest ref, mint/seiya-tags: {film, v, duration, tags: [{id, t, text, made, edited}]}, t in seconds of the film to the
+  millisecond, made and edited on his wall clock (line-of-time.mjs shape). Written by compare-and-set (POST /nest/ref/<name> {seat, value,
+  expect} with no content-type: one request) at each drop, move and delete, a second after his typing stops and when a comment is left; a
+  write that would change nothing is not sent. A 409 merges by id (the later edit wins, a tag deleted here stays deleted) and writes again.
+  NOTHING HE TYPES IS EVER LOST (his 11:0x: "NEVER FUCKING MAKE ME LOSE SHIT BECAUSE YOU REFRESH THE PAGE AND MY SHIT GETS LOST"): every
+  keystroke is kept in this browser at once and folded in at the next load if the Nest did not take it; a rebuild of the list keeps the field
+  he types in, its words and its caret; a write leaving the page goes with keepalive; no key deletes a tag (only its ×, and Undo brings it
+  back for 15 s). ?nest= names another Nest.
+  SERVED BY HARMONY (his 11:0x: "all of that persistent server live real nest shit SHOULD BE NATIVE TO HARMONY"): harmony-aiolos.mjs serves
+  this page from the house checkout (http://127.0.0.1:8921/intro/dyson-society/lab/line-of-time.html, byte ranges for the film), and the
+  page writes the Nest itself; no server of a seat's in between.
+  NOTHING AT REST COSTS ANYTHING: the lanes draw on a cause (a frame of the playing film, a seek, a tag, a pointer, a resize), at most once
+  a frame; the filmstrip is drawn once per width by a second reader of the film, which is then let go.
+  KEYS: Space plays; T or Enter drops a tag at the playhead (the film pauses; type, Enter keeps it and plays on; Esc on an empty comment
+  takes it back); left and right step a frame, with Shift a second; [ and ] go to the tag before and after; M the sound. The upper lane is the whole film; the lower one is a window around the playhead (the wheel zooms it, a drag moves the tape).
+  Drag a tag's head to move it; double-click it to edit its words.
+-->
+<style>
+:root { color-scheme: dark; --bg:#0b0a09; --panel:#16130f; --line:#2b251d; --ink:#efe6d6; --dim:#9a8f7e; --tag:#ffd36a; --guess:#d07a3c; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.4 ui-sans-serif, -apple-system, system-ui, sans-serif; }
+header { display: flex; align-items: baseline; gap: 12px; padding: 10px 16px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+header h1 { font-size: 15px; margin: 0; font-weight: 650; letter-spacing: .02em; }
+header .what { color: var(--dim); }
+#save { margin-left: auto; color: var(--dim); font-variant-numeric: tabular-nums; }
+#save.bad { color: #ff8a66; }
+main { display: flex; gap: 16px; padding: 12px 16px 24px; align-items: flex-start; }
+#work { flex: 1 1 auto; min-width: 0; }
+#side { flex: 0 0 360px; max-height: calc(100vh - 64px); overflow: auto; position: sticky; top: 8px; }
+@media (max-width: 1099px) { main { display: block; } #side { max-height: none; position: static; margin-top: 12px; } }
+#stage { background: #000; border-radius: 6px; overflow: hidden; }
+#film { display: block; width: 100%; max-height: 52vh; aspect-ratio: 16 / 9; background: #000; cursor: pointer; }
+#transport { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 10px 0 4px; }
+button { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 5px; padding: 6px 10px; font: inherit; cursor: pointer; }
+button:hover { border-color: #4d4232; }
+button.tag { background: #3a2a0a; border-color: #7a5a1a; color: var(--tag); font-weight: 650; }
+#clock { font-variant-numeric: tabular-nums; padding: 0 8px; min-width: 15ch; }
+.lane { margin-top: 6px; }
+.lane canvas { display: block; width: 100%; border-radius: 4px; background: var(--panel); touch-action: none; }
+#overview { height: 64px; }
+#detail { height: 92px; cursor: grab; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 16px; color: var(--dim); font-size: 12px; margin: 6px 2px 0; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
+.legend .dash { border-radius: 0; width: 2px; height: 12px; background: repeating-linear-gradient(var(--guess) 0 3px, transparent 3px 6px); }
+.keys { color: var(--dim); font-size: 12px; margin-top: 10px; line-height: 1.9; }
+kbd { border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 3px; padding: 0 4px; font: 11px ui-monospace, monospace; color: var(--ink); }
+#side h2 { font-size: 13px; font-weight: 650; margin: 0 0 6px; color: var(--dim); letter-spacing: .04em; text-transform: uppercase; }
+.row { display: grid; grid-template-columns: 26px 70px 1fr 28px; align-items: center; gap: 6px; padding: 4px 2px; border-bottom: 1px solid var(--line); }
+.row.chosen { background: #231b0f; }
+.row .n { color: var(--dim); text-align: right; font-variant-numeric: tabular-nums; }
+.row.now .n { color: var(--tag); font-weight: 650; }
+.row .at { padding: 4px 6px; font-variant-numeric: tabular-nums; }
+.row input { width: 100%; background: transparent; color: var(--ink); border: 1px solid transparent; border-radius: 4px; padding: 5px 6px; font: inherit; }
+.row input:focus { outline: none; border-color: #7a5a1a; background: #1c160d; }
+.row .x { padding: 4px 0; color: var(--dim); }
+#empty { color: var(--dim); padding: 8px 2px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Line of time</h1>
+  <span class="what">the mint's Saint Seiya film · your tags decide the hero's moments</span>
+  <span id="save">reading the Nest…</span>
+  <button id="undo" hidden>Undo delete</button>
+</header>
+<main>
+  <section id="work">
+    <div id="stage"><video id="film" preload="auto" playsinline></video></div>
+    <div id="transport">
+      <button id="play" title="Space">Play</button>
+      <button data-step="-1" title="Shift + left">−1 s</button>
+      <button data-step="-f" title="left">−1 frame</button>
+      <button data-step="+f" title="right">+1 frame</button>
+      <button data-step="+1" title="Shift + right">+1 s</button>
+      <span id="clock">0:00.00</span>
+      <button id="drop" class="tag" title="T or Enter">Tag here</button>
+      <button id="sound" title="M">Sound on</button>
+    </div>
+    <div class="lane"><canvas id="overview" aria-label="the whole film: click or drag to go there"></canvas></div>
+    <div class="lane"><canvas id="detail" aria-label="a window around the playhead: drag to move the tape, wheel to zoom"></canvas></div>
+    <div class="legend">
+      <span><i style="background:var(--tag)"></i>your tags</span>
+      <span id="guess-key" hidden><i class="dash"></i>on main now: my guess (f7396871), not yours; your tags replace it</span>
+    </div>
+    <div class="keys">
+      <kbd>Space</kbd> play · <kbd>T</kbd> or <kbd>Enter</kbd> tag here, type, <kbd>Enter</kbd> · <kbd>Esc</kbd> on an empty tag takes it back ·
+      <kbd>←</kbd> <kbd>→</kbd> a frame, with <kbd>Shift</kbd> a second · <kbd>[</kbd> <kbd>]</kbd> tag before, after ·
+      drag a tag's head to move it, double-click it to edit · wheel on the lower lane zooms · every keystroke is kept; × deletes, Undo brings it back
+    </div>
+  </section>
+  <aside id="side">
+    <h2>Tags</h2>
+    <div id="tags"></div>
+  </aside>
+</main>
+<script type="module">
+import {shape, at, clock, merge, frameStep, ticks, guessesIn} from './line-of-time.mjs';
+
+const FILM = {src: '../app/saint-seiya.mp4?v=53561d47', v: '53561d47', fps: 30000 / 1001, duration: 154.311};
+const q = new URLSearchParams(location.search);
+const NEST = (q.get('nest') || `${location.protocol}//${location.hostname}:8904`).replace(/\/$/, '');
+const REF = 'mint/seiya-tags', SEAT = 'line-of-time', KEEP = `line-of-time:${NEST}:${REF}`;
+const C = {tag: '#ffd36a', tagOn: '#fff4cf', guess: '#d07a3c', ink: '#efe6d6', dim: '#9a8f7e', panel: '#16130f', head: '#ffffff'};
+const FONT = 'ui-sans-serif, -apple-system, system-ui, sans-serif';
+const $ = s => document.querySelector(s);
+const film = $('#film'), over = $('#overview'), detail = $('#detail'), list = $('#tags');
+film.src = FILM.src;
+const D = () => Number.isFinite(film.duration) && film.duration > 0 ? film.duration : FILM.duration;
+const byTime = (a, b) => a.t - b.t || (a.made || 0) - (b.made || 0);
+const byId = id => tags.find(tag => tag.id === id);
+
+let tags = [], rev = 0, gone = new Set(), chosen = null, fresh = null, resume = false, guesses = [];
+let span = 12, hover = null, drag = null, paints = 0, nowId = null;
+
+// ---- the Nest: one ref, written by compare-and-set; this browser keeps a copy while the Nest is out of reach
+const say = (text, bad = false) => { const el = $('#save'); el.textContent = text; el.classList.toggle('bad', bad); };
+const count = () => `${tags.length} tag${tags.length === 1 ? '' : 's'}`;
+const keep = dirty => { try { localStorage.setItem(KEEP, JSON.stringify({dirty, rev, gone: [...gone], value: shape(tags, {v: FILM.v, duration: D()})})); } catch {} };
+async function read() {
+  const r = await fetch(`${NEST}/nest/ref/${REF}`, {cache: 'no-store', signal: AbortSignal.timeout(8000)});
+  if (!r.ok) throw new Error(`HTTP ${r.status}`);
+  return (await r.json()).ref;   // null until the first tag is written
+}
+// held: the value the Nest holds as this page last read or wrote it, as text; a save that would change nothing sends nothing
+let saving = null, again = false, held = '', timer = null;
+const now = () => JSON.stringify(shape(tags, {v: FILM.v, duration: D()}));
+const later = () => { clearTimeout(timer); timer = setTimeout(save, 1000); };   // a second after his typing stops
+async function save() {
+  clearTimeout(timer); timer = null;
+  keep(true);
+  if (saving) { again = true; return; }
+  saving = (async () => {
+    for (let tries = 0; tries < 5; tries++) {
+      const text = now();
+      if (text === held) { keep(false); say(`saved · ${count()} · Nest ${REF} rev ${rev}`); return; }
+      say('saving…');
+      let r, a;
+      try {
+        r = await fetch(`${NEST}/nest/ref/${REF}`, {method: 'POST', keepalive: true, signal: AbortSignal.timeout(8000),
+          body: JSON.stringify({seat: SEAT, value: JSON.parse(text), expect: rev})});
+        a = await r.json().catch(() => ({}));
+      } catch (e) { say(`not on the Nest (${e.message}): kept in this browser, written at the next change`, true); return; }
+      if (r.ok && a.ok) { rev = a.ref?.rev ?? rev + 1; held = text; keep(now() !== held); say(`saved · ${count()} · Nest ${REF} rev ${rev}`); return; }
+      if (r.status === 409) {   // another hand wrote it: fold theirs in and write again
+        const cur = 'current' in a ? a.current : await read().catch(() => undefined);
+        if (cur === undefined) break;
+        rev = cur?.rev ?? 0; tags = merge(tags, cur?.value?.tags, gone); rows(); paint(); continue;
+      }
+      say(`the Nest refused the write (${a.error || 'HTTP ' + r.status}): kept in this browser`, true); return;
+    }
+    say('the Nest kept changing under this page: kept in this browser', true);
+  })();
+  try { await saving; } finally { saving = null; if (again) { again = false; save(); } }
+}
+async function load() {
+  let local = null;
+  try { local = JSON.parse(localStorage.getItem(KEEP) || 'null'); } catch {}
+  try {
+    const ref = await read();
+    rev = ref?.rev ?? 0; tags = merge([], ref?.value?.tags); held = now();   // what the Nest holds, as this page would write it
+    if (local?.dirty) {   // what this browser kept and the Nest may lack: written only if it adds something
+      gone = new Set(local.gone || []); tags = merge(local.value?.tags, ref?.value?.tags, gone); rows(); paint();
+      await save();
+    } else say(rev ? `on the Nest · ${count()} · ${REF} rev ${rev}` : `no tags yet · they go to the Nest as ${REF}`);
+  } catch (e) {
+    if (local) { rev = local.rev || 0; tags = merge(local.value?.tags, []); gone = new Set(local.gone || []); }
+    say(`the Nest is out of reach (${e.message}): this browser's copy`, true);
+  }
+  rows(); paint();
+}
+
+// ---- the tags
+function choose(id) { chosen = id; markRows(); paint(); }
+function edit(id) { const input = list.querySelector(`.row[data-id="${id}"] input`); if (input) { input.focus(); input.setSelectionRange(input.value.length, input.value.length); } }
+function drop() {
+  resume = !film.paused; film.pause();
+  const now = Date.now();
+  const tag = {id: now.toString(36) + Math.floor(Math.random() * 1296).toString(36).padStart(2, '0'), t: at(film.currentTime, D()), text: '', made: now, edited: now};
+  tags.push(tag); tags.sort(byTime);
+  fresh = tag.id; chosen = tag.id;
+  rows(); paint(); edit(tag.id);
+  save();
+}
+// a tag with words comes back by Undo for 15 s after its ×
+let undone = null, undoTimer = null;
+function remove(id) {
+  const tag = byId(id); if (!tag) return;
+  tags = tags.filter(x => x.id !== id); gone.add(id);
+  if (chosen === id) chosen = null;
+  if (fresh === id) fresh = null;
+  if (tag.text) {
+    undone = tag; $('#undo').hidden = false; clearTimeout(undoTimer);
+    undoTimer = setTimeout(() => { undone = null; $('#undo').hidden = true; }, 15000);
+  }
+  rows(); paint(); save();
+}
+$('#undo').addEventListener('click', () => {
+  const tag = undone; if (!tag) return;
+  undone = null; $('#undo').hidden = true; clearTimeout(undoTimer);
+  gone.delete(tag.id); tag.edited = Date.now(); tags.push(tag); tags.sort(byTime);
+  chosen = tag.id; rows(); paint(); save();
+});
+function jump(dir) {
+  const t = film.currentTime;
+  const tag = dir < 0 ? [...tags].reverse().find(x => x.t < t - 0.05) : tags.find(x => x.t > t + 0.05);
+  if (tag) { choose(tag.id); seek(tag.t); }
+}
+function rows() {
+  // a rebuild (a drop, a move, a delete, a merge from the Nest) keeps the words he is typing, the row and the caret
+  const active = document.activeElement;
+  const typing = active instanceof HTMLInputElement && list.contains(active)
+    ? {id: active.closest('.row')?.dataset.id, value: active.value, a: active.selectionStart, b: active.selectionEnd} : null;
+  rebuild();
+  const input = typing && list.querySelector(`.row[data-id="${typing.id}"] input`);
+  if (input) { input.value = typing.value; input.focus(); input.setSelectionRange(typing.a, typing.b); }
+}
+function rebuild() {
+  list.textContent = '';
+  if (!tags.length) {
+    const p = document.createElement('div'); p.id = 'empty';
+    p.textContent = 'No tags yet. Play the film and press T where something happens; type what happens there; Enter.';
+    list.append(p); return;
+  }
+  tags.forEach((tag, i) => {
+    const row = document.createElement('div'); row.className = 'row'; row.dataset.id = tag.id;
+    const n = document.createElement('span'); n.className = 'n'; n.textContent = i + 1;
+    const time = document.createElement('button'); time.className = 'at'; time.textContent = clock(tag.t);
+    time.title = `${tag.t.toFixed(3)} s, frame ${Math.round(tag.t * FILM.fps)}: go there`;
+    time.addEventListener('click', () => { choose(tag.id); seek(tag.t); });
+    const input = document.createElement('input'); input.type = 'text'; input.value = tag.text; input.placeholder = 'what happens here';
+    input.setAttribute('aria-label', `tag ${i + 1} at ${clock(tag.t)}`);
+    input.addEventListener('focus', () => choose(tag.id));
+    input.addEventListener('keydown', e => {
+      e.stopPropagation();
+      if (e.key === 'Enter') { e.preventDefault(); input.blur(); if (resume) { resume = false; film.play().catch(() => {}); } }
+      else if (e.key === 'Escape') { e.preventDefault(); if (tag.id === fresh && !input.value.trim()) { resume = false; remove(tag.id); } else input.blur(); }
+    });
+    // every keystroke is his word at once: kept in this browser now, on the Nest a second after he stops, and when he leaves the field
+    input.addEventListener('input', () => { tag.text = input.value; tag.edited = Date.now(); keep(true); later(); paint(); });
+    input.addEventListener('blur', () => {
+      if (fresh === tag.id) fresh = null;
+      if (!tags.includes(tag)) return;
+      const text = input.value.trim();
+      if (text !== tag.text) { tag.text = text; tag.edited = Date.now(); }
+      save(); paint();
+    });
+    const x = document.createElement('button'); x.className = 'x'; x.textContent = '×'; x.title = 'delete this tag';
+    x.addEventListener('click', () => remove(tag.id));
+    row.append(n, time, input, x); list.append(row);
+  });
+  markRows();
+}
+function markRows() {
+  for (const row of list.children) { row.classList.toggle('chosen', row.dataset.id === chosen); row.classList.toggle('now', row.dataset.id === nowId); }
+}
+function markNow() {
+  const t = film.currentTime + 0.02; let id = null;
+  for (const tag of tags) { if (tag.t <= t) id = tag.id; else break; }
+  if (id !== nowId) { nowId = id; markRows(); }
+}
+
+// ---- the film
+const seek = t => { film.currentTime = Math.min(Math.max(t, 0), D() - 0.01); paint(); };
+const toggle = () => { if (film.paused) film.play().catch(() => {}); else film.pause(); };
+const mute = () => { film.muted = !film.muted; $('#sound').textContent = film.muted ? 'Sound off' : 'Sound on'; };
+const stepFrame = dir => { film.pause(); seek(frameStep(film.currentTime, dir, FILM.fps, D())); };
+let vfc = null;
+const frames = 'requestVideoFrameCallback' in HTMLVideoElement.prototype;
+const onFrame = () => { vfc = null; paint(); if (!film.paused) vfc = film.requestVideoFrameCallback(onFrame); };
+film.addEventListener('play', () => { $('#play').textContent = 'Pause'; if (frames && vfc === null) vfc = film.requestVideoFrameCallback(onFrame); });
+film.addEventListener('pause', () => { $('#play').textContent = 'Play'; if (vfc !== null) { film.cancelVideoFrameCallback(vfc); vfc = null; } paint(); });
+if (!frames) film.addEventListener('timeupdate', paint);
+film.addEventListener('seeked', paint);
+film.addEventListener('click', toggle);
+$('#play').addEventListener('click', toggle);
+$('#drop').addEventListener('click', drop);
+$('#sound').addEventListener('click', mute);
+for (const b of document.querySelectorAll('[data-step]')) b.addEventListener('click', () => {
+  const s = b.dataset.step;
+  if (s.endsWith('f')) stepFrame(s.startsWith('-') ? -1 : 1); else seek(film.currentTime + Number(s));
+});
+addEventListener('keydown', e => {
+  if (e.target instanceof HTMLInputElement || e.metaKey || e.ctrlKey || e.altKey) return;
+  const k = e.key;
+  if (k === ' ') toggle();
+  else if (k === 't' || k === 'T' || k === 'Enter') drop();
+  else if (k === 'ArrowLeft' || k === 'ArrowRight') { const dir = k === 'ArrowLeft' ? -1 : 1; if (e.shiftKey) seek(film.currentTime + dir); else stepFrame(dir); }
+  else if (k === '[' || k === ']') jump(k === '[' ? -1 : 1);
+  else if (k === 'm' || k === 'M') mute();
+  else return;
+  e.preventDefault();
+});
+
+// ---- the lanes: drawn on a cause, at most once a frame
+let queued = false;
+function paint() {
+  if (queued) return; queued = true;
+  requestAnimationFrame(() => { queued = false; paints++; drawOverview(); drawDetail(); $('#clock').textContent = `${clock(film.currentTime)} · frame ${Math.round(film.currentTime * FILM.fps)}`; markNow(); });
+}
+function fit(c) {
+  const r = c.getBoundingClientRect(), d = devicePixelRatio || 1, W = Math.round(r.width * d), H = Math.round(r.height * d);
+  if (c.width !== W || c.height !== H) { c.width = W; c.height = H; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0);
+  return [g, r.width, r.height];
+}
+const laneX = (c, w) => c === over ? t => t / D() * w : t => (t - film.currentTime + span / 2) / span * w;
+const laneT = (c, w) => c === over ? x => x / w * D() : x => film.currentTime - span / 2 + x / w * span;
+function shorten(g, text, room) {
+  if (g.measureText(text).width <= room) return text;
+  let s = text; while (s.length > 1 && g.measureText(s + '…').width > room) s = s.slice(0, -1);
+  return s + '…';
+}
+function pins(g, X, w, h, words) {
+  const xs = tags.map(tag => X(tag.t));
+  tags.forEach((tag, i) => {
+    const x = xs[i]; if (x < -40 || x > w + 40) return;
+    const on = tag.id === chosen;
+    g.fillStyle = on ? C.tagOn : C.tag;
+    g.fillRect(Math.round(x) - (on ? 1 : 0.5), 18, on ? 3 : 2, h - 18);
+    g.beginPath(); g.arc(x, 10, 8, 0, Math.PI * 2); g.fill();
+    if (on) { g.strokeStyle = C.head; g.lineWidth = 1.5; g.stroke(); }
+    g.fillStyle = '#1a1206'; g.font = `650 10px ${FONT}`; g.textAlign = 'center'; g.textBaseline = 'middle';
+    g.fillText(String(i + 1), x, 10.5);
+    if (words && tag.text) {
+      const room = Math.min(320, (i + 1 < xs.length ? xs[i + 1] : w + 400) - x - 26);
+      if (room > 24) { g.font = `12px ${FONT}`; g.textAlign = 'left'; g.fillStyle = C.ink; g.fillText(shorten(g, tag.text, room), x + 12, 10.5); }
+    }
+  });
+}
+function guessMark(g, x, h, what) {
+  g.globalAlpha = 0.8; g.fillStyle = C.guess;
+  for (let y = 22; y < h; y += 6) g.fillRect(Math.round(x), y, 1, 3);
+  if (what) { g.font = `11px ${FONT}`; g.textAlign = 'left'; g.textBaseline = 'middle'; g.fillText(what, x + 4, 32); }
+  g.globalAlpha = 1;
+}
+function hoverMark(g, x, w, h, text) {
+  g.fillStyle = 'rgba(255,255,255,0.35)'; g.fillRect(Math.round(x), 0, 1, h);
+  g.font = `11px ${FONT}`; g.textAlign = 'left'; g.textBaseline = 'middle';
+  const tw = g.measureText(text).width + 8, bx = Math.min(x + 4, w - tw);
+  g.fillStyle = 'rgba(0,0,0,0.75)'; g.fillRect(bx, h - 20, tw, 16);
+  g.fillStyle = C.ink; g.fillText(text, bx + 4, h - 12);
+}
+function playhead(g, x, h) {
+  g.fillStyle = C.head; g.fillRect(Math.round(x) - 1, 0, 2, h);
+  g.beginPath(); g.moveTo(x - 6, 0); g.lineTo(x + 6, 0); g.lineTo(x, 7); g.fill();
+}
+const strip = document.createElement('canvas');
+function drawOverview() {
+  const [g, w, h] = fit(over), X = laneX(over, w);
+  g.fillStyle = C.panel; g.fillRect(0, 0, w, h);
+  if (strip.width) g.drawImage(strip, 0, 0, w, h);
+  g.fillStyle = 'rgba(10,8,6,0.4)'; g.fillRect(0, 0, w, h);
+  g.fillStyle = 'rgba(255,255,255,0.6)'; g.fillRect(0, h - 3, X(film.currentTime), 3);
+  for (const m of guesses) guessMark(g, X(m.t), h, null);
+  pins(g, X, w, h, false);
+  if (hover?.c === over && !drag) hoverMark(g, hover.x, w, h, clock(hover.x / w * D()));
+  playhead(g, X(film.currentTime), h);
+}
+function drawDetail() {
+  const [g, w, h] = fit(detail), d = D(), c = film.currentTime, a = c - span / 2, b = a + span, X = laneX(detail, w);
+  g.fillStyle = C.panel; g.fillRect(0, 0, w, h);
+  g.fillStyle = 'rgba(0,0,0,0.55)';
+  if (a < 0) g.fillRect(0, 0, X(0), h);
+  if (b > d) g.fillRect(X(d), 0, w - X(d), h);
+  if (w / span / FILM.fps >= 5) {   // the frames, once a frame is 5 px wide
+    g.fillStyle = 'rgba(255,255,255,0.12)';
+    for (let k = Math.ceil(Math.max(a, 0) * FILM.fps); k / FILM.fps <= Math.min(b, d); k++) g.fillRect(Math.round(X(k / FILM.fps)), h - 6, 1, 6);
+  }
+  const {minor, label} = ticks(span, w);
+  g.font = `11px ${FONT}`; g.textAlign = 'left'; g.textBaseline = 'bottom';
+  for (let i = Math.ceil(Math.max(a, 0) / minor); i * minor <= Math.min(b, d); i++) {
+    const t = i * minor, x = Math.round(X(t)), major = Math.abs(t / label - Math.round(t / label)) < 1e-6;
+    g.fillStyle = 'rgba(255,255,255,0.25)'; g.fillRect(x, h - (major ? 16 : 9), 1, major ? 16 : 9);
+    if (major) { g.fillStyle = C.dim; g.fillText(label < 1 ? clock(t).slice(0, -1) : clock(t).slice(0, -3), x + 3, h - 2); }
+  }
+  for (const m of guesses) if (m.t >= a && m.t <= b) guessMark(g, X(m.t), h, m.what);
+  pins(g, X, w, h, true);
+  if (hover?.c === detail && !drag) hoverMark(g, hover.x, w, h, clock(a + hover.x / w * span));
+  playhead(g, X(c), h);
+}
+// the filmstrip: a second reader of the film, seeked once a thumbnail, then let go
+let stripRun = 0, stripWidth = 0;
+async function filmstrip() {
+  const run = ++stripRun, r = over.getBoundingClientRect(), d = devicePixelRatio || 1;
+  const W = Math.round(r.width * d), H = Math.round(r.height * d);
+  if (!W || !H) return;
+  stripWidth = Math.round(r.width);
+  const reader = document.createElement('video');
+  reader.muted = true; reader.preload = 'auto'; reader.playsInline = true; reader.src = FILM.src;
+  const once = type => new Promise((ok, no) => {
+    const done = () => { reader.removeEventListener('error', fail); ok(); };
+    const fail = () => { reader.removeEventListener(type, done); no(new Error('the film could not be read')); };
+    reader.addEventListener(type, done, {once: true}); reader.addEventListener('error', fail, {once: true});
+  });
+  try {
+    await once('loadeddata');
+    strip.width = W; strip.height = H;
+    const g = strip.getContext('2d'), tw = H * 16 / 9, n = Math.ceil(W / tw), dur = reader.duration || D();
+    for (let i = 0; i < n && run === stripRun; i++) {
+      reader.currentTime = Math.min(dur - 0.05, (i + 0.5) * tw / W * dur);
+      await once('seeked');
+      g.drawImage(reader, Math.round(i * tw), 0, Math.ceil(tw), H);
+      paint();
+    }
+  } catch (e) { console.warn('line of time: no filmstrip,', e.message); }
+  finally { reader.removeAttribute('src'); reader.load(); }
+}
+film.addEventListener('loadedmetadata', () => { paint(); filmstrip(); });
+let regen = null;
+new ResizeObserver(() => {
+  paint();
+  const w = Math.round(over.getBoundingClientRect().width);
+  if (film.readyState >= 1 && stripWidth && w !== stripWidth) { clearTimeout(regen); regen = setTimeout(filmstrip, 250); }
+}).observe(document.body);
+
+// ---- the pointer: click or drag the upper lane to go there; drag the lower lane's tape; drag a tag's head to move it
+function hit(c, x) {
+  const X = laneX(c, c.getBoundingClientRect().width);
+  let best = null, gap = 8;
+  for (const tag of tags) { const dx = Math.abs(X(tag.t) - x); if (dx < gap) { gap = dx; best = tag; } }
+  return best;
+}
+for (const c of [over, detail]) {
+  const xOf = e => e.clientX - c.getBoundingClientRect().left;
+  c.addEventListener('pointerdown', e => {
+    if (e.button !== 0) return;
+    const x = xOf(e), w = c.getBoundingClientRect().width, tag = hit(c, x);
+    c.setPointerCapture(e.pointerId);
+    if (tag) { drag = {c, kind: 'tag', id: tag.id, x0: x, moved: false, T: laneT(c, w)}; choose(tag.id); }
+    else if (c === over) { drag = {c, kind: 'scrub', x0: x, moved: false}; seek(laneT(c, w)(x)); }
+    else { drag = {c, kind: 'tape', x0: x, t0: film.currentTime, moved: false}; c.style.cursor = 'grabbing'; }
+  });
+  c.addEventListener('pointermove', e => {
+    const x = xOf(e), w = c.getBoundingClientRect().width;
+    if (!drag) { hover = {c, x}; c.style.cursor = hit(c, x) ? 'ew-resize' : c === over ? 'pointer' : 'grab'; paint(); return; }
+    if (drag.c !== c) return;
+    if (Math.abs(x - drag.x0) > 3) drag.moved = true;
+    if (drag.kind === 'scrub') seek(laneT(c, w)(x));
+    else if (drag.kind === 'tape' && drag.moved) seek(drag.t0 - (x - drag.x0) / w * span);
+    else if (drag.kind === 'tag' && drag.moved) { const tag = byId(drag.id); if (tag) { tag.t = at(drag.T(x), D()); tag.edited = Date.now(); paint(); } }
+  });
+  c.addEventListener('pointerup', e => {
+    const d = drag; drag = null;
+    if (!d || d.c !== c) return;
+    const x = xOf(e), w = c.getBoundingClientRect().width;
+    if (d.kind === 'tape') { c.style.cursor = 'grab'; if (!d.moved) seek(laneT(c, w)(x)); }
+    else if (d.kind === 'tag') { const tag = byId(d.id); if (d.moved) { tags.sort(byTime); rows(); save(); } else if (tag) seek(tag.t); }
+    paint();
+  });
+  c.addEventListener('pointercancel', () => { drag = null; paint(); });
+  c.addEventListener('pointerleave', () => { if (!drag) { hover = null; paint(); } });
+  c.addEventListener('dblclick', e => { const tag = hit(c, xOf(e)); if (tag) edit(tag.id); });
+}
+detail.addEventListener('wheel', e => {
+  e.preventDefault();
+  const w = detail.getBoundingClientRect().width;
+  if (e.shiftKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) seek(film.currentTime + (e.shiftKey ? e.deltaY : e.deltaX) / w * span);
+  else { span = Math.min(60, Math.max(2, span * Math.exp(e.deltaY * 0.0015))); paint(); }
+}, {passive: false});
+
+// ---- the seat's guess on main, read from the hero's own text: shown so it can be replaced, never followed here
+fetch('../app/warm-sphere.js', {cache: 'no-store'}).then(r => r.ok ? r.text() : '').then(text => {
+  guesses = guessesIn(text); $('#guess-key').hidden = !guesses.length; paint();
+}).catch(() => {});
+
+// leaving the page: what waits for its second goes now, with keepalive (this browser holds it anyway)
+addEventListener('pagehide', () => { if (timer) save(); });
+document.addEventListener('visibilitychange', () => { if (document.hidden && timer) save(); });
+
+window.lineOfTime = {state: () => ({nest: NEST, ref: REF, rev, tags: tags.map(tag => ({...tag})), gone: [...gone], paints, span,
+  t: film.currentTime, paused: film.paused, strip: strip.width, guesses: guesses.length})};
+load();
+</script>
+</body>
+</html>

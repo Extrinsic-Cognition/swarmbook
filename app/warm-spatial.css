@@ -1,0 +1,87 @@
+.warm-world{position:absolute;inset:0;overflow:hidden;background:#101c1a;color:#eee7d1;font-family:var(--sans,system-ui,sans-serif);isolation:isolate}
+.warm-world[hidden]{display:none!important}
+.warm-world *{box-sizing:border-box}
+.ww-canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:grab;outline:none}
+.ww-canvas:active{cursor:grabbing}.ww-canvas:focus-visible{outline:2px solid #d7bc77;outline-offset:-4px}
+.warm-world[data-mode=target] .ww-canvas{cursor:crosshair}
+.ww-top{position:absolute;inset:0 0 auto;padding:28px 34px;display:flex;justify-content:space-between;align-items:flex-start;pointer-events:none;background:linear-gradient(#0c1d19a8,transparent)}
+.ww-kicker{font:10px/1.5 ui-monospace,monospace;letter-spacing:.16em;color:#d7bf86;margin:0 0 14px}
+.ww-intro h2{font:clamp(28px,3.4vw,53px)/1.03 Georgia,serif;letter-spacing:-.035em;margin:0 0 12px;color:#eee7d1;text-shadow:0 2px 24px #0b1b18}
+.ww-intro em{color:#d4b675}.ww-intro>p:last-child{font:12px/1.5 system-ui;color:#b9c8bc;margin:0;max-width:320px}
+.ww-tools{display:flex;gap:7px;pointer-events:auto}
+.warm-world button{font:12px/1.3 system-ui;color:#e6dfca;background:#12271feb;border:1px solid #beab784d;padding:10px 13px;cursor:pointer;border-radius:2px;min-height:36px}
+.warm-world button:hover{border-color:#d5bb7a;background:#28372a}.warm-world button:focus-visible,.warm-world input:focus-visible{outline:2px solid #dcc07f;outline-offset:3px}
+.warm-world button.ww-primary{background:#d2ba7e;color:#13261d;border-color:#d2ba7e;font-weight:650}
+.ww-inspector{position:absolute;top:88px;right:28px;width:285px;padding:20px;background:#0e211ded;border:1px solid #a594645e;backdrop-filter:blur(16px);box-shadow:0 16px 54px #0003;max-height:calc(100% - 135px);overflow:auto;scrollbar-width:thin}
+.ww-inspector[hidden],.warm-world [hidden]{display:none!important}
+.ww-inspector-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.ww-inspector-head>span{font:9px/1.5 ui-monospace,monospace;letter-spacing:.08em;color:#baad87}.ww-inspector-head button{padding:0;border:0;background:none;min-height:20px;font-size:22px}
+.ww-inspector h3{font:28px/1.1 Georgia,serif;margin:14px 0 7px}.ww-inspector p{font:12px/1.5 system-ui;color:#b5c1b4;margin:0 0 17px}
+.ww-selection-actions{display:grid;grid-template-columns:1fr;gap:8px}.ww-children{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.ww-children:empty{display:none}.ww-children button{font-size:10px;padding:6px 9px;min-height:28px}
+.ww-inspector form{border-top:1px solid #a5946438;margin-top:18px;padding-top:15px}.ww-inspector label{display:block;font:11px/1.5 system-ui;color:#cbbd99}
+.ww-inspector input{display:block;width:100%;background:#081814;color:#f2ead7;border:1px solid #a5946459;border-radius:0;margin:6px 0 12px;padding:10px;font:12px/1.5 system-ui}
+.ww-form-row{display:grid;grid-template-columns:74px 1fr;gap:12px;align-items:center}.ww-form-row button{margin-top:8px}.ww-form-row input{margin-bottom:0}
+.ww-inspector p.ww-disclosure{font-size:10px;color:#a7b6a9;margin:12px 0 0}
+.ww-mission{margin-top:17px;border-top:1px solid #a5946438;padding-top:14px}.ww-mission>span{font:10px/1.5 ui-monospace,monospace;letter-spacing:.1em;color:#e5cb88}.ww-progress{height:2px;background:#7384664d;margin:12px 0}.ww-progress i{display:block;height:2px;width:0;background:#dfc275;transition:width .3s}.ww-mission p{font-size:11px;margin-bottom:10px}
+.ww-label{position:absolute;pointer-events:none;text-align:center;text-shadow:0 2px 10px #071411;background:linear-gradient(90deg,transparent,#0d201bd6,transparent);padding:8px 20px;transform:translate(-50%,-100%);white-space:nowrap}
+.ww-label span{font:9px/1.7 ui-monospace,monospace;letter-spacing:.2em;color:#dac48a;display:block}.ww-label strong{font:20px/1.2 Georgia,serif;color:#fff0cc}
+.ww-bottom{position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-end;gap:12px;padding:22px 28px 16px;font:10px/1.5 system-ui;color:#b6c5b7;pointer-events:none;background:linear-gradient(transparent,#0a1c17e0)}
+.ww-study{font:9px/1.5 ui-monospace,monospace;letter-spacing:.1em;color:#b6b38e;text-align:right}.ww-notice{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);background:#11271eee;padding:14px 20px;color:#ead8a8;font:13px/1.5 system-ui;border:1px solid #ae995761}
+[data-warm-galaxy][data-world-open=true] .galaxy-theater{visibility:hidden!important;pointer-events:none!important}
+@media(max-width:700px){.ww-top{padding:20px}.ww-intro h2{font-size:31px}.ww-intro>p:last-child{max-width:210px;font-size:11px}.ww-tools{position:absolute;right:12px;bottom:-28px;gap:5px}.ww-tools button{padding:7px 9px;font-size:10px}.ww-inspector{top:auto;bottom:42px;right:12px;left:12px;width:auto;max-height:46%;padding:15px}.ww-intro{max-width:90%}.ww-bottom{padding:14px 14px 10px;font-size:9px}.ww-bottom>span:first-child{max-width:62%}.ww-label strong{font-size:16px}.ww-inspector h3{font-size:23px}.ww-inspector p{margin-bottom:10px}.ww-selection-actions{grid-template-columns:1fr 1.3fr}.ww-children{display:none}.ww-inspector form{margin-top:12px;padding-top:10px}}
+@media(prefers-reduced-motion:reduce){.ww-progress i{transition:none}}
+.ww-label[role=button]{pointer-events:auto;cursor:pointer}.ww-label[role=button]:hover strong{color:#ffe4a0}.ww-label[role=button]:focus-visible{outline:1px solid #e7c98b}
+
+.ww-lens{position:absolute;z-index:1;inset:0;width:100%;height:100%;pointer-events:none}
+.ww-smoke{position:absolute;z-index:1;inset:0;width:100%;height:100%;pointer-events:none}
+.warm-world.has-pixel-lens .ww-canvas{cursor:none}
+
+/* Magnify the world beneath the interface; text and controls stay intact. */
+.ww-canvas{z-index:0}
+.ww-top,.ww-label,.ww-bottom{z-index:2}
+.ww-inspector{z-index:3}
+.ww-notice{z-index:4}
+.ww-intro,.ww-bottom>span{pointer-events:auto;cursor:default}
+
+/* Stations are places, not bodies: text like the root label, one size down. 2026-09-11. */
+/* THE ENCOUNTER'S PLATE (his Oct 22 2026 WEST, over her name on the bright sphere: "contrast makes it unreadable"): a solid plate, not a fade */
+.ww-label-station{transform:translate(-50%,-50%);padding:7px 16px 8px;background:#0a1714f0;border:1px solid #c9a65c99;border-radius:3px;box-shadow:0 6px 20px #030a08cc;text-shadow:none}
+.ww-label-station span{font-size:9px;color:#ecd394}.ww-label-station strong{font-size:15px;letter-spacing:.01em;color:#fff5da}.ww-label-station:hover{border-color:#ecd394}
+
+/* The observatory over the live world (2026-09-11): no raster backdrop, the scene stays; panels get their own backing. */
+.hero-journey[data-world-open=true] .ws-backdrop{background-image:none!important;background-color:transparent!important}
+.hero-journey[data-world-open=true][data-crossing="state"] .warm-state{background-color:transparent}
+.hero-journey[data-world-open=true] .warm-state .ws-world,.hero-journey[data-world-open=true] .warm-state .ws-ledger{background:#0c1e1ccc;padding:16px;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border:1px solid #d4bf8926}
+.hero-journey[data-world-open=true] .warm-state .ws-header,.hero-journey[data-world-open=true] .warm-state .ws-footer{text-shadow:0 2px 10px #071411}
+.hero-journey[data-world-open=true] .warm-state [data-close-warm-state]{background:#0c1e1cd0}
+
+/* THE MISSION ON THE ENDING (his Oct 12 2026 11:2x WEST: "can you use: "Irradiating the lightcone with free optimal code, like a coral reef
+   protecting human sovereignty" like make it inspiring"). Revealed once as the world takes over, line after line rising out of a blur; the light
+   passes once over "free optimal code"; then nothing moves. A soft scrim of the still's own sky keeps its field lines and the smoke from cutting
+   through the words. */
+.ww-intro{position:relative;isolation:isolate;max-width:min(52vw,660px)}
+.ww-intro::before{content:"";position:absolute;inset:-44px -110px -60px -64px;z-index:-1;pointer-events:none;
+  background:radial-gradient(ellipse at 36% 46%,#101c1af2 0%,#101c1ad6 40%,#101c1a00 72%)}
+.ww-intro h2{font-size:clamp(26px,3vw,48px);line-height:1.06}
+.ww-intro h2 .ww-line{display:block}
+.ww-intro em{text-shadow:none;color:transparent;
+  background:linear-gradient(100deg,#d4b675 0 42%,#fff2c8 50%,#d4b675 58% 100%) 100% 0/250% 100%;-webkit-background-clip:text;background-clip:text;
+  animation:ww-sweep 2.4s 1.7s ease-in-out both}
+.ww-reef{font:italic clamp(15px,1.45vw,22px)/1.35 Georgia,serif;color:#e2d9c1;margin:0;max-width:30em;text-shadow:0 2px 18px #0b1b18}
+.ww-intro>p[data-ww-hint]{margin-top:14px}.ww-intro>p[data-ww-hint]:empty{display:none}
+.ww-line{animation:ww-rise 1.1s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i,0) * .38s + .15s)}
+@keyframes ww-rise{from{opacity:0;transform:translateY(10px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@keyframes ww-sweep{from{background-position:100% 0}to{background-position:0 0}}
+@media(max-width:700px){.ww-intro{max-width:90%}.ww-intro h2{font-size:27px}.ww-reef{font-size:14px;max-width:24em}}
+@media(prefers-reduced-motion:reduce){.ww-line,.ww-intro em{animation:none}}
+
+/* THE TWO NAMES ONLY (his Oct 14 2026 07:50 WEST over the world the film becomes: "MAKE THE ARRIVAL MORE SUBTLE DUDE COME ON. YOU ARE
+   OVER-EXPLAINING REMOVE ALL TEXT FROM THE FINAL STATE", then "KEEP ONLY THESE 2 MY DUDE" over "UNIT 0 · The Dyson Society" and
+   "STATION 0 · the room"). The mission lines, the five buttons and the bottom line are unseen, not deleted: warm-spatial.js still finds
+   every element, Home still resets the view and Escape still closes a selection. The bands that kept those words legible go with them;
+   the two names come up out of the scene, slowly, and nothing else moves. A selection's panel and the target hint still speak when asked. */
+.warm-world .ww-kicker,.warm-world .ww-intro h2,.warm-world .ww-reef,.warm-world .ww-tools,.warm-world .ww-bottom{display:none!important}
+.warm-world .ww-intro::before{content:none}
+.warm-world .ww-top{background:none}
+.warm-world .ww-label{animation:ww-arrive 2.4s .8s ease-out both}
+@keyframes ww-arrive{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.warm-world .ww-label{animation:none}}

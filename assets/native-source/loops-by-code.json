@@ -1,0 +1,79 @@
+{
+ "v": "disc-chunks-loops-by-code/1",
+ "source": "loops_proven of lanes/chunk fight1/fight2 RAM chunks (4 fighters)",
+ "fighters": {
+  "PEGASUS": 13,
+  "CANCER": 18,
+  "SIRIO": 10,
+  "CRYSTAL": 11
+ },
+ "codes": 39,
+ "conflicts": [],
+ "table": {
+  "0": 1,
+  "10": 1,
+  "20": 1,
+  "30": 1,
+  "40": 1,
+  "50": 0,
+  "60": 0,
+  "70": 0,
+  "100": 0,
+  "110": 1,
+  "120": 0,
+  "130": 1,
+  "200": 1,
+  "1010": 0,
+  "1020": 0,
+  "1060": 0,
+  "1080": 0,
+  "1100": 0,
+  "1170": 0,
+  "1180": 0,
+  "1190": 0,
+  "1200": 0,
+  "1220": 0,
+  "1230": 1,
+  "1240": 1,
+  "1250": 0,
+  "1260": 0,
+  "1270": 0,
+  "3000": 0,
+  "3010": 0,
+  "3020": 0,
+  "3030": 0,
+  "3040": 0,
+  "3050": 0,
+  "4000": 0,
+  "4010": 0,
+  "4020": 0,
+  "5000": 0,
+  "5010": 0
+ },
+ "leave_one_out": {
+  "PEGASUS": {
+   "proven_clips": 13,
+   "agree": 4,
+   "disagree": 0,
+   "no_entry_from_other_three": 9
+  },
+  "CANCER": {
+   "proven_clips": 18,
+   "agree": 8,
+   "disagree": 0,
+   "no_entry_from_other_three": 10
+  },
+  "SIRIO": {
+   "proven_clips": 10,
+   "agree": 7,
+   "disagree": 0,
+   "no_entry_from_other_three": 3
+  },
+  "CRYSTAL": {
+   "proven_clips": 11,
+   "agree": 7,
+   "disagree": 0,
+   "no_entry_from_other_three": 4
+  }
+ }
+}

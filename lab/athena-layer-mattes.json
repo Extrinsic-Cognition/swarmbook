@@ -1,0 +1,31 @@
+{
+  "width": 320,
+  "height": 180,
+  "columns": 16,
+  "rows": 10,
+  "frames": 151,
+  "fps": [
+    30000,
+    1001
+  ],
+  "spans": [
+    {
+      "first": 886,
+      "end": 1006,
+      "offset": 0
+    },
+    {
+      "first": 1096,
+      "end": 1127,
+      "offset": 120
+    }
+  ],
+  "channels": [
+    "athena-hair",
+    "fighters",
+    "terrain"
+  ],
+  "sourceSha256": "53561d478c30988ddd19cc9a282dd16e28b3751a1c078d58e9e80227b3de07a9",
+  "method": "source colour and hand traced fighter regions; no inpainted or hidden surfaces",
+  "partitionError": 0
+}

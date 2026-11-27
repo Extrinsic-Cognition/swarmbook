@@ -1,0 +1,36 @@
+/* THE FILM, CENTRED, AND THE PLAYER, TWO WORDS (Guido, Sept 27 2026 00:4x WEST, on this page at 03 / 51: "dont you see the video's
+   shifted towards north?" and, on the bar: "there should only be a audio and a pause, all the rest must disappear, i dont want to see
+   the bar clogging that shit").
+   Measured on galaxy-desktop.mp4, two frames a second: until 24 s the drawing lives between 2% and 79% of the frame's height with its
+   mass at 40% (the film was composed for a viewport that cut the bottom fifth; this page shows the whole 16:9 frame, so the drawing
+   sat a tenth north of the middle over a fifth of empty paper). From 24.5 s the drawing fills the frame to its last row.
+   So the theater rides a tenth of its height lower while the drawing is the small one, and eases back to nothing between 20 s and
+   24 s, before anything reaches the bottom edge (warm-film-center.js writes --film-shift-px from the film's own clock). The strip the
+   ride uncovers at the top is the film's own paper, read from the frame's top rows as the browser draws them (--film-paper). Nothing of the film is ever cut: the tenth that leaves at the bottom is paper. */
+.warm-galaxy.hero-journey:not([data-surface="state"]) .galaxy-viewport.film-centered .galaxy-theater { translate: 0 var(--film-shift-px, 0px); }
+/* THE SEAM. The strip is a colour and the frame is a film: the browser paints the two through different pipes, and with the contrast
+   raised twenty times the strip read about a level darker than the frame's paper beside it, whatever value was given. So the frame's
+   first rows fade in over four fifths of the ride (84 px of 105 at 1980 wide): no edge is left to see, and the human hexagons that
+   arrive from above at 8 to 10 s come in softly instead of from a line. The fade lasts only while the theater rides. */
+.warm-galaxy.hero-journey:not([data-surface="state"]) .galaxy-viewport.film-centered.film-shifted .galaxy-theater {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 calc(var(--film-shift-px, 0px) * .8));
+          mask-image: linear-gradient(to bottom, transparent 0, #000 calc(var(--film-shift-px, 0px) * .8));
+}
+.warm-galaxy.hero-journey:not([data-surface="state"]) .galaxy-viewport.film-centered.film-shifted,
+.warm-galaxy.hero-journey:not([data-surface="state"]) .galaxy-viewport.film-centered.film-shifted:fullscreen { background: var(--film-paper, #fbf9f5); }
+
+/* the player: sound and pause, nothing else, no bar. Two quiet pills at the stage's lower right, shown as before (on the hand's
+   move or the keyboard), held at the viewport's own bottom while the theater rides. */
+.warm-galaxy.hero-journey .galaxy-viewport .galaxy-theater .galaxy-controls {
+  left: auto; right: 3%; bottom: 3%; width: auto; padding: 0; gap: 8px; flex-wrap: nowrap;
+  border: 0; border-radius: 0; background: none; box-shadow: none;
+  translate: 0 calc(-1 * var(--film-shift-px, 0px));
+}
+.warm-galaxy.hero-journey .galaxy-viewport:fullscreen .galaxy-theater .galaxy-controls { bottom: 3%; }
+.warm-galaxy.hero-journey .galaxy-controls > :not([data-galaxy-sound]):not([data-galaxy-pause]) { display: none !important; }
+.warm-galaxy.hero-journey .galaxy-viewport .galaxy-theater .galaxy-controls button {
+  min-height: 30px; padding: 5px 13px; border-radius: 999px; font-size: 11px; letter-spacing: .02em;
+  color: #2b2620; background: rgb(250 249 245 / .86); border: 1px solid rgb(214 191 137 / .5);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+}
+.warm-galaxy.hero-journey .galaxy-viewport .galaxy-theater .galaxy-controls button:focus-visible { outline-offset: 3px; }

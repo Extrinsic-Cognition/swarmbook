@@ -1,0 +1,22 @@
+.warm-passport { width: 100%; max-width: 340px; margin: 0 auto; color: #493e2d; isolation: isolate; }
+.warm-passport__object { position: relative; width: 100%; filter: drop-shadow(0 3px 3px #725d281c) drop-shadow(0 14px 19px #725d281a); transition: transform .9s cubic-bezier(.2,.75,.2,1), filter 1s; }
+.warm-passport__object::before { content: ""; position: absolute; z-index: -1; inset: 25% 7% 10%; border-radius: 50%; background: radial-gradient(ellipse, #dcc8951a, transparent 70%); filter: blur(12px); transition: opacity .8s; }
+.warm-passport__art { display: block; width: 100%; height: auto; overflow: visible; }
+.warm-passport__shadow { fill: #a89057; opacity: .1; transform: translateY(3px); }
+.warm-passport__engraving { font: 3.6px ui-monospace, 'SF Mono', Menlo, monospace; letter-spacing: 1.1px; fill: #715422; fill-opacity: .85; }
+.warm-passport__name { font: 400 20px 'Bodoni 72', Didot, 'Times New Roman', serif; letter-spacing: 3px; fill: #483921; }
+.warm-passport__label { font: 7px ui-monospace, 'SF Mono', Menlo, monospace; letter-spacing: 1.55px; fill: #806a41; }
+.warm-passport__society { font: 400 23px 'Bodoni 72', Didot, 'Times New Roman', serif; letter-spacing: -.3px; fill: #46351e; }
+.warm-passport__unit { font: 8px ui-monospace, 'SF Mono', Menlo, monospace; letter-spacing: 3px; fill: #8e713c; }
+.warm-passport__caption { display: grid; justify-items: center; gap: 6px; margin-top: -4px; text-align: center; }
+.warm-passport__status { color: #685d49; font: 9px/1.5 ui-monospace, 'SF Mono', Menlo, monospace; text-transform: uppercase; letter-spacing: 1.1px; }
+.warm-passport__status i { padding: 0 5px; color: #b2a58b; font-style: normal; }
+.warm-passport__position { color: #81735a; font: 10px/1.4 ui-monospace, 'SF Mono', Menlo, monospace; }
+.warm-passport__sheen { transform: translateX(-100px); opacity: 0; }
+.warm-passport__path { stroke-dasharray: 230; stroke-dashoffset: 0; transition: stroke-dashoffset 1.5s ease, opacity .8s; }
+.warm-passport[data-arrival="docking"] .warm-passport__object { transform: translateY(-6px) scale(.96); filter: drop-shadow(0 15px 18px #967b3b24); }
+.warm-passport[data-arrival="docking"] .warm-passport__path { stroke-dashoffset: 160; opacity: .5; }
+.warm-passport[data-arrival="joined"] .warm-passport__object { filter: drop-shadow(0 3px 3px #725d2824) drop-shadow(0 12px 24px #c4a76a35); }
+.warm-passport[data-arrival="joined"] .warm-passport__sheen { animation: warm-passport-sheen 1.6s ease-out both; }
+@keyframes warm-passport-sheen { 0% { transform: translateX(-100px); opacity: 0; } 15% { opacity: .65; } 100% { transform: translateX(430px); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .warm-passport__object, .warm-passport__path, .warm-passport__object::before { transition: none; } .warm-passport[data-arrival="joined"] .warm-passport__sheen { animation: none; } }

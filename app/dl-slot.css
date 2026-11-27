@@ -1,0 +1,86 @@
+/* The bid dialog of a whitelist slot (dl-slot.js): a field, a button, one line when something happens. Ivory like #chamber. */
+#slot-dialog{width:min(420px,calc(100vw - 28px));padding:40px 28px 26px;background:#fbfaf5;color:#30372c;border:1px solid #b79c665f;box-shadow:0 25px 130px #5d542b33,0 1px 0 #fff inset}
+#slot-form{display:flex;flex-direction:column;gap:14px;margin:0}
+#slot-fields{display:flex;flex-direction:column;gap:14px}
+#slot-fields[hidden]{display:none}
+#slot-title{margin:0 0 10px;font:34px/1.1 var(--serif);letter-spacing:-.035em;color:#8b6b2f}
+#slot-price{margin:0 0 24px;color:#707765;font-size:14px;line-height:1.6}
+#slot-quote{margin:0;color:#707765;font-size:12px;line-height:1.6}
+#slot-quote:empty{display:none}
+#slot-dialog[data-tier=bronze] #slot-title{color:#895635}
+#slot-dialog[data-tier=bronze] #slot-go{background:linear-gradient(115deg,#c79a75,#e3c6a6 52%,#bf916b);color:#39291f}
+#slot-github,#slot-email,#slot-twitter{min-width:0;font:16px/1.4 'DM Sans',system-ui,sans-serif;padding:14px 15px;border:1px solid #c4a36570;border-radius:0;background:#fffefa;color:#30372c;outline:none}
+#slot-github:focus,#slot-email:focus,#slot-twitter:focus{border-color:#c4a365;box-shadow:0 0 0 1px #c4a36540}
+#slot-twitter[aria-invalid=true]{border-color:#a77e64}
+#slot-github:disabled,#slot-email:disabled,#slot-twitter:disabled{opacity:.65}
+#slot-portrait{align-self:center;width:48px;height:48px;object-fit:cover;clip-path:polygon(100% 50%,75% 93.30127%,25% 93.30127%,0 50%,25% 6.69873%,75% 6.69873%)}
+#slot-portrait[hidden]{display:none}
+#slot-profile-note{margin:0;font:12px/1.55 'DM Sans',system-ui,sans-serif;color:#797765;text-align:left}
+#slot-go{width:100%;margin:0;border:0;cursor:pointer;font-family:inherit}
+#slot-go:disabled{opacity:.6;cursor:default}
+#slot-status{margin:16px 0 0;font-size:13px;line-height:1.5;color:#707765}
+/* The phases of evolution of a tracenet under the sphere (dl-whitelist.js): the cycle's four names in the sphere label's own mono; the live one gold. */
+.phase-row{position:absolute;left:0;right:0;bottom:0;display:flex;flex-wrap:wrap;justify-content:center;gap:2px;font:10px var(--mono,monospace);letter-spacing:.2em;text-transform:uppercase}
+/* a readout of the chain's phase, not a control (his 11:3x: "we are not going to scrpt this... this will evolve real-time with solana") */
+.phase-row{list-style:none;margin:0;padding:0}
+.phase-row li{padding:6px 8px;color:#bdb7a5}
+.phase-row li+li::before{content:'—';margin-right:10px;color:#d8d2bf}
+@media (max-width:420px){.phase-row{letter-spacing:.12em}.phase-row li{padding:6px 5px}.phase-row li+li::before{margin-right:6px}}
+.phase-row li.is-live{color:#30372c}
+.phase-count{margin-left:10px;color:#a8874a;letter-spacing:.08em}.phase-count:empty{display:none}
+.phase-row li.is-live::after{content:'';display:inline-block;width:5px;height:5px;margin:0 0 2px 9px;border-radius:50%;background:#b8954f;vertical-align:middle}
+/* simulated buyers (his 11:4x): a quiet control beside the pause; pressed, it is the way back to the chain */
+.visual-mode .sim-buyers{font:inherit;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;background:none;color:#8a6d3b;cursor:pointer}
+.visual-mode .sim-buyers:hover{color:#30372c;border-color:#b8954f}
+.visual-mode .sim-buyers[aria-pressed=true]{color:#30372c;border-color:#b8954f;background:#f3ead6}
+/* whose eyes (his 11:5x "i bought already / i didnt buy anything"): two quiet buttons beside the way back while the simulation runs */
+.visual-mode .sim-eyes{display:inline-flex;gap:4px}.visual-mode .sim-eyes[hidden]{display:none}
+.visual-mode .sim-buyers{white-space:nowrap}
+@media (max-width:700px){.oath-sphere .visual-mode{flex-wrap:wrap;row-gap:8px}.oath-sphere #visual-status{flex:1 1 70%}}
+
+/* Recovery stays inside the same quiet tier dialog, with one action per deposit. */
+#slot-form[hidden],#slot-reservations[hidden],#slot-manage[hidden],#slot-new[hidden],#slot-settle[hidden]{display:none}
+#slot-reservations{margin-top:18px}
+#slot-reservation-rows{list-style:none;margin:16px 0;padding:0;max-height:40vh;overflow:auto}
+#slot-reservation-rows li{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 0;border-top:1px solid #b79c6633;font-size:13px}
+#slot-reservation-rows p{margin:5px 0 0;color:#707765;font-size:12px;line-height:1.5}
+#slot-reservation-rows button,.slot-text-action{border:0;background:none;color:#8b6b2f;font:inherit;cursor:pointer;text-decoration:underline;text-underline-offset:4px}
+#slot-reservation-rows button{flex-shrink:0;max-width:140px;padding:6px 0;font-size:12px}
+.slot-text-action{display:block;margin:18px auto 0;font-size:13px}
+#slot-settle{width:100%;font-size:14px}
+#slot-reservation-rows button:disabled,.slot-text-action:disabled{opacity:.5;cursor:default}
+
+/* Receipt details stay inside checkout; the orbit remains a clean film. */
+#slot-quote .slot-recipient { font: 11px/1.7 var(--mono, monospace); overflow-wrap: anywhere; opacity: .8; }
+#slot-quote p { margin: 0 0 12px; }
+#slot-quote a { color: inherit; text-underline-offset: 4px; }
+#slot-dialog .slot-legacy { font-size: 11px; margin: 20px 0 0; opacity: .65; }
+#slot-dialog .slot-legacy a { color: inherit; }
+
+/* Terms, privacy notice and fees stay under the payment button in every state of the dialog. Links only. */
+#slot-dialog .slot-legal { display: flex; justify-content: center; gap: 22px; margin: 6px 0 0; font-size: 12px; }
+#slot-dialog .slot-legal a { padding: 8px 0; color: #707765; text-decoration: underline; text-underline-offset: 4px; }
+
+/* A phone's browser carries no wallet: each row reopens the mint inside the wallet's own browser. */
+#slot-status .slot-wallets { display: block; margin-top: 14px; }
+#slot-status .slot-wallets a { display: block; padding: 14px 0; border-top: 1px solid #b79c6633; color: #8b6b2f; font-size: 14px; text-decoration: underline; text-underline-offset: 4px; }
+
+/* THE REFERRAL (dl-society-codes.mjs, dl-direct.js referralLine): the friend's code this browser keeps, said in the fields; Remove forgets it. */
+#slot-referral{margin:0;font-size:12px;line-height:1.6;color:#707765}#slot-referral[hidden]{display:none}
+#slot-referral b{margin-left:6px;font:13px var(--mono,monospace);letter-spacing:.12em;color:#30372c}
+#slot-referral-clear{display:inline;margin:0 0 0 10px;font-size:12px}
+
+/* THE SEAT CARD (dl-seat-card.mjs): under a paid receipt, the seat's referral code and link, its claim code for Harmony's box with its QR, the installer's doors. */
+#slot-seat[hidden]{display:none}
+#slot-seat{margin-top:22px;padding-top:18px;border-top:1px solid #b79c6633;text-align:center}
+.seat-card h3{margin:0 0 4px;font:24px/1.15 var(--serif);letter-spacing:-.025em;color:#8b6b2f}
+.seat-card h4{margin:22px 0 6px;font:11px/1.4 'DM Sans',system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#797765}
+.seat-card p{margin:0 0 10px;color:#707765;font-size:12px;line-height:1.6}
+.seat-code,.seat-claim-code{display:block;width:100%;margin:6px 0;padding:14px 10px;border:1px solid #c4a36570;background:#fffefa;color:#30372c;font:22px/1.2 var(--mono,monospace);letter-spacing:.14em;text-align:center;cursor:pointer}
+.seat-claim-code{font-size:26px;letter-spacing:.18em}
+.seat-code:disabled,.seat-claim-code:disabled{opacity:.6;cursor:default}
+.seat-actions{display:flex;justify-content:center;gap:22px}
+.seat-actions .slot-text-action{margin:6px 0 0}
+.seat-qr{margin:14px auto 6px;width:min(220px,70vw)}.seat-qr svg{display:block;width:100%;height:auto}.seat-qr:empty{display:none}
+.seat-install a{color:#8b6b2f;text-decoration:underline;text-underline-offset:4px;margin:0 7px}
+.seat-status{min-height:1.2em}

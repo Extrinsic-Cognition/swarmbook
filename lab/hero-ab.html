@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hero A/B</title>
+<!--
+  hero-ab.html: THE PANEL over the mint page as it stands (app/warm.html in the frame), its hero three ways and the road between them. Since
+  lane/one-page (his Oct 15 2026 01:3x WEST: "ON MY PAGE RIGHT NOW THERE IS FUCKING NOTHING ABOUT THE SHIT I SPENT SO MUCH FUCKING TIME ON
+  DUDE"; and before it "I WANT TO ALWAYS DO QA ON A SINGLE COMULATED VERSION DUDE") the page mounts its hero itself (lab/hero-mount.js, whose
+  header holds the hero's story and his words: the bursts, the raid, the sacrifice, the box, the inversion, the satellites, the fold, the
+  invitation, the sound), and this page mounts nothing: it reaches the page's own mount through the frame's window (the page's frozen handle,
+  window.hero there) and holds the lab's views, his moments and the box's models. What he sees here is what app/warm.html shows on its own,
+  and what optimism.fit serves.
+  THE VIEWS: A is the hero as it is: the Saint Seiya dodecahedron, centred, on white. B is the theater in its place (theater.js on the hero's
+  own stage, driven by the hero's own film and its song's clock, dl-twelve.js). C is the mask (his 12:3x WEST, "hide the background there...
+  only show the video throygh the dodechahedron mask"): the picture hidden and the glass, as large as the sphere, the only window onto the
+  film. His words, Oct 14 2026 12:2x WEST: "show to me what it would look like replaced in the hero... for now we got versionA which is
+  currently there centered whitebackground"; then, 12:4x, over C: "think about interpolating these views/modalities... can you keep versionA
+  until the conversion moment where we ask money?". "The film" is the default and the page's only view; the slider holds any m between A, C
+  and B (the page's handle: view(m)).
+  THE SWITCHES are this address's, and the page in the frame reads them off it at its mount (hero-mount.js switchesOf): ?v=film|a|b|c and
+  ?m=<0..2> open on that view; ?cloth=<file> and ?seiya=<file> pick the box's models; ?empty=, ?end= (&burn=, &darts=), ?mask=, ?knights=,
+  ?hear=, ?fold=, ?inversion=, ?her=on and ?nest= as hero-mount.js says; ?paywall=off a minter's view (app/dl-paywall.js); ?panel=open|shut.
+  A lab page, outside the build, worn on no glass; the page it frames is the one the build ships.
+-->
+<style>
+html,body{margin:0;height:100%;background:#e9e5d9;overflow:hidden}
+iframe{position:fixed;inset:0;width:100%;height:100%;border:0;display:block}
+.ab{position:fixed;right:16px;top:16px;z-index:5;box-sizing:border-box;width:min(380px,calc(100vw - 32px));padding:11px 12px 9px;background:rgba(255,254,250,.94);
+  border:1px solid #b8954f;box-shadow:0 2px 10px rgba(0,0,0,.08);font:10px/1.45 ui-monospace,"SF Mono",Menlo,monospace;color:#30372c;opacity:.85;transition:opacity .2s}
+.ab:hover,.ab:focus-within{opacity:1}
+.ab{top:50px}
+.ab[hidden]{display:none}
+.ab-toggle{position:fixed;right:16px;top:16px;z-index:6;font:10px/1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;
+  padding:7px 9px;border:1px solid #b8954f;color:#30372c;background:rgba(255,254,250,.88);cursor:pointer;opacity:.55;transition:opacity .2s}
+.ab-toggle:hover,.ab-toggle:focus-visible{opacity:1}
+.ab .row{display:flex;flex-wrap:wrap;gap:5px;align-items:center;margin:0 0 7px}
+.ab button{font:inherit;letter-spacing:.1em;text-transform:uppercase;padding:7px 9px;border:1px solid #b8954f;color:#30372c;background:#fffefa;cursor:pointer}
+.ab button[aria-pressed=true]{background:#30372c;color:#f4f0e4;border-color:#30372c}
+.ab input{width:100%;margin:0;accent-color:#9a7a3a}
+.ab .stops{display:flex;justify-content:space-between;color:#6f685b;margin:1px 0 8px;letter-spacing:.06em}
+.ab .his{margin:0 0 7px;color:#5b4a26;font-style:italic}
+.ab .num{margin:0;color:#6f685b}
+.ab .moments{margin:0 0 7px;padding:0;list-style:none}
+.ab .moments li{display:flex;gap:7px;align-items:baseline;margin:0 0 4px}
+.ab .moments b{font-weight:600;white-space:nowrap}
+.ab .moments q{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:#5b4a26;font-style:italic}
+.ab .moments button{padding:3px 6px}
+.ab .row > span{color:#6f685b}
+</style>
+</head>
+<body>
+<iframe id="page" src="../app/warm.html" title="The mint page"></iframe>
+<button type="button" class="ab-toggle" id="ab-toggle" aria-controls="ab" aria-expanded="false">Panel</button>
+<div class="ab" id="ab" role="group" aria-label="Which hero" hidden>
+  <div class="row"><button type="button" data-v="film">The film</button><button type="button" data-v="a">A</button><button type="button" data-v="c">C</button><button type="button" data-v="b">B</button></div>
+  <input id="m" type="range" min="0" max="2" step="0.001" value="0" aria-label="The hero from A through C to B">
+  <div class="stops"><span>A · the sphere</span><span>C · the mask</span><span>B · the theater</span></div>
+  <ul class="moments" id="moments" aria-label="His tags the film uses"><li>his tags: reading</li></ul>
+  <div class="row"><button type="button" id="to-hit">To the interception − 3 s</button></div>
+  <div class="row" id="cloths"><span>Cloth:</span></div>
+  <div class="row" id="seiyas"><span>Seiya:</span></div>
+  <div class="row"><label>Film second <input id="film-second" type="number" min="0" max="154.3" step="0.0333667" value="30" style="width:90px"></label><button id="inspect-frame" type="button">Inspect frame</button></div>
+  <div class="row"><label>Shot layers <select id="shot-layers"><option value="all">All three</option><option value="athena-hair">Athena + hair</option><option value="terrain">Bottom terrain</option><option value="fighters">The two fighters</option></select></label></div>
+<p class="num" id="athena-num"></p>
+  <p class="num" id="num">loading the page</p>
+  <p class="num" id="box-num"></p>
+</div>
+<script type="module">
+// THE PANEL: it mounts nothing. The page in the frame mounted its hero (lab/hero-mount.js mountHero) and offers its handle on its window; the
+// panel listens to it ('show', 'tags', 'assets', 'box'), sets its views (view(m)) and seeks its film and song for his moments.
+const q = new URLSearchParams(location.search);
+// THE PANEL FOLDS AWAY (his words, Oct 14 2026 21:4x WEST, over the panel covering the hero: "please clean the fuck this up i cant fucking see
+// shit"): shut by default, one small button in the corner opens it; ?panel=open opens it, and the browser remembers his last choice
+{
+  const panel = document.getElementById('ab'), toggle = document.getElementById('ab-toggle');
+  const show = (open) => {
+    panel.hidden = !open; toggle.setAttribute('aria-expanded', String(open)); toggle.textContent = open ? 'Hide panel' : 'Panel';
+    try { localStorage.setItem('hero-ab-panel', open ? 'open' : 'shut'); } catch {}
+  };
+  toggle.addEventListener('click', () => show(panel.hidden));
+  let kept = null;
+  try { kept = localStorage.getItem('hero-ab-panel'); } catch {}
+  show(q.get('panel') === 'open' || (q.get('panel') !== 'shut' && kept === 'open'));
+}
+const STOPS = {a: 0, c: 1, b: 2};
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+const frame = document.getElementById('page'), slider = document.getElementById('m'), num = document.getElementById('num');
+const buttons = [...document.querySelectorAll('[data-v]')];
+let page = null, unlisten = null, said = '';   // the page's handle (its own mount, in the frame), and what the panel last said
+const media = (id) => frame.contentDocument?.getElementById(id) ?? null;   // the page's film and song
+
+// where the road is: the view, the film's second, a burst, his tags
+const show = (m, t) => {
+  const hold = page.hold, used = page.used, rev = page.rev;
+  if (hold === null) slider.value = m.toFixed(3);
+  for (const b of buttons) b.setAttribute('aria-pressed', String(b.dataset.v === 'film' ? hold === null : STOPS[b.dataset.v] === hold));
+  const where = page.unbox?.out ? 'the box' : m <= 0 ? 'A' : m < 1 ? 'A → C' : m === 1 ? 'C' : m < 2 ? 'C → B' : 'B';
+  const text = `${where} · m ${m.toFixed(2)} · film ${t.toFixed(1)} s` + (hold === null ? '' : ' · held') + (page.burstAt(t) ? ' · burst' : '') +
+    (used ? ` · his tags ${rev === null ? 'as at rev 1 (the Nest was not read)' : `at Nest rev ${rev}`}` : ' · his tags: reading');
+  if (text !== said) { said = text; num.textContent = text; }
+};
+// the view in this address, with the switches the page reads off it (so a reload of either opens on the same)
+const note = () => {
+  const hold = page?.hold ?? null;
+  const v = hold === null ? 'film' : Object.keys(STOPS).find(k => STOPS[k] === hold), keep = ['cloth', 'seiya', 'empty', 'end', 'burn', 'darts', 'mask', 'knights', 'hear', 'fold', 'inversion', 'her', 'nest', 'paywall'].filter(k => q.has(k)).map(k => `&${k}=${encodeURIComponent(q.get(k))}`).join('');
+  history.replaceState(null, '', `?${v ? `v=${v}` : `m=${hold.toFixed(3)}`}${keep}`);
+};
+const view = (m) => { if (!page) return; page.view(m); if (page.hold !== null) slider.value = String(page.hold); note(); };
+const seek = (t) => {
+  const song = media('dl-twelve-song'), film = media('dl-twelve-film');
+  if (song) song.currentTime = t;
+  if (film) film.currentTime = t;
+};
+
+document.getElementById('shot-layers').addEventListener('change', e => page?.unbox?.layers(e.target.value));
+
+document.getElementById('inspect-frame').addEventListener('click', () => {
+  media('dl-twelve-film')?.pause(); media('dl-twelve-song')?.pause();
+  seek(clamp(Number(document.getElementById('film-second').value) || 0, 0, 154.3));
+});
+
+// which moments the film uses and whose (his words, his tag), and a way to each
+function paintMoments() {
+  const list = document.getElementById('moments'), w = page.words, at = page.moments(), used = page.used, rows = [], shut = at.rise + w.CLOSE + w.SHUT;
+  const row = (label, second, words, back) => {
+    const li = document.createElement('li'), go = Object.assign(document.createElement('button'), {type: 'button', textContent: `− ${back} s`});
+    li.append(Object.assign(document.createElement('b'), {textContent: `${label} ${Number.isFinite(second) ? second.toFixed(2) : '?'} s`}));
+    li.append(Object.assign(document.createElement('q'), {textContent: words, title: words}));
+    go.setAttribute('aria-label', `To ${back} seconds before: ${label}`);
+    go.addEventListener('click', () => { if (Number.isFinite(second)) seek(Math.max(0, second - back)); });
+    li.append(go); rows.push(li);
+  };
+  row('The box opens', at.open, `his word: ${w.SKY.text} (the gold star over the mountain)`, 3);
+  if (page.inverted) row('The inversion (the golden flash)', w.INVERSION.at, `his word: ${w.INVERSION.text} (to the gold centaur, ${w.INVERSION.until.toFixed(2)} s)`, 2);
+  row('Open at the centaur', at.centaur, `his word: ${w.CENTAUR.text}; his pick: slowly, from the star to the gold centaur`, 3);
+  row('Faces become the worlds', at.knights, `his word: ${w.KNIGHTS.text}`, 3);
+  if (at.end) {
+    row(`The box dissolves (${at.end.reading})`, at.end.dissolve, 'his word: at the end of it the dodecahedron needs to be dissolved and new dodecahedron needs to form later (not wired: ?end)', 2);
+    row('The new box is whole', at.end.whole, 'the knights\' cosmos, the Genkidama', 2);
+    row('It burns from inside', at.end.burn, 'his word: when pegasus starts to burn the cosmos', 2);
+    row('Its faces fly as darts', at.end.darts, 'his word: when he starts throwin darts of agents', 2);
+  }
+  w.SEGMENTS.forEach((g, k) => row(`Frame ${k + 1}: ${g.who}`, g.t0, `his word: ${w.KNIGHTS_WORDS}`, 1));
+  if (at.mask) row('The mask (the transformation)', at.rise, `his word: ${w.MASK_WORDS}`, 2);
+  if (at.empty) row('Empty frames', at.empty[0], `his word: ${w.EMPTY.text}${Number.isFinite(at.empty[1]) ? ` (to ${at.empty[1].toFixed(2)} s)` : ' (until the box is shut)'}`, 2);
+  row('Seiya rises', at.rise, used?.conversion ? `his tag ${used.conversion.t.toFixed(3)} s: ${used.conversion.text ?? ''}` : 'his conversion tag: not found', 3);
+  row('The box shuts', shut, `his word: ${w.ARMOR}`, 4);
+  list.replaceChildren(...rows);
+}
+// the models the box can hold: the stand-in and every GLB lab/unboxing-assets.json (or lab/assets/index.json) names
+function paintModels(state) {
+  for (const [kind, id, label] of [['cloth', 'cloths', 'Cloth:'], ['seiya', 'seiyas', 'Seiya:']]) {
+    const row = document.getElementById(id), s = state[kind], choices = [null, ...s.lists];
+    row.replaceChildren(Object.assign(document.createElement('span'), {textContent: label}));
+    for (const url of choices) {
+      const name = url ? url.split('/').pop() : 'stand-in', b = Object.assign(document.createElement('button'), {type: 'button', textContent: name.replace(/\.glb$/i, '')});
+      b.setAttribute('aria-pressed', String(s.at === name));
+      b.addEventListener('click', () => page?.unbox?.choose(kind, url));
+      row.append(b);
+    }
+    if (s.at.startsWith('loading')) row.append(Object.assign(document.createElement('span'), {textContent: s.at}));
+    if (s.error) row.append(Object.assign(document.createElement('span'), {textContent: `(${s.error})`}));
+    if (s.tris) row.append(Object.assign(document.createElement('span'), {textContent: `${(s.tris / 1000).toFixed(1)}k tris`}));
+  }
+  // Athena: where the record (braindance.json) put her in her last shot, and how far inside her sigma the film's place took her
+  const a = state.athena, w = a?.swing;
+  document.getElementById('athena-num').textContent = !a ? '' : a.error ? `Athena: not on the page (${a.error})` :
+    `Athena: ${a.at}${w ? ` · ${w.shot} · moved ${w.sigmas} sigma from the record's mean (${w.metres.join(', ')} m)${w.fits ? '' : ', the nearest it fits'}` : ' · on the page in her over-the-shoulder shots'}`;
+}
+const boxNum = document.getElementById('box-num');
+const showBox = (s) => {
+  boxNum.textContent = `box: ${s.draws} draws · last by ${s.reason} · JS ${s.cpuMs.toFixed(2)} ms · GPU ${s.gpuMs === null ? '?' : s.gpuMs.toFixed(2)} ms · ${s.w}×${s.h} px · ${s.calls} calls · ${(s.triangles / 1000).toFixed(1)}k tris`;
+};
+
+// the page's own mount, through its frame's window: there at the frame's load, or after it. Since Oct 15 the page's entry imports the mount
+// (app/warm-entry.mjs), and that import can end after the load: the mount then says dl-hero-mounted on its document, and the panel attaches there.
+function attach() {
+  const found = frame.contentWindow?.hero ?? null;
+  if (!found) frame.contentDocument?.addEventListener('dl-hero-mounted', attach, {once: true});
+  if (found === page) return;
+  unlisten?.(); unlisten = null; page = found; said = '';
+  if (!page) { num.textContent = 'the page in the frame mounted no hero (app/warm.html, lab/hero-mount.js)'; return; }
+  unlisten = page.listen((kind, ...a) => {
+    if (kind === 'show') show(...a);
+    else if (kind === 'tags') paintMoments();
+    else if (kind === 'assets') paintModels(a[0]);
+    else if (kind === 'box') showBox(a[0]);
+  });
+  if (page.hold !== null) slider.value = String(page.hold);
+  if (page.used) paintMoments();
+  if (page.unbox) paintModels(page.unbox.state);
+  if (page.state().boxLast) showBox(page.state().boxLast);
+  const film = media('dl-twelve-film');
+  if (film) show(page.hold ?? 0, film.currentTime);
+}
+frame.addEventListener('load', attach);
+if (frame.contentDocument?.readyState === 'complete') attach();
+document.getElementById('to-hit').addEventListener('click', () => { if (page) seek(page.words.BURSTS[0].t - 3); });
+slider.addEventListener('input', () => view(clamp(Number(slider.value), 0, 2)));
+for (const b of buttons) b.addEventListener('click', () => view(b.dataset.v === 'film' ? null : STOPS[b.dataset.v]));
+// for a reader in the console and the lab's proofs: the page's mounted objects, as this page offered them when it mounted them itself
+const REST = {hold: null, used: null, rev: null, tags: 0, m: null, kick: null, hushed: null, box: null, last: null, boxLast: null};
+window.hero = Object.freeze({get theater() { return page?.theater ?? null; }, get unbox() { return page?.unbox ?? null; }, get kick() { return page?.kick ?? null; },
+  get inversion() { return page?.inversion ?? null; }, frame, get boxLog() { return page?.boxLog ?? []; }, get page() { return page; },
+  state: () => page?.state() ?? REST});
+</script>
+</body>
+</html>

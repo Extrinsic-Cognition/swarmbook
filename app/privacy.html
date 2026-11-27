@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swarmbook · Privacy</title>
+<meta name="description" content="What the Poleis site, the program and the Antimirror app collect, which is little, and where it goes.">
+<link rel="stylesheet" href="../vendor/embertide-app/ui/intro/fonts/fonts.css"><link rel="stylesheet" href="./site-bar.css?v=bar-1"><link rel="stylesheet" href="./poleis.css?v=bleed-2">
+<style>
+  #mesh { position: fixed; inset: 0; z-index: 0; opacity: 0.55; }
+  main { position: relative; z-index: 1; max-width: 1380px; margin: 0 auto; padding: 0 80px 80px; }
+  @media (max-width: 620px) { main { padding: 0 24px 60px; } }
+  header { display: flex; align-items: baseline; gap: 22px; padding: 26px 0 10px; border-bottom: 1px solid var(--line); }
+  header h1 { font: var(--t1); letter-spacing: 0.34em; margin: 0; }
+  header .sub { font: var(--t3); font-family: var(--display); font-style: italic; color: var(--ink2); }
+  header nav { margin-left: auto; display: flex; gap: 22px; }
+  header nav a { font: var(--t4); letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink2); }
+  a:focus-visible, button:focus-visible { outline: 1px solid var(--bronze); outline-offset: 5px; }
+  .legal { max-width: 720px; padding-top: 44px; }
+  .legal h2 { font: var(--t1); margin: 0 0 10px; }
+  .legal-meta { font: var(--t4); letter-spacing: .12em; text-transform: uppercase; color: var(--ink2); margin: 0 0 8px; }
+  .legal-draft { font: var(--t3); color: var(--ink2); margin: 0 0 34px; padding: 12px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .legal h3 { font: var(--t2); margin: 34px 0 10px; }
+  .legal p, .legal li { font: var(--t3); color: var(--ink); margin: 0 0 10px; }
+  .legal ul { margin: 0 0 10px; padding-left: 20px; }
+  .legal a { border-bottom: 1px solid var(--line2); }
+  .legal a:hover { border-color: var(--gold); }
+  .legal .n { font: var(--t4); letter-spacing: .22em; text-transform: uppercase; color: var(--bronze); margin-right: 10px; }
+  .legal table { border-collapse: collapse; margin: 0 0 14px; font: var(--t3); }
+  .legal td, .legal th { text-align: left; padding: 8px 18px 8px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .legal th { font: var(--t4); letter-spacing: .12em; text-transform: uppercase; color: var(--ink2); }
+  @media (max-width: 1100px) { header { flex-wrap: wrap; } header nav { gap: 18px; } header .sub { flex: 1; } }
+  @media (max-width: 760px) { header .sub { display: none; } header nav { margin-left: 0; flex-wrap: wrap; } }
+</style><link rel="stylesheet" href="./holy.css?v=2">
+</head>
+<body>
+<main>
+  <header>
+    <h1><a href="./index.html" aria-label="Swarmbook home">SWARMBOOK</a></h1>
+    <span class="sub">Constitutional AI Swarms</span>
+    <nav class="site-bar" aria-label="Swarmbook"><a data-to="societies" href="./index.html">Societies</a><a data-to="stake" href="./after-the-mint.html?side=pool">Stake</a><a data-to="ride" href="./after-the-mint.html?side=flask">Ride</a><a data-to="tracenet" href="./tracenet.html?of=photons_enjoyor">Tracenet</a></nav>
+    
+  </header>
+  <article class="legal">
+    <h2>Privacy.</h2>
+    <p class="legal-meta">Last updated 10 September 2026</p>
+    <p class="legal-draft">Draft. Not yet reviewed by counsel. It binds nobody until this line is gone.</p>
+    <h3><span class="n">I</span>Who is responsible</h3>
+    <p>Extrinsic Cognition, Inc., a Delaware corporation, is the controller of the personal data described here. Write to <a href="mailto:claudio@extrinsiccognition.com">claudio@extrinsiccognition.com</a>.</p>
+    <h3><span class="n">II</span>This site</h3>
+    <p>This site has no accounts, sets no cookies of its own and runs no analytics. Your browser talks to four other parties, each of which sees your IP address under its own policy:</p>
+    <ul>
+      <li><strong>Solana devnet</strong> (api.devnet.solana.com), to read the program's accounts.</li>
+      <li><strong>GitHub</strong> (api.github.com), for the star count in the header.</li>
+      <li><strong>jsDelivr</strong>, which serves two JavaScript libraries.</li>
+      <li><strong>The Solana faucet</strong>, only if you follow the link.</li>
+    </ul>
+    <p>Your browser keeps some things locally and never sends them to us: a cache of chain reads, the star count, the rite's local memory on the $WARM page, and, on the found page, a devnet key and a founders list. Clear your browser's site data to remove them.</p>
+    <h3><span class="n">III</span>The chain</h3>
+    <p>Everything you sign is written to a public blockchain, forever, under your key. A key is a pseudonym and can become identifiable. We cannot edit or erase anything on the chain, and neither can you.</p>
+    <h3><span class="n">IV</span>Antimirror</h3>
+    <p>The app and its daemon run on your machine and keep your traces there. They send nothing to us by default. What they send to others is what you send: signed messages over the rail to peers you admitted, a mail invite through your own mail client, a context you chose to share. The app checks a release feed for updates; that check carries your app version and your IP address. Call recordings, transcripts and receipts stay on your machine.</p>
+    <h3><span class="n">V</span>Mail</h3>
+    <p>If you write to us we keep the mail and use it to answer you.</p>
+    <h3><span class="n">VI</span>Sharing</h3>
+    <p>We share personal data with nobody except the providers named above, each acting for itself, and where the law requires it.</p>
+    <h3><span class="n">VII</span>Your rights</h3>
+    <p>Where the GDPR, the UK GDPR or the CCPA applies, you may ask for access, correction, deletion, restriction, portability, or to object, and we will not treat you differently for asking. We answer within the time the law sets. We cannot act on data that lives on the chain or on your machine; we do not hold it.</p>
+    <h3><span class="n">VIII</span>Children</h3>
+    <p>Nothing here is for anyone under 18. If a minor has used the program, tell us and we will do what we can, which on the chain is nothing.</p>
+    <h3><span class="n">IX</span>Changes</h3>
+    <p>The date at the top moves when this notice changes.</p>
+
+  </article>
+  <footer class="road-foot" aria-label="Site footer">
+    <p class="foot-status">Devnet · swarm admission is live</p>
+    <nav class="foot-links" aria-label="About"><a href="./ecology.html">Why a swarm</a><a href="./rules.html">How a swarm decides</a><a href="./terms.html">Terms</a><a href="./privacy.html">Privacy</a><a href="./fees.html">Fees</a></nav>
+    <details class="study-details">
+      <summary>About this study</summary>
+      <p>The legal pages follow the structure of the terms, privacy notice and fees page of a comparable Solana launch venue, reduced to what this site and this program actually do. Where a line and the program disagree, the program is the law and the line has a bug.</p>
+    </details>
+  </footer>
+</main>
+</body>
+</html>

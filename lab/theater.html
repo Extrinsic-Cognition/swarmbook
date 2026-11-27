@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Theater</title>
+<!--
+  theater.html: THE THEATER (a lab page). His words, Oct 14 2026 12:00 WEST, over the mint's hero: "if this is a holodeck spatial computing
+  theater... can you put the original video in the background for example? can you move the dodecahedron around like as. if it was a
+  optical joke distorting WHAT IS BETWEEN the viewer (user). and the background (SAINT SEYA)"; then, over a first glass that bent the whole
+  film: "the original one we got rigth now basically is showing the same frames slapped glued onto each face... imagine if the face is the
+  window/glass but the image/position is panned... having STABLE FIXED BACKGROUND WITH THE MOVIE IN THE BACKGROUND", and the clue: "DECODE
+  THE HIGHLIGHTS OF THE FRAMES AND HAVE THE DODECAHEDRON DO SHIT AROUND LIKE IT DOES IN GOLDEN LIGHT LIKE FUICKING BOCCINO D'ORO IN HARRY
+  POTTER".
+
+  The film is the back wall, fixed: the 1986 picture inside the file (theater-light.json's crop), whole, on the theater's dark. The twelve chairs are a small solid of gold glass in front of it: each face is a
+  window onto the film behind it, the picture drawn nearer and panned by the face's tilt, so the faces hold the film's own pieces, never a
+  frame glued on. The glass flies like the Golden Snitch: it chases the film's light, read once from every frame by theater-light.mjs into
+  theater-light.json (its white-hot gold, and white away from the subtitles), and when the film has none it hovers and darts. Its flight is a spring
+  integrated over that track from the film's first frame, two loops so the loop closes on itself: a pure function of the film's second, the
+  same on every glass, a seek or a pause landing on the same picture. At "Burn, my cosmos" it swells and the cosmos burns in it; the flash
+  blazes it (the hero lane's moments, warm-sphere.js SEIYA_MOMENTS and its comment).
+
+  The engine is theater.js (the hero's B in hero-ab.html runs the same). Draws only on a cause: a film frame (requestVideoFrameCallback, held
+  only while the film plays), a seek, a button, a resize. Paused, it draws nothing. Outside the build, worn on no glass.
+-->
+<style>
+:root{--paper:#fbf8f1;--ink:#26231d;--mute:#6f685b;--gold:#b6985c;--line:#d8cdb4;--mono:ui-monospace,"SF Mono",Menlo,monospace}
+html,body{margin:0;height:100%;background:#0b0a09;overflow:hidden}
+canvas{position:fixed;inset:0;width:100vw;height:100vh;display:block}
+video{display:none}
+.panel{opacity:.38;transition:opacity .2s}.panel:hover,.panel:focus-within{opacity:1}
+.panel{position:fixed;left:16px;top:16px;max-width:min(440px,calc(100vw - 32px));box-sizing:border-box;padding:14px 16px 12px;background:rgba(251,248,241,.9);
+  border:1px solid var(--line);color:var(--ink);font:13px/1.45 -apple-system,"Helvetica Neue",Helvetica,Arial,sans-serif;backdrop-filter:blur(6px)}
+h1{font:600 21px/1.1 Georgia,"Times New Roman",serif;margin:0 0 3px}
+.sub{font:10px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin:0 0 10px}
+.row{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 7px}
+button{font:10px var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:7px 10px;border:1px solid #b8954f70;color:#3a3f33;background:#fffefa;cursor:pointer}
+button:hover,button[aria-pressed=true]{background:#f3ead6;border-color:var(--gold)}
+.hint{margin:4px 0 6px;color:var(--mute)}
+.num{margin:0;font:10px var(--mono);color:var(--mute);letter-spacing:.04em}
+</style>
+</head>
+<body>
+<canvas id="stage" role="img" aria-label="Saint Seiya playing as the back wall; a small dodecahedron of gold glass flies to the film's light like the Golden Snitch."></canvas>
+<video id="film" src="../app/saint-seiya.mp4?v=53561d47" muted playsinline loop preload="auto"></video>
+<div class="panel">
+  <h1>Theater.</h1>
+  <p class="sub">Saint Seiya on the wall · the twelve in gold glass · flying to the film's light</p>
+  <div class="row">
+    <button id="sound" type="button" aria-pressed="false">Sound off</button><button id="pause" type="button" aria-pressed="false">Pause</button>
+    <button id="light" type="button" aria-pressed="false">Show the light</button>
+  </div>
+  <div class="row">
+    <button type="button" data-at="0">The fall</button>
+    <button type="button" data-at="36">The golden light</button>
+    <button type="button" data-at="63.5">The armor</button>
+    <button type="button" data-at="99">Burn, my cosmos</button>
+    <button type="button" data-at="106">The meteors</button>
+    <button type="button" data-at="116">The arrow</button>
+  </div>
+  <p class="hint">The glass flies to the light it reads in each frame of the film; with no light it hovers and darts.</p>
+  <p class="num" id="num">loading the film</p>
+</div>
+<script type="module">
+import {createTheater} from './theater.js';
+const film = document.getElementById('film'), canvas = document.getElementById('stage'), num = document.getElementById('num');
+const theater = await createTheater({canvas, film, onDraw: (s) => {
+  num.textContent = `film ${s.t.toFixed(1)} s · light ${(s.lit * 100).toFixed(0)} % · ${s.w}×${s.h} · draws ${s.draws} · cpu ${s.cpuMs.toFixed(2)} ms` +
+    (s.gpuUs === null ? '' : ` · gpu ${Math.round(s.gpuUs)} µs`) + (s.paused ? ' · at rest' : '');
+}});
+let showLight = false;
+const soundButton = document.getElementById('sound'), pauseButton = document.getElementById('pause'), lightButton = document.getElementById('light');
+function show() {
+  soundButton.textContent = film.muted ? 'Sound off' : 'Sound on'; soundButton.setAttribute('aria-pressed', String(!film.muted));
+  pauseButton.textContent = film.paused ? 'Play' : 'Pause'; pauseButton.setAttribute('aria-pressed', String(film.paused));
+  lightButton.setAttribute('aria-pressed', String(showLight));
+}
+film.addEventListener('play', show); film.addEventListener('pause', show);
+film.play().catch(() => show());
+soundButton.addEventListener('click', () => { film.muted = !film.muted; if (!film.muted && film.paused) film.play().catch(() => {}); show(); });
+pauseButton.addEventListener('click', () => { if (film.paused) film.play().catch(() => {}); else film.pause(); });
+lightButton.addEventListener('click', () => { showLight = !showLight; theater.setShowLight(showLight); show(); });
+for (const b of document.querySelectorAll('[data-at]')) b.addEventListener('click', () => { film.currentTime = Number(b.dataset.at); });
+show();
+window.theater = theater;   // for a reader in the console: theater.at(second), theater.track
+</script>
+</body>
+</html>

@@ -1,0 +1,1418 @@
+{
+ "at": "2026-10-14T14:58:37.159Z",
+ "host": "guidos-MacBook-Pro-2.local",
+ "load": [
+  10.81103515625,
+  10.35546875,
+  11.09326171875
+ ],
+ "chrome": "~/Library/Caches/ms-playwright/chromium-1248/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+ "browser": "Chrome/156.0.8078.4",
+ "firstLoad": {
+  "info": {
+   "t": 30,
+   "cam": "shot",
+   "space": "cinematographic",
+   "film": "side",
+   "anchor": "head",
+   "draws": 6,
+   "by": {
+    "toggle": 1,
+    "resize": 1,
+    "load": 4
+   },
+   "triangles": 10554,
+   "calls": 15,
+   "athena": true,
+   "fighters": [
+    "ikki",
+    "seiya.cloth",
+    "seiya"
+   ],
+   "engine": false,
+   "still": false,
+   "stillCrop": null,
+   "tags": "rev 1 (copy)",
+   "record": "braindance.json",
+   "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Max, Unspecified Version)",
+   "size": [
+    960,
+    540
+   ],
+   "athenaPlace": {
+    "position": [
+     3,
+     9.4,
+     14
+    ],
+    "quaternion": [
+     0,
+     -0.9944351195722649,
+     0,
+     0.10535080902060145
+    ],
+    "scale": 1,
+    "mu": [
+     3,
+     11,
+     14
+    ],
+    "sigma": [
+     3,
+     4,
+     5
+    ],
+    "look": [
+     0,
+     0,
+     0
+    ],
+    "gaze": {
+     "yaw": -167.90524292298792,
+     "pitch": 37.534111705404904
+    },
+    "space": "cinematographic",
+    "pose": "bound at the ship's prow as its figurehead, the gold curl of the prow at her left, arms at her sides, head down at the fight",
+    "anchor": "head"
+   },
+   "shot": "over Athena's shoulder, down at the fight"
+  },
+  "bytes": {
+   "/intro/dyson-society/lab/braindance.html": 30711,
+   "/intro/dyson-society/app/saint-seiya.mp4": 9830400,
+   "/intro/room/procedural/three.module.js": 650153,
+   "/intro/room/procedural/GLTFLoader.js": 114945,
+   "/intro/room/procedural/OrbitControls.js": 40504,
+   "/intro/dyson-society/lab/braindance.mjs": 6217,
+   "/intro/dyson-society/lab/braindance-view.mjs": 11511,
+   "/intro/room/procedural/BufferGeometryUtils.js": 37621,
+   "/intro/room/procedural/SkeletonUtils.js": 11535,
+   "/intro/room/procedural/three.core.js": 1443059,
+   "/intro/dyson-society/lab/braindance.json": 12761,
+   "/intro/dyson-society/lab/athena.hades.glb": 660836,
+   "/intro/dyson-society/lab/seiya.hades.glb": 2071620,
+   "/intro/dyson-society/lab/seiya-sagittarius.hades.glb": 2088500,
+   "/intro/dyson-society/lab/ikki.hades.glb": 2065812
+  },
+  "total": 19076185
+ },
+ "pictures": [
+  {
+   "name": "30.0-over-her-shoulder-head-at-mu",
+   "q": "t=30&film=side",
+   "set": {
+    "t": 30,
+    "cam": "shot",
+    "space": "cinematographic"
+   },
+   "film": 30,
+   "info": {
+    "t": 30,
+    "cam": "shot",
+    "space": "cinematographic",
+    "film": "side",
+    "anchor": "head",
+    "draws": 7,
+    "by": {
+     "toggle": 1,
+     "resize": 1,
+     "load": 4,
+     "scrub": 1
+    },
+    "triangles": 10554,
+    "calls": 15,
+    "athena": true,
+    "fighters": [
+     "ikki",
+     "seiya",
+     "seiya.cloth"
+    ],
+    "engine": false,
+    "still": false,
+    "stillCrop": null,
+    "tags": "rev 1 (copy)",
+    "record": "braindance.json",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Max, Unspecified Version)",
+    "size": [
+     960,
+     540
+    ],
+    "athenaPlace": {
+     "position": [
+      3,
+      9.4,
+      14
+     ],
+     "quaternion": [
+      0,
+      -0.9944351195722649,
+      0,
+      0.10535080902060145
+     ],
+     "scale": 1,
+     "mu": [
+      3,
+      11,
+      14
+     ],
+     "sigma": [
+      3,
+      4,
+      5
+     ],
+     "look": [
+      0,
+      0,
+      0
+     ],
+     "gaze": {
+      "yaw": -167.90524292298792,
+      "pitch": 37.534111705404904
+     },
+     "space": "cinematographic",
+     "pose": "bound at the ship's prow as its figurehead, the gold curl of the prow at her left, arms at her sides, head down at the fight",
+     "anchor": "head"
+    },
+    "shot": "over Athena's shoulder, down at the fight"
+   },
+   "file": "frames/30.0-over-her-shoulder-head-at-mu.jpg"
+  },
+  {
+   "name": "30.0-over-her-shoulder-feet-at-mu",
+   "q": "t=30&film=side&anchor=feet",
+   "set": {
+    "t": 30,
+    "cam": "shot",
+    "space": "cinematographic"
+   },
+   "film": 30,
+   "info": {
+    "t": 30,
+    "cam": "shot",
+    "space": "cinematographic",
+    "film": "side",
+    "anchor": "feet",
+    "draws": 7,
+    "by": {
+     "toggle": 1,
+     "resize": 1,
+     "load": 4,
+     "scrub": 1
+    },
+    "triangles": 10554,
+    "calls": 15,
+    "athena": true,
+    "fighters": [
+     "seiya",
+     "seiya.cloth",
+     "ikki"
+    ],
+    "engine": false,
+    "still": false,
+    "stillCrop": null,
+    "tags": "rev 1 (copy)",
+    "record": "braindance.json",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Max, Unspecified Version)",
+    "size": [
+     960,
+     540
+    ],
+    "athenaPlace": {
+     "position": [
+      3,
+      11,
+      14
+     ],
+     "quaternion": [
+      0,
+      -0.9944351195722649,
+      0,
+      0.10535080902060145
+     ],
+     "scale": 1,
+     "mu": [
+      3,
+      11,
+      14
+     ],
+     "sigma": [
+      3,
+      4,
+      5
+     ],
+     "look": [
+      0,
+      0,
+      0
+     ],
+     "gaze": {
+      "yaw": -167.90524292298792,
+      "pitch": 41.3484931723666
+     },
+     "space": "cinematographic",
+     "pose": "bound at the ship's prow as its figurehead, the gold curl of the prow at her left, arms at her sides, head down at the fight",
+     "anchor": "feet"
+    },
+    "shot": "over Athena's shoulder, down at the fight"
+   },
+   "file": "frames/30.0-over-her-shoulder-feet-at-mu.jpg"
+  },
+  {
+   "name": "37.132-his-tag-the-column",
+   "q": "t=37.132&film=side",
+   "set": {
+    "t": 37.132,
+    "cam": "shot",
+    "space": "cinematographic"
+   },
+   "film": 37.132,
+   "info": {
+    "t": 37.132,
+    "cam": "shot",
+    "space": "cinematographic",
+    "film": "side",
+    "anchor": "head",
+    "draws": 7,
+    "by": {
+     "toggle": 1,
+     "resize": 1,
+     "load": 4,
+     "scrub": 1
+    },
+    "triangles": 11714,
+    "calls": 20,
+    "athena": true,
+    "fighters": [
+     "seiya",
+     "ikki",
+     "seiya.cloth"
+    ],
+    "engine": false,
+    "still": false,
+    "stillCrop": null,
+    "tags": "rev 1 (copy)",
+    "record": "braindance.json",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Max, Unspecified Version)",
+    "size": [
+     960,
+     540
+    ],
+    "athenaPlace": {
+     "position": [
+      3,
+      9.4,
+      14
+     ],
+     "quaternion": [
+      0,
+      -0.9944351195722649,
+      0,
+      0.10535080902060145
+     ],
+     "scale": 1,
+     "mu": [
+      3,
+      11,
+      14
+     ],
+     "sigma": [
+      3,
+      4,
+      5
+     ],
+     "look": [
+      0,
+      0,
+      0
+     ],
+     "gaze": {
+      "yaw": -167.90524292298792,
+      "pitch": 37.534111705404904
+     },
+     "space": "cinematographic",
+     "pose": "bound at the ship's prow as its figurehead, the gold curl of the prow at her left, arms at her sides, head down at the fight",
+     "anchor": "head"
+    },
+    "shot": "over her shoulder, the column"
+   },
+   "file": "frames/37.132-his-tag-the-column.jpg"
+  },
+  {
+   "name": "43.0-the-pinnacle-establishing",
+   "q": "t=43&film=side&space=establishing",
+   "set": {
+    "t": 43,
+    "cam": "shot",
+    "space": "establishing"
+   },
+   "film": 43,
+   "info": {
+    "t": 43,
+    "cam": "shot",
+    "space": "establishing",
+    "film": "side",
+    "anchor": "head",
+    "draws": 7,
+    "by": {
+     "toggle": 1,
+     "resize": 1,
+     "load": 4,
+     "scrub": 1
+    },
+    "triangles": 5250,
+    "calls": 11,
+    "athena": true,
+    "fighters": [
+     "seiya.cloth",
+     "seiya",
+     "ikki"
+    ],
+    "engine": false,
+    "still": false,
+    "stillCrop": null,
+    "tags": "rev 1 (copy)",
+    "record": "braindance.json",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Max, Unspecified Version)",
+    "size": [
+     960,
+     540
+    ],
+    "athenaPlace": {
+     "position": [
+      40,
+      88.4,
+      150
+     ],
+     "quaternion": [
+      0,
+      -0.9915228034698058,
+      0,
+      0.12993279108591813
+     ],
+     "scale": 1,
+     "mu": [
+      40,
+      90,
+      150
+     ],
+     "sigma": [
+      30,
+      40,
+      80
+     ],
+     "look": [
+      0,
+      0,
+      0
+     ],
+     "gaze": {
+      "yaw": -165.06858282186246,
+      "pitch": 30.102626183168653
+     },
+     "space": "establishing",
+     "pose": "bound at the ship's prow as its figurehead, the gold curl of the prow at her left, arms at her sides, head down at the fight",
+     "anchor": "head"
+    },
+    "shot": "the pinnacle"
+   },
+   "file": "frames/43.0-the-pinnacle-establishing.jpg"
+  },
+  {
+   "name": "77.0-his-thanks",
+   "q": "t=77&film=side",
+   "set": {
+    "t": 77,
+    "cam": "shot",
+    "space": "cinematographic"
+   },
+   "film": 77,
+   "info": {
+    "t": 77,
+    "cam": "shot",
+    "space": "cinematographic",
+    "film": "side",
+    "anchor": "head",
+    "draws": 7,
+    "by": {
+     "toggle": 1,
+     "resize": 1,
+     "load": 4,
+     "scrub": 1
+    },
+    "triangles": 8982,
+    "calls": 9,
+    "athena": true,
+    "fighters": [
+     "ikki",
+     "seiya",
+     "seiya.cloth"
+    ],
+    "engine": false,
+    "still": false,
+    "stillCrop": null,
+    "tags": "rev 1 (copy)",
+    "record": "braindance.json",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Max, Unspecified Version)",
+    "size": [
+     960,
+     540
+    ],
+    "athenaPlace": {
+     "position": [
+      3,
+      9.4,
+      14
+     ],
+     "quaternion": [
+      0,
+      -0.9944351195722649,
+      0,
+      0.10535080902060145
+     ],
+     "scale": 1,
+     "mu": [
+      3,
+      11,
+      14
+     ],
+     "sigma": [
+      3,
+      4,
+      5
+     ],
+     "look": [
+      0,
+      0,
+      0
+     ],
+     "gaze": {
+      "yaw": -167.90524292298792,
+      "pitch": 37.534111705404904
+     },
+     "space": "cinematographic",
+     "pose": "bound at the ship's prow as its figurehead, the gold curl of the prow at her left, arms at her sides, head down at the fight",
+     "anchor": "head"
+    },
+    "shot": "his thanks"
+   },
+   "file": "frames/77.0-his-thanks.jpg"
+  },
+  {
+   "name": "14.0-ikki-takes-the-blast",
+   "q": "t=14&film=side",
+   "set": {
+    "t": 14,
+    "cam": "shot",
+    "space": "cinematographic"
+   },
+   "film": 14,
+   "info": {
+    "t": 14,
+    "cam": "shot",
+    "space": "cinematographic",
+    "film": "side",
+    "anchor": "head",
+    "draws": 7,
+    "by": {
+     "toggle": 1,
+     "resize": 1,
+     "load": 4,
+     "scrub": 1
+    },
+    "triangles": 11341,
+    "calls": 15,
+    "athena": true,
+    "fighters": [
+     "seiya",
+     "seiya.cloth",
+     "ikki"
+    ],
+    "engine": false,
+    "still": false,
+    "stillCrop": null,
+    "tags": "rev 1 (copy)",
+    "record": "braindance.json",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Max, Unspecified Version)",
+    "size": [
+     960,
+     540
+    ],
+    "athenaPlace": null,
+    "shot": "Ikki's sacrifice"
+   },
+   "file": "frames/14.0-ikki-takes-the-blast.jpg"
+  },
+  {
+   "name": "candidate-mirror-x-30.0-over-her-shoulder",
+   "q": "t=30&film=side&record=braindance.mirror-x.json",
+   "set": {
+    "t": 30,
+    "cam": "shot",
+    "space": "cinematographic"
+   },
+   "film": 30,
+   "info": {
+    "t": 30,
+    "cam": "shot",
+    "space": "cinematographic",
+    "film": "side",
+    "anchor": "head",
+    "draws": 7,
+    "by": {
+     "toggle": 1,
+     "resize": 1,
+     "load": 4,
+     "scrub": 1
+    },
+    "triangles": 10554,
+    "calls": 15,
+    "athena": true,
+    "fighters": [
+     "ikki",
+     "seiya",
+     "seiya.cloth"
+    ],
+    "engine": false,
+    "still": false,
+    "stillCrop": null,
+    "tags": "rev 1 (copy)",
+    "record": "braindance.mirror-x.json",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Max, Unspecified Version)",
+    "size": [
+     960,
+     540
+    ],
+    "athenaPlace": {
+     "position": [
+      -3,
+      9.4,
+      14
+     ],
+     "quaternion": [
+      0,
+      0.9944351195722649,
+      0,
+      0.10535080902060145
+     ],
+     "scale": 1,
+     "mu": [
+      -3,
+      11,
+      14
+     ],
+     "sigma": [
+      3,
+      4,
+      5
+     ],
+     "look": [
+      0,
+      0,
+      0
+     ],
+     "gaze": {
+      "yaw": 167.90524292298792,
+      "pitch": 37.534111705404904
+     },
+     "space": "cinematographic",
+     "pose": "bound at the ship's prow as its figurehead, the gold curl of the prow at her left, arms at her sides, head down at the fight",
+     "anchor": "head"
+    },
+    "shot": "over Athena's shoulder, down at the fight"
+   },
+   "file": "frames/candidate-mirror-x-30.0-over-her-shoulder.jpg"
+  },
+  {
+   "name": "candidate-mirror-x-37.132-the-column",
+   "q": "t=37.132&film=side&record=braindance.mirror-x.json",
+   "set": {
+    "t": 37.132,
+    "cam": "shot",
+    "space": "cinematographic"
+   },
+   "film": 37.132,
+   "info": {
+    "t": 37.132,
+    "cam": "shot",
+    "space": "cinematographic",
+    "film": "side",
+    "anchor": "head",
+    "draws": 7,
+    "by": {
+     "toggle": 1,
+     "resize": 1,
+     "load": 4,
+     "scrub": 1
+    },
+    "triangles": 11714,
+    "calls": 20,
+    "athena": true,
+    "fighters": [
+     "ikki",
+     "seiya.cloth",
+     "seiya"
+    ],
+    "engine": false,
+    "still": false,
+    "stillCrop": null,
+    "tags": "rev 1 (copy)",
+    "record": "braindance.mirror-x.json",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Max, Unspecified Version)",
+    "size": [
+     960,
+     540
+    ],
+    "athenaPlace": {
+     "position": [
+      -3,
+      9.4,
+      14
+     ],
+     "quaternion": [
+      0,
+      0.9944351195722649,
+      0,
+      0.10535080902060145
+     ],
+     "scale": 1,
+     "mu": [
+      -3,
+      11,
+      14
+     ],
+     "sigma": [
+      3,
+      4,
+      5
+     ],
+     "look": [
+      0,
+      0,
+      0
+     ],
+     "gaze": {
+      "yaw": 167.90524292298792,
+      "pitch": 37.534111705404904
+     },
+     "space": "cinematographic",
+     "pose": "bound at the ship's prow as its figurehead, the gold curl of the prow at her left, arms at her sides, head down at the fight",
+     "anchor": "head"
+    },
+    "shot": "over her shoulder, the column"
+   },
+   "file": "frames/candidate-mirror-x-37.132-the-column.jpg"
+  },
+  {
+   "name": "candidate-mirror-x-43.0-the-pinnacle",
+   "q": "t=43&film=side&space=establishing&record=braindance.mirror-x.json",
+   "set": {
+    "t": 43,
+    "cam": "shot",
+    "space": "establishing"
+   },
+   "film": 43,
+   "info": {
+    "t": 43,
+    "cam": "shot",
+    "space": "establishing",
+    "film": "side",
+    "anchor": "head",
+    "draws": 7,
+    "by": {
+     "toggle": 1,
+     "resize": 1,
+     "load": 4,
+     "scrub": 1
+    },
+    "triangles": 5250,
+    "calls": 11,
+    "athena": true,
+    "fighters": [
+     "ikki",
+     "seiya.cloth",
+     "seiya"
+    ],
+    "engine": false,
+    "still": false,
+    "stillCrop": null,
+    "tags": "rev 1 (copy)",
+    "record": "braindance.mirror-x.json",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Max, Unspecified Version)",
+    "size": [
+     960,
+     540
+    ],
+    "athenaPlace": {
+     "position": [
+      -40,
+      88.4,
+      150
+     ],
+     "quaternion": [
+      0,
+      0.9915228034698058,
+      0,
+      0.12993279108591813
+     ],
+     "scale": 1,
+     "mu": [
+      -40,
+      90,
+      150
+     ],
+     "sigma": [
+      30,
+      40,
+      80
+     ],
+     "look": [
+      0,
+      0,
+      0
+     ],
+     "gaze": {
+      "yaw": 165.06858282186246,
+      "pitch": 30.102626183168653
+     },
+     "space": "establishing",
+     "pose": "bound at the ship's prow as its figurehead, the gold curl of the prow at her left, arms at her sides, head down at the fight",
+     "anchor": "head"
+    },
+    "shot": "the pinnacle"
+   },
+   "file": "frames/candidate-mirror-x-43.0-the-pinnacle.jpg"
+  },
+  {
+   "name": "30.0-free-the-whole-braindance",
+   "q": "t=30&film=off&cam=free",
+   "set": {
+    "t": 30,
+    "cam": "free",
+    "space": "cinematographic"
+   },
+   "info": {
+    "t": 30,
+    "cam": "free",
+    "space": "cinematographic",
+    "film": "off",
+    "anchor": "head",
+    "draws": 7,
+    "by": {
+     "drag": 1,
+     "toggle": 1,
+     "resize": 1,
+     "load": 4,
+     "scrub": 1
+    },
+    "triangles": 11522,
+    "calls": 19,
+    "athena": true,
+    "fighters": [
+     "seiya",
+     "seiya.cloth",
+     "ikki"
+    ],
+    "engine": false,
+    "still": false,
+    "stillCrop": null,
+    "tags": "rev 1 (copy)",
+    "record": "braindance.json",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Max, Unspecified Version)",
+    "size": [
+     1600,
+     900
+    ],
+    "athenaPlace": {
+     "position": [
+      3,
+      9.4,
+      14
+     ],
+     "quaternion": [
+      0,
+      -0.9944351195722649,
+      0,
+      0.10535080902060145
+     ],
+     "scale": 1,
+     "mu": [
+      3,
+      11,
+      14
+     ],
+     "sigma": [
+      3,
+      4,
+      5
+     ],
+     "look": [
+      0,
+      0,
+      0
+     ],
+     "gaze": {
+      "yaw": -167.90524292298792,
+      "pitch": 37.534111705404904
+     },
+     "space": "cinematographic",
+     "pose": "bound at the ship's prow as its figurehead, the gold curl of the prow at her left, arms at her sides, head down at the fight",
+     "anchor": "head"
+    },
+    "shot": "over Athena's shoulder, down at the fight"
+   },
+   "file": "frames/30.0-free-the-whole-braindance.jpg"
+  },
+  {
+   "name": "37.132-free-the-column",
+   "q": "t=37.132&film=off&cam=free",
+   "set": {
+    "t": 37.132,
+    "cam": "free",
+    "space": "cinematographic"
+   },
+   "info": {
+    "t": 37.132,
+    "cam": "free",
+    "space": "cinematographic",
+    "film": "off",
+    "anchor": "head",
+    "draws": 7,
+    "by": {
+     "drag": 1,
+     "toggle": 1,
+     "resize": 1,
+     "load": 4,
+     "scrub": 1
+    },
+    "triangles": 12682,
+    "calls": 24,
+    "athena": true,
+    "fighters": [
+     "seiya",
+     "ikki",
+     "seiya.cloth"
+    ],
+    "engine": false,
+    "still": false,
+    "stillCrop": null,
+    "tags": "rev 1 (copy)",
+    "record": "braindance.json",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Max, Unspecified Version)",
+    "size": [
+     1600,
+     900
+    ],
+    "athenaPlace": {
+     "position": [
+      3,
+      9.4,
+      14
+     ],
+     "quaternion": [
+      0,
+      -0.9944351195722649,
+      0,
+      0.10535080902060145
+     ],
+     "scale": 1,
+     "mu": [
+      3,
+      11,
+      14
+     ],
+     "sigma": [
+      3,
+      4,
+      5
+     ],
+     "look": [
+      0,
+      0,
+      0
+     ],
+     "gaze": {
+      "yaw": -167.90524292298792,
+      "pitch": 37.534111705404904
+     },
+     "space": "cinematographic",
+     "pose": "bound at the ship's prow as its figurehead, the gold curl of the prow at her left, arms at her sides, head down at the fight",
+     "anchor": "head"
+    },
+    "shot": "over her shoulder, the column"
+   },
+   "file": "frames/37.132-free-the-column.jpg"
+  },
+  {
+   "name": "43.0-free-establishing",
+   "q": "t=43&film=off&cam=free&space=establishing",
+   "set": {
+    "t": 43,
+    "cam": "free",
+    "space": "establishing"
+   },
+   "info": {
+    "t": 43,
+    "cam": "free",
+    "space": "establishing",
+    "film": "off",
+    "anchor": "head",
+    "draws": 7,
+    "by": {
+     "drag": 1,
+     "toggle": 1,
+     "resize": 1,
+     "load": 4,
+     "scrub": 1
+    },
+    "triangles": 6218,
+    "calls": 15,
+    "athena": true,
+    "fighters": [
+     "seiya",
+     "seiya.cloth",
+     "ikki"
+    ],
+    "engine": false,
+    "still": false,
+    "stillCrop": null,
+    "tags": "rev 1 (copy)",
+    "record": "braindance.json",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Max, Unspecified Version)",
+    "size": [
+     1600,
+     900
+    ],
+    "athenaPlace": {
+     "position": [
+      40,
+      88.4,
+      150
+     ],
+     "quaternion": [
+      0,
+      -0.9915228034698058,
+      0,
+      0.12993279108591813
+     ],
+     "scale": 1,
+     "mu": [
+      40,
+      90,
+      150
+     ],
+     "sigma": [
+      30,
+      40,
+      80
+     ],
+     "look": [
+      0,
+      0,
+      0
+     ],
+     "gaze": {
+      "yaw": -165.06858282186246,
+      "pitch": 30.102626183168653
+     },
+     "space": "establishing",
+     "pose": "bound at the ship's prow as its figurehead, the gold curl of the prow at her left, arms at her sides, head down at the fight",
+     "anchor": "head"
+    },
+    "shot": "the pinnacle"
+   },
+   "file": "frames/43.0-free-establishing.jpg"
+  },
+  {
+   "name": "still-leave-0",
+   "info": {
+    "t": 30,
+    "cam": "shot",
+    "space": "cinematographic",
+    "film": "off",
+    "anchor": "head",
+    "draws": 8,
+    "by": {
+     "toggle": 1,
+     "resize": 1,
+     "load": 5,
+     "scrub": 1
+    },
+    "triangles": 10556,
+    "calls": 16,
+    "athena": true,
+    "fighters": [
+     "seiya",
+     "ikki",
+     "seiya.cloth"
+    ],
+    "engine": false,
+    "still": true,
+    "stillCrop": {
+     "x0": 82,
+     "x1": 877,
+     "width": 960,
+     "height": 540
+    },
+    "tags": "rev 1 (copy)",
+    "record": "braindance.json",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Max, Unspecified Version)",
+    "size": [
+     1600,
+     900
+    ],
+    "athenaPlace": {
+     "position": [
+      3,
+      9.4,
+      14
+     ],
+     "quaternion": [
+      0,
+      -0.9944351195722649,
+      0,
+      0.10535080902060145
+     ],
+     "scale": 1,
+     "mu": [
+      3,
+      11,
+      14
+     ],
+     "sigma": [
+      3,
+      4,
+      5
+     ],
+     "look": [
+      0,
+      0,
+      0
+     ],
+     "gaze": {
+      "yaw": -167.90524292298792,
+      "pitch": 37.534111705404904
+     },
+     "space": "cinematographic",
+     "pose": "bound at the ship's prow as its figurehead, the gold curl of the prow at her left, arms at her sides, head down at the fight",
+     "anchor": "head"
+    },
+    "shot": "over Athena's shoulder, down at the fight"
+   },
+   "file": "frames/30.0-torn-still-leave-0.jpg"
+  },
+  {
+   "name": "still-leave-0.4",
+   "info": {
+    "t": 30,
+    "cam": "shot",
+    "space": "cinematographic",
+    "film": "off",
+    "anchor": "head",
+    "draws": 9,
+    "by": {
+     "toggle": 1,
+     "resize": 1,
+     "load": 5,
+     "scrub": 2
+    },
+    "triangles": 10556,
+    "calls": 16,
+    "athena": true,
+    "fighters": [
+     "seiya",
+     "ikki",
+     "seiya.cloth"
+    ],
+    "engine": false,
+    "still": true,
+    "stillCrop": {
+     "x0": 82,
+     "x1": 877,
+     "width": 960,
+     "height": 540
+    },
+    "tags": "rev 1 (copy)",
+    "record": "braindance.json",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Max, Unspecified Version)",
+    "size": [
+     1600,
+     900
+    ],
+    "athenaPlace": {
+     "position": [
+      3,
+      9.4,
+      14
+     ],
+     "quaternion": [
+      0,
+      -0.9944351195722649,
+      0,
+      0.10535080902060145
+     ],
+     "scale": 1,
+     "mu": [
+      3,
+      11,
+      14
+     ],
+     "sigma": [
+      3,
+      4,
+      5
+     ],
+     "look": [
+      0,
+      0,
+      0
+     ],
+     "gaze": {
+      "yaw": -167.90524292298792,
+      "pitch": 37.534111705404904
+     },
+     "space": "cinematographic",
+     "pose": "bound at the ship's prow as its figurehead, the gold curl of the prow at her left, arms at her sides, head down at the fight",
+     "anchor": "head"
+    },
+    "shot": "over Athena's shoulder, down at the fight"
+   },
+   "file": "frames/30.0-torn-still-leave-0.4.jpg"
+  },
+  {
+   "name": "still-leave-0.7",
+   "info": {
+    "t": 30,
+    "cam": "shot",
+    "space": "cinematographic",
+    "film": "off",
+    "anchor": "head",
+    "draws": 10,
+    "by": {
+     "toggle": 1,
+     "resize": 1,
+     "load": 5,
+     "scrub": 3
+    },
+    "triangles": 9586,
+    "calls": 13,
+    "athena": true,
+    "fighters": [
+     "seiya",
+     "ikki",
+     "seiya.cloth"
+    ],
+    "engine": false,
+    "still": true,
+    "stillCrop": {
+     "x0": 82,
+     "x1": 877,
+     "width": 960,
+     "height": 540
+    },
+    "tags": "rev 1 (copy)",
+    "record": "braindance.json",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Max, Unspecified Version)",
+    "size": [
+     1600,
+     900
+    ],
+    "athenaPlace": {
+     "position": [
+      3,
+      9.4,
+      14
+     ],
+     "quaternion": [
+      0,
+      -0.9944351195722649,
+      0,
+      0.10535080902060145
+     ],
+     "scale": 1,
+     "mu": [
+      3,
+      11,
+      14
+     ],
+     "sigma": [
+      3,
+      4,
+      5
+     ],
+     "look": [
+      0,
+      0,
+      0
+     ],
+     "gaze": {
+      "yaw": -167.90524292298792,
+      "pitch": 37.534111705404904
+     },
+     "space": "cinematographic",
+     "pose": "bound at the ship's prow as its figurehead, the gold curl of the prow at her left, arms at her sides, head down at the fight",
+     "anchor": "head"
+    },
+    "shot": "over Athena's shoulder, down at the fight"
+   },
+   "file": "frames/30.0-torn-still-leave-0.7.jpg"
+  },
+  {
+   "name": "still-leave-1",
+   "info": {
+    "t": 30,
+    "cam": "shot",
+    "space": "cinematographic",
+    "film": "off",
+    "anchor": "head",
+    "draws": 11,
+    "by": {
+     "toggle": 1,
+     "resize": 1,
+     "load": 5,
+     "scrub": 4
+    },
+    "triangles": 10530,
+    "calls": 12,
+    "athena": true,
+    "fighters": [
+     "seiya",
+     "ikki",
+     "seiya.cloth"
+    ],
+    "engine": false,
+    "still": true,
+    "stillCrop": {
+     "x0": 82,
+     "x1": 877,
+     "width": 960,
+     "height": 540
+    },
+    "tags": "rev 1 (copy)",
+    "record": "braindance.json",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Max, Unspecified Version)",
+    "size": [
+     1600,
+     900
+    ],
+    "athenaPlace": {
+     "position": [
+      3,
+      9.4,
+      14
+     ],
+     "quaternion": [
+      0,
+      -0.9944351195722649,
+      0,
+      0.10535080902060145
+     ],
+     "scale": 1,
+     "mu": [
+      3,
+      11,
+      14
+     ],
+     "sigma": [
+      3,
+      4,
+      5
+     ],
+     "look": [
+      0,
+      0,
+      0
+     ],
+     "gaze": {
+      "yaw": -167.90524292298792,
+      "pitch": 37.534111705404904
+     },
+     "space": "cinematographic",
+     "pose": "bound at the ship's prow as its figurehead, the gold curl of the prow at her left, arms at her sides, head down at the fight",
+     "anchor": "head"
+    },
+    "shot": "over Athena's shoulder, down at the fight"
+   },
+   "file": "frames/30.0-torn-still-leave-1.jpg"
+  }
+ ],
+ "bench": [
+  {
+   "q": "t=30",
+   "n": 120,
+   "median": 1.399999976158142,
+   "p95": 2.100000023841858,
+   "max": 13.699999988079071,
+   "triangles": 10554,
+   "calls": 15,
+   "size": [
+    2880,
+    1672
+   ]
+  },
+  {
+   "q": "t=37.132",
+   "n": 120,
+   "median": 1.5,
+   "p95": 2.699999988079071,
+   "max": 11.399999976158142,
+   "triangles": 11714,
+   "calls": 20,
+   "size": [
+    2880,
+    1672
+   ]
+  },
+  {
+   "q": "t=43&space=establishing",
+   "n": 120,
+   "median": 1.300000011920929,
+   "p95": 1.9000000357627869,
+   "max": 13.199999988079071,
+   "triangles": 5250,
+   "calls": 11,
+   "size": [
+    2880,
+    1672
+   ]
+  },
+  {
+   "q": "t=30&cam=free",
+   "n": 120,
+   "median": 1.699999988079071,
+   "p95": 3.699999988079071,
+   "max": 12.300000011920929,
+   "triangles": 11522,
+   "calls": 19,
+   "size": [
+    2880,
+    1672
+   ]
+  }
+ ],
+ "rest": {
+  "atRest3s": {
+   "draws": 0,
+   "raf": 0
+  },
+  "playing3s": {
+   "draws": 88,
+   "raf": 0,
+   "by": {
+    "toggle": 1,
+    "resize": 1,
+    "load": 4,
+    "scrub": 1,
+    "film": 88
+   }
+  },
+  "afterPause3s": {
+   "draws": 0,
+   "raf": 0
+  },
+  "filmAt": 22.960796
+ },
+ "errors": [],
+ "refused": [],
+ "asks": 391,
+ "stored": "the PNGs Chrome made, stored here as JPEG at quality 85 (sips), every one in frames/ (a film frame or the game's figures in each): the mirror strip list drops frames/ folders before GitHub"
+}

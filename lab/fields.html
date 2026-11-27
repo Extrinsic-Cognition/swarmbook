@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fields</title>
+<!--
+  fields.html: THE FIELDS (fields.js) on the hero's own film and dodecahedron, one at a time or all three on the film's line of time. A lab page,
+  outside the build, worn on no glass. His words, Oct 14 2026 16:3x-16:4x WEST, are in fields.js's header.
+  - The film (app/saint-seiya.mp4) is on the page's twelve pentagons as the hero lays it (the file's centre square on each face, warm-sphere.js
+    decal()), the eye four circumradii away, the sphere turning 0.12 rad a film second (the hero's drift, here tied to the film so a picture is
+    the same every time): at her cut (29.563 s) it stands at yaw 21.8 deg, pitch -0.12, as in cubism.proof.mjs.
+  - THE HAIR, 29.563 to 33.567 s: the game's Athena on the face cubism.mjs picks at her cut, cut by its five edges (inside the face the film's
+    picture of her, outside it her body in 3D), her game hair's sheet hidden (?sheet=1 keeps it) and her strands in its place, streaming with
+    the film's drawn hair. THE RIPPLE: from her portal's opening (29.763 s) its fronts bend her strands (?ripple=0: still); nothing moves her body.
+  - THE LIGHT, 42.342 to 53.6 s: the box opens (its faces out along their normals, the two facing the eye away) and the gold cloth stands in it;
+    the field radiates from the cloth: the star's rays, the burst at its cut, the sun, the flood, the centaur's flames, its light on the faces.
+  - THE SILHOUETTE: one of the moments shown to him (?moment=athena-aiolos | seiya-light | sacrifice-water; ?style= overrides), her figure on
+    the face or a body beside the sphere going to smoke, water or petals from that second.
+  Draws: one per presented film frame while it plays (requestVideoFrameCallback, cancelled at the pause), one on a seek, a resize or a model
+  loaded. Paused: nothing. ?t=<s> opens paused there; ?fields=hair,light,dissolve (default all; none for the bare sphere; box: the cloth in
+  the opened box with no field; body: the body with no dissolve); ?budget=lysa; ?bench=N renders each draw N times inside one GPU timer query.
+-->
+<script type="importmap">{"imports": {"three": "../../room/procedural/three.module.js"}}</script>
+<style>
+html,body{margin:0;height:100%;background:#e9e5d9;overflow:hidden}
+canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
+video{display:none}
+.panel{position:fixed;right:16px;top:16px;z-index:5;box-sizing:border-box;width:min(380px,calc(100vw - 32px));padding:11px 12px 9px;background:rgba(255,254,250,.94);
+  border:1px solid #b8954f;font:10px/1.45 ui-monospace,"SF Mono",Menlo,monospace;color:#30372c}
+.panel .row{display:flex;flex-wrap:wrap;gap:5px;align-items:center;margin:0 0 7px}
+.panel button{font:inherit;letter-spacing:.08em;text-transform:uppercase;padding:6px 8px;border:1px solid #b8954f;color:#30372c;background:#fffefa;cursor:pointer}
+.panel button[aria-pressed=true]{background:#30372c;color:#f4f0e4;border-color:#30372c}
+.panel p{margin:0 0 4px;color:#6f685b}
+</style>
+</head>
+<body>
+<video id="film" src="../app/saint-seiya.mp4" muted playsinline preload="auto"></video>
+<canvas id="stage" aria-label="The fields on the hero's film"></canvas>
+<div class="panel" role="group" aria-label="The fields">
+  <div class="row"><button type="button" id="play">Play</button><button type="button" data-t="29.6">Hair 29.6 s</button><button type="button" data-t="43.4">Star 43.4 s</button>
+    <button type="button" data-t="45.5">Burst 45.4 s</button><button type="button" data-t="50.2">Centaur 50.05 s</button></div>
+  <div class="row" id="moments"></div>
+  <div class="row" id="styles"></div>
+  <p id="num">loading</p>
+  <p id="models"></p>
+</div>
+<script type="module">
+import * as THREE from 'three';
+import {GLTFLoader} from '../vendor/embertide-app/ui/intro/room/procedural/GLTFLoader.js';
+import {buildAssemblySkin} from '../app/assembly-geometry.js';
+import {FIT, chooseFace, place as cubistPlace, frameOf} from './cubism.mjs';
+import {createHair, createLight, createDissolve, createRipple, hairOfModel, sampleSurface, filmPaint, FIELD_GLSL, TINTS} from './fields.js';
+import {portalGeometry, PORTAL} from './cubism.mjs';
+import {hairAt, lightAt, dissolveAt, faceFlowFrame, screenFlowFrame, DISSOLVE_CANDIDATES, CUTS, ss} from './fields-plan.mjs';
+
+const q = new URLSearchParams(location.search);
+// which fields: hair, light, dissolve (each with what it stands on); box (the cloth in the opened box, no field) and body (the body, no dissolve)
+// are the same scenes bare, for a field's own cost against them
+const ON = new Set((q.get('fields') ?? 'hair,light,dissolve').split(',').filter(Boolean));
+if (ON.has('light')) ON.add('box');
+if (ON.has('dissolve')) ON.add('body');
+const BENCH = Math.max(1, Math.min(64, Number(q.get('bench')) || 1));   // renders a draw, inside one timer query (above ANGLE Metal's floor)
+// ?pair=1 (with bench): each draw renders the scene BENCH times with the fields and BENCH times without them, in turn order, two timer queries:
+// the fields' own GPU time is the difference within the one frame, so the GPU's clock state (which follows the frame's whole work) cancels
+const PAIR = q.get('pair') === '1';
+const BUDGET = q.get('budget') === 'lysa' ? 'lysa' : 'full';
+const film = document.getElementById('film'), canvas = document.getElementById('stage'), num = document.getElementById('num');
+const EYE = 4, PITCH = -0.12, YAW_AT_CUT = 21.8 * Math.PI / 180, DRIFT = 0.12;   // the hero's sphere (warm-sphere.js) and cubism.proof.mjs's pose
+const spinAt = (t) => ({yaw: YAW_AT_CUT + DRIFT * ((Number.isFinite(t) ? t : 0) - CUTS.shoulder[0]), pitch: PITCH});
+const LIGHT = new THREE.Vector3(-0.32, 0.7, 0.64);
+
+// ---- the renderer: draws on cause only ----
+const renderer = new THREE.WebGLRenderer({canvas, antialias: true, powerPreference: 'high-performance'});
+renderer.setClearColor(new THREE.Color('#e9e5d9'), 1);
+renderer.localClippingEnabled = true;
+renderer.toneMapping = THREE.NeutralToneMapping; renderer.toneMappingExposure = 1.05;
+const gl = renderer.getContext(), scene = new THREE.Scene(), camera = new THREE.PerspectiveCamera(50, 1, 0.05, 40);
+const FAR = Number(q.get('far')) || 1;   // ?far=2: the eye twice as far, the lens as wide (to see her whole hair; the hero's eye is 1)
+camera.position.set(0, 0, EYE); camera.lookAt(0, 0, 0); camera.updateMatrixWorld(true);
+scene.environment = studio(renderer);
+const sun = new THREE.DirectionalLight(0xfff1dc, 2.0); sun.position.copy(LIGHT).multiplyScalar(6); scene.add(sun);
+scene.add(new THREE.HemisphereLight(0xfff6e8, 0x3a2d1a, 0.55));
+
+// the film, copied as it presents each frame (raw GL, as unboxing.js: no texture keeps a frame callback waiting at rest)
+const filmTex = gl.createTexture(), film3 = new THREE.ExternalTexture(filmTex);
+gl.bindTexture(gl.TEXTURE_2D, filmTex);
+gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([233, 229, 217, 255]));
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+gl.generateMipmap(gl.TEXTURE_2D); renderer.resetState();
+let copied = -1;
+const upload = () => {
+  if (film.readyState < 2 || !film.videoWidth || copied === film.currentTime) return;
+  gl.bindTexture(gl.TEXTURE_2D, filmTex);
+  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false); gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, film);
+  gl.generateMipmap(gl.TEXTURE_2D); renderer.resetState();
+  copied = film.currentTime;
+};
+
+// ---- the page's dodecahedron, the film's centre square on each face (as the hero's box, its faces in 3D) ----
+const FACE_VS = `
+attribute vec2 decal; attribute float edge;
+varying vec2 vDecal; varying float vEdge; varying vec3 vNormal; varying vec3 vView;
+void main() { vDecal = decal; vEdge = edge; vec4 mv = modelViewMatrix * vec4(position, 1.0); vNormal = normalize(normalMatrix * normal); vView = -mv.xyz; gl_Position = projectionMatrix * mv; }`;
+const FACE_FS = `
+uniform sampler2D uFilm; uniform vec3 uLight; uniform float uLead;
+${FIELD_GLSL}
+varying vec2 vDecal; varying float vEdge; varying vec3 vNormal; varying vec3 vView;
+void main() {
+  vec2 d = vDecal; if (!gl_FrontFacing) d.x = -d.x;
+  vec2 st = vec2((210.0 + (d.x * 0.5 + 0.5) * 540.0) / 960.0, (d.y * 0.5 + 0.5));   // the file's centre square, rows top down as uploaded
+  vec3 film = texture2D(uFilm, st).rgb, n = normalize(vNormal) * (gl_FrontFacing ? 1.0 : -1.0);
+  float lit = clamp(0.31 + 0.69 * max(dot(n, normalize(uLight)), 0.0), 0.0, 1.0);
+  vec3 col = mix(film, vec3(0.184, 0.2, 0.157), (1.0 - lit) * 0.5);
+  col += fieldLight(-vView, n);                                        // the cloth's light, from inside the box
+  float px = vEdge / max(fwidth(vEdge), 1e-6), hair = clamp(min(px + 0.5, 0.65) - max(px - 0.5, 0.0), 0.0, 1.0);
+  float lead = 1.0 - smoothstep(0.026, 0.04, vEdge);
+  col = mix(col, mix(vec3(0.592, 0.443, 0.165), vec3(0.86, 0.66, 0.3), uLead), mix(hair * 0.74, lead, uLead));
+  gl_FragColor = vec4(col, 1.0);
+}`;
+const faces = buildAssemblySkin(0).pents;
+const sphere = new THREE.Group(); scene.add(sphere); sphere.matrixAutoUpdate = false;
+const light = ON.has('light') ? createLight({budget: BUDGET}) : null;
+const faceUniforms = {uFilm: {value: film3}, uLight: {value: LIGHT.clone().normalize()}, uLead: {value: 0}, ...(light?.uniforms ?? {
+  uFieldSrc: {value: new THREE.Vector3()}, uFieldPower: {value: 0}, uFieldReach: {value: 1}, uFieldColor: {value: new THREE.Vector3()}, uFieldRays: {value: Array.from({length: 16}, () => new THREE.Vector4())}})};
+const faceMaterial = new THREE.ShaderMaterial({vertexShader: FACE_VS, fragmentShader: FACE_FS, uniforms: faceUniforms, side: THREE.DoubleSide});
+const panels = faces.map((f) => {
+  const {C, n, across, up, rho} = frameOf(f), pos = [], nor = [], dec = [], edg = [];
+  const corners = f.verts, put = (p) => {
+    pos.push(...p); nor.push(...n);
+    const r = p.map((x, i) => x - C[i]);
+    dec.push((r[0] * across[0] + r[1] * across[1] + r[2] * across[2]) / rho, -(r[0] * up[0] + r[1] * up[1] + r[2] * up[2]) / rho);
+    // the distance to the nearest edge (box radii), for the hairline
+    let e = Infinity;
+    for (let k = 0; k < 5; k++) {
+      const a = corners[k], b = corners[(k + 1) % 5], ab = b.map((x, i) => x - a[i]), ap = p.map((x, i) => x - a[i]);
+      const l2 = ab.reduce((s, x) => s + x * x, 0), u = Math.max(0, Math.min(1, ap.reduce((s, x, i) => s + x * ab[i], 0) / l2));
+      e = Math.min(e, Math.hypot(...ap.map((x, i) => x - ab[i] * u)));
+    }
+    edg.push(e);
+  };
+  for (let k = 0; k < 5; k++) { put(C); put(corners[k]); put(corners[(k + 1) % 5]); }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('normal', new THREE.Float32BufferAttribute(nor, 3));
+  g.setAttribute('decal', new THREE.Float32BufferAttribute(dec, 2)); g.setAttribute('edge', new THREE.Float32BufferAttribute(edg, 1));
+  const mesh = new THREE.Mesh(g, faceMaterial); mesh.matrixAutoUpdate = false; sphere.add(mesh);
+  return {mesh, n: new THREE.Vector3(...n)};
+});
+// the sphere's turn (warm-sphere.js rotate: yaw about y, then pitch about x), as unboxing.js qOf
+const turnOf = ({yaw, pitch}) => { const c = Math.cos(yaw), s = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
+  return new THREE.Matrix4().set(c, 0, -s, 0, -s * sp, cp, -c * sp, 0, s * cp, sp, c * cp, 0, 0, 0, 0, 1); };
+
+// ---- the models ----
+const loader = new GLTFLoader(), load = (file) => loader.loadAsync(new URL(file, import.meta.url).href).then((g) => g.scene);
+const state = {athena: 'loading', cloth: ON.has('box') ? 'loading' : 'off', body: ON.has('body') ? 'loading' : 'off'};
+const showModels = () => { document.getElementById('models').textContent = `Athena: ${state.athena} · cloth: ${state.cloth} · body: ${state.body}`; };
+showModels();
+// her, on the face cubism.mjs picks at her cut, cut by its five edges; her strands in her frame
+const herSpot = new THREE.Group(); herSpot.matrixAutoUpdate = false; herSpot.visible = false; scene.add(herSpot);
+// THE RIPPLE: her portal's fronts from her hair's join bend her strands, never her body (?ripple=0 leaves them still). The hero's window takes its
+// geometry at its opening (cubism-window.js); here it is taken the same way on this page's own projection (R from the lens and the eye).
+const ripple = ON.has('hair') && q.get('ripple') !== '0' ? createRipple() : null;
+let portalGeo = null;
+const portalOf = () => {
+  const R = H / (2 * EYE * Math.tan(25 * Math.PI / 180) * FAR), g = portalGeometry(faces, spinAt(PORTAL.open), [W / 2, H / 2], R, W, H);
+  return {origin: g.origin, reach: g.reach, zFull: g.zFull};
+};
+const cut = Array.from({length: 5}, () => new THREE.Plane());
+let her = null, hair = null, herFace = -1;
+const athenaReady = load('./athena.hades.glb').then((holder) => {
+  const meshes = []; holder.traverse((o) => { if (o.isMesh) { o.frustumCulled = false; meshes.push(o); } });
+  for (const m of meshes) for (const mat of [m.material].flat()) { mat.clippingPlanes = cut; mat.clipIntersection = true; }
+  herSpot.add(holder);
+  if (ON.has('hair')) {
+    const t0 = performance.now();
+    hair = createHair({...hairOfModel(holder), budget: BUDGET, ripple});   // the ripple on her strands only: nothing moves her body
+    hair.material.clippingPlanes = cut; hair.material.clipIntersection = true;
+    herSpot.add(hair.object);
+    // her game hair keeps its cap and front; its long locks are the strands' (?sheet=1 keeps them all)
+    const skinned = meshes.find((m) => m.isSkinnedMesh) ?? meshes[0];
+    const kept = q.get('sheet') === '1' ? null : hair.keepCap(skinned);
+    if (q.get('paint') !== 'game') filmPaint(skinned);   // the cap in the film's paint (?paint=game keeps the game's pink)
+    state.athena = `athena.hades.glb · ${hair.strands} strands of ${hair.K} from ${hair.guides.length} guides in ${(performance.now() - t0).toFixed(1)} ms` +
+      (kept ? ` · her cap and front kept: ${kept.kept} of ${kept.of} hair triangles` : ' · her whole sheet kept');
+  } else state.athena = 'athena.hades.glb';
+  her = {holder, meshes};
+  if (pick.body === 'athena' && ON.has('dissolve')) dissolveOn(holder, true);
+  showModels(); ask('model');
+}).catch((e) => { state.athena = `none (${e.message})`; showModels(); });
+// the cloth, standing in the box (fitted: a box radius tall, its feet half a radius under the centre)
+const clothSpot = new THREE.Group(); clothSpot.visible = false; scene.add(clothSpot);
+let cloth = null;
+if (light) { scene.add(light.object); }
+if (ON.has('box')) load('./cloth-trellis.sagittarius.glb').then((made) => {
+  const holder = fitted(made, 1.0); clothSpot.add(holder);
+  const mats = []; holder.traverse((o) => { if (o.isMesh) for (const m of [o.material].flat()) if (m.isMeshStandardMaterial) { m.metalness = 1; m.roughness = Math.max(0.12, m.roughness * 0.45); m.envMapIntensity = 1.3; m.emissive = new THREE.Color(0, 0, 0); mats.push(m); } });
+  clothSpot.position.set(0, -0.5, 0);
+  // the flames grow off the cloth's own surface and ride it as it turns
+  clothSpot.updateMatrixWorld(true);
+  if (light) { light.surface(sampleSurface(holder, light.budgetFlames, {frame: holder})); holder.add(light.flames); }
+  cloth = {holder, mats};
+  state.cloth = 'cloth-trellis.sagittarius.glb'; showModels(); ask('model');
+}).catch((e) => { state.cloth = `none (${e.message})`; showModels(); });
+// the silhouette: the candidate he is shown (fields-plan.mjs DISSOLVE_CANDIDATES), a body beside the sphere
+const pick = DISSOLVE_CANDIDATES.find((c) => c.id === q.get('moment')) ?? DISSOLVE_CANDIDATES[0];
+const style = q.get('style') ?? pick.style;
+const bodySpot = new THREE.Group(); bodySpot.visible = false; scene.add(bodySpot);
+let body = null, dissolve = null;
+const BODIES = {athena: 'athena.hades.glb', seiya: 'seiya-sagittarius.hades.glb', ikki: 'ikki.hades.glb'};
+const SWEEPS = {athena: [-1, 0.2, 0], seiya: [0, 1, 0], ikki: [1, 0, 0]}, WINDS = {athena: [-0.9, 0.1, -0.2], seiya: [0, 0.6, 0], ikki: [0.6, 0.1, 0]};
+// her strands' wind in her own frame: the picture's left, a little down and into it (the drawn hair's way toward the fight), at her cut's turn
+const windOfHer = () => {
+  const at = spinAt(CUTS.shoulder[1]), on = cubistPlace(FIT, faces[herFace < 0 ? (herFace = chooseFace(faces, spinAt(CUTS.shoulder[0]))) : herFace], at);
+  const M = new THREE.Matrix4().set(...screenFlowFrame(on.matrix)), back = new THREE.Matrix3().setFromMatrix4(M).invert();
+  return new THREE.Vector3(-1, 0.3, -0.35).applyMatrix3(back).normalize();
+};
+// a figure's silhouette: hers (A, her whole figure and her strands to petals on the wall of light, a transformation, his to pick) or a body beside
+// the sphere. Nothing here jiggles or moves her body otherwise, and the ripple never bends it.
+function dissolveOn(holder, isHer) {
+  const gold = pick.body === 'seiya', wind = isHer ? windOfHer() : null;
+  dissolve = createDissolve(holder, {at: pick.at, style, budget: BUDGET, sweep: wind ? wind.toArray() : SWEEPS[pick.body],
+    wind: wind ? wind.clone().multiplyScalar(0.9).toArray() : WINDS[pick.body],
+    tint: style === 'petals' && gold ? TINTS.goldPetals : style === 'smoke' && gold ? TINTS.goldSmoke : null});
+  holder.add(dissolve.object);
+  holder.traverse((o) => { if (o.isMesh) dissolve.patch(o.material, o); });
+  if (isHer && hair) dissolve.bindHair(hair);
+  state.body = `${isHer ? 'her, on the face' : BODIES[pick.body]} · ${pick.id} at ${pick.at} s as ${style} · ${dissolve.count} points`; showModels(); ask('model');
+}
+if (ON.has('body') && pick.body !== 'athena') load(`./${BODIES[pick.body]}`).then((holder) => {
+  bodySpot.add(holder); bodySpot.position.set(1.75, -1.05, 0.2); bodySpot.scale.setScalar(1.3); bodySpot.rotation.y = -0.45;
+  bodySpot.updateMatrixWorld(true);
+  holder.traverse((o) => { if (o.isMesh) o.frustumCulled = false; });
+  body = {holder};
+  if (ON.has('dissolve')) dissolveOn(holder, false);
+  else { state.body = `${BODIES[pick.body]} · ${pick.id} at ${pick.at} s, no dissolve`; showModels(); ask('model'); }
+}).catch((e) => { state.body = `none (${e.message})`; showModels(); });
+else if (pick.body === 'athena') state.body = ON.has('dissolve') ? 'her, on the face (when she loads)' : 'her, on the face, no dissolve';
+
+// ---- the stage's size ----
+let W = 1, H = 1;
+const PX_CAP = 2.6e6;
+const resize = () => {
+  W = Math.max(1, innerWidth); H = Math.max(1, innerHeight); portalGeo = null;
+  let dpr = Math.min(devicePixelRatio || 1, 2);
+  if (W * H * dpr * dpr > PX_CAP) dpr = Math.sqrt(PX_CAP / (W * H));
+  renderer.setPixelRatio(dpr); renderer.setSize(W, H, false);
+  camera.aspect = W / H; camera.zoom = 1 / FAR; camera.updateProjectionMatrix();
+};
+
+// ---- one draw ----
+const timer = gl.getExtension('EXT_disjoint_timer_query_webgl2'), queries = [];
+let gpuMs = null, draws = 0, last = null;
+const log = [];
+const readTimes = () => {
+  while (queries.length && gl.getQueryParameter(queries[0].q, gl.QUERY_RESULT_AVAILABLE)) {
+    const {q: qq, at, which} = queries.shift();
+    if (!gl.getParameter(timer.GPU_DISJOINT_EXT)) {
+      const ms = gl.getQueryParameter(qq, gl.QUERY_RESULT) / 1e6, e = log.find((x) => x.draw === at);
+      if (which) { if (e) e[which === 'on' ? 'gpuOn' : 'gpuOff'] = ms; } else { gpuMs = ms; if (e) e.gpuMs = ms; }
+    }
+    gl.deleteQuery(qq);
+  }
+};
+// the paired bench: the fields' objects hidden (and a dissolve's cut undone) for the half without them
+const fieldObjects = () => [hair?.object, light?.object, light?.flames, dissolve?.object].filter(Boolean);
+function pairedRenders(drawNumber) {
+  const out = {};
+  for (const which of drawNumber % 2 ? ['on', 'off'] : ['off', 'on']) {
+    const objs = fieldObjects(), shown = objs.map((o) => o.visible), cutWas = dissolve ? dissolve.uniforms.uT.value : 0;
+    if (which === 'off') { objs.forEach((o) => { o.visible = false; }); if (dissolve) dissolve.update(-1e6, {height: renderer.domElement.height}); }
+    const qq = gl.createQuery(), c0 = performance.now();
+    gl.beginQuery(timer.TIME_ELAPSED_EXT, qq);
+    for (let i = 0; i < BENCH; i++) renderer.render(scene, camera);
+    gl.endQuery(timer.TIME_ELAPSED_EXT); queries.push({q: qq, at: drawNumber, which});
+    out[which === 'on' ? 'cpuOn' : 'cpuOff'] = performance.now() - c0;
+    if (which === 'on') { const i = renderer.info.render; out.onCalls = i.calls; out.onTriangles = i.triangles; out.onPoints = i.points; }
+    if (which === 'off') { objs.forEach((o, i) => { o.visible = shown[i]; }); if (dissolve) dissolve.update(cutWas, {height: renderer.domElement.height}); }
+  }
+  return out;
+}
+function draw(reason) {
+  const t0 = performance.now(), t = film.currentTime || 0, spin = spinAt(t);
+  upload();
+  // the sphere and, while the light is on, the box opened round the cloth
+  let fieldsMs = 0, f0 = performance.now();
+  const L = light ? light.update(t, {height: renderer.domElement.height, px: renderer.getPixelRatio(), camera, source: clothSpot, offset: [0, 0.55, 0]}) : lightAt(t);
+  fieldsMs += performance.now() - f0;
+  const open = ON.has('box') ? ss(CUTS.star, CUTS.star + 2.4, t) * (1 - ss(CUTS.knights + 0.4, CUTS.knights + 1.4, t)) : 0;
+  const R = turnOf(spin);
+  sphere.matrix.copy(R); sphere.matrixWorldNeedsUpdate = true;
+  for (const p of panels) {
+    const nv = p.n.clone().applyMatrix4(R), front = ss(0.35, 0.7, nv.z) * open;
+    const s = 1 - front;
+    p.mesh.visible = s > 0.02;
+    p.mesh.matrix.makeTranslation(p.n.x * 0.55 * open, p.n.y * 0.55 * open, p.n.z * 0.55 * open).multiply(new THREE.Matrix4().makeScale(s, s, s));
+    p.mesh.matrixWorldNeedsUpdate = true;
+  }
+  faceUniforms.uLead.value = open;
+  clothSpot.visible = Boolean(cloth) && open > 0.02;
+  if (cloth) { clothSpot.rotation.y = 0.35 * (t - CUTS.star) - 0.6; const k = L.power * Math.max(L.burst, L.star, L.sun, L.flood, L.flames); for (const m of cloth.mats) m.emissive.setRGB(1.0, 0.7, 0.28).multiplyScalar(0.55 * k); }
+  // her, on the face picked at her cut, and her strands in the drawn hair's flow
+  const h = hairAt(t), herDissolve = pick.body === 'athena' && dissolve ? dissolveAt(t, pick.at, {duration: 1.6, linger: 2.4}).on || (t >= pick.at - 1.5 && t < pick.at) : false;
+  herSpot.visible = Boolean(her) && (h.on || herDissolve);
+  if (her && (h.on || herDissolve)) {
+    const atCut = spinAt(CUTS.shoulder[0]);
+    if (herFace < 0) herFace = chooseFace(faces, atCut);
+    const on = cubistPlace(FIT, faces[herFace], spin);
+    herSpot.matrix.set(...on.matrix); herSpot.matrixWorldNeedsUpdate = true;
+    on.planes.forEach((pl, i) => { cut[i].normal.set(pl[0], pl[1], pl[2]); cut[i].constant = pl[3]; });
+    f0 = performance.now();
+    hair?.update(t, {flowFrame: q.get('flow') === 'face' ? faceFlowFrame(faces[herFace], spin, on.matrix) : screenFlowFrame(on.matrix)});
+    fieldsMs += performance.now() - f0;
+  }
+  // the ripple: her portal's fronts, on this page's stage
+  if (ripple) {
+    f0 = performance.now();
+    if (t < PORTAL.open - 0.5 || t >= PORTAL.closed) portalGeo = null; else portalGeo ??= portalOf();
+    ripple.update(t, {geometry: portalGeo, rect: {left: 0, top: 0, width: W, height: H}});
+    fieldsMs += performance.now() - f0;
+  }
+  // the silhouette
+  f0 = performance.now();
+  const d = dissolve ? dissolve.update(t, {height: renderer.domElement.height}) : null;
+  fieldsMs += performance.now() - f0;
+  bodySpot.visible = Boolean(body) && t >= pick.at - 1.5 && t < pick.at + 4.5;
+  let paired = null;
+  if (timer) readTimes();
+  if (PAIR && timer) paired = pairedRenders(draws + 1);
+  else {
+    const q0 = timer ? gl.createQuery() : null;
+    if (timer) gl.beginQuery(timer.TIME_ELAPSED_EXT, q0);
+    for (let i = 0; i < BENCH; i++) renderer.render(scene, camera);
+    if (timer) { gl.endQuery(timer.TIME_ELAPSED_EXT); queries.push({q: q0, at: draws + 1}); }
+  }
+  draws++;
+  const info = renderer.info.render;
+  last = {draw: draws, t, reason, cpuMs: performance.now() - t0, fieldsMs, ...(paired ?? {}), gpuMs: null, bench: BENCH, calls: info.calls, triangles: info.triangles, points: info.points,
+    hair: h.on && Boolean(hair), light: L.on, dissolve: Boolean(d?.on), w: renderer.domElement.width, h: renderer.domElement.height};
+  log.push(last); if (log.length > 4000) log.splice(0, 1000);
+  num.textContent = `film ${t.toFixed(2)} s · ${draws} draws · last by ${reason} · JS ${last.cpuMs.toFixed(2)} ms · GPU ${gpuMs === null ? '?' : gpuMs.toFixed(2)} ms · ${info.calls} calls · ${(info.triangles / 1000).toFixed(1)}k tris · ${info.points} points`;
+}
+
+// ---- causes ----
+let callback = 0, asked = false;
+const onFrame = () => { callback = 0; draw('film'); chain(); };
+const chain = () => { if (!film.paused && !callback) callback = film.requestVideoFrameCallback(onFrame); };
+const stop = () => { if (callback) { film.cancelVideoFrameCallback(callback); callback = 0; } };
+function ask(reason = 'asked') { if (!asked) { asked = true; requestAnimationFrame(() => { asked = false; draw(reason); }); } }
+film.addEventListener('play', () => { chain(); playButton.textContent = 'Pause'; });
+film.addEventListener('pause', () => { stop(); playButton.textContent = 'Play'; ask('pause'); });
+film.addEventListener('seeked', () => ask('seeked'));
+film.addEventListener('loadeddata', () => ask('loaded'));
+new ResizeObserver(() => { resize(); ask('resize'); }).observe(document.body);
+resize();
+
+// ---- the panel ----
+const playButton = document.getElementById('play');
+playButton.addEventListener('click', () => (film.paused ? film.play() : film.pause()));
+const seek = (t) => { film.pause(); film.currentTime = t; };
+for (const b of document.querySelectorAll('[data-t]')) b.addEventListener('click', () => seek(Number(b.dataset.t)));
+const moments = document.getElementById('moments'), styles = document.getElementById('styles');
+for (const c of DISSOLVE_CANDIDATES) {
+  const b = Object.assign(document.createElement('button'), {type: 'button', textContent: `${c.body} ${c.at} s`, title: c.what});
+  b.setAttribute('aria-pressed', String(c.id === pick.id));
+  b.addEventListener('click', () => { const u = new URLSearchParams(location.search); u.set('moment', c.id); u.delete('style'); u.set('t', String(Math.max(0, c.at - 0.3))); location.search = u; });
+  moments.append(b);
+}
+for (const s of ['smoke', 'water', 'petals']) {
+  const b = Object.assign(document.createElement('button'), {type: 'button', textContent: s});
+  b.setAttribute('aria-pressed', String(s === style));
+  b.addEventListener('click', () => { const u = new URLSearchParams(location.search); u.set('style', s); u.set('moment', pick.id); u.set('t', String(Math.max(0, pick.at - 0.3))); location.search = u; });
+  styles.append(b);
+}
+if (q.has('t')) film.currentTime = Number(q.get('t'));
+
+window.fields = {film, get draws() { return draws; }, get last() { return last; }, log, get gpuMs() { return gpuMs; }, renderer, scene, state,
+  get hair() { return hair; }, get light() { return light; }, get dissolve() { return dissolve; }, ready: Promise.allSettled([athenaReady]), pick, style, on: [...ON], budget: BUDGET};
+
+// ---- helpers ----
+function fitted(object, height) {
+  const holder = new THREE.Group(), offset = new THREE.Group();
+  holder.add(offset); offset.add(object); object.updateMatrixWorld(true);
+  const box = new THREE.Box3().setFromObject(object), size = box.getSize(new THREE.Vector3()), centre = box.getCenter(new THREE.Vector3());
+  offset.position.set(-centre.x, -box.min.y, -centre.z); holder.scale.setScalar(height / Math.max(size.y, 1e-6));
+  holder.updateMatrixWorld(true);
+  return holder;
+}
+// the room the gold reflects (unboxing.js studio(): a warm room, a key light up and to the left, a rim behind)
+function studio(renderer) {
+  const s = new THREE.Scene();
+  s.add(new THREE.Mesh(new THREE.SphereGeometry(8, 48, 24), new THREE.ShaderMaterial({side: THREE.BackSide, depthWrite: false,
+    vertexShader: 'varying vec3 vDir; void main() { vDir = normalize(position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+    fragmentShader: `varying vec3 vDir; void main() { float y = vDir.y; vec3 low = vec3(0.07, 0.05, 0.035), horizon = vec3(0.78, 0.7, 0.58), high = vec3(1.15, 1.1, 1.02);
+      gl_FragColor = vec4(y < 0.0 ? mix(horizon * 0.5, low, smoothstep(0.0, 0.45, -y)) : mix(horizon, high, smoothstep(0.0, 0.8, y)), 1.0); }`})));
+  const panel = (w, h, at, k) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({color: new THREE.Color(k, k * 0.96, k * 0.88), side: THREE.DoubleSide})); m.position.set(...at); m.lookAt(0, 0, 0); s.add(m); };
+  panel(3.2, 2.2, [-2.4, 4.6, 4.2], 9); panel(1.2, 4.2, [5.6, 1.4, -3.0], 5); panel(1.0, 3.2, [-6.0, 0.4, -1.8], 2.6); panel(5.0, 0.5, [0.4, 6.4, -1.2], 3.5);
+  const pmrem = new THREE.PMREMGenerator(renderer), env = pmrem.fromScene(s, 0.025).texture; pmrem.dispose();
+  return env;
+}
+</script>
+</body>
+</html>

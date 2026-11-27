@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sagittarius assets</title>
+<!--
+  THE HERO'S ASSETS SIDE BY SIDE (Oct 14 2026): every GLB that unboxing-assets.json names (the cloth's, then Seiya's, best first: the
+  list the hero reads), turning on white. One WebGL context for all of them (one canvas fixed behind the page, each candidate drawn
+  into its own cell's rectangle), one studio for the gold to reflect (a PMREM made once at load; nothing of it is drawn). It draws on
+  cause only: one turn when the page opens, a turn on the button, the hand's drag, a scroll or a resize; at rest no frame is asked.
+  ?still draws one frame at ?angle= degrees and never turns (a proof's picture). Each cell says what it measured itself: triangles,
+  bytes, the time to fetch and parse. The road and its numbers: tools/sagittarius-assets/LANDING.md.
+-->
+<script type="importmap">{"imports": {"three": "/intro/room/procedural/three.module.js"}}</script>
+<style>
+  :root { --ink: #1d1d1f; --mute: #6e6e73; --line: #e5e5ea; --paper: #ffffff; --gold: #a0782a; }
+  html, body { margin: 0; background: var(--paper); color: var(--ink);
+    font: 14px/1.45 -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif; }
+  #glass { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; pointer-events: none; z-index: 0; }
+  header, main { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; box-sizing: border-box; }
+  header { padding: 20px 16px 4px; display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+  h1 { font-size: 18px; font-weight: 600; margin: 0; }
+  header p { margin: 0; color: var(--mute); flex: 1 1 320px; }
+  button { font: inherit; border: 1px solid var(--line); background: var(--paper); color: var(--ink); border-radius: 8px;
+    padding: 6px 12px; cursor: pointer; }
+  button:hover { border-color: var(--gold); }
+  main { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; padding: 12px 16px 32px; }
+  .cell { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .view { aspect-ratio: 3 / 4; cursor: grab; touch-action: pan-y; }
+  .view:active { cursor: grabbing; }
+  .meta { padding: 8px 12px 10px; border-top: 1px solid var(--line); background: var(--paper); }
+  .meta b { font-weight: 600; display: block; }
+  .meta small { display: block; color: var(--mute); }
+  .meta .nums { font-variant-numeric: tabular-nums; color: var(--ink); }
+  .note { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 0 16px 24px; color: var(--mute); box-sizing: border-box; }
+</style>
+</head>
+<body>
+<canvas id="glass"></canvas>
+<header>
+  <h1>Sagittarius assets</h1>
+  <p>The hero's candidates from unboxing-assets.json, side by side. Drag a figure to turn them all.</p>
+  <button id="turn" type="button">Turn</button>
+</header>
+<main id="cells"></main>
+<p class="note">Also tried: TRELLIS.2 on the film's own cut-out frames gave flat gold plaques 2 to 3 cm deep (cel shading gives it no depth). The road, its numbers and the licences: tools/sagittarius-assets/LANDING.md.</p>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from '/intro/room/procedural/GLTFLoader.js';
+
+const META = {
+  'cloth-trellis.sagittarius.glb': {
+    title: 'The Gold Cloth of Sagittarius, object form',
+    road: 'TRELLIS.2 from a gpt-image-2 picture, seed 7; 40k triangles, gold as metal 1 / roughness 0.3',
+  },
+  'seiya-trellis.sagittarius.glb': {
+    title: 'Pegasus Seiya in the Sagittarius cloth',
+    road: 'TRELLIS.2 from a gpt-image-2 picture, seed 1234; 40k triangles, gold metal, skin, hair and suit not',
+  },
+};
+const CREDIT = 'Saint Seiya: Masami Kurumada / Toei Animation. A study for the lab, never published.';
+
+const q = new URLSearchParams(location.search);
+const STILL = q.has('still');
+const canvas = document.getElementById('glass');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+renderer.setClearColor(0xffffff, 1);
+renderer.toneMapping = THREE.NeutralToneMapping;
+renderer.setScissorTest(true);
+
+// the studio the gold reflects: a dim room, an overhead softbox, a key, a fill and a rim; made into a PMREM once, never drawn
+function studio() {
+  const s = new THREE.Scene();
+  s.add(new THREE.Mesh(new THREE.BoxGeometry(12, 12, 12), new THREE.MeshBasicMaterial({ color: new THREE.Color(0.2, 0.2, 0.2), side: THREE.BackSide })));
+  const panel = (w, h, k, at) => {
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ color: new THREE.Color(k, k, k), side: THREE.DoubleSide }));
+    m.position.set(...at);
+    m.lookAt(0, 1, 0);
+    s.add(m);
+  };
+  panel(8, 8, 3.0, [0, 5.8, 0]);
+  panel(4, 6, 2.6, [-5.8, 1.5, 3]);
+  panel(3, 6, 1.1, [5.8, 1, 1.5]);
+  panel(6, 3, 2.2, [0, 2.5, -5.8]);
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(12, 12), new THREE.MeshBasicMaterial({ color: new THREE.Color(0.06, 0.05, 0.04) }));
+  floor.rotation.x = -Math.PI / 2;
+  floor.position.y = -5.8;
+  s.add(floor);
+  const pm = new THREE.PMREMGenerator(renderer);
+  const env = pm.fromScene(s, 0.02).texture;
+  pm.dispose();
+  return env;
+}
+const ENV = studio();
+
+const loader = new GLTFLoader();
+const cells = [];
+const stats = { ready: false, frames: 0, cells: [], gl: null };
+window.__compare = stats;
+try {
+  const gl = renderer.getContext();
+  const dbg = gl.getExtension('WEBGL_debug_renderer_info');
+  stats.gl = dbg ? gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER);
+} catch { /* the name is a receipt, never needed */ }
+
+// one angle for every candidate (they compare at the same view); a turn is a cause: its start time and the angle it starts from
+let angle = (Number(q.get('angle')) || 0) * Math.PI / 180;
+let turn = null;
+const TURN_MS = 8000;
+const ease = (x) => x < 0.5 ? 2 * x * x : 1 - 2 * (1 - x) * (1 - x);
+let asked = false;
+function ask() { if (!asked) { asked = true; requestAnimationFrame(frame); } }
+function startTurn() { if (STILL) return; turn = { t0: performance.now(), from: angle }; ask(); }
+
+function frame(now) {
+  asked = false;
+  if (turn) {
+    const x = Math.min(1, (now - turn.t0) / TURN_MS);
+    angle = turn.from + 2 * Math.PI * ease(x);
+    if (x >= 1) { angle = turn.from; turn = null; }
+  }
+  draw();
+  if (turn) ask();
+}
+
+function draw() {
+  const W = canvas.clientWidth, H = canvas.clientHeight;
+  const pr = renderer.getPixelRatio();
+  if (canvas.width !== Math.round(W * pr) || canvas.height !== Math.round(H * pr)) renderer.setSize(W, H, false);
+  renderer.setScissor(0, 0, W, H);
+  renderer.setViewport(0, 0, W, H);
+  renderer.clear();
+  for (const c of cells) {
+    const r = c.view.getBoundingClientRect();
+    if (!c.pivot || r.bottom < 0 || r.top > H || r.right < 0 || r.left > W) continue;
+    const x = r.left, y = H - r.bottom, w = r.width, h = r.height;
+    renderer.setViewport(x, y, w, h);
+    renderer.setScissor(x, y, w, h);
+    if (c.camera.aspect !== w / h) { c.camera.aspect = w / h; c.camera.updateProjectionMatrix(); }
+    c.pivot.rotation.y = angle;
+    renderer.render(c.scene, c.camera);
+  }
+  stats.frames += 1;
+}
+
+function cell(file, subject, given) {
+  const el = document.createElement('section');
+  el.className = 'cell';
+  const m = { ...META[file], ...given };
+  el.innerHTML = `<div class="view"></div><div class="meta"><b></b><small class="road"></small><small class="nums">loading</small><small class="credit"></small></div>`;
+  el.querySelector('b').textContent = m.title || file;
+  el.querySelector('.road').textContent = m.road || `${subject}: ${file}`;
+  el.querySelector('.credit').textContent = m.credit || CREDIT;
+  document.getElementById('cells').append(el);
+  const c = { file, subject, el, view: el.querySelector('.view'), nums: el.querySelector('.nums'), scene: null, camera: null, pivot: null };
+  cells.push(c);
+  return c;
+}
+
+async function load(c) {
+  const t0 = performance.now();
+  const r = await fetch(c.file);
+  if (!r.ok) throw new Error(`${c.file}: ${r.status}`);
+  const buf = await r.arrayBuffer();
+  const gltf = await new Promise((res, rej) => loader.parse(buf, '', res, rej));
+  const ms = performance.now() - t0;
+  const root = gltf.scene;
+  // any asset stands the same way: its footprint's middle on the axis it turns about, its lowest point on the floor
+  const box = new THREE.Box3().setFromObject(root);
+  const centre = box.getCenter(new THREE.Vector3()), size = box.getSize(new THREE.Vector3());
+  root.position.set(-centre.x, -box.min.y, -centre.z);
+  const pivot = new THREE.Group();
+  pivot.add(root);
+  const scene = new THREE.Scene();
+  scene.environment = ENV;
+  scene.add(pivot);
+  const radius = Math.hypot(size.x, size.y, size.z) / 2;
+  const camera = new THREE.PerspectiveCamera(28, 3 / 4, radius * 0.05, radius * 10);
+  const dist = radius / Math.sin(THREE.MathUtils.degToRad(14)) * 0.92;
+  camera.position.set(0, size.y * 0.55, dist);
+  camera.lookAt(0, size.y * 0.5, 0);
+  let triangles = 0;
+  root.traverse((o) => { if (o.isMesh) triangles += (o.geometry.index ? o.geometry.index.count : o.geometry.attributes.position.count) / 3; });
+  Object.assign(c, { scene, camera, pivot });
+  const rec = { file: c.file, subject: c.subject, triangles, bytes: buf.byteLength, ms: Math.round(ms), size: size.toArray().map((v) => +v.toFixed(3)) };
+  stats.cells.push(rec);
+  c.nums.textContent = `${triangles.toLocaleString('en')} triangles, ${(buf.byteLength / 1e6).toFixed(2)} MB, ${rec.size[1]} m tall, fetched and parsed in ${rec.ms} ms`;
+}
+
+// the hand: a drag on any figure turns them all, one frame per move
+let drag = null;
+document.getElementById('cells').addEventListener('pointerdown', (e) => {
+  if (!e.target.closest('.view')) return;
+  drag = { x: e.clientX, from: angle };
+  turn = null;
+  e.target.setPointerCapture(e.pointerId);
+});
+document.getElementById('cells').addEventListener('pointermove', (e) => {
+  if (!drag) return;
+  angle = drag.from + (e.clientX - drag.x) * 0.012;
+  ask();
+});
+const end = () => { drag = null; };
+document.getElementById('cells').addEventListener('pointerup', end);
+document.getElementById('cells').addEventListener('pointercancel', end);
+document.getElementById('turn').addEventListener('click', startTurn);
+addEventListener('scroll', ask, { passive: true });
+addEventListener('resize', ask);
+
+// the list the hero reads (unboxing.js readAssets): {cloth: [...], seiya: [...]}, each a file name or {file, title, road, credit} (a
+// Sketchfab model carries its CC-BY line here), best first
+const index = await (await fetch('unboxing-assets.json', { cache: 'no-store' })).json();
+const jobs = [];
+for (const subject of Object.keys(index)) for (const e of index[subject]) {
+  const file = typeof e === 'string' ? e : e?.file ?? e?.src ?? e?.name;
+  if (typeof file !== 'string' || !/\.glb$/i.test(file)) continue;
+  const c = cell(file, subject, typeof e === 'object' ? e : {});
+  jobs.push(load(c).catch((err) => { c.nums.textContent = `failed: ${err.message}`; console.error(err); }));
+}
+await Promise.all(jobs);
+stats.ready = true;
+ask();
+if (!STILL) startTurn();
+</script>
+</body>
+</html>

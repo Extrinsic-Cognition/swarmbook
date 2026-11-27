@@ -1,0 +1,9 @@
+/* Athena's first frame occupies the viewport. Keep that space reserved from
+   the start so the cut cannot move the page or the transport controls. */
+.genesis:has([data-cinematic]) {padding:0}
+.genesis > .oath-sphere:has([data-cinematic]) {padding:0}
+.oath-sphere #sphere-stage[data-cinematic] {
+  width:100%;max-width:none;height:100vh;height:100svh;margin:0;overflow:hidden;
+}
+.genesis:has([data-cinematic]) > .hero-copy,.genesis > .hero-copy {visibility:hidden;height:0;margin:0;padding:0;overflow:hidden}   /* THE PAGE HAS NO TOP BAR (his Nov 20 2026 07:27:24 UTC "please remove this... keep it without that top bar there"): the title stays for the reader, unseen and of no size (exact 100svh hero, 0 px below the fold) */
+#sphere-stage[data-cinematic] .dl-twelve-controls {bottom:max(16px,env(safe-area-inset-bottom));z-index:8}

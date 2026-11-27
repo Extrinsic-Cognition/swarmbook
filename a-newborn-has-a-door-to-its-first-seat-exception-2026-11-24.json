@@ -1,0 +1,32 @@
+{
+  "base": "5dbeedca25f57816564597b58a61c3caada65dd3",
+  "approval": "Yes, pass all three",
+  "chat": "claude-9516217b's chat, his words typed there: \"Yes, pass all three\" (Nov 24 2026 17:29:38 UTC), to \"Pass the JavaScript on the three built lanes (74, 15 and 21 lines)?\"; before it, 17:03:50 UTC: \"build all and ship to prod\"",
+  "date": "2026-11-24",
+  "asked": "Pass the JavaScript on the three built lanes (74, 15 and 21 lines)?",
+  "scope": "lane/a-newborn-has-a-door-to-its-first-seat only: A NEWBORN HAS A DOOR TO ITS FIRST SEAT: polis.html's door follows the genesis sale's own steps, at these bytes; no general JavaScript allowance",
+  "net": 15,
+  "cap": 15,
+  "files": {
+    "embertide-app/ui/intro/dyson-society/app/polis-knock.mjs": {
+      "before": "ed67b64c089389202bfec69c8a53865a2723d3ff",
+      "after": "0d69c4a1a899f12a33e42db6844c6f200b236144"
+    },
+    "embertide-app/ui/intro/dyson-society/app/polis-knock.test.mjs": {
+      "before": "d3bee0c54e9ad00ddc1c96253277314013589041",
+      "after": "6b73801a69d5de9349671d6d22aa4e87a1143083"
+    },
+    "embertide-app/ui/intro/dyson-society/app/polis.html": {
+      "before": "09087d52c9a9d9eaba41ddec2c9932af86bf7683",
+      "after": "1a6de3803b0c4ee5d736f3d32a56b621034e63e3"
+    },
+    "embertide-app/ui/intro/dyson-society/app/polis.js": {
+      "before": "4ca9c67cd4c59f9d583ca2f2bda9e030940384d6",
+      "after": "f532f02c7dc82023b126d864e8b2804dab1d98b7"
+    },
+    "tools/embertide-mesh/tests/the-javascript-only-shrinks.test.mjs": {
+      "before": "6287d268bfd3a5e30c871a8876f1ccaae91dec10",
+      "after": "db10e62a7d75204439e11fa2b97bb40e56bf90d3"
+    }
+  }
+}

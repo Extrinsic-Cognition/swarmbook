@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Braindance</title>
+<!--
+  THE BRAINDANCE VIEWER (lab page, outside the build; aiolos serves it at /intro/dyson-society/lab/braindance.html). His words, Oct 14 2026
+  14:4x WEST: "start having spatial computing awareness of where the fight is happening... if you want to make a cinematography replication you
+  need to be able to correctly place athena from the height of where she is and all that dude"; "like imagine that you are needing to make a
+  4DGS of the trajectory AKA BRAINDANCE of the event here... you get what i mean?"; "IT IS VECTORIAL SPACES AND NORMAL DISTRIBUTIONS ALL THE
+  WAY DOWN".
+  The record (braindance.json) as what it is: every place a Gaussian at its mean with its sigma (one sigma solid, two as a shell), Athena's
+  glb (athena.hades.glb) where placeAthena puts her, the fighters as capsules of the record's heights (or their glbs once lab/*.hades.glb
+  land), the column of light at columnWidthAt, the star, the sun and the cloth on their tracks, the camera on the film's shot (or a free orbit,
+  the shot's camera then drawn as a frustum and its own Gaussian), the film beside it at the same second. The numbers are the record's
+  (braindance-view.mjs); this page only draws them. It draws on cause only: a scrub, a film frame while it plays (requestVideoFrameCallback),
+  a toggle, a drag, a load, a resize. No requestAnimationFrame at rest.
+  ?t=30   ?cam=shot|free   ?space=cinematographic|establishing   ?film=corner|side|off   ?anchor=head|centre|feet   ?still=1 (the torn still)
+  ?record=<a file in lab/> draws a candidate record in the same frame instead of braindance.json (foundation 6: candidates, reality scores them)
+-->
+<style>
+  :root { --bg: #0c0e12; --ink: #e9e6df; --dim: #8b919b; --line: #2a2f38; --gold: #d9b45b; --bar: 64px; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); font: 13px/1.35 ui-sans-serif, system-ui, sans-serif; overflow: hidden; }
+  #stage { position: absolute; left: 0; top: 0; right: 0; bottom: var(--bar); }
+  #gl { display: block; width: 100%; height: 100%; }
+  #labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  #labels div { position: absolute; transform: translate(-50%, -100%); white-space: nowrap; font-size: 11px; padding: 1px 5px; border-radius: 3px;
+    background: rgba(12, 14, 18, .72); border-left: 2px solid currentColor; }
+  #labels div small { color: var(--dim); margin-left: 4px; }
+  #film { position: absolute; right: 12px; top: 12px; width: min(32vw, 480px); aspect-ratio: 16 / 9; background: #000; border: 1px solid var(--line); }
+  #film video { width: 100%; height: 100%; display: block; }
+  #film span { position: absolute; left: 6px; bottom: 4px; font-size: 11px; color: #fff; text-shadow: 0 0 3px #000; }
+  body.side #stage { right: auto; width: 50vw; height: calc(50vw * 9 / 16); }
+  body.side #film { left: 50vw; top: 0; right: auto; width: 50vw; border: 0; }
+  body.nofilm #film { display: none; }
+  #bar { position: absolute; left: 0; right: 0; bottom: 0; height: var(--bar); border-top: 1px solid var(--line); display: grid;
+    grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; padding: 0 12px; box-sizing: border-box; background: #101318; }
+  #bar button { font: inherit; color: var(--ink); background: #1a1f27; border: 1px solid var(--line); border-radius: 4px; padding: 4px 8px; cursor: pointer; }
+  #bar button[aria-pressed="true"] { border-color: var(--gold); color: var(--gold); }
+  #scrubwrap { position: relative; height: 40px; }
+  #scrub { position: absolute; left: 0; right: 0; top: 4px; width: 100%; margin: 0; accent-color: var(--gold); }
+  #marks { position: absolute; left: 0; right: 0; top: 26px; height: 14px; pointer-events: none; }
+  #marks i { position: absolute; top: 0; width: 2px; height: 10px; background: var(--gold); transform: translateX(-1px); }
+  #marks i::after { content: attr(data-t); position: absolute; left: 4px; top: -2px; font-style: normal; font-size: 10px; color: var(--gold); }
+  #readout { position: absolute; left: 0; top: -2px; font-size: 11px; color: var(--dim); white-space: nowrap; }
+  #readout b { color: var(--ink); font-weight: 600; }
+  #tools { display: flex; gap: 6px; }
+</style>
+<script type="importmap">{"imports": {"three": "../../room/procedural/three.module.js"}}</script>
+</head>
+<body>
+<div id="stage"><canvas id="gl"></canvas><div id="labels"></div></div>
+<div id="film"><video id="video" src="../app/saint-seiya.mp4?v=53561d47" muted playsinline preload="auto"></video><span id="filmt"></span></div>
+<div id="bar">
+  <button id="play" title="play the film; the scene follows its frames">Play</button>
+  <div id="scrubwrap"><div id="readout"></div><input id="scrub" type="range" min="0" max="81" step="0.001" value="30"><div id="marks"></div></div>
+  <div id="tools">
+    <button id="cam" aria-pressed="false" title="the camera on the film's shot, or a free orbit">Free orbit</button>
+    <button id="leave" hidden title="the camera leaves the torn still: from her shoulder down to the fight">Leave the still</button>
+    <button id="space" aria-pressed="false" title="Athena's place: over the shoulder (cinematographic) or the pinnacle (establishing)">Establishing</button>
+  </div>
+</div>
+<script type="module">
+import * as THREE from 'three';
+import {GLTFLoader} from '../vendor/embertide-app/ui/intro/room/procedural/GLTFLoader.js';
+import {OrbitControls} from '../vendor/embertide-app/ui/intro/room/procedural/OrbitControls.js';
+import {span, check} from './braindance.mjs';
+import {sceneAt, placeAthena, cameraFor, engineAt} from './braindance-view.mjs';
+
+const q = new URLSearchParams(location.search);
+const NEST = (q.get('nest') || `${location.protocol}//${location.hostname}:8904`).replace(/\/$/, '');
+// his three tags, as the Nest held them at rev 1 (mint/seiya-tags): the page reads the Nest and falls back to this copy only when it cannot
+const AT_REV_1 = [{t: 10.835, text: 'THE MOMENT OF SACRIFICE'}, {t: 37.132, text: 'AIOLOS STARTS APPEARING'}, {t: 61.767, text: 'THE CONVERSION MOMENT'}];
+const COLOUR = {athena: '#e9c46a', seiya: '#4cc9f0', dolbar: '#e63946', ikki: '#f4a261', saints: '#90be6d', 'light.column': '#fff1c9',
+  'light.star': '#9bf6a2', 'light.sun': '#ffffff', 'light.cloth': '#d4a017', camera: '#b4b8ff', engine: '#ff7bd5'};
+const FIGHTER_GLB = {seiya: 'seiya.hades.glb', 'seiya.cloth': 'seiya-sagittarius.hades.glb', ikki: 'ikki.hades.glb'};
+
+const RECORD = /^[\w.-]+\.json$/.test(q.get('record') ?? '') ? q.get('record') : 'braindance.json';   // a file beside this page, nothing else
+const bd = await fetch(RECORD, {cache: 'no-store'}).then(r => r.json());
+const problems = check(bd); if (problems.length) console.warn('braindance: the record has problems', problems);
+const SPAN = span(bd);
+const state = {t: clampT(Number(q.get('t') ?? 30)), cam: q.get('cam') === 'free' ? 'free' : 'shot',
+  space: q.get('space') === 'establishing' ? 'establishing' : 'cinematographic', film: ['side', 'off'].includes(q.get('film')) ? q.get('film') : 'corner',
+  anchor: ['centre', 'feet'].includes(q.get('anchor')) ? q.get('anchor') : 'head', still: q.get('still') === '1', leave: null};
+document.body.classList.toggle('side', state.film === 'side'); document.body.classList.toggle('nofilm', state.film === 'off');
+function clampT(t) { return Math.min(SPAN.to - 1e-3, Math.max(SPAN.from, Number.isFinite(t) ? t : 30)); }
+
+// ---- the renderer, the arena's ground, the light ----
+const canvas = document.getElementById('gl'), stageEl = document.getElementById('stage'), labelsEl = document.getElementById('labels');
+const renderer = new THREE.WebGLRenderer({canvas, antialias: true, powerPreference: 'high-performance'});
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+const scene = new THREE.Scene(); scene.background = new THREE.Color('#0c0e12');
+const camera = new THREE.PerspectiveCamera(40, 16 / 9, 0.05, 4000);
+scene.add(new THREE.HemisphereLight('#dfe8ff', '#3a2f22', 1.4));
+const sun = new THREE.DirectionalLight('#fff3dc', 1.6); sun.position.set(-20, 60, 40); scene.add(sun);
+const ground = new THREE.Group(); scene.add(ground);
+ground.add(new THREE.GridHelper(40, 40, '#3d4552', '#232831'));             // the arena: a metre a cell, 40 m
+const far = new THREE.GridHelper(400, 40, '#2a303a', '#191d24'); far.position.y = -0.01; ground.add(far);   // ten metres a cell, for the pinnacle
+ground.add(new THREE.AxesHelper(1));                                          // x right, y up, z towards the statue of Odin
+
+// ---- a Gaussian: one sigma solid, two sigma a shell, its mean a point ----
+const SPHERE = new THREE.SphereGeometry(1, 32, 16), SHELL = new THREE.SphereGeometry(1, 20, 10), DOT = new THREE.OctahedronGeometry(0.08);
+function gaussian(colour) {
+  const g = new THREE.Group(), c = new THREE.Color(colour);
+  const one = new THREE.Mesh(SPHERE, new THREE.MeshBasicMaterial({color: c, transparent: true, opacity: 0.16, depthWrite: false}));
+  const two = new THREE.Mesh(SHELL, new THREE.MeshBasicMaterial({color: c, transparent: true, opacity: 0.09, wireframe: true, depthWrite: false}));
+  const dot = new THREE.Mesh(DOT, new THREE.MeshBasicMaterial({color: c}));
+  g.add(one, two, dot); g.userData = {one, two, dot};
+  g.set = (mu, sigma, page = 1) => {
+    const s = sigma.map(v => Math.max(v, 0.02));
+    one.position.fromArray(mu); one.scale.fromArray(s);
+    two.position.fromArray(mu); two.scale.fromArray(s.map(v => 2 * v));
+    dot.position.fromArray(mu); dot.scale.setScalar(page);
+  };
+  return g;
+}
+const layers = {};   // name -> {gauss, body?, label}
+function layer(name) {
+  if (layers[name]) return layers[name];
+  const colour = COLOUR[name] ?? '#cccccc', L = {gauss: gaussian(colour), label: document.createElement('div')};
+  L.label.style.color = colour; labelsEl.append(L.label); scene.add(L.gauss);
+  return (layers[name] = L);
+}
+
+// ---- the bodies: Athena's glb, the fighters' capsules (or glbs), the light's shapes, the shot's camera ----
+const loader = new GLTFLoader();
+const glb = (url) => new Promise(resolve => loader.load(url, g => resolve(g), undefined, () => resolve(null)));
+function fit(g, height) {   // a glb standing on y = 0, its height in metres: extras.height when it says, else its box
+  const h = g.parser?.json?.extras?.height ?? new THREE.Box3().setFromObject(g.scene).getSize(new THREE.Vector3()).y;
+  g.scene.traverse(o => { if (o.isSkinnedMesh) o.frustumCulled = false; });   // a skinned box is the bind's; one mesh a figure, no cost to keep
+  return {root: g.scene, assetHeight: h, scale: height / h};
+}
+let athena = null;   // {root, assetHeight}
+const athenaReady = glb(bd.entities.athena.asset).then(g => {
+  if (!g) { console.warn('braindance: athena.hades.glb did not load'); return; }
+  athena = fit(g, bd.entities.athena.height); scene.add(athena.root); cause('load');
+});
+const fighters = {};   // name -> {root, scale} once a glb lands
+const fightersTried = Promise.all(Object.entries(FIGHTER_GLB).map(async ([name, url]) => {
+  const head = await fetch(url, {method: 'HEAD', cache: 'no-store'}).catch(() => null);
+  if (!head?.ok) return;   // not landed yet: the capsule stands
+  const g = await glb(url); if (!g) return;
+  const who = name.split('.')[0], f = fit(g, bd.entities[who].height);
+  f.root.visible = false; scene.add(f.root); fighters[name] = f; cause('load');
+}));
+const capsules = {};
+function capsule(name, height) {
+  if (capsules[name]) return capsules[name];
+  const r = 0.18, m = new THREE.Mesh(new THREE.CapsuleGeometry(r, height - 2 * r, 6, 16),
+    new THREE.MeshStandardMaterial({color: COLOUR[name] ?? '#cccccc', roughness: 0.7, metalness: 0}));
+  m.userData.height = height; scene.add(m); return (capsules[name] = m);
+}
+const column = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 1, 48, 1, true), new THREE.MeshBasicMaterial({color: COLOUR['light.column'],
+  transparent: true, opacity: 0.38, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide}));
+scene.add(column);
+const marks = {star: new THREE.Mesh(new THREE.IcosahedronGeometry(1.2, 1), new THREE.MeshBasicMaterial({color: COLOUR['light.star']})),
+  sun: new THREE.Mesh(new THREE.IcosahedronGeometry(3, 2), new THREE.MeshBasicMaterial({color: COLOUR['light.sun']})),
+  cloth: new THREE.Mesh(new THREE.OctahedronGeometry(0.6), new THREE.MeshStandardMaterial({color: COLOUR['light.cloth'], metalness: 0.8, roughness: 0.3}))};
+for (const m of Object.values(marks)) scene.add(m);
+const shotCam = new THREE.PerspectiveCamera(40, 16 / 9, 0.5, 6), shotHelper = new THREE.CameraHelper(shotCam);
+scene.add(shotHelper);
+// the engine's own layer (lab/braindance.engine.json, the measured session's), drawn when it lands; nothing waits for it
+let engine = null;
+const enginePoints = new THREE.Points(new THREE.BufferGeometry(), new THREE.PointsMaterial({color: COLOUR.engine, size: 6, sizeAttenuation: false}));
+scene.add(enginePoints);
+fetch('braindance.engine.json', {cache: 'no-store'}).then(r => (r.ok ? r.json() : null)).then(e => { if (e) { engine = e; cause('load'); } }).catch(() => {});
+
+// ---- the torn still (CUTS.md's device 4): the film's frame at 30.0 s stood at Athena's place behind her figure, its edges torn ----
+let still = null, stillCrop = null;
+async function makeStill() {
+  const v = document.createElement('video'); v.muted = true; v.src = video.currentSrc || video.src; v.preload = 'auto';
+  await new Promise((ok, no) => { v.onloadeddata = ok; v.onerror = no; });
+  v.currentTime = 30.0; await new Promise(ok => { v.onseeked = ok; });
+  const full = document.createElement('canvas'); full.width = v.videoWidth; full.height = v.videoHeight;
+  const g2 = full.getContext('2d', {willReadFrequently: true}); g2.drawImage(v, 0, 0);
+  const row = g2.getImageData(0, full.height >> 1, full.width, 1).data, lit = (x) => row[4 * x] + row[4 * x + 1] + row[4 * x + 2] > 48;
+  let x0 = 0, x1 = full.width - 1; while (x0 < x1 && !lit(x0)) x0++; while (x1 > x0 && !lit(x1)) x1--;   // the black bars at its sides
+  const c = document.createElement('canvas'); c.width = x1 - x0 + 1; c.height = full.height; c.getContext('2d').drawImage(full, -x0, 0);
+  stillCrop = {x0, x1, width: full.width, height: full.height};
+  const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace;
+  const mat = new THREE.ShaderMaterial({transparent: true, side: THREE.DoubleSide, uniforms: {map: {value: tex}}, vertexShader:
+    'varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+    fragmentShader: `uniform sampler2D map; varying vec2 vUv;
+      float h(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+      float n(vec2 p) { vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
+        return mix(mix(h(i), h(i + vec2(1, 0)), f.x), mix(h(i + vec2(0, 1)), h(i + vec2(1, 1)), f.x), f.y); }
+      void main() { vec2 e = min(vUv, 1.0 - vUv); float d = min(e.x * 1.47, e.y);
+        float torn = 0.035 + 0.05 * (n(vUv * 14.0) * 0.6 + n(vUv * 47.0) * 0.4);
+        if (d < torn) discard; gl_FragColor = vec4(texture2D(map, vUv).rgb, 1.0); }`});
+  still = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), mat); scene.add(still); v.removeAttribute('src'); v.load(); cause('load');
+}
+
+// ---- the film beside it ----
+const video = document.getElementById('video'), filmT = document.getElementById('filmt');
+if (state.film === 'off') video.preload = 'metadata';   // the clock only: no picture to fetch
+let frameCb = 0;
+function follow() {   // a frame callback held only while the film plays (a waiting one costs WebKit at rest)
+  if (frameCb || video.paused || video.ended) return;
+  frameCb = video.requestVideoFrameCallback((now, meta) => { frameCb = 0; state.t = clampT(meta.mediaTime); cause('film'); follow(); });
+}
+video.addEventListener('play', () => { playBtn.textContent = 'Pause'; state.leave = null; follow(); });
+video.addEventListener('pause', () => { playBtn.textContent = 'Play'; if (frameCb) { video.cancelVideoFrameCallback(frameCb); frameCb = 0; } });
+const playBtn = document.getElementById('play');
+playBtn.addEventListener('click', () => { if (video.paused) { if (Math.abs(video.currentTime - state.t) > 0.05) video.currentTime = state.t; video.play(); } else video.pause(); });
+
+// ---- the scrub, his tags, the toggles ----
+const scrub = document.getElementById('scrub'), readout = document.getElementById('readout'), marksEl = document.getElementById('marks');
+scrub.min = SPAN.from; scrub.max = SPAN.to; scrub.value = state.t;
+scrub.addEventListener('input', () => { if (!video.paused) video.pause(); state.leave = null; state.t = clampT(Number(scrub.value)); video.currentTime = state.t; cause('scrub'); });
+let tags = AT_REV_1, tagsFrom = 'rev 1 (copy)';
+function paintTags() {
+  marksEl.replaceChildren(...tags.filter(x => x.t >= SPAN.from && x.t <= SPAN.to).map(x => {
+    const i = document.createElement('i'); i.style.left = `${(100 * (x.t - SPAN.from)) / (SPAN.to - SPAN.from)}%`; i.dataset.t = x.t.toFixed(3);
+    i.title = x.text ?? ''; return i;
+  }));
+}
+paintTags();
+const tagsRead = fetch(`${NEST}/nest/ref/mint/seiya-tags`, {cache: 'no-store', signal: AbortSignal.timeout(4000)}).then(r => r.json()).then(b => {
+  const xs = b?.ref?.value?.tags; if (!Array.isArray(xs)) return;
+  tags = xs.filter(x => Number.isFinite(x.t)).sort((a, b) => a.t - b.t); tagsFrom = `the Nest, rev ${b.ref.rev}`; paintTags();
+}).catch(() => {});
+const camBtn = document.getElementById('cam'), spaceBtn = document.getElementById('space');
+const controls = new OrbitControls(camera, canvas); controls.enabled = state.cam === 'free';
+controls.addEventListener('change', () => cause('drag'));
+function setCam(mode) {
+  state.cam = mode; camBtn.setAttribute('aria-pressed', String(mode === 'free'));
+  if (mode === 'free') {   // stand to the side of the shot's line, as far again as it is long and a third of that up: its frustum, Athena and the fight apart
+    const s = sceneAt(bd, state.t).shot;
+    if (s) {
+      const eye = new THREE.Vector3().fromArray(s.position), look = new THREE.Vector3().fromArray(s.look), line = eye.clone().sub(look), len = line.length();
+      const side = new THREE.Vector3(0, 1, 0).cross(line).normalize(), mid = eye.clone().add(look).multiplyScalar(0.5);
+      camera.position.copy(mid).addScaledVector(side, -1.1 * len).add(new THREE.Vector3(0, len / 3, 0)); camera.fov = 45;
+      controls.target.copy(mid); controls.update();
+    }
+  }
+  controls.enabled = mode === 'free'; cause('toggle');
+}
+camBtn.addEventListener('click', () => setCam(state.cam === 'free' ? 'shot' : 'free'));
+spaceBtn.addEventListener('click', () => { state.space = state.space === 'establishing' ? 'cinematographic' : 'establishing'; cause('toggle'); });
+new ResizeObserver(() => cause('resize')).observe(stageEl);
+
+// ---- one draw, for one cause ----
+const counts = {draws: 0, by: {}};
+const v3 = new THREE.Vector3();
+function draw() {
+  const t = state.t, s = sceneAt(bd, t, {space: state.space});
+  const w = stageEl.clientWidth, h = stageEl.clientHeight;
+  const dpr = Math.min(devicePixelRatio, 2);
+  if (canvas.width !== Math.floor(w * dpr) || canvas.height !== Math.floor(h * dpr)) renderer.setSize(w, h, false);   // a same-size write clears the buffer
+  camera.aspect = w / h;
+  if (state.leave !== null) leavePose(state.leave);
+  else if (state.cam === 'shot' && s.shot) { camera.position.fromArray(s.shot.position); camera.quaternion.fromArray(s.shot.quaternion); camera.fov = s.shot.fov; }
+  camera.updateProjectionMatrix();
+  const seen = new Set();
+  for (const it of s.items) {
+    const L = layer(it.name); seen.add(it.name); L.gauss.visible = true; L.gauss.set(it.mu, it.sigma, Math.max(1, Math.abs(it.mu[1]) / 20));
+    L.anchor = it.mu; L.text = `${it.name.replace('light.', '')}<small>μ ${it.mu.join(', ')} · σ ${it.sigma.join(', ')} m</small>`;
+  }
+  for (const [name, L] of Object.entries(layers)) if (!seen.has(name)) { L.gauss.visible = false; L.label.style.display = 'none'; }
+  const by = Object.fromEntries(s.items.map(it => [it.name, it]));
+  // Athena, her glb where placeAthena puts her
+  const a = athena && placeAthena(bd, t, {space: state.space, anchor: state.anchor, assetHeight: athena.assetHeight});
+  if (athena) {
+    athena.root.visible = Boolean(a);
+    if (a) { athena.root.position.fromArray(a.position); athena.root.quaternion.fromArray(a.quaternion); athena.root.scale.setScalar(a.scale); }
+  }
+  // the fighters: their glb when one landed, else a capsule of the record's height, standing at mu
+  for (const name of ['seiya', 'dolbar', 'ikki']) {
+    const it = by[name], h = bd.entities[name]?.height, dressed = name === 'seiya' && it && clothOn(t);
+    const g = fighters[dressed ? 'seiya.cloth' : name] ?? fighters[name] ?? null;
+    for (const [k, f] of Object.entries(fighters)) if (k.split('.')[0] === name) f.root.visible = false;
+    const c = capsule(name, h);
+    if (!it) { c.visible = false; continue; }
+    const turn = it.look ? Math.atan2(it.look[0] - it.mu[0], it.look[2] - it.mu[2]) : 0;
+    if (g) { c.visible = false; g.root.visible = true; g.root.position.fromArray(it.mu); g.root.rotation.set(0, turn, 0); g.root.scale.setScalar(g.scale); }
+    else { c.visible = true; c.position.set(it.mu[0], it.mu[1] + h / 2, it.mu[2]); }
+  }
+  // the light
+  const col = by['light.column'];
+  column.visible = Boolean(col && col.width > 0);
+  if (column.visible) { const len = col.top[1] - col.base[1]; column.scale.set(col.width / 2, len, col.width / 2); column.position.set(col.base[0], col.base[1] + len / 2, col.base[2]); }
+  for (const k of ['star', 'sun', 'cloth']) { const it = by[`light.${k}`]; marks[k].visible = Boolean(it); if (it) marks[k].position.fromArray(it.mu); }
+  // the shot's camera, drawn when the view is free: a frustum and its own Gaussian
+  shotHelper.visible = state.cam === 'free' && Boolean(s.shot);
+  if (s.shot) {
+    shotCam.position.fromArray(s.shot.position); shotCam.quaternion.fromArray(s.shot.quaternion); shotCam.fov = s.shot.fov; shotCam.aspect = 16 / 9;
+    shotCam.far = Math.hypot(...s.shot.look.map((v, i) => v - s.shot.mu[i])); shotCam.updateProjectionMatrix(); shotCam.updateMatrixWorld(); shotHelper.update();
+    const L = layer('camera'); L.gauss.visible = state.cam === 'free'; L.gauss.set(s.shot.mu, s.shot.sigma);
+    L.anchor = s.shot.mu; L.text = `camera: ${s.shot.name}<small>fov ${s.shot.fov}°</small>`; if (state.cam !== 'free') L.label.style.display = 'none';
+  }
+  // the engine's layer
+  const e = engine && engineAt(engine, t);
+  enginePoints.visible = Boolean(e?.points.length);
+  if (enginePoints.visible) enginePoints.geometry.setAttribute('position', new THREE.Float32BufferAttribute(e.points.flatMap(p => p.p), 3));
+  // the torn still at her place, behind her figure (between her and the camera that leaves her shoulder)
+  if (still) {
+    const p = placeAthena(bd, 30.0, {space: state.space, anchor: state.anchor}), shot30 = sceneAt(bd, 30.0).shot;
+    still.visible = Boolean(p && a && shot30);
+    if (still.visible) {   // the frame the 30.0 s camera saw, stood across its own axis at the depth of her mean: from that eye it covers the view
+      const eye = new THREE.Vector3().fromArray(shot30.position), fwd = new THREE.Vector3(0, 0, -1).applyQuaternion(new THREE.Quaternion().fromArray(shot30.quaternion));
+      const depth = new THREE.Vector3().fromArray(p.mu).sub(eye).dot(fwd);
+      const h30 = 2 * Math.tan((shot30.fov * Math.PI) / 360) * depth, px = h30 / stillCrop.height;   // the 540 rows span the fov; a pixel is px metres there
+      const right = new THREE.Vector3(1, 0, 0).applyQuaternion(new THREE.Quaternion().fromArray(shot30.quaternion));
+      still.position.copy(eye).addScaledVector(fwd, depth).addScaledVector(right, ((stillCrop.x0 + stillCrop.x1 + 1) / 2 - stillCrop.width / 2) * px);
+      still.quaternion.fromArray(shot30.quaternion); still.scale.set((stillCrop.x1 - stillCrop.x0 + 1) * px, h30, 1);
+    }
+  }
+  renderer.render(scene, camera);
+  // the names, where their means fall on the glass
+  const placed = [];
+  for (const [name, L] of Object.entries(layers)) {
+    if (!L.gauss.visible || !L.anchor) continue;
+    v3.fromArray(L.anchor).project(camera);
+    const on = v3.z < 1 && Math.abs(v3.x) < 1.2 && Math.abs(v3.y) < 1.2;
+    L.label.style.display = on ? '' : 'none';
+    if (!on) continue;
+    const x = ((v3.x + 1) / 2) * w; let y = ((1 - v3.y) / 2) * h - 6;
+    while (placed.some(p => Math.abs(p[0] - x) < 220 && Math.abs(p[1] - y) < 16)) y -= 17;
+    placed.push([x, y]); L.label.style.left = `${x}px`; L.label.style.top = `${y}px`; if (L.label.innerHTML !== L.text) L.label.innerHTML = L.text;
+  }
+  scrub.value = t;
+  readout.innerHTML = `<b>${t.toFixed(3)} s</b> · ${RECORD === 'braindance.json' ? '' : `${RECORD} · `}${s.shot ? s.shot.name : 'between shots'} · ${state.space}${a ? ` · Athena μ ${a.mu.join(', ')} m, the fight ${a.gaze.pitch.toFixed(1)}° below her` : ''} · tags: ${tagsFrom}`;
+  filmT.textContent = `film ${video.currentTime.toFixed(3)} s`;
+  spaceBtn.setAttribute('aria-pressed', String(state.space === 'establishing'));
+}
+// THE MOVE THAT LEAVES THE STILL (CUTS.md device 4, tread lightly's orbit of a frozen moment): from the 30.0 s shot (over her shoulder) down to
+// the fight, the record's two-shot camera (19 to 28 s) at the other end; u in [0, 1]. The first 0.4 backs out along her shoulder's own line to
+// half as far again, so the torn still becomes a card in the frame with the place around it; the rest orbits what it looks at, the look, the
+// distance, the height and the turn about it each going to the two-shot's own, so the fight stays in the frame the whole way. On a press only.
+const orbitOf = (s) => { const o = s.mu.map((v, i) => v - s.look[i]), r = Math.hypot(...o); return {r, az: Math.atan2(o[0], o[2]), el: Math.asin(o[1] / r)}; };
+const ease = (x) => { const k = Math.min(1, Math.max(0, x)); return k * k * (3 - 2 * k); };
+function leavePose(u) {
+  const a = sceneAt(bd, 30.0).shot, b = sceneAt(bd, 20.0).shot, A = orbitOf(a), B = orbitOf(b), back = A.r * (1 + 0.5 * ease(u / 0.4)), e = ease((u - 0.4) / 0.6);
+  let daz = B.az - A.az; if (daz > Math.PI) daz -= 2 * Math.PI; if (daz < -Math.PI) daz += 2 * Math.PI;
+  const r = back + (B.r - back) * e, az = A.az + daz * e, el = A.el + (B.el - A.el) * e;
+  const target = new THREE.Vector3().fromArray(a.look).lerp(new THREE.Vector3().fromArray(b.look), e);
+  camera.position.set(target.x + r * Math.cos(el) * Math.sin(az), target.y + r * Math.sin(el), target.z + r * Math.cos(el) * Math.cos(az));
+  camera.up.set(0, 1, 0); camera.lookAt(target); camera.fov = a.fov + (b.fov - a.fov) * e;
+}
+function leave(ms = 3200) {   // a press: one rAF chain for the move's length, nothing after it
+  const t0 = performance.now();
+  const step = (now) => { const u = Math.min(1, (now - t0) / ms); state.leave = u; cause('leave'); if (u < 1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+}
+// Seiya wears the Sagittarius Cloth from his conversion tag on (the record's dressing track, 61.767 s): the glb's choice, nothing else
+const dressing = bd.entities.seiya.tracks.find(k => /dressing/.test(k.pose ?? ''));
+function clothOn(t) { return Boolean(dressing) && t >= dressing.t[0]; }
+
+let pending = false;
+function cause(why) {   // a cause asks for one draw; many in one task are one draw
+  counts.by[why] = (counts.by[why] ?? 0) + 1;
+  if (pending) return; pending = true;
+  queueMicrotask(() => { pending = false; counts.draws++; draw(); });
+}
+
+if (state.still) {
+  makeStill().catch(err => console.warn('braindance: the still did not load', err));
+  const btn = document.getElementById('leave'); btn.hidden = false;
+  btn.addEventListener('click', () => { state.t = clampT(30.0); video.currentTime = state.t; leave(); });
+}
+camBtn.addEventListener('click', () => { state.leave = null; }, {capture: true});
+setCam(state.cam);
+video.currentTime = state.t;
+
+// ---- the proof's handle (headless Chrome over CDP; braindance.proof.mjs) ----
+const seekFilm = (t) => new Promise(resolve => {
+  if (state.film === 'off') return resolve(null);
+  const late = setTimeout(() => resolve(video.currentTime), 3000);   // a paused element may not present the frame: the element's own time then
+  const done = () => video.requestVideoFrameCallback((now, m) => { clearTimeout(late); resolve(m.mediaTime); });
+  if (Math.abs(video.currentTime - t) < 1e-4 && video.readyState >= 2) return done();
+  video.addEventListener('seeked', done, {once: true}); video.currentTime = t;
+});
+window.braindance = {
+  ready: Promise.all([athenaReady, fightersTried, tagsRead.catch(() => {})]).then(() => new Promise(r => setTimeout(r, 0))).then(() => window.braindance.info()),
+  async set({t = state.t, cam = state.cam, space = state.space, leave = null} = {}) {
+    if (!video.paused) video.pause();
+    state.t = clampT(t); state.space = space; state.leave = leave; if (cam !== state.cam) setCam(cam);
+    const film = await seekFilm(state.t); cause('scrub'); await new Promise(r => setTimeout(r, 0)); return {t: state.t, film, info: this.info()};
+  },
+  info: () => ({t: state.t, cam: state.cam, space: state.space, film: state.film, anchor: state.anchor, draws: counts.draws, by: {...counts.by},
+    triangles: renderer.info.render.triangles, calls: renderer.info.render.calls, athena: Boolean(athena), fighters: Object.keys(fighters),
+    engine: Boolean(engine), still: Boolean(still), stillCrop, tags: tagsFrom, record: RECORD, renderer: (() => { const gl = renderer.getContext(), x = gl.getExtension('WEBGL_debug_renderer_info');
+      return x ? gl.getParameter(x.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER); })(), size: [canvas.width, canvas.height],
+    athenaPlace: placeAthena(bd, state.t, {space: state.space, anchor: state.anchor}), shot: sceneAt(bd, state.t).shot?.name ?? null}),
+  bench(n = 120) {   // n draws of the same state, each read back by one pixel so the GPU's time is inside the number
+    const gl = renderer.getContext(), px = new Uint8Array(4), ms = [];
+    for (let i = 0; i < n; i++) { const t0 = performance.now(); draw(); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, px); ms.push(performance.now() - t0); }
+    ms.sort((x, y) => x - y);
+    return {n, median: ms[n >> 1], p95: ms[Math.floor(n * 0.95)], max: ms[n - 1], triangles: renderer.info.render.triangles, calls: renderer.info.render.calls, size: [canvas.width, canvas.height]};
+  },
+  camera: () => ({position: camera.position.toArray(), quaternion: camera.quaternion.toArray(), fov: camera.fov}),
+};
+</script>
+</body>
+</html>

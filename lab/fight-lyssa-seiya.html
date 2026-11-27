@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lyssajudron against Seiya</title>
+<!-- fight-lyssa-seiya.html: THE LYSSAJUDRON AGAINST SEIYA IN THE BRONZE PEGASUS CLOTH, drawn from its law (lane fight-lyssa-seiya, Oct 18 2026).
+     His words, Oct 18 2026 WEST, in the warden's chat: 06:2x "bronze is the standard saint seya stuff"; 06:3x "do you think you got enough material to
+     simulate a fight between the lyssajudron and saint-seya bronze?"; then "brother... be resourceful?". The fight is lab/fight-lyssa-seiya.mjs (a pure
+     law over causes: the same causes, the same fight on every glass); his fall is lab/fight-fall.mjs (the house's ragdoll over his rig); her body is her
+     own modules' (room/lyssajudron.mjs goldbergGeometry and porcelain, lyssajudron-score.mjs, lyssajudron-band.mjs toneOf); his is lab/seiya.hades.glb
+     through the hero's three. The receipt: lab/FIGHT-LYSSA-SEIYA.md. No sound and no film here (The rule, 8 does not bind this page).
+     ADDRESS: /intro/dyson-society/lab/fight-lyssa-seiya.html (aiolos serves /intro/a/b/c). ?at=<wall ms> draws one instant and stops; ?play=0 waits.
+     HIS HANDS (the controls, his words in the receipt): 1 2 3 the left hand's lever (the guard, the swarm, the gold); a drag on the glass casts, a tap
+     casts, space is the lift (the dice). A cast is a cause stamped on the next beat; the plan is made again from the causes, the past unchanged.
+     THE FIGHT FOR HARLEYQUINTITI (?for=harleyquintiti, Oct 24 2026; his 17:57 WEST "brother... i want to see me fighting as saint seya vs the lyssajudron
+     to protect harleyquintiti ok?"; 18:0x "the fucking dysonlight iOS app has to be brought into this"): the law's protect fight. HIS hands are Seiya's: a tap
+     his PEGASUS RYU SEI KEN (the taps of one beat burn his cosmos), a drag up THE PUNCH, a drag aside his side step, a drag down his back step toward her
+     (space, P, the arrows on a keyboard).
+     HER spells are her own loop, aimed at HARLEYQUINTITI behind him (her own body, modded from Athena's: lab/harleyquintiti.hades.glb).
+     ONE FIGHT ON THE NEST (the pasted law he sent: "the iPad should compute the parabola once ... each screen just rendering its own view"): his press on
+     any glass is a cause on the Nest's ref fight/harleyquintiti {t0 on the house clock, his presses}; the glass that pressed plans it once and writes its
+     plan's digest beside it; every glass that shows this page plans the same causes by the same law and paints its own view at houseNow - t0, and says so
+     when its plan's digest differs from the writer's. With no fight on the Nest a glass plays its own copy of the scripted fight (HIS_SCRIPT), unsynced.
+     ?nest=0: no Nest (the proof). ?seat=<name>: the glass's name on its presses. The DysonLight iPad app shows this page in its Fight glass.
+     COST: one WebGL draw of about 30 calls a frame while the fight plays (Seiya 1 skinned mesh of 4,000 triangles; her body, her twelve, her wires and
+     flame; the effects); nothing at rest: the frame loop runs only while the fight plays, and stops at its end, at ?at= and when the tab hides. -->
+<style>
+  :root { color-scheme: dark; --gold: #d9b45a; --bronze: #c7a079; --ink: #0a0c12; --paper: #f2ead8; }
+  html, body { margin: 0; height: 100%; background: var(--ink); overflow: hidden; font: 13px/1.35 ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", sans-serif; color: var(--paper); }
+  canvas#glass { display: block; width: 100vw; height: 100vh; touch-action: none; }
+  #hud { position: fixed; inset: 0; pointer-events: none; padding: calc(14px + env(safe-area-inset-top, 0px)) 18px calc(14px + env(safe-area-inset-bottom, 0px)); box-sizing: border-box; }
+  /* THE FIGHT WITHOUT ITS BOARD (Oct 26 2026 19:1x WET, his words on tv1: "there are some shits like a board... check on it"; "sediments of shitty ui all
+     over the place"): on a glass (?seat=) the lab's board is gone: the bars, the Nest line, the cast label, the rank badge, the clocks, the hands' hints.
+     The fight's own callouts (TIME FREEZE, the end) and an error stay. ?hud=1 brings the board back for the lab. */
+  #hud.glass .bars, #hud.glass #bar-harley, #hud.glass #nestline, #hud.glass #cast, #hud.glass #rank, #hud.glass #clocks, #hud.glass #hands { display: none !important; }
+  .bars { display: flex; gap: 28px; align-items: flex-start; }
+  .bar { flex: 1; min-width: 0; }
+  .bar .who { display: flex; justify-content: space-between; font-weight: 600; letter-spacing: .08em; font-size: 12px; text-transform: uppercase; }
+  .bar .track { height: 9px; margin-top: 5px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); border-radius: 2px; overflow: hidden; }
+  .bar .fill { height: 100%; width: 100%; transform-origin: left center; }
+  .bar.her .fill { background: linear-gradient(90deg, #e8572a, #f0c27a); }
+  .bar.seiya .fill { background: linear-gradient(90deg, #8a6b3f, #d7b48a); transform-origin: right center; }
+  .bar.seiya .who { flex-direction: row-reverse; }
+  .bar.harley { position: absolute; left: 32%; right: 32%; bottom: calc(40px + env(safe-area-inset-bottom, 0px)); }
+  .bar.harley .who { justify-content: center; gap: 14px; }
+  .bar.harley .fill { background: repeating-linear-gradient(135deg, #c8102e 0 10px, #141016 10px 20px); }
+  .bar.harley.struck .track { box-shadow: 0 0 14px rgba(232,69,122,.9); }
+  #nestline { position: absolute; left: 50%; transform: translateX(-50%); top: calc(52px + env(safe-area-inset-top, 0px)); font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; opacity: .75; white-space: nowrap; }
+  #rank { position: absolute; right: 22px; top: 70px; text-align: right; font-weight: 800; letter-spacing: .04em; }
+  #rank b { display: block; font-size: 44px; line-height: 1; color: var(--gold); text-shadow: 0 0 18px rgba(217,180,90,.5); }
+  #rank span { font-size: 13px; opacity: .85; }
+  #cast { position: absolute; left: 18px; top: 70px; max-width: 46vw; }
+  #cast b { display: block; font-size: 18px; letter-spacing: .06em; color: var(--gold); }
+  #cast span { font-size: 12px; opacity: .75; }
+  #freeze { position: absolute; left: 50%; top: 22%; transform: translateX(-50%); text-align: center; }
+  #freeze b { display: block; font-size: 34px; font-weight: 900; letter-spacing: .3em; color: #fff; text-shadow: 0 0 22px rgba(160,200,255,.7); }
+  #freeze span { font-size: 15px; letter-spacing: .08em; }
+  #clocks { position: absolute; left: 18px; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; opacity: .8; }
+  #hands { position: absolute; right: 18px; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); text-align: right; font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; opacity: .7; }
+  #end { position: absolute; left: 50%; top: 40%; transform: translate(-50%, -50%); text-align: center; }
+  #end b { display: block; font-size: 40px; font-weight: 900; letter-spacing: .18em; color: var(--gold); text-shadow: 0 0 26px rgba(217,180,90,.6); }
+  #end span { font-size: 15px; letter-spacing: .1em; }
+  #err { position: absolute; left: 18px; top: 50%; color: #ff8a7a; white-space: pre-wrap; }
+  @media (max-width: 560px) { .bars { gap: 12px; } #rank b { font-size: 30px; } #cast b { font-size: 14px; } #freeze b { font-size: 22px; } #end b { font-size: 26px; } }
+</style>
+<script type="importmap">{"imports":{"three":"/intro/room/procedural/three.module.js"}}</script>
+</head>
+<body>
+<canvas id="glass"></canvas>
+<div id="hud">
+  <div class="bars">
+    <div class="bar her"><div class="who"><span>Lyssajudron</span><span id="hp-her">100</span></div><div class="track"><div class="fill" id="fill-her"></div></div></div>
+    <div class="bar seiya"><div class="who"><span>Seiya &middot; Pegasus Cloth</span><span id="hp-seiya">100</span></div><div class="track"><div class="fill" id="fill-seiya"></div></div></div>
+  </div>
+  <div class="bar harley" id="bar-harley" hidden><div class="who"><span>Harleyquintiti</span><span id="hp-harley">100</span></div><div class="track"><div class="fill" id="fill-harley"></div></div></div>
+  <div id="nestline" hidden></div>
+  <div id="cast" hidden><b></b><span></span></div>
+  <div id="rank" hidden><b></b><span></span></div>
+  <div id="freeze" hidden><b>TIME FREEZE</b><span></span></div>
+  <div id="end" hidden><b></b><span></span></div>
+  <div id="clocks"></div>
+  <div id="hands">lever <span id="lever">1</span> &middot; drag cast &middot; tap cast &middot; space the dice</div>
+  <div id="err" hidden></div>
+</div>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from '../vendor/embertide-app/ui/intro/room/procedural/GLTFLoader.js';
+import * as F from './fight-lyssa-seiya.mjs';
+import * as HANDS from './fight-hands.mjs';   // SEIYA'S HANDS OFF THE AIR: the one law of his pad's presses, this page's and the console's
+import { fallRig, fallOf, fallFrame, BODY } from './fight-fall.mjs';
+import { goldbergGeometry, porcelain, INK } from '../vendor/embertide-app/ui/intro/room/lyssajudron.mjs';
+import { buildGoldberg } from '../vendor/embertide-app/ui/intro/poleis/orb.js';
+import { toneOf } from '../vendor/embertide-app/ui/intro/room/lyssajudron-band.mjs';
+import * as SC from '../vendor/embertide-app/ui/intro/room/lyssajudron-score.mjs';
+import { BOSS } from '../vendor/embertide-app/ui/intro/room/boss-intro.mjs';
+import { createHouseClock } from '../vendor/embertide-app/ui/intro/room/house-clock.mjs';
+
+const $ = (id) => document.getElementById(id);
+const params = new URLSearchParams(location.search);
+const PROTECT = params.get('for') === 'harleyquintiti';   // THE FIGHT FOR HARLEYQUINTITI: his hands are Seiya's, she is behind him
+// THE FIGHT WITHOUT ITS BOARD: a glass shows the fight, not the lab's board (the CSS above); the lab, or ?hud=1, keeps it
+export const GLASS_HUD = (q) => !!q.get('seat') && q.get('hud') !== '1';
+if (GLASS_HUD(params)) document.getElementById('hud').classList.add('glass');
+const say = (e) => { $('err').hidden = false; $('err').textContent = String(e?.stack || e); window.FIGHT && (window.FIGHT.error = String(e?.message || e)); };
+// his words, dated (WEST), beside each spell's name on the glass (THE SPELL BOOK, lab/FIGHT-LYSSA-SEIYA.md)
+const DATED = Object.freeze({ summon: 'his Sept 11 00:20; "Summon Saint Seiya", Oct 2', wind: 'his Sept 13 21:25', blink: 'his Sept 21 01:12', postit: 'his Sept 11',
+  storm: 'his Sept 14 19:22', bolt: 'his Oct 17 01:5x, 22:24', armor: 'his Sept 16 08:06', dice: 'his Sept 23 16:01', freeze: 'his Sept 16 07:04', necro: 'his Sept 16 08:55' });
+
+try {
+  const [measured, bodies, glbBytes] = await Promise.all([
+    fetch('seiya-fight.hades.json').then((r) => r.json()), fetch('seiya-bodies.hades.json').then((r) => r.json()),
+    fetch('seiya.hades.glb').then((r) => r.arrayBuffer()),
+  ]);
+  const causes = F.DEFAULT_CAUSES.map((c) => ({ ...c }));
+  let his = PROTECT ? F.HIS_SCRIPT.map((c) => ({ ...c })) : [];   // his presses: the scripted hand until the Nest's fight or his own hand
+  const planNow = () => (PROTECT ? F.planFight({ measured, bodies, protect: true, his }) : F.planFight({ measured, bodies, causes }));
+  let P = planNow();
+  if (PROTECT) { document.title = 'Seiya for Harleyquintiti'; $('bar-harley').hidden = false;
+    $('hands').textContent = 'tap: meteor (faster, more cosmos) · drag ↑ punch · ← → step · ↓ back to her'; }
+
+  // ---- the glass ----
+  const canvas = $('glass');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
+  renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+  renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
+  renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  const scene = new THREE.Scene(); scene.background = new THREE.Color(0x0a0c12); scene.fog = new THREE.Fog(0x0a0c12, 9, 22);
+  const camera = new THREE.PerspectiveCamera(34, 1, 0.05, 60);
+  scene.add(new THREE.HemisphereLight(0xb8c8ff, 0x2a2018, 0.55));
+  const key = new THREE.DirectionalLight(0xfff0d8, 2.2); key.position.set(-3, 6, 4); key.castShadow = true;
+  key.shadow.mapSize.set(2048, 2048); Object.assign(key.shadow.camera, { left: -6, right: 6, top: 6, bottom: -6, near: 0.5, far: 20 }); scene.add(key); scene.add(key.target);
+  const rim = new THREE.DirectionalLight(0x9fb8ff, 0.9); rim.position.set(4, 3, -5); scene.add(rim);
+  const floor = new THREE.Mesh(new THREE.CircleGeometry(14, 96), new THREE.MeshStandardMaterial({ color: 0x15171f, roughness: 0.92, metalness: 0 }));
+  floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; scene.add(floor);
+  for (let r = 1; r <= 8; r++) { const ring = new THREE.Mesh(new THREE.RingGeometry(r - 0.004, r + 0.004, 128), new THREE.MeshBasicMaterial({ color: 0x2a2f3f, transparent: true, opacity: 0.55 })); ring.rotation.x = -Math.PI / 2; ring.position.y = 0.002; scene.add(ring); }
+
+  // ---- Seiya: the glb through the hero's three ----
+  const gltf = await new Promise((ok, no) => new GLTFLoader().parse(glbBytes.slice(0), '', ok, no));
+  const X = gltf.parser.json.extras;
+  let skinned = null; gltf.scene.traverse((o) => { if (o.isSkinnedMesh) { skinned = o; o.castShadow = true; o.frustumCulled = false; } });
+  const seiya = new THREE.Group(); seiya.add(gltf.scene); scene.add(seiya);
+  const bones = Object.fromEntries(skinned.skeleton.bones.map((b) => [b.name, b]));
+  const restT = Object.fromEntries(skinned.skeleton.bones.map((b) => [b.name, b.position.clone()]));
+  const restR = Object.fromEntries(skinned.skeleton.bones.map((b) => [b.name, b.quaternion.clone()]));
+  const ROOT = fallRig(new Uint8Array(glbBytes)).metre.rootName;
+  const mixer = new THREE.AnimationMixer(gltf.scene), actions = new Map();
+  const actionOf = (k) => { if (!actions.has(k)) { const a = mixer.clipAction(THREE.AnimationClip.findByName(gltf.animations, X.clips[k])); a.setLoop(THREE.LoopRepeat); a.play(); a.enabled = false; actions.set(k, a); } return actions.get(k); };
+  const timeOf = (k, c) => { const len = X.frames[k]; const f = X.loops[k] ? ((c % len) + len) % len : Math.max(0, Math.min(c, len - 1e-3)); return f / X.rate; };
+  function poseSeiya(s) {
+    for (const a of actions.values()) { a.enabled = false; a.setEffectiveWeight(0); }
+    const cur = actionOf(s.clip); cur.enabled = true; cur.setEffectiveWeight(s.w); cur.time = timeOf(s.clip, s.c);
+    if (s.w < 1 && s.from != null && s.from !== s.clip) { const fr = actionOf(s.from); fr.enabled = true; fr.setEffectiveWeight(1 - s.w); fr.time = timeOf(s.from, s.fc); }
+    else cur.setEffectiveWeight(1);
+    mixer.update(0);
+  }
+  const fallR = fallRig(new Uint8Array(glbBytes));
+  let fallMemo = null;   // {key, fall}: his fall, stepped once from his pose at the instant her arrow lands
+  const v3 = new THREE.Vector3(), q4 = new THREE.Quaternion(), qa = new THREE.Quaternion(), qb = new THREE.Quaternion();
+  function fallFor(Pl) {
+    const f = Pl.end?.fall; if (!f) return null;
+    const keyF = `${f.g}:${f.dir}`; if (fallMemo?.key === keyF) return fallMemo.fall;
+    const s = F.seiyaAt(Pl, f.g); seiya.position.set(s.x, 0, s.z); seiya.rotation.set(0, s.yaw, 0); poseSeiya(s); seiya.updateMatrixWorld(true);
+    const pose = { pos: [], q: [] };
+    for (const n of fallR.names) { bones[n].getWorldPosition(v3); bones[n].getWorldQuaternion(q4); pose.pos.push([v3.x, v3.y, v3.z]); pose.q.push([q4.x, q4.y, q4.z, q4.w]); }
+    const locals = Object.fromEntries(skinned.skeleton.bones.map((b) => [b.name, b.quaternion.clone()]));
+    fallMemo = { key: keyF, fall: fallOf(fallR, pose, { dir: f.dir }), locals };
+    return fallMemo.fall;
+  }
+  function poseFallen(fall, t_ms) {
+    const i = fallFrame(fall, t_ms), J = fall.J, o3 = i * J * 3, o4 = i * J * 4;
+    seiya.position.set(0, 0, 0); seiya.rotation.set(0, 0, 0);
+    for (const a of actions.values()) a.enabled = false;
+    for (const [n, q] of Object.entries(fallMemo.locals)) bones[n].quaternion.copy(q);   // the leaves ride their parents as the fall began
+    for (const n of BODY) bones[n].position.copy(restT[n]);
+    const m = fallR.metre, root = bones[m.rootName], rq = new THREE.Quaternion(...m.rootQ);
+    const Qw = (j) => qa.set(fall.q[o4 + j * 4], fall.q[o4 + j * 4 + 1], fall.q[o4 + j * 4 + 2], fall.q[o4 + j * 4 + 3]);
+    root.quaternion.copy(rq);
+    const t = new THREE.Vector3(...m.waistT).applyQuaternion(rq);   // the waist's place from the root, metres (metreGlb folded the scale in)
+    root.position.set(fall.pos[o3] - t.x, fall.pos[o3 + 1] - t.y, fall.pos[o3 + 2] - t.z);
+    bones[BODY[0]].quaternion.copy(rq.clone().invert().multiply(Qw(0)));
+    for (let j = 1; j < J; j++) { const p = fall.jparent[j]; qb.set(fall.q[o4 + p * 4], fall.q[o4 + p * 4 + 1], fall.q[o4 + p * 4 + 2], fall.q[o4 + p * 4 + 3]); bones[BODY[j]].quaternion.copy(qb.invert().multiply(Qw(j))); }
+  }
+
+  // ---- her body: her own builders (room/lyssajudron.mjs, lyssajudron-score.mjs, lyssajudron-band.mjs) ----
+  const skin = buildGoldberg(1, 1);
+  const lyLight = { lift: { value: new Float32Array(32) }, time: { value: 0 }, tide: { value: 0 }, color: { value: new THREE.Color(0xffe2b8) }, ghost: { value: 0 }, iris: { value: new THREE.Color(INK.ember) } };
+  const inkMat = porcelain(THREE, INK.ivoryDeep, 0.46, lyLight), paperMat = porcelain(THREE, INK.ivory, 0.34, lyLight);
+  const IVORY = [new THREE.Color(INK.ivoryDeep), new THREE.Color(INK.ivory)], GOLD = [new THREE.Color(0xd4a33c), new THREE.Color(0xf0cf72)], WIRE = new THREE.Color(INK.wire), WIRE_GOLD = new THREE.Color(0xfff0b0);
+  const her = new THREE.Group(); scene.add(her);
+  const body = new THREE.Mesh(goldbergGeometry(THREE, skin, SC.K), [inkMat, paperMat]); body.castShadow = true; her.add(body);
+  const flame = new THREE.Mesh(new THREE.ConeGeometry(SC.K * 0.62, 1, 16, 1, true), new THREE.MeshBasicMaterial({ color: INK.ember, transparent: true, opacity: 0.82, depthWrite: false, toneMapped: false, side: THREE.DoubleSide }));
+  flame.rotation.x = Math.PI; her.add(flame);
+  const core = new THREE.Mesh(new THREE.ConeGeometry(SC.K * 0.3, 1, 12, 1, true), new THREE.MeshBasicMaterial({ color: 0xffd27a, transparent: true, opacity: 0.95, depthWrite: false, toneMapped: false, side: THREE.DoubleSide }));
+  core.rotation.x = Math.PI; her.add(core);
+  const herLight = new THREE.PointLight(0xffa060, 1.6, 4, 2); her.add(herLight);
+  const wireMat = new THREE.LineBasicMaterial({ color: INK.gold, transparent: true, opacity: SC.WIRE_OPACITY, toneMapped: false });
+  const wires = Array.from({ length: SC.LANES }, (_, lane) => { const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(SC.wirePoints(lane, 160).flat(), 3)); const l = new THREE.Line(g, wireMat); her.add(l); return l; });
+  const sats = new THREE.InstancedMesh(goldbergGeometry(THREE, skin, SC.K * SC.CHILD_SCALE), [inkMat, paperMat], SC.SEATS); sats.castShadow = true; sats.frustumCulled = false; scene.add(sats);
+  for (const [name, n] of [['aLyTone', 3], ['aLyEye', 4], ['aLyPush', 4], ['aLySpin', 4], ['aLyOpen', 1]]) sats.geometry.setAttribute(name, new THREE.InstancedBufferAttribute(new Float32Array(SC.SEATS * n), n).setUsage(THREE.DynamicDrawUsage));
+  const tones = Array.from({ length: SC.SEATS }, (_, s) => new THREE.Color(toneOf(s)));
+  { const a = sats.geometry.getAttribute('aLyTone'), sp = sats.geometry.getAttribute('aLySpin'); tones.forEach((c, s) => { a.setXYZ(s, c.r, c.g, c.b); sp.setXYZW(s, 0, 0, 0, 1); }); a.needsUpdate = sp.needsUpdate = true; }
+  const eyes = new THREE.InstancedMesh(new THREE.CircleGeometry(SC.K * SC.CHILD_SCALE * 0.8, 5), new THREE.MeshBasicMaterial({ color: INK.ember, toneMapped: false, side: THREE.DoubleSide }), SC.EYE_SEATS.length); eyes.frustumCulled = false; scene.add(eyes);
+  const shadowDisc = new THREE.Mesh(new THREE.CircleGeometry(0.42, 40), new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.35, depthWrite: false })); shadowDisc.rotation.x = -Math.PI / 2; shadowDisc.position.y = 0.003; scene.add(shadowDisc);
+
+  const additive = (color, opacity = 1) => new THREE.MeshBasicMaterial({ color, transparent: true, opacity, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false, side: THREE.DoubleSide });
+  // ---- HARLEYQUINTITI (the protect fight): her own body, modded from Athena's by tools/harleyquintiti-mod.mjs (lab/harleyquintiti.hades.glb; his Oct 24
+  // 21:0x WEST "look how she look like a nun, bro u gotta edit the model to make her mod like it is her descendant nefertiti the nestal nymph"), loaded as
+  // it is: her stance (the golden apple up at her shoulder, her hand on her hip), her platinum hair and pigtails, her circlet, her frosted chiton. Drawn
+  // where the law puts her; nothing of her moves at rest.
+  let harley = null;
+  if (PROTECT) {
+    const hb = await fetch('harleyquintiti.hades.glb').then((r) => r.arrayBuffer());
+    const hg = await new Promise((ok, no) => new GLTFLoader().parse(hb, '', ok, no));
+    const group = new THREE.Group(), body = hg.scene; group.add(body); scene.add(group);
+    body.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.frustumCulled = false; } });
+    body.updateMatrixWorld(true);
+    const glow = new THREE.Mesh(new THREE.RingGeometry(0.16, 0.2, 48), additive(0xe8457a)); glow.visible = false; scene.add(glow);
+    harley = { group, glow };
+  }
+
+  // ---- the effects: a few pooled meshes, each drawn only while its cause stands ----
+  const pool = (n, make) => { const a = Array.from({ length: n }, make); a.forEach((m) => { m.visible = false; scene.add(m); }); return a; };
+  const ripples = pool(24, () => new THREE.Mesh(new THREE.RingGeometry(0.8, 1, 48), additive(0xffffff)));
+  const holes = pool(2, () => new THREE.Mesh(new THREE.CircleGeometry(1, 48), new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, depthWrite: false, side: THREE.DoubleSide })));
+  const holeRims = pool(2, () => new THREE.Mesh(new THREE.RingGeometry(0.92, 1.08, 64), additive(0xffffff)));
+  const gusts = pool(3, () => new THREE.Mesh(new THREE.RingGeometry(0.9, 1, 64), additive(0xffc89a, 0.8)));
+  const postit = new THREE.Mesh(new THREE.PlaneGeometry(0.14, 0.14), new THREE.MeshBasicMaterial({ color: 0xffe14d, side: THREE.DoubleSide, toneMapped: false })); postit.visible = false; scene.add(postit);
+  const meteors = pool(9, () => new THREE.Mesh(new THREE.SphereGeometry(0.035, 10, 8), additive(0xbfe0ff)));
+  const flash = new THREE.Mesh(new THREE.RingGeometry(0.05, 0.075, 48), additive(0xffffff)); flash.visible = false; scene.add(flash);
+  const summonRing = new THREE.Mesh(new THREE.RingGeometry(0.55, 0.6, 96), additive(0xd9b45a)); summonRing.rotation.x = -Math.PI / 2; summonRing.visible = false; scene.add(summonRing);
+  const streak = pool(18, () => new THREE.Mesh(new THREE.SphereGeometry(0.05, 10, 8), additive(0xe6f2ff, 0.8)));
+
+  // ---- the camera: a two-shot of them, its side read off the plan (pure), orbiting the held moment in a freeze (his time freeze: "move around") ----
+  function lineAt(g) { const s = F.seiyaAt(P, g), h = F.herAt(P, g); return { s, h, mid: [(s.x + h.p[0]) / 2, (s.z + h.p[2]) / 2], d: Math.hypot(h.p[0] - s.x, h.p[2] - s.z), ang: Math.atan2(h.p[0] - s.x, h.p[2] - s.z) }; }
+  // the side is the line's perpendicular averaged over the last 1.2 s (so it never jumps); the centre and the distance are the instant's own
+  function cameraAt(g, held_ms, him, herP, also = null) {
+    if (also) {   // the protect fight: the two of the three farthest apart set the centre and the distance, so Harleyquintiti stays in the frame
+      const pts = [him, herP, also]; let a = pts[0], b = pts[1], best = -1;
+      for (let i = 0; i < 3; i++) for (let j = i + 1; j < 3; j++) { const d = Math.hypot(pts[i][0] - pts[j][0], pts[i][2] - pts[j][2]); if (d > best) { best = d; a = pts[i]; b = pts[j]; } }
+      him = a; herP = b;
+    }
+    let sx = 0, sz = 0; const N = 6;
+    for (let i = 0; i < N; i++) { const L = lineAt(Math.max(0, g - i * 200)); const perp = L.ang - Math.PI / 2; sx += Math.sin(perp); sz += Math.cos(perp); }
+    let az = Math.atan2(sx, sz); if (Math.cos(az) < 0) az += Math.PI;   // the side that faces the room's +z, as the summoning framed it
+    az += (held_ms / 1000) * 0.45;
+    const sep = Math.hypot(herP[0] - him[0], herP[2] - him[2]), cx = (him[0] + herP[0]) / 2, cz = (him[2] + herP[2]) / 2;
+    const d = Math.max(2.5, sep * 1.35 + 1.8) * (held_ms > 0 ? 0.9 : 1);
+    camera.position.set(cx + Math.sin(az) * d, 1.15 + d * 0.16, cz + Math.cos(az) * d); camera.lookAt(cx, 0.72, cz);
+  }
+
+  // ---- one frame of the fight at wall time w ----
+  const M4 = new THREE.Matrix4(), Q = new THREE.Quaternion(), V = new THREE.Vector3(), SCL = new THREE.Vector3(), Z = new THREE.Vector3(0, 0, 1), U = new THREE.Vector3();
+  let frames = 0;
+  function draw(w) {
+    const st = F.stateAt(P, w), g = st.g, c = st.clock;
+    // Seiya
+    const fall = st.seiya.fallen ? fallFor(P) : null;
+    if (fall) { fallFor(P); poseFallen(fall, g - P.end.fall.g); }
+    else { seiya.position.set(st.seiya.x, 0, st.seiya.z); seiya.rotation.set(0, st.seiya.yaw, 0); bones[ROOT].position.copy(restT[ROOT]); bones[ROOT].quaternion.copy(restR[ROOT]); for (const n of BODY) bones[n].position.copy(restT[n]); poseSeiya(st.seiya); }   // the root has no track: a drawn fall left it where he fell
+    // her body
+    const H = st.her; her.position.set(...H.p); her.rotation.y = H.yaw; her.scale.setScalar(Math.max(1e-3, H.scale)); her.visible = H.scale > 0.01;
+    inkMat.color.copy(IVORY[0]).lerp(GOLD[0], H.gold); paperMat.color.copy(IVORY[1]).lerp(GOLD[1], H.gold); inkMat.userData.wireGold.copy(WIRE).lerp(WIRE_GOLD, H.gold); paperMat.userData.wireGold.copy(inkMat.userData.wireGold);
+    for (let lane = 0; lane < wires.length; lane++) wires[lane].rotation.y = SC.wireYaw(lane, c);
+    wireMat.opacity = SC.wireBrightness(c); wireMat.color.set(H.gold > 0.5 ? 0xffe9a0 : INK.gold);
+    const gusting = st.gusts.length ? 1 - st.gusts[0].age : 0, tl = SC.thrusterLength(c) * (1 + 2.2 * gusting) * (1 - H.down);
+    flame.scale.set(1, Math.max(0.01, tl), 1); flame.position.y = -(SC.K * 0.92 + tl / 2); core.scale.set(1, Math.max(0.01, tl * 0.7), 1); core.position.y = -(SC.K * 0.92 + tl * 0.35);
+    herLight.intensity = 1.2 + 2.5 * gusting + 1.5 * H.gold;
+    shadowDisc.position.set(H.p[0], 0.003, H.p[2]); shadowDisc.material.opacity = 0.35 * H.scale;
+    // her twelve
+    const open = sats.geometry.getAttribute('aLyOpen');
+    st.sats.forEach((s, i) => {
+      V.set(...s.p); Q.setFromAxisAngle(U.set(0, 1, 0), H.yaw + i * 0.37 + g * 0.0006 * (s.state === 'lane' ? 1 : 6)); SCL.setScalar(Math.max(1e-3, s.scale * (s.state === 'lane' ? H.scale : 1)));
+      M4.compose(V, Q, SCL); sats.setMatrixAt(i, M4); open.setX(i, s.state === 'lane' ? 0 : 0.55);
+    });
+    sats.instanceMatrix.needsUpdate = true; open.needsUpdate = true;
+    SC.EYE_SEATS.forEach((seat, e) => {
+      const s = st.sats[seat], d = [st.seiya.x - s.p[0], 1.0 - s.p[1], st.seiya.z - s.p[2]], L = Math.hypot(...d) || 1;
+      V.set(s.p[0] + d[0] / L * SC.R_SAT * 0.95, s.p[1] + d[1] / L * SC.R_SAT * 0.95, s.p[2] + d[2] / L * SC.R_SAT * 0.95); Q.setFromUnitVectors(Z, U.set(d[0] / L, d[1] / L, d[2] / L)); SCL.setScalar(Math.max(1e-3, s.scale * H.scale));
+      M4.compose(V, Q, SCL); eyes.setMatrixAt(e, M4);
+    });
+    eyes.instanceMatrix.needsUpdate = true;
+    // the effects
+    ripples.forEach((m, i) => { const r = st.ripples[i]; m.visible = !!r; if (!r) return; m.position.set(...r.at); m.lookAt(camera.position); m.scale.setScalar(0.06 + r.age * (r.hit ? 0.42 : 0.3)); m.material.color.copy(tones[r.seat] || tones[0]); m.material.opacity = (1 - r.age) * (r.hit ? 1 : 0.5); });
+    const hs = H.hole ? [H.hole] : []; holes.forEach((m, i) => { const h = hs[i]; m.visible = holeRims[i].visible = !!h; if (!h) return; const r = 0.08 + 0.42 * h.open; m.position.set(...h.at); m.lookAt(camera.position); m.scale.setScalar(r); m.material.color.set(h.kind === 'black' ? 0x000000 : 0xffffff); m.material.opacity = h.kind === 'black' ? 0.95 : 0.85; holeRims[i].position.copy(m.position); holeRims[i].quaternion.copy(m.quaternion); holeRims[i].scale.setScalar(r * 1.04); holeRims[i].material.color.set(h.kind === 'black' ? 0xffb35a : 0xbfe0ff); });
+    gusts.forEach((m, i) => { const u = st.gusts[i]; m.visible = !!u; if (!u) return; m.position.set(u.at[0], 0.01, u.at[2]); m.rotation.set(-Math.PI / 2, 0, 0); m.scale.setScalar(0.3 + u.age * 1.6); m.material.opacity = 0.9 * (1 - u.age); });
+    postit.visible = st.marks.length > 0; if (postit.visible) { const at = st.marks[0]; postit.position.set(at[0], at[1], at[2]); postit.lookAt(camera.position); postit.translateZ(0.12); }
+    const met = st.seiya.clip === P.L.meteor.clip && st.seiya.mode === 'move' && st.seiya.c >= P.L.meteor.c0 - 2;
+    meteors.forEach((m, i) => { m.visible = met; if (!met) return; const front = (P.L.meteor.d0_u + P.L.meteor.v_u * Math.max(0, st.seiya.c - P.L.meteor.c0)) * P.L.M - i * 0.14; const fist = F.toWorld(F.bodyAt(P.L, st.seiya.clip, Math.min(st.seiya.c, P.L.meteor.c0), 'rhand'), st.seiya.yaw, [st.seiya.x, 0, st.seiya.z]);
+      const ff = Math.max(0.55, front), sx = Math.sin(st.seiya.yaw), sz = Math.cos(st.seiya.yaw); m.position.set(st.seiya.x + sx * ff + Math.sin(i * 2.1) * 0.05, fist[1] + Math.cos(i * 1.7) * 0.05, st.seiya.z + sz * ff); m.scale.setScalar(1 - i * 0.08); });
+    const hit = st.freeze ? P.events.find((e) => (e.kind === 'hit' || e.kind === 'block') && Math.abs(e.g - st.freeze.g) < 1e-6) : null;
+    flash.visible = !!hit && st.held_ms < 450; if (flash.visible) { flash.position.set(...hit.at); flash.lookAt(camera.position); flash.scale.setScalar(1 + st.held_ms / 120); flash.material.opacity = 0.9 * (1 - st.held_ms / 450); }
+    summonRing.visible = !!st.summon; if (st.summon) { summonRing.position.set(st.summon.at[0], 0.01 + st.summon.k * 1.4, st.summon.at[2]); summonRing.material.opacity = 1 - st.summon.k; }
+    streak.forEach((m, i) => { m.visible = !!st.bolt; if (!st.bolt) return; const p = F.herAt(P, Math.max(0, g - (i + 1) * 16)).p; m.position.set(p[0], p[1], p[2]); m.scale.setScalar(1.6 * (1 - i / 18)); m.material.color.set(st.bolt.gold ? 0xffd25a : 0xd8ecff); m.material.opacity = 0.85 * (1 - i / 18); });
+    // Harleyquintiti: where the law puts her, turned to the Lyssajudron; her glow while a strike on her is fresh; taken, she sinks
+    if (harley && st.harley) {
+      const q = st.harley, k = q.taken ? Math.min(1, (g - (P.taken?.g ?? g)) / F.BAR_MS) : 0;
+      harley.group.position.set(q.at[0], -1.7 * k * k, q.at[2]); harley.group.rotation.y = Math.atan2(H.p[0] - q.at[0], H.p[2] - q.at[2]);
+      harley.glow.visible = !!q.struck && q.struck.age < 1; if (harley.glow.visible) { harley.glow.position.set(...q.chest); harley.glow.lookAt(camera.position); harley.glow.scale.setScalar(1 + q.struck.age * 2.5); harley.glow.material.opacity = 0.95 * (1 - q.struck.age); }
+    }
+    // the camera, the light, the picture
+    const him = fall ? [fall.pos[fallFrame(fall, g - P.end.fall.g) * fall.J * 3], 0, fall.pos[fallFrame(fall, g - P.end.fall.g) * fall.J * 3 + 2]] : [st.seiya.x, 0, st.seiya.z];   // fallen, he is where the ragdoll's waist is
+    cameraAt(g, st.held_ms, him, H.p, st.harley ? st.harley.at : null);   // the protect fight frames Harleyquintiti too key.target.position.set((him[0] + H.p[0]) / 2, 0, (him[2] + H.p[2]) / 2); key.position.set(key.target.position.x - 3, 6, key.target.position.z + 4);
+    renderer.render(scene, camera); frames++;
+    hud(st);
+    return st;
+  }
+  // ---- the HUD: one write a frame of a few text nodes and two transforms ----
+  function hud(st) {
+    $('hp-her').textContent = st.hp.her.toFixed(1); $('hp-seiya').textContent = st.hp.seiya.toFixed(1);
+    const herMax = PROTECT ? F.BOSS.hp : 100;
+    $('fill-her').style.transform = `scaleX(${st.hp.her / herMax})`; $('fill-seiya').style.transform = `scaleX(${st.hp.seiya / 100})`;
+    if (PROTECT && st.harley) { $('hp-harley').textContent = st.hp.harley.toFixed(1); $('fill-harley').style.transform = `scaleX(${st.hp.harley / F.HARLEY.hp})`; $('bar-harley').classList.toggle('struck', !!st.harley.struck); }
+    const lc = st.lastCast, la = st.lastAct && (!lc || st.lastAct.g >= lc.g) && st.g - st.lastAct.g < F.BAR_MS ? st.lastAct : null;
+    $('cast').hidden = !la && (!lc || st.g - lc.g > F.BAR_MS * 1.5);
+    if (la) { $('cast').querySelector('b').textContent = la.name; $('cast').querySelector('span').textContent = la.move === 'meteor' ? `cosmos ×${la.cosmos.toFixed(2)} · ${la.n} tap${la.n > 1 ? 's' : ''} · ${la.by}` : la.by; }
+    else if (lc) { $('cast').querySelector('b').textContent = lc.name; $('cast').querySelector('span').textContent = `${DATED[lc.spell] || ''}${lc.roll ? ` · the roll ${lc.roll} of ${20}` : ''}${lc.lever != null ? ` · lever ${lc.lever + 1}, ${lc.cast}` : ''}`; }
+    const r = Math.floor(st.rank + 1e-9), rk = BOSS.ranks[Math.min(6, r)]; $('rank').hidden = r <= 0; if (r > 0) { $('rank').querySelector('b').textContent = rk[0]; $('rank').querySelector('span').textContent = rk[1]; }
+    const e = st.freeze && P.events.find((x) => (x.kind === 'hit' || x.kind === 'block') && Math.abs(x.g - st.freeze.g) < 1e-6);
+    $('freeze').hidden = !st.freeze; if (st.freeze) $('freeze').querySelector('span').textContent = e ? (e.kind === 'block' ? `${F.NAMES[e.what]} held by ${F.NAMES.wind}` : `${e.name}${e.on === 'harley' ? ' on Harleyquintiti' : ''}${e.damage ? `  −${e.damage.toFixed(2)}` : ''}`) : '';
+    $('end').hidden = !st.end;
+    if (st.end && PROTECT) {
+      const [b, sp] = st.end.protected ? ['HARLEYQUINTITI PROTECTED', st.end.winner === 'Seiya' ? 'Seiya wins · the Lyssajudron falls' : 'time · she stands'] : st.end.taken ? ['HARLEYQUINTITI TAKEN', `${BOSS.name} · ${BOSS.epithet}`] : st.end.fall ? ['SEIYA FALLS', `${BOSS.name} · ${BOSS.epithet}`] : ['TIME', ''];
+      $('end').querySelector('b').textContent = b; $('end').querySelector('span').textContent = `${sp}${fight ? ' · tap for a new fight' : ''}`;
+    } else if (st.end) { $('end').querySelector('b').textContent = st.end.winner ? `${st.end.winner.toUpperCase()} WINS` : 'TIME'; $('end').querySelector('span').textContent = st.end.winner === 'Lyssajudron' ? `${BOSS.name} · ${BOSS.epithet}` : ''; }
+    $('nestline').hidden = !PROTECT || !NEST; if (PROTECT && NEST) $('nestline').textContent = fight ? `one fight on the Nest · ${fight.by}'s press · ${mismatch ? `this glass's plan differs from ${mismatch}'s` : 'the same plan on every glass'}` : 'this glass\'s own fight · tap to begin one on the Nest';
+    $('clocks').textContent = `in-game ${(st.g / 1000).toFixed(2)} s · wall ${(st.w / 1000).toFixed(2)} s · bar ${st.clock.bar + 1} beat ${st.clock.beat % 4 + 1}${st.freeze ? ' · held' : ''}`;
+  }
+
+  // ---- size, play, rest ----
+  function size() { const W = innerWidth, Hh = innerHeight; renderer.setSize(W, Hh, false); camera.aspect = W / Hh; camera.updateProjectionMatrix(); }
+  size();
+  let t0 = null, playing = false, lastW = 0, raf = 0;
+  // the Nest's fight (the protect fight): its wall time is the house clock's less its t0, the same instant on every glass
+  const NEST = PROTECT && params.get('nest') !== '0' ? 'http://' + location.hostname + ':8904' : null;   // the Nest this glass reads the Mac by, as rite.html's NestFollow.base: the page's own host at the Nest's port (on pelino 127.0.0.1:8904 was a stale ssh forward, Oct 25 2026, so tv1's fight never reached the Nest)
+  const REF = 'fight/harleyquintiti', SCHEMA = 'embertide.fight-harleyquintiti/1', SEAT = (params.get('seat') || 'glass').replace(/[^\w.-]/g, '').slice(0, 32) || 'glass';
+  const LEAD_MS = F.BEAT_MS, END_HOLD_MS = 4000, MAX_PRESSES = 3000;
+  const clock = createHouseClock(), houseNow = () => Date.now() + (clock.offset() ?? 0);
+  let fight = null, mismatch = null;
+  const wallNow = (now) => (fight ? houseNow() - fight.t0 : (t0 === null ? lastW : now - t0));
+  const loop = (now) => { raf = 0; if (!playing) return; if (!fight && t0 === null) t0 = now - lastW; lastW = Math.max(0, Math.min(wallNow(now), P.wall_ms)); draw(lastW); if (lastW >= P.wall_ms) { playing = false; return; } raf = requestAnimationFrame(loop); };
+  const play = () => { if (playing || (!fight && lastW >= P.wall_ms)) return; playing = true; t0 = null; raf = requestAnimationFrame(loop); };
+  const pause = () => { playing = false; if (raf) cancelAnimationFrame(raf); raf = 0; };
+  addEventListener('resize', () => { size(); if (!playing) draw(lastW); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) pause(); });
+  // HIS HANDS: the lever (1 2 3), a drag casts, a tap casts, space lifts (the dice); a cause stamped on the next beat, the plan made again
+  let lever = 0, down = null;
+  const cast = (c) => { const g = F.inGame(P, lastW).g, beat = Math.floor(g / F.BEAT_MS + 1e-9) + 1; causes.push({ ...c, beat, by: 'his hand' }); P = F.planFight({ measured, bodies, causes }); fallMemo = null; if (!playing) draw(lastW); };
+  // THE PROTECT FIGHT'S HANDS: a press is {beat, move, dir?, by}, stamped on the next beat; on the Nest it is a compare-and-set of the one fight
+  const digestOf = HANDS.digestOf;   // the one law (fight-hands.mjs): the console writes the same digest
+  const validPress = HANDS.validPress;
+  const takeFight = (v) => {
+    if (!v || v.schema !== SCHEMA || !Number.isFinite(v.t0) || !Array.isArray(v.his)) return false;
+    fight = v; his = v.his.filter(validPress).slice(-MAX_PRESSES).map((c) => ({ beat: c.beat, move: c.move, ...(c.dir ? { dir: c.dir } : {}), by: String(c.by || 'glass').slice(0, 32) }));
+    P = planNow(); fallMemo = null; mismatch = v.digest && v.digest !== digestOf(P) ? String(v.by || 'the writer') : null;
+    if (houseNow() - v.t0 < P.wall_ms + END_HOLD_MS) { playing = false; play(); } else { lastW = P.wall_ms; draw(lastW); }
+    return true;
+  };
+  const press = async (move, dir) => {
+    if (!PROTECT) return;
+    if (!NEST) { const g = F.inGame(P, lastW).g; his.push({ beat: Math.floor(g / F.BEAT_MS + 1e-9) + 1, move, ...(dir ? { dir } : {}), by: SEAT }); P = planNow(); fallMemo = null; if (!playing) draw(lastW); return; }
+    for (let i = 0; i < 4; i++) {
+      const now = houseNow(), cur = await fetch(`${NEST}/nest/ref/${REF}`, { cache: 'no-store' }).then((r) => (r.ok ? r.json() : null)).catch(() => null), ref = cur?.ref || null, v = ref?.value;
+      const same = v && fight && v.t0 === fight.t0, Pv = v && v.schema === SCHEMA && Number.isFinite(v.t0) ? (same ? P : F.planFight({ measured, bodies, protect: true, his: (v.his || []).filter(validPress) })) : null;
+      const live = Pv && now - v.t0 < Pv.wall_ms;
+      let value;
+      if (!live) value = { schema: SCHEMA, t0: Math.round(now + LEAD_MS), his: [], by: SEAT, at: Math.round(now), n: (Number(v?.n) || 0) + 1 };   // a new fight: the summoning a beat from now
+      else { const g = F.inGame(Pv, Math.max(0, now - v.t0)).g; value = { ...v, his: [...v.his.filter(validPress), { beat: Math.floor(g / F.BEAT_MS + 1e-9) + 1, move, ...(dir ? { dir } : {}), by: SEAT }].slice(-MAX_PRESSES), by: SEAT, at: Math.round(now) }; }
+      const Pn = F.planFight({ measured, bodies, protect: true, his: value.his }); value.digest = digestOf(Pn); value.end = { winner: Pn.end.winner, g: Pn.end.g, wall_ms: Pn.wall_ms, harley: Pn.end.harley };   // the writer is the emulator of the cause
+      const r = await fetch(`${NEST}/nest/ref/${REF}`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ seat: SEAT, value, expect: ref ? ref.rev : 0 }) }).catch(() => null);
+      if (r && r.ok) { takeFight(value); return; }
+      if (!r || r.status !== 409) { window.FIGHT && (window.FIGHT.error = `the Nest refused the press: ${r ? r.status : 'no answer'}`); return; }
+    }
+  };
+  // SEIYA'S HANDS OFF THE AIR (Oct 25 2026): on a glass with an ear on the pad's wave (wave-ear.mjs --page, the glass's own loopback), every
+  // Hand of his pad is taken here the instant it lands and pressed at the cause's stamp by the one law (fight-hands.mjs), so every glass with
+  // an ear, and the Mac's console writing the Nest's record from the same cause, compute the same fight. The record reaches this page on the
+  // Nest's wire too (takeFight): the same fight, nothing moves; a cause this ear missed is healed by it. A phone has no ear: the wire alone.
+  const EAR = params.get('ear') || (PROTECT && params.get('seat') ? 'ws://127.0.0.1:8917' : null);
+  let prevHand = null, earRetry = 1000, earUp = false, earTries = 0, earFight = null, earSock = null;
+  const takeHand = (h) => {
+    if (!h || h.t !== 'hand' || !Array.isArray(h.v) || h.v.length < 6) return;
+    const t = HANDS.takeHandValue(fight, prevHand, h, houseNow(), { measured, bodies }, 'pad'); prevHand = t.cur;
+    if (window.FIGHT) { window.FIGHT.hands_seen = (window.FIGHT.hands_seen || 0) + 1; if (!t.stamped) window.FIGHT.unstamped = (window.FIGHT.unstamped || 0) + 1; }
+    if (!t.value) return;
+    if (takeFight(t.value) && window.FIGHT) { window.FIGHT.hands = (window.FIGHT.hands || 0) + t.moves.length; window.FIGHT.last_hand = { when: t.when, moves: t.moves, at: Date.now(), beat: t.value.his.at(-1)?.beat ?? null }; }
+  };
+  // nothing at rest on a glass with no ear: three tries at the start (1, 2, 4 s), then quiet until a new fight comes on the wire; an ear that was
+  // up and dropped (its restart) is asked again, 1 s doubling to 30 s
+  const ear = () => { if (!EAR || earSock) return; let ws; try { ws = new WebSocket(EAR); } catch { return; } earSock = ws; earTries++;
+    ws.onopen = () => { earUp = true; earRetry = 1000; if (window.FIGHT) window.FIGHT.ear = EAR; };
+    ws.onmessage = (m) => { try { takeHand(JSON.parse(m.data)); } catch {} };
+    ws.onclose = () => { earSock = null; if (window.FIGHT) window.FIGHT.ear = null; if (!earUp && earTries >= 3) return; setTimeout(ear, earRetry); earRetry = Math.min(30000, earRetry * 2); };
+  };
+  const earAgain = (v) => { if (v && v.t0 !== earFight) { earFight = v.t0; if (!earSock && !earUp) { earTries = 0; earRetry = 1000; ear(); } } };   // a new fight: the ear asked again
+  ear();
+  const stepDir = (dxScreen) => { const s = F.seiyaAt(P, F.inGame(P, lastW).g), a = new THREE.Vector3(s.x, 1, s.z).project(camera), b = new THREE.Vector3(...F.toWorld([1, 1, 0], s.yaw, [s.x, 0, s.z])).project(camera);
+    return Math.sign(b.x - a.x || 1) * Math.sign(dxScreen || 1) > 0 ? 1 : -1; };   // his local +x (the side step 03.30) is the way his drag went on this glass
+  addEventListener('keydown', (e) => {
+    if (PROTECT) { if (e.key === ' ') { e.preventDefault(); press('meteor'); } else if (e.key === 'p' || e.key === 'Enter' || e.key === 'ArrowUp') press('punch'); else if (e.key === 'ArrowDown') press('back'); else if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') press('step', stepDir(e.key === 'ArrowRight' ? 1 : -1)); return; }
+    if (e.key >= '1' && e.key <= '3') { lever = Number(e.key) - 1; $('lever').textContent = e.key; } else if (e.key === ' ') { e.preventDefault(); cast({ cast: 'lift' }); } });
+  canvas.addEventListener('pointerdown', (e) => { down = { x: e.clientX, y: e.clientY }; });
+  canvas.addEventListener('pointerup', (e) => { if (!down) return; const dx = e.clientX - down.x, dy = e.clientY - down.y; down = null;
+    if (PROTECT) { if (Math.hypot(dx, dy) <= 30) press('meteor'); else if (-dy > Math.abs(dx)) press('punch'); else if (dy > Math.abs(dx)) press('back'); else press('step', stepDir(dx)); return; }
+    if (Math.hypot(dx, dy) > 30) cast({ lever, cast: 'drag', dir: dx < 0 ? -1 : 1 }); else cast({ lever, cast: 'tap' }); });
+
+  // ---- the proof's door (window.FIGHT): read the plan, draw an instant, make a contact sheet of instants ----
+  window.FIGHT = {
+    get plan() { return P; }, get frames() { return frames; }, get playing() { return playing; }, error: null,
+    events: () => P.events.map((e) => ({ ...e, w: F.wallOf(P, e.g) })), freezes: () => P.freezes.map((f) => ({ ...f })), end: () => ({ ...P.end, wall_ms: P.wall_ms }),
+    draw: (w) => { pause(); lastW = w; const st = draw(w); return { g: st.g, w: st.w, freeze: !!st.freeze, hp: st.hp, rank: st.rank, seiya: { x: st.seiya.x, z: st.seiya.z, clip: st.seiya.clip, mode: st.seiya.mode }, her: { p: st.her.p, scale: st.her.scale, gold: st.her.gold }, harley: st.harley ? { hp: st.harley.hp, struck: st.harley.struck, taken: st.harley.taken } : null, end: st.end }; },
+    mode: PROTECT ? 'harleyquintiti' : 'lab', get fight() { return fight; }, get mismatch() { return mismatch; }, digest: () => digestOf(P), press,
+    play, pause,
+    replanMs: () => { const a = performance.now(), Q = planNow(), ms = performance.now() - a; return { ms, same: JSON.stringify(Q.events) === JSON.stringify(P.events) }; },
+    sheet: (cells, { cols = 4, cw = 480, ch = 270 } = {}) => {
+      pause(); const rows = Math.ceil(cells.length / cols), out = document.createElement('canvas'); out.width = cols * cw; out.height = rows * ch + 34; const x = out.getContext('2d');
+      x.fillStyle = '#0a0c12'; x.fillRect(0, 0, out.width, out.height); x.font = '600 15px ui-sans-serif, system-ui, sans-serif'; x.fillStyle = '#d9b45a';
+      x.fillText(`${PROTECT ? 'Seiya for Harleyquintiti against the Lyssajudron · lab/fight-lyssa-seiya.html?for=harleyquintiti' : 'Lyssajudron against Seiya in the Pegasus Cloth · lab/fight-lyssa-seiya.html'} · ${cells.length} instants of one fight from fixed causes`, 12, 22);
+      cells.forEach((cell, i) => {
+        draw(cell.w); const cx = (i % cols) * cw, cy = 34 + Math.floor(i / cols) * ch;
+        x.drawImage(canvas, 0, 0, canvas.width, canvas.height, cx, cy, cw, ch);
+        x.fillStyle = 'rgba(10,12,18,.72)'; x.fillRect(cx, cy + ch - 40, cw, 40); x.fillStyle = '#f2ead8'; x.font = '600 13px ui-sans-serif, system-ui, sans-serif';
+        x.fillText(cell.label.slice(0, 64), cx + 8, cy + ch - 23); x.font = '12px ui-monospace, Menlo, monospace'; x.fillStyle = '#c9b98f'; x.fillText((cell.sub || '').slice(0, 72), cx + 8, cy + ch - 8);
+        x.strokeStyle = '#000'; x.strokeRect(cx + 0.5, cy + 0.5, cw - 1, ch - 1);
+      });
+      return out.toDataURL('image/png');
+    },
+    ready: true,
+  };
+  const at = params.get('at');
+  if (at !== null) { lastW = Number(at) || 0; draw(lastW); }
+  else { draw(0); if (params.get('play') !== '0') play(); }
+  if (NEST && at === null) {   // the Nest's fight: read it once, follow it on the stream, and set the house clock by two trips and the stream's beats
+    const trip = async () => { try { const a = Date.now(), j = await fetch(`${NEST}/nest/head`, { cache: 'no-store' }).then((r) => r.json()), b = Date.now(); if (Number.isFinite(j.server_ms)) clock.trip(j.server_ms, a, b); } catch {} };
+    await trip(); await trip();
+    fetch(`${NEST}/nest/ref/${REF}`, { cache: 'no-store' }).then((r) => (r.ok ? r.json() : null)).then((j) => { if (j?.ref?.value && houseNow() - j.ref.value.t0 < 10 * 60000) takeFight(j.ref.value); }).catch(() => {});
+    const es = new EventSource(`${NEST}/nest/stream?types=ref&refs=${encodeURIComponent(REF)}`);
+    es.onmessage = (m) => { try { const e = JSON.parse(m.data); if (e && e.type === 'ref' && e.payload && e.payload.name === REF) { takeFight(e.payload.value); earAgain(e.payload.value); } } catch {} };
+    es.addEventListener('beat', (m) => { try { clock.beat(JSON.parse(m.data), Date.now()); } catch {} });
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) { trip(); if (fight) { playing = false; play(); } } });
+  }
+} catch (e) { say(e); }
+</script>
+</body>
+</html>

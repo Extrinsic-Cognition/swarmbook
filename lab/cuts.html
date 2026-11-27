@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Cuts</title>
+<!--
+  cuts.html: THE CUTS WIRED, proved on a page of their own. His words, Oct 14 2026 15:1x WEST, over four posts of Ingi Erlingsson: "can you
+  please pay attention to his style recurring please? he got predicatble transitions etc". The reading is CUTS.md; the devices are cuts.js,
+  one pure plan of the film's second; this page is the hero's A (the Saint Seiya film on the dodecahedron's twelve faces, centred on the
+  page's white, turning as the page's sphere turns at rest) with the devices on it, in three.js, so theater.js (the unboxing session's file
+  this hour) is not touched. CUTS.md says the lines theater.js needs to wear the same devices.
+    THE PASS AS THE CUT: at each burst (11.044 s, 37.10 s) and at his conversion tag (61.767 s), six frames of the normals pass, four of the
+      flat gold matte, then the picture: the same device at every one, never a dissolve.
+    THE CODEC'S CUT: at each of the film's own cuts (ffmpeg's scene score, cuts.js FILM_CUTS, or braindance.json's `cuts` once it holds
+      them; never its camera list, a reading at half a second), the frame before the cut stands as the film's 16-px blocks while the new
+      frame fills in block by block in one seeded order; the page's white shows through the holes. Nothing where the film runs its own flurry
+      of cuts (the armor closing, 64.9 to 69.6 s). Never vision on the frames in the page.
+    THE TAG CHIPS: his tags (the Nest ref mint/seiya-tags, read once at load; rev 1's words if the Nest does not answer) as small coloured
+      chips, each with a thin line to the face that faced the eye at its second, kept through every cut after it. DOM, made once.
+    THE RULE OF ONE: one device per moment, on the beat the film already has.
+  THE LAW: the page draws on cause only. While the film plays, once per frame it presents (requestVideoFrameCallback); once on a seek, a
+  pause, a resize, the plan's arrival; at rest nothing, and no requestAnimationFrame anywhere. A block cut copies the film frame into the
+  frame that stands on the three frames before it (a seek into a cut seeks the frame before it first, so the right frame stands).
+  ?t=<second> opens paused there; ?nest=<origin> reads his tags elsewhere; ?bare hides the panel. window.cuts is for a reader (cuts.proof.mjs).
+  A lab page, outside the build, worn on no glass.
+-->
+<script type="importmap">{"imports": {"three": "../../room/procedural/three.module.js"}}</script>
+<style>
+:root{--paper:#faf9f5;--ink:#252921;--gold:#c4a365}
+html,body{margin:0;height:100%;background:var(--paper);overflow:hidden}
+#stage{position:fixed;inset:0}
+#glass,#lines{position:absolute;inset:0;width:100%;height:100%;display:block}
+#lines{pointer-events:none;overflow:visible}
+#lines line{stroke:var(--ink);stroke-width:1;vector-effect:non-scaling-stroke}
+#lines line.away{stroke-dasharray:3 3;opacity:.4}
+#lines circle{fill:var(--ink)}
+#chips{position:absolute;inset:0;pointer-events:none}
+.chip{position:absolute;left:0;top:0;display:flex;align-items:center;gap:6px;height:20px;padding:0 8px 0 0;box-sizing:border-box;
+  background:var(--c);color:var(--t);border:1px solid var(--ink);font:600 10px/1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.08em;white-space:nowrap}
+.chip i{align-self:stretch;width:5px;background:var(--ink)}
+.chip b{font-weight:400;opacity:.8}
+.panel{position:fixed;left:16px;bottom:16px;z-index:5;box-sizing:border-box;max-width:calc(100vw - 32px);padding:10px 12px 8px;background:rgba(255,254,250,.94);
+  border:1px solid #b8954f;font:10px/1.45 ui-monospace,"SF Mono",Menlo,monospace;color:#30372c}
+.panel .row{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 6px}
+.panel button{font:inherit;letter-spacing:.08em;text-transform:uppercase;padding:6px 8px;border:1px solid #b8954f;color:#30372c;background:#fffefa;cursor:pointer}
+.panel p{margin:0;color:#6f685b}
+body.bare .panel{display:none}
+</style>
+</head>
+<body>
+<main id="stage"><canvas id="glass" aria-label="The Saint Seiya film on the dodecahedron, with the cuts"></canvas><svg id="lines" aria-hidden="true"></svg><div id="chips"></div></main>
+<video id="film" src="../app/saint-seiya.mp4?v=53561d47" muted playsinline preload="auto" hidden></video>
+<div class="panel" role="group" aria-label="The cuts">
+  <div class="row"><button type="button" id="play">Play</button><button type="button" data-t="10.6">The pass 11.04</button><button type="button" data-t="29.0">The blocks 29.56</button><button type="button" data-t="36.8">Chips, pass 37.10</button><button type="button" data-t="61.3">Conversion 61.77</button></div>
+  <p id="num">reading the plan</p>
+</div>
+<script type="module">
+import * as THREE from 'three';
+import {cutsAt, shotsOf, blockOrder, gridOf, restTurn, frameOf, startOf, FPS, FACES, TAGS_AT_REV_1, CUTS_GLSL} from './cuts.js';
+
+const q = new URLSearchParams(location.search);
+const NEST = (q.get('nest') || `${location.protocol}//${location.hostname}:8904`).replace(/\/$/, '');
+if (q.has('bare')) document.body.classList.add('bare');
+const film = document.getElementById('film'), canvas = document.getElementById('glass'), svg = document.getElementById('lines');
+const chipsBox = document.getElementById('chips'), num = document.getElementById('num'), playButton = document.getElementById('play');
+const SVG = 'http://www.w3.org/2000/svg';
+
+// THE SOLID: the page's dodecahedron (theater.js, assembly-geometry.js), circumradius one; each face the film's centre square laid on two
+// tangent axes (warm-sphere.js decal(): across = unit(cross(up, n)), up = cross(n, across)), the picture's top toward up
+const PHI = (1 + Math.sqrt(5)) / 2, unit = (v) => { const l = Math.hypot(...v); return v.map(c => c / l); };
+const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2], cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+const CORNERS = [[1, 1, 1], [1, 1, -1], [1, -1, 1], [1, -1, -1], [-1, 1, 1], [-1, 1, -1], [-1, -1, 1], [-1, -1, -1],
+  [0, PHI, 1 / PHI], [0, PHI, -1 / PHI], [0, -PHI, 1 / PHI], [0, -PHI, -1 / PHI], [1 / PHI, 0, PHI], [-1 / PHI, 0, PHI], [1 / PHI, 0, -PHI],
+  [-1 / PHI, 0, -PHI], [PHI, 1 / PHI, 0], [PHI, -1 / PHI, 0], [-PHI, 1 / PHI, 0], [-PHI, -1 / PHI, 0]].map(unit);
+const RINGS = FACES.map((n) => {
+  const five = CORNERS.filter(v => dot(v, n) > 0.79), c = [0, 1, 2].map(j => five.reduce((s, v) => s + v[j], 0) / 5);
+  const u = unit(five[0].map((x, j) => x - c[j])), w = cross(n, u);
+  return {c, five: five.sort((a, b) => Math.atan2(dot(a, w), dot(a, u)) - Math.atan2(dot(b, w), dot(b, u)))};
+});
+const H = Math.hypot(...RINGS[0].c), RHO = Math.hypot(...RINGS[0].five[0].map((x, j) => x - RINGS[0].c[j]));
+function solid() {
+  const pos = [], nor = [], uv = [], edges = [], seen = new Set();
+  FACES.forEach((n, i) => {
+    const {c, five} = RINGS[i], l = Math.hypot(n[2], n[0]), across = [n[2] / l, 0, -n[0] / l], up = cross(n, across);
+    const square = (p) => { const d = p.map((x, j) => x - c[j]); return [0.5 + 0.5 * dot(d, across) / RHO, 0.5 + 0.5 * dot(d, up) / RHO]; };
+    for (let k = 0; k < 5; k++) {
+      const a = five[k], b = five[(k + 1) % 5];
+      for (const p of [c, a, b]) { pos.push(...p); nor.push(...n); uv.push(...square(p)); }
+      const key = [CORNERS.indexOf(a), CORNERS.indexOf(b)].sort((x, y) => x - y).join();
+      if (!seen.has(key)) { seen.add(key); edges.push(...a.map(x => x * 1.002), ...b.map(x => x * 1.002)); }
+    }
+  });
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('normal', new THREE.Float32BufferAttribute(nor, 3)); g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+  const e = new THREE.BufferGeometry(); e.setAttribute('position', new THREE.Float32BufferAttribute(edges, 3));
+  return {faces: g, edges: e};
+}
+
+const renderer = new THREE.WebGLRenderer({canvas, alpha: true, antialias: true, premultipliedAlpha: true, powerPreference: 'high-performance'});
+renderer.setClearColor(0x000000, 0);
+const gl = renderer.getContext(), timer = gl.getExtension('EXT_disjoint_timer_query_webgl2');
+const scene = new THREE.Scene(), camera = new THREE.PerspectiveCamera(45, 1, 0.1, 20);
+camera.position.set(0, 0, 4);   // an eye four circumradii away, as the page's sphere has it
+
+// the film, uploaded at a draw on a new frame only. A VideoTexture: three r185 sizes a plain Texture by image.width (0 on a <video>) and
+// gives it immutable storage; the VideoTexture's own frame callback only raises its flag (no draw), and none comes while the film rests
+const filmTex = new THREE.VideoTexture(film);
+filmTex.minFilter = THREE.LinearMipmapLinearFilter; filmTex.magFilter = THREE.LinearFilter; filmTex.generateMipmaps = true;
+// the frame that stands: the film frame before a block cut, laid as the film is
+let held = new THREE.WebGLRenderTarget(960, 540, {minFilter: THREE.LinearMipmapLinearFilter, magFilter: THREE.LinearFilter, generateMipmaps: true, depthBuffer: false});
+// the one seeded order, one texel a 16-px block of the film frame
+let [cols, rows] = gridOf(960, 540), order = null;
+const orderTexture = (w, h) => {
+  [cols, rows] = gridOf(w, h);
+  const t = new THREE.DataTexture(blockOrder(cols, rows), cols, rows, THREE.RedFormat, THREE.FloatType);
+  t.minFilter = t.magFilter = THREE.NearestFilter; t.needsUpdate = true;
+  return t;
+};
+order = orderTexture(960, 540);
+
+const uniforms = {
+  uFilm: {value: filmTex}, uHeld: {value: held.texture}, uOrder: {value: order}, uSq: {value: new THREE.Vector4(0.21875, 0, 0.5625, 1)},
+  uPass: {value: 0}, uFilled: {value: -1}, uHoles: {value: 0.3}, uHeldOk: {value: 0}, uFilmPx: {value: new THREE.Vector2(960, 540)}, uGrid: {value: new THREE.Vector2(cols, rows)},
+};
+const VERT = `
+uniform vec4 uSq;
+varying vec2 vFilm;
+varying vec3 vN;
+void main() {
+  vFilm = uSq.xy + uv * uSq.zw;   // the film's centre square on the face
+  vN = normalize(normalMatrix * normal);
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+}`;
+const FRAG = `
+uniform sampler2D uFilm;
+${CUTS_GLSL}
+varying vec2 vFilm;
+varying vec3 vN;
+const vec3 SUN = vec3(-0.32, 0.7, 0.64), SHADE = vec3(0.184, 0.2, 0.157);   // the sphere's light and its shade, #2f3328 (theater.js)
+void main() {
+  vec3 n = normalize(vN);
+  if (uPass > 0.5) { gl_FragColor = vec4(cutsPass(vec3(0.0), n), 1.0); return; }   // a pass, shown as it is
+  vec3 now = texture(uFilm, vFilm).rgb, was = uFilled >= 0.0 ? texture(uHeld, vFilm).rgb : now;
+  float b = cutsBlock(vFilm);
+  if (b < 0.0) discard;   // a hole: the page's white
+  vec3 c = b > 0.5 ? now : was;
+  float lit = clamp(0.31 + 0.69 * max(dot(n, normalize(SUN)), 0.0), 0.0, 1.0);
+  gl_FragColor = vec4(mix(c, SHADE, (1.0 - lit) * 0.5), 1.0);
+}`;
+const {faces, edges} = solid();
+const body = new THREE.Mesh(faces, new THREE.ShaderMaterial({uniforms, vertexShader: VERT, fragmentShader: FRAG}));
+const hair = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({color: 0x97712a}));   // the sphere's hairline edges (theater.js leading at rest)
+for (const o of [body, hair]) { o.matrixAutoUpdate = false; scene.add(o); }
+// the copy into the frame that stands: one triangle over the target
+const copyScene = new THREE.Scene(), copyCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+const tri = new THREE.BufferGeometry(); tri.setAttribute('position', new THREE.Float32BufferAttribute([-1, -1, 0, 3, -1, 0, -1, 3, 0], 3));
+copyScene.add(new THREE.Mesh(tri, new THREE.ShaderMaterial({uniforms: {uFilm: {value: filmTex}}, depthTest: false, depthWrite: false,
+  vertexShader: 'varying vec2 vUv; void main() { vUv = position.xy * 0.5 + 0.5; gl_Position = vec4(position.xy, 0.0, 1.0); }',
+  fragmentShader: 'uniform sampler2D uFilm; varying vec2 vUv; void main() { gl_FragColor = vec4(texture(uFilm, vUv).rgb, 1.0); }'})));
+
+// THE PLAN: his tags and the camera list, read once
+let OPTS = {tags: [], shots: []}, rev = null, tagsFrom = 'reading';
+const readTags = async () => {
+  try {
+    const r = await fetch(`${NEST}/nest/ref/mint/seiya-tags`, {cache: 'no-store', signal: AbortSignal.timeout(4000)}), body = await r.json();
+    if (!r.ok || !Array.isArray(body?.ref?.value?.tags)) throw new Error(`the Nest answered ${r.status}`);
+    rev = body.ref.rev ?? null; tagsFrom = `the Nest, rev ${rev}`; return body.ref.value.tags;
+  } catch (error) { console.warn(`cuts: his tags were not read from ${NEST}; rev 1's words stand in`, error); tagsFrom = 'rev 1 (the Nest did not answer)'; return TAGS_AT_REV_1; }
+};
+// the film's cuts: the record's own `cuts` once it holds them, else cuts.js FILM_CUTS (shotsOf), also when the record cannot be read
+const readShots = () => fetch('./braindance.json', {cache: 'no-store'}).then(r => r.json()).then(shotsOf).catch((error) => { console.warn('cuts: the record was not read; FILM_CUTS stand', error); return shotsOf(null); });
+
+// THE CHIPS: made once from the plan, moved on a draw
+let chipEls = [];
+function makeChips() {
+  chipsBox.replaceChildren(); svg.replaceChildren();
+  chipEls = cutsAt(1e6, OPTS).chips.map((c) => {
+    const el = document.createElement('div'), [r, g, b] = [1, 3, 5].map(i => parseInt(c.colour.slice(i, i + 2), 16));
+    el.className = 'chip'; el.hidden = true; el.title = c.words;
+    el.style.setProperty('--c', c.colour); el.style.setProperty('--t', 0.299 * r + 0.587 * g + 0.114 * b > 150 ? '#252921' : '#ffffff');
+    el.innerHTML = `<i></i><b>${c.t.toFixed(3)}</b><span></span>`; el.querySelector('span').textContent = c.name;
+    const line = document.createElementNS(SVG, 'line'), dotEl = document.createElementNS(SVG, 'circle');
+    dotEl.setAttribute('r', '2.5'); line.style.display = dotEl.style.display = 'none';
+    chipsBox.append(el); svg.append(line, dotEl);
+    return {id: c.id, t: c.t, face: c.face, el, line, dot: dotEl, shown: false, at: ''};
+  });
+}
+const v3 = new THREE.Vector3();
+function placeChips(plan, w, h) {
+  if (!chipEls.length) return;
+  const on = new Set(plan.chips.map(c => c.id ?? c.t));
+  // the solid's middle and its radius on the page, the chips in a column to its right
+  v3.set(0, 0, 0).project(camera); const cx = (v3.x + 1) / 2 * w, cy = (1 - v3.y) / 2 * h;
+  v3.set(0, 1, 0).project(camera); const R = Math.abs((1 - v3.y) / 2 * h - cy);
+  let row = 0;
+  for (const c of chipEls) {
+    const shown = on.has(c.id ?? c.t);
+    if (shown !== c.shown) { c.shown = shown; c.el.hidden = !shown; c.line.style.display = c.dot.style.display = shown ? '' : 'none'; }
+    if (!shown) continue;
+    const n = FACES[c.face], m = body.matrix.elements, z = m[2] * n[0] + m[6] * n[1] + m[10] * n[2];   // the face's turned normal, its z: toward the eye
+    v3.set(n[0] * H, n[1] * H, n[2] * H).applyMatrix4(body.matrix).project(camera);
+    const fx = (v3.x + 1) / 2 * w, fy = (1 - v3.y) / 2 * h, x = Math.round(cx + 1.32 * R), y = Math.round(cy - 0.62 * R + row * 30);
+    const at = `${x},${y},${fx.toFixed(1)},${fy.toFixed(1)},${z > 0}`;
+    if (at !== c.at) {
+      c.at = at; c.el.style.transform = `translate(${x}px, ${y - 10}px)`;
+      c.line.setAttribute('x1', x); c.line.setAttribute('y1', y); c.line.setAttribute('x2', fx.toFixed(1)); c.line.setAttribute('y2', fy.toFixed(1));
+      c.line.classList.toggle('away', z <= 0); c.dot.setAttribute('cx', fx.toFixed(1)); c.dot.setAttribute('cy', fy.toFixed(1));
+    }
+    row++;
+  }
+}
+
+// THE DRAW: on a cause only (see the header)
+let draws = 0, keeps = 0, heldFor = null, heldFrame = null, lastFrame = null, said = '', gpuMs = null, w = 0, h = 0;
+const queries = [], log = [];
+const readTimes = () => {
+  while (queries.length && gl.getQueryParameter(queries[0].q, gl.QUERY_RESULT_AVAILABLE)) {
+    const {q, entry} = queries.shift();
+    if (!gl.getParameter(timer.GPU_DISJOINT_EXT)) entry.gpuMs = gpuMs = gl.getQueryParameter(q, gl.QUERY_RESULT) / 1e6;
+    gl.deleteQuery(q);
+  }
+};
+const size = () => {
+  const dpr = Math.min(devicePixelRatio || 1, 2), cw = canvas.clientWidth, ch = canvas.clientHeight;
+  if (!cw || !ch) return false;
+  if (cw !== w || ch !== h || renderer.getPixelRatio() !== dpr) { w = cw; h = ch; renderer.setPixelRatio(dpr); renderer.setSize(cw, ch, false); camera.aspect = cw / ch; camera.updateProjectionMatrix(); svg.setAttribute('viewBox', `0 0 ${cw} ${ch}`); }
+  return true;
+};
+const keepFrame = (cut, frame) => {   // the film frame now on its texture becomes the frame that stands for this cut
+  if (heldFor === cut && heldFrame === frame) return;
+  renderer.setRenderTarget(held); renderer.render(copyScene, copyCamera); renderer.setRenderTarget(null);
+  heldFor = cut; heldFrame = frame; keeps++;
+};
+function draw(reason, mediaTime) {
+  const ready = film.readyState >= 2 && film.videoWidth > 0;
+  if (!ready || !size()) return;   // until the film has a frame, nothing: the page's white
+  const t0 = performance.now(), t = Number.isFinite(mediaTime) ? mediaTime : film.currentTime, f = frameOf(t), plan = cutsAt(t, OPTS);
+  if (f !== lastFrame) { filmTex.needsUpdate = true; lastFrame = f; }
+  if (timer) readTimes();
+  const q0 = timer ? gl.createQuery() : null, entry = {reason, t, f, pass: plan.pass, filled: plan.blocks?.filled ?? null, keep: plan.keep, cpuMs: 0, gpuMs: null};
+  if (timer) gl.beginQuery(timer.TIME_ELAPSED_EXT, q0);
+  if (plan.keep !== null) keepFrame(plan.keep, f);
+  const {yaw, pitch} = restTurn(t), c = Math.cos(yaw), s = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
+  body.matrix.set(c, 0, -s, 0, -s * sp, cp, -c * sp, 0, s * cp, sp, c * cp, 0, 0, 0, 0, 1); hair.matrix.copy(body.matrix);
+  body.matrixWorldNeedsUpdate = hair.matrixWorldNeedsUpdate = true;
+  uniforms.uPass.value = plan.pass === 'normals' ? 1 : plan.pass === 'matte' ? 2 : 0;
+  uniforms.uFilled.value = plan.blocks ? plan.blocks.filled : -1; uniforms.uHoles.value = plan.blocks?.holes ?? 0.3;
+  uniforms.uHeldOk.value = plan.blocks && heldFor === plan.blocks.cut ? 1 : 0;
+  hair.visible = plan.pass === 'picture';
+  renderer.render(scene, camera);
+  if (timer) { gl.endQuery(timer.TIME_ELAPSED_EXT); queries.push({q: q0, entry}); }
+  placeChips(plan, w, h);
+  draws++; entry.cpuMs = performance.now() - t0; log.push(entry); if (log.length > 20000) log.splice(0, 5000);
+  const text = `film ${t.toFixed(2)} s · frame ${f} · ${plan.cut ? `${plan.cut.kind === 'pass' ? plan.pass : `blocks ${Math.round(plan.blocks.filled * 6)}/6`} (${plan.cut.why} ${plan.cut.t})` : 'the picture'} · ` +
+    `chips ${plan.chips.length} · his tags from ${tagsFrom} · draws ${draws}, keeps ${keeps} · JS ${entry.cpuMs.toFixed(2)} ms · GPU ${gpuMs === null ? '?' : gpuMs.toFixed(2)} ms`;
+  if (film.paused && text !== said) { said = text; num.textContent = text; }
+}
+
+// the film's frames are the clock: one draw per frame it presents while it plays, none while it rests
+let callback = 0;
+const onFrame = (now, meta) => { callback = 0; draw('frame', meta.mediaTime); if (!film.paused) callback = film.requestVideoFrameCallback(onFrame); };
+film.addEventListener('play', () => { playButton.textContent = 'Pause'; if (!callback) callback = film.requestVideoFrameCallback(onFrame); });
+film.addEventListener('pause', () => { playButton.textContent = 'Play'; if (callback) { film.cancelVideoFrameCallback(callback); callback = 0; } draw('pause'); });
+film.addEventListener('seeked', () => { if (film.paused) draw('seek'); });
+film.addEventListener('loadeddata', () => draw('loaded'));
+film.addEventListener('loadedmetadata', () => {
+  const fw = film.videoWidth, fh = film.videoHeight, side = Math.min(fw, fh);
+  uniforms.uSq.value.set((fw - side) / 2 / fw, (fh - side) / 2 / fh, side / fw, side / fh); uniforms.uFilmPx.value.set(fw, fh);
+  if (fw !== 960 || fh !== 540) { held.setSize(fw, fh); order.dispose(); order = orderTexture(fw, fh); uniforms.uOrder.value = order; uniforms.uGrid.value.set(cols, rows); }
+});
+new ResizeObserver(() => draw('resize')).observe(canvas);
+
+// a seek: into a block cut, the frame before it first, so the frame that stands is the film's own
+const settle = (t) => new Promise((resolve) => {
+  if (Math.abs(film.currentTime - t) < 1e-4 && film.readyState >= 2) return resolve(film.currentTime);
+  film.addEventListener('seeked', () => resolve(film.currentTime), {once: true}); film.currentTime = t;
+});
+async function seek(t) {
+  film.pause();
+  const plan = cutsAt(t, OPTS);
+  if (plan.blocks && heldFor !== plan.blocks.cut) await settle(startOf(plan.cut.frame - 1) + 0.5 / FPS);
+  return settle(t);
+}
+playButton.addEventListener('click', () => { if (film.paused) film.play(); else film.pause(); });
+for (const b of document.querySelectorAll('[data-t]')) b.addEventListener('click', async () => { await seek(Number(b.dataset.t)); film.play(); });
+
+const ready = Promise.all([readTags(), readShots()]).then(async ([tags, shots]) => {
+  OPTS = {tags, shots}; makeChips();
+  if (film.readyState < 2) await new Promise(r => film.addEventListener('loadeddata', r, {once: true}));
+  if (q.has('t')) await seek(Number(q.get('t')) || 0); else draw('plan');
+  return {tags: tags.length, shots: shots.length, tagsFrom, rev, renderer: (() => { const i = gl.getExtension('WEBGL_debug_renderer_info'); return i ? gl.getParameter(i.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER); })(), timer: Boolean(timer), dpr: renderer.getPixelRatio()};
+});
+// for a reader (cuts.proof.mjs, the console)
+window.cuts = {ready, seek, film, log, plan: (t) => cutsAt(t ?? film.currentTime, OPTS), redraw: () => draw('asked'),
+  // the solid on the page (css px): its middle and its circumradius at the middle's depth
+  box: () => { v3.set(0, 0, 0).project(camera); const cx = (v3.x + 1) / 2 * w, cy = (1 - v3.y) / 2 * h; v3.set(0, 1, 0).project(camera); return {cx, cy, R: Math.abs((1 - v3.y) / 2 * h - cy), w, h}; },
+  state: () => ({draws, keeps, heldFor, heldFrame, t: film.currentTime, paused: film.paused, chips: chipEls.filter(c => c.shown).map(c => c.t), gpuMs, w, h, info: renderer.info.render})};
+</script>
+</body>
+</html>

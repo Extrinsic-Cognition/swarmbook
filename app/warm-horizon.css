@@ -1,0 +1,54 @@
+/* The closing action occupies the Human's former position in the world. */
+.galaxy-sound-start{position:absolute;top:18px;right:4%;z-index:4;border:1px solid var(--galaxy-gold,#C99B3F);border-radius:3px;padding:9px 14px;background:var(--galaxy-back,#faf9f5);color:var(--galaxy-ink,#2B2620);font:500 12px/1.3 var(--sans,system-ui,sans-serif);cursor:pointer}
+.galaxy-sound-start[hidden]{display:none}
+.galaxy-sound-start:focus-visible{outline:2px solid var(--galaxy-gold,#C99B3F);outline-offset:4px}
+.hero-journey .galaxy-viewport .galaxy-theater .galaxy-future {
+  display:block!important;padding:0!important;text-align:left;background:transparent;z-index:3;
+  inset:auto!important;left:var(--journey-left,0);top:var(--journey-top,0);
+  width:var(--journey-width,100%);height:var(--journey-height,100%);container-type:inline-size;
+  animation:horizon-arrive 1.4s ease both;
+}
+.hero-journey .galaxy-viewport .galaxy-theater .galaxy-future[hidden]{display:none!important}
+.galaxy-future-title{position:absolute;top:6.5%;left:7%;right:7%;pointer-events:none}
+.hero-journey .galaxy-viewport .galaxy-theater .galaxy-future h2{
+  font-size:clamp(32px,4.2cqw,76px);line-height:1.02;margin:16px 0 0;
+}
+.galaxy-future-action{
+  position:absolute;left:50%;top:68%;transform:translate(-50%,-50%);
+  width:min(82%,800px);text-align:center;text-shadow:0 2px 22px #071714;
+}
+.hero-journey .galaxy-viewport .galaxy-theater .galaxy-future-purpose{
+  font-size:clamp(15px,1.6cqw,28px);line-height:1.42;margin:0 0 12px;max-width:none;
+}
+.hero-journey .galaxy-viewport .galaxy-theater .galaxy-warm{font-size:clamp(24px,2.6cqw,42px);margin:0 0 20px}
+.hero-journey .galaxy-viewport .galaxy-theater .galaxy-invitation{display:flex;flex-direction:column;align-items:center;gap:12px}
+.hero-journey .galaxy-viewport .galaxy-theater .galaxy-invitation .gold-button{
+  width:clamp(280px,29cqw,420px);max-width:100%;min-width:0;min-height:54px;
+  padding:17px 24px;font-size:clamp(14px,1.25cqw,20px);text-shadow:none;
+  box-shadow:0 0 42px #d4b87717;
+}
+.hero-journey .galaxy-viewport .galaxy-theater .galaxy-poleis{
+  background:transparent;font-size:clamp(11px,1cqw,15px);min-height:32px;padding:7px 4px;
+}
+.galaxy-ending-film{position:absolute;z-index:0;pointer-events:none;overflow:hidden}
+.galaxy-ending-film[hidden]{display:none}
+.galaxy-ending-film img,.galaxy-ending-film video{position:absolute;inset:0;width:100%;height:100%;display:block}
+.galaxy-ending-film img{object-fit:fill}
+.galaxy-ending-projection{
+  object-fit:cover;mask-size:100% 100%;mask-repeat:no-repeat;mask-mode:alpha;
+  -webkit-mask-size:100% 100%;-webkit-mask-repeat:no-repeat;
+}
+.galaxy-viewport:fullscreen{container-type:inline-size}
+@keyframes horizon-arrive{from{opacity:0}to{opacity:1}}
+@media(max-width:700px){
+  .galaxy-future-title{top:5%;left:8%;right:8%;text-align:center}
+  .hero-journey .galaxy-viewport .galaxy-theater .galaxy-future h2{font-size:clamp(30px,9cqw,48px);margin:9px 0 0}
+  .hero-journey .galaxy-viewport .galaxy-theater .galaxy-overline{font-size:8px!important}
+  .galaxy-future-action{top:69%;width:86%}
+  .hero-journey .galaxy-viewport .galaxy-theater .galaxy-future-purpose{font-size:clamp(14px,3.8cqw,18px);line-height:1.35;margin-bottom:12px}
+  .hero-journey .galaxy-viewport .galaxy-theater .galaxy-warm{font-size:clamp(24px,6.4cqw,30px);margin:0 0 18px}
+  .hero-journey .galaxy-viewport .galaxy-theater .galaxy-invitation{gap:9px}
+  .hero-journey .galaxy-viewport .galaxy-theater .galaxy-invitation .gold-button{width:290px;min-height:52px;padding:15px 18px;font-size:14px}
+  .hero-journey .galaxy-viewport .galaxy-theater .galaxy-poleis{font-size:11px;min-height:44px;padding:12px 4px}
+}
+@media(prefers-reduced-motion:reduce){.hero-journey .galaxy-viewport .galaxy-theater .galaxy-future{animation:none}}

@@ -1,0 +1,733 @@
+{
+ "proof": "fight-lyssa-seiya",
+ "at": "2026-10-18T13:04:06.090Z",
+ "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Max, Unspecified Version)",
+ "viewport": [
+  1280,
+  720
+ ],
+ "load_ms": 621,
+ "end": {
+  "g": 42040,
+  "winner": "Lyssajudron",
+  "fall": {
+   "g": 37200,
+   "dir": 0.6422835818145777,
+   "from_clip": 59,
+   "from_c": 16.799999999999997
+  },
+  "wall_ms": 56290
+ },
+ "events": 102,
+ "kinds": {
+  "cast": 11,
+  "summon": 1,
+  "move": 22,
+  "hit": 37,
+  "gust": 2,
+  "block": 1,
+  "mark": 1,
+  "dive": 24,
+  "broken": 1,
+  "miss": 1,
+  "fall": 1
+ },
+ "freezes": 38,
+ "frames_saved": 54,
+ "cells": [
+  {
+   "file": "fight-01-summon.png",
+   "w": 900,
+   "label": "SUMMONING: Seiya at his place (the magic word)",
+   "sub": "his savestate's 19.39 units: 1.86 m",
+   "g": 900,
+   "freeze": false,
+   "hp": {
+    "seiya": 100,
+    "her": 100
+   }
+  },
+  {
+   "file": "fight-02-hit.png",
+   "w": 3860,
+   "label": "HIS HIT 1: PEGASUS METEOR (64.4000)  -4.55",
+   "sub": "in-game 3.56 s · wall 3.86 s · Seiya 100.0 · her 100.0",
+   "g": 3560,
+   "freeze": true,
+   "hp": {
+    "seiya": 100,
+    "her": 100
+   }
+  },
+  {
+   "file": "fight-03-gust.png",
+   "w": 5520,
+   "label": "THE KNIGHTIAN WIND: the gust on the downbeat",
+   "sub": "in-game 4.80 s",
+   "g": 4920,
+   "freeze": false,
+   "hp": {
+    "seiya": 100,
+    "her": 95.45
+   }
+  },
+  {
+   "file": "fight-04-block.png",
+   "w": 5795,
+   "label": "BLOCK: his meteor held by THE KNIGHTIAN WIND",
+   "sub": "in-game 5.12 s · wall 5.79 s · Seiya 100.0 · her 95.5",
+   "g": 5120,
+   "freeze": true,
+   "hp": {
+    "seiya": 100,
+    "her": 95.45
+   }
+  },
+  {
+   "file": "fight-05-mark.png",
+   "w": 7650,
+   "label": "THE POST-IT slapped on him",
+   "sub": "in-game 6.60 s",
+   "g": 6900,
+   "freeze": false,
+   "hp": {
+    "seiya": 100,
+    "her": 95.45
+   }
+  },
+  {
+   "file": "fight-06-hit.png",
+   "w": 8490,
+   "label": "HIS HIT 3: PEGASUS METEOR (64.4000)  -4.55",
+   "sub": "in-game 7.44 s · wall 8.49 s · Seiya 100.0 · her 95.5",
+   "g": 7440,
+   "freeze": true,
+   "hp": {
+    "seiya": 100,
+    "her": 95.45
+   }
+  },
+  {
+   "file": "fight-07-hit.png",
+   "w": 9825,
+   "label": "HER HIT 4: THE SWARMSPELL  -1.88",
+   "sub": "in-game 8.40 s · wall 9.82 s · Seiya 98.1 · her 90.9",
+   "g": 8400,
+   "freeze": true,
+   "hp": {
+    "seiya": 98.12,
+    "her": 90.9
+   }
+  },
+  {
+   "file": "fight-08-hit.png",
+   "w": 10125,
+   "label": "HER HIT 5: THE SWARMSPELL  -1.88",
+   "sub": "in-game 8.55 s · wall 10.13 s · Seiya 98.1 · her 90.9",
+   "g": 8550,
+   "freeze": true,
+   "hp": {
+    "seiya": 98.12,
+    "her": 90.9
+   }
+  },
+  {
+   "file": "fight-09-hit.png",
+   "w": 10425,
+   "label": "HER HIT 6: THE SWARMSPELL  -1.88",
+   "sub": "in-game 8.70 s · wall 10.43 s · Seiya 96.2 · her 90.9",
+   "g": 8700,
+   "freeze": true,
+   "hp": {
+    "seiya": 96.24000000000001,
+    "her": 90.9
+   }
+  },
+  {
+   "file": "fight-10-hit.png",
+   "w": 10725,
+   "label": "HER HIT 7: THE SWARMSPELL  -1.88",
+   "sub": "in-game 8.85 s · wall 10.72 s · Seiya 94.4 · her 90.9",
+   "g": 8850,
+   "freeze": true,
+   "hp": {
+    "seiya": 94.36000000000001,
+    "her": 90.9
+   }
+  },
+  {
+   "file": "fight-11-hit.png",
+   "w": 11025,
+   "label": "HER HIT 8: THE SWARMSPELL  -1.88",
+   "sub": "in-game 9.00 s · wall 11.03 s · Seiya 90.6 · her 90.9",
+   "g": 9000,
+   "freeze": true,
+   "hp": {
+    "seiya": 90.60000000000002,
+    "her": 90.9
+   }
+  },
+  {
+   "file": "fight-12-hit.png",
+   "w": 11325,
+   "label": "HER HIT 9: THE SWARMSPELL  -1.88",
+   "sub": "in-game 9.15 s · wall 11.32 s · Seiya 90.6 · her 90.9",
+   "g": 9150,
+   "freeze": true,
+   "hp": {
+    "seiya": 90.60000000000002,
+    "her": 90.9
+   }
+  },
+  {
+   "file": "fight-13-hit.png",
+   "w": 11625,
+   "label": "HER HIT 10: THE SWARMSPELL  -1.88",
+   "sub": "in-game 9.30 s · wall 11.63 s · Seiya 88.7 · her 90.9",
+   "g": 9300,
+   "freeze": true,
+   "hp": {
+    "seiya": 88.72000000000003,
+    "her": 90.9
+   }
+  },
+  {
+   "file": "fight-14-hit.png",
+   "w": 11925,
+   "label": "HER HIT 11: THE SWARMSPELL  -1.88",
+   "sub": "in-game 9.45 s · wall 11.93 s · Seiya 86.8 · her 90.9",
+   "g": 9450,
+   "freeze": true,
+   "hp": {
+    "seiya": 86.84000000000003,
+    "her": 90.9
+   }
+  },
+  {
+   "file": "fight-15-hit.png",
+   "w": 12225,
+   "label": "HER HIT 12: THE SWARMSPELL  -1.88",
+   "sub": "in-game 9.60 s · wall 12.22 s · Seiya 83.1 · her 90.9",
+   "g": 9600,
+   "freeze": true,
+   "hp": {
+    "seiya": 83.08000000000004,
+    "her": 90.9
+   }
+  },
+  {
+   "file": "fight-16-hit.png",
+   "w": 12525,
+   "label": "HER HIT 13: THE SWARMSPELL  -1.88",
+   "sub": "in-game 9.75 s · wall 12.53 s · Seiya 83.1 · her 90.9",
+   "g": 9750,
+   "freeze": true,
+   "hp": {
+    "seiya": 83.08000000000004,
+    "her": 90.9
+   }
+  },
+  {
+   "file": "fight-17-hit.png",
+   "w": 12825,
+   "label": "HER HIT 14: THE SWARMSPELL  -1.88",
+   "sub": "in-game 9.90 s · wall 12.82 s · Seiya 81.2 · her 90.9",
+   "g": 9900,
+   "freeze": true,
+   "hp": {
+    "seiya": 81.20000000000005,
+    "her": 90.9
+   }
+  },
+  {
+   "file": "fight-18-hit.png",
+   "w": 13125,
+   "label": "HER HIT 15: THE SWARMSPELL  -1.88",
+   "sub": "in-game 10.05 s · wall 13.13 s · Seiya 79.3 · her 90.9",
+   "g": 10050,
+   "freeze": true,
+   "hp": {
+    "seiya": 79.32000000000005,
+    "her": 90.9
+   }
+  },
+  {
+   "file": "fight-19-blink.png",
+   "w": 15390,
+   "label": "THE BLACKHOLE: she sinks",
+   "sub": "in-game 12.24 s",
+   "g": 12240,
+   "freeze": false,
+   "hp": {
+    "seiya": 77.44000000000005,
+    "her": 90.9
+   }
+  },
+  {
+   "file": "fight-20-blink.png",
+   "w": 15900,
+   "label": "...INTO A WHITEHOLE: she rises round him",
+   "sub": "in-game 12.75 s",
+   "g": 12750,
+   "freeze": false,
+   "hp": {
+    "seiya": 77.44000000000005,
+    "her": 90.9
+   }
+  },
+  {
+   "file": "fight-21-hit.png",
+   "w": 18370,
+   "label": "HIS HIT 16: PEGASUS METEOR (64.4000)  -3.69",
+   "sub": "in-game 14.92 s · wall 18.37 s · Seiya 77.4 · her 90.9",
+   "g": 14920,
+   "freeze": true,
+   "hp": {
+    "seiya": 77.44000000000005,
+    "her": 90.9
+   }
+  },
+  {
+   "file": "fight-22-bolt.png",
+   "w": 18810,
+   "label": "LIGHTNING BOLT: the light-boomerang flies",
+   "sub": "in-game 15.06 s",
+   "g": 15060,
+   "freeze": false,
+   "hp": {
+    "seiya": 77.44000000000005,
+    "her": 87.21000000000001
+   }
+  },
+  {
+   "file": "fight-23-broken.png",
+   "w": 18870,
+   "label": "his meteor breaks her bolt",
+   "sub": "in-game 14.92 s",
+   "g": 15120,
+   "freeze": false,
+   "hp": {
+    "seiya": 77.44000000000005,
+    "her": 87.21000000000001
+   }
+  },
+  {
+   "file": "fight-24-hit.png",
+   "w": 20530,
+   "label": "HIS HIT 17: PEGASUS METEOR (64.4000)  -3.69",
+   "sub": "in-game 16.48 s · wall 20.53 s · Seiya 77.4 · her 87.2",
+   "g": 16480,
+   "freeze": true,
+   "hp": {
+    "seiya": 77.44000000000005,
+    "her": 87.21000000000001
+   }
+  },
+  {
+   "file": "fight-25-hit.png",
+   "w": 22690,
+   "label": "HIS HIT 18: PEGASUS METEOR (64.4000)  -4.55",
+   "sub": "in-game 18.04 s · wall 22.69 s · Seiya 77.4 · her 83.5",
+   "g": 18040,
+   "freeze": true,
+   "hp": {
+    "seiya": 77.44000000000005,
+    "her": 83.52000000000001
+   }
+  },
+  {
+   "file": "fight-26-hit.png",
+   "w": 24850,
+   "label": "HIS HIT 19: PEGASUS METEOR (64.4000)  -4.55",
+   "sub": "in-game 19.60 s · wall 24.85 s · Seiya 77.4 · her 79.0",
+   "g": 19600,
+   "freeze": true,
+   "hp": {
+    "seiya": 77.44000000000005,
+    "her": 78.97000000000001
+   }
+  },
+  {
+   "file": "fight-27-hit.png",
+   "w": 26625,
+   "label": "HER HIT 20: THE SWARMSPELL  -1.88",
+   "sub": "in-game 21.00 s · wall 26.63 s · Seiya 75.6 · her 74.4",
+   "g": 21000,
+   "freeze": true,
+   "hp": {
+    "seiya": 75.56000000000006,
+    "her": 74.42000000000002
+   }
+  },
+  {
+   "file": "fight-28-hit.png",
+   "w": 26925,
+   "label": "HER HIT 21: THE SWARMSPELL  -1.88",
+   "sub": "in-game 21.15 s · wall 26.93 s · Seiya 75.6 · her 74.4",
+   "g": 21150,
+   "freeze": true,
+   "hp": {
+    "seiya": 75.56000000000006,
+    "her": 74.42000000000002
+   }
+  },
+  {
+   "file": "fight-29-hit.png",
+   "w": 27225,
+   "label": "HER HIT 22: THE SWARMSPELL  -1.88",
+   "sub": "in-game 21.30 s · wall 27.23 s · Seiya 73.7 · her 74.4",
+   "g": 21300,
+   "freeze": true,
+   "hp": {
+    "seiya": 73.68000000000006,
+    "her": 74.42000000000002
+   }
+  },
+  {
+   "file": "fight-30-hit.png",
+   "w": 27525,
+   "label": "HER HIT 23: THE SWARMSPELL  -1.88",
+   "sub": "in-game 21.45 s · wall 27.52 s · Seiya 71.8 · her 74.4",
+   "g": 21450,
+   "freeze": true,
+   "hp": {
+    "seiya": 71.80000000000007,
+    "her": 74.42000000000002
+   }
+  },
+  {
+   "file": "fight-31-hit.png",
+   "w": 27825,
+   "label": "HER HIT 24: THE SWARMSPELL  -1.88",
+   "sub": "in-game 21.60 s · wall 27.82 s · Seiya 68.0 · her 74.4",
+   "g": 21600,
+   "freeze": true,
+   "hp": {
+    "seiya": 68.04000000000008,
+    "her": 74.42000000000002
+   }
+  },
+  {
+   "file": "fight-32-hit.png",
+   "w": 28125,
+   "label": "HER HIT 25: THE SWARMSPELL  -1.88",
+   "sub": "in-game 21.75 s · wall 28.13 s · Seiya 68.0 · her 74.4",
+   "g": 21750,
+   "freeze": true,
+   "hp": {
+    "seiya": 68.04000000000008,
+    "her": 74.42000000000002
+   }
+  },
+  {
+   "file": "fight-33-hit.png",
+   "w": 28425,
+   "label": "HER HIT 26: THE SWARMSPELL  -1.88",
+   "sub": "in-game 21.90 s · wall 28.43 s · Seiya 66.2 · her 74.4",
+   "g": 21900,
+   "freeze": true,
+   "hp": {
+    "seiya": 66.16000000000008,
+    "her": 74.42000000000002
+   }
+  },
+  {
+   "file": "fight-34-hit.png",
+   "w": 28725,
+   "label": "HER HIT 27: THE SWARMSPELL  -1.88",
+   "sub": "in-game 22.05 s · wall 28.73 s · Seiya 64.3 · her 74.4",
+   "g": 22050,
+   "freeze": true,
+   "hp": {
+    "seiya": 64.28000000000009,
+    "her": 74.42000000000002
+   }
+  },
+  {
+   "file": "fight-35-hit.png",
+   "w": 29025,
+   "label": "HER HIT 28: THE SWARMSPELL  -1.88",
+   "sub": "in-game 22.20 s · wall 29.02 s · Seiya 60.5 · her 74.4",
+   "g": 22200,
+   "freeze": true,
+   "hp": {
+    "seiya": 60.52000000000008,
+    "her": 74.42000000000002
+   }
+  },
+  {
+   "file": "fight-36-hit.png",
+   "w": 29325,
+   "label": "HER HIT 29: THE SWARMSPELL  -1.88",
+   "sub": "in-game 22.35 s · wall 29.32 s · Seiya 60.5 · her 74.4",
+   "g": 22350,
+   "freeze": true,
+   "hp": {
+    "seiya": 60.52000000000008,
+    "her": 74.42000000000002
+   }
+  },
+  {
+   "file": "fight-37-hit.png",
+   "w": 29625,
+   "label": "HER HIT 30: THE SWARMSPELL  -1.88",
+   "sub": "in-game 22.50 s · wall 29.63 s · Seiya 58.6 · her 74.4",
+   "g": 22500,
+   "freeze": true,
+   "hp": {
+    "seiya": 58.64000000000008,
+    "her": 74.42000000000002
+   }
+  },
+  {
+   "file": "fight-38-hit.png",
+   "w": 29925,
+   "label": "HER HIT 31: THE SWARMSPELL  -1.88",
+   "sub": "in-game 22.65 s · wall 29.93 s · Seiya 56.8 · her 74.4",
+   "g": 22650,
+   "freeze": true,
+   "hp": {
+    "seiya": 56.760000000000076,
+    "her": 74.42000000000002
+   }
+  },
+  {
+   "file": "fight-39-hit.png",
+   "w": 33250,
+   "label": "HIS HIT 32: PEGASUS METEOR (64.4000)  -4.55",
+   "sub": "in-game 25.60 s · wall 33.25 s · Seiya 54.9 · her 74.4",
+   "g": 25600,
+   "freeze": true,
+   "hp": {
+    "seiya": 54.880000000000074,
+    "her": 74.42000000000002
+   }
+  },
+  {
+   "file": "fight-40-gust.png",
+   "w": 34470,
+   "label": "THE KNIGHTIAN WIND: the gust on the downbeat",
+   "sub": "in-game 26.40 s",
+   "g": 26520,
+   "freeze": false,
+   "hp": {
+    "seiya": 54.880000000000074,
+    "her": 69.87000000000002
+   }
+  },
+  {
+   "file": "fight-41-hit.png",
+   "w": 35410,
+   "label": "HIS HIT 33: PEGASUS METEOR (64.4000)  -4.55",
+   "sub": "in-game 27.16 s · wall 35.41 s · Seiya 54.9 · her 69.9",
+   "g": 27160,
+   "freeze": true,
+   "hp": {
+    "seiya": 54.880000000000074,
+    "her": 69.87000000000002
+   }
+  },
+  {
+   "file": "fight-42-hit.png",
+   "w": 37570,
+   "label": "HIS HIT 34: PEGASUS METEOR (64.4000)  -4.55",
+   "sub": "in-game 28.72 s · wall 37.57 s · Seiya 54.9 · her 65.3",
+   "g": 28720,
+   "freeze": true,
+   "hp": {
+    "seiya": 54.880000000000074,
+    "her": 65.32000000000002
+   }
+  },
+  {
+   "file": "fight-43-bolt.png",
+   "w": 38610,
+   "label": "LIGHTNING BOLT: the light-boomerang flies",
+   "sub": "in-game 29.46 s",
+   "g": 29460,
+   "freeze": false,
+   "hp": {
+    "seiya": 54.880000000000074,
+    "her": 60.770000000000024
+   }
+  },
+  {
+   "file": "fight-44-hit.png",
+   "w": 39450,
+   "label": "HER HIT 35: LIGHTNING BOLT  -12.51",
+   "sub": "in-game 30.00 s · wall 39.45 s · Seiya 42.4 · her 60.8",
+   "g": 30000,
+   "freeze": true,
+   "hp": {
+    "seiya": 42.370000000000076,
+    "her": 60.770000000000024
+   }
+  },
+  {
+   "file": "fight-45-hit.png",
+   "w": 45730,
+   "label": "HIS HIT 36: PEGASUS METEOR (64.4000)  -4.55",
+   "sub": "in-game 33.88 s · wall 45.73 s · Seiya 42.4 · her 60.8",
+   "g": 33880,
+   "freeze": true,
+   "hp": {
+    "seiya": 42.370000000000076,
+    "her": 60.770000000000024
+   }
+  },
+  {
+   "file": "fight-46-hit.png",
+   "w": 47890,
+   "label": "HIS HIT 37: PEGASUS METEOR (64.4000)  -4.55",
+   "sub": "in-game 35.44 s · wall 47.89 s · Seiya 42.4 · her 56.2",
+   "g": 35440,
+   "freeze": true,
+   "hp": {
+    "seiya": 42.370000000000076,
+    "her": 56.22000000000003
+   }
+  },
+  {
+   "file": "fight-47-armor.png",
+   "w": 48450,
+   "label": "THE SAGITTARIUS ARMOR: she turns gold",
+   "sub": "in-game 35.70 s",
+   "g": 35700,
+   "freeze": false,
+   "hp": {
+    "seiya": 42.370000000000076,
+    "her": 51.67000000000003
+   }
+  },
+  {
+   "file": "fight-48-bolt.png",
+   "w": 49410,
+   "label": "THE SAGITTARIUS ARMOR: her gold arrow flies",
+   "sub": "in-game 36.66 s",
+   "g": 36660,
+   "freeze": false,
+   "hp": {
+    "seiya": 42.370000000000076,
+    "her": 51.67000000000003
+   }
+  },
+  {
+   "file": "fight-49-hit.png",
+   "w": 50250,
+   "label": "HER HIT 38: THE SAGITTARIUS ARMOR  -42.37",
+   "sub": "in-game 37.20 s · wall 50.25 s · Seiya 0.0 · her 51.7",
+   "g": 37200,
+   "freeze": true,
+   "hp": {
+    "seiya": 0,
+    "her": 51.67000000000003
+   }
+  },
+  {
+   "file": "fight-50-fall.png",
+   "w": 51571,
+   "label": "HIS FALL begins (the ragdoll over his rig)",
+   "sub": "in-game 37.32 s · Lyssajudron wins",
+   "g": 37321,
+   "freeze": false,
+   "hp": {
+    "seiya": 0,
+    "her": 51.67000000000003
+   }
+  },
+  {
+   "file": "fight-51-fall.png",
+   "w": 51851,
+   "label": "his fall",
+   "sub": "in-game 37.60 s · Lyssajudron wins",
+   "g": 37601,
+   "freeze": false,
+   "hp": {
+    "seiya": 0,
+    "her": 51.67000000000003
+   }
+  },
+  {
+   "file": "fight-52-fall.png",
+   "w": 52251,
+   "label": "his fall",
+   "sub": "in-game 38.00 s · Lyssajudron wins",
+   "g": 38001,
+   "freeze": false,
+   "hp": {
+    "seiya": 0,
+    "her": 51.67000000000003
+   }
+  },
+  {
+   "file": "fight-53-fall.png",
+   "w": 53851,
+   "label": "he lies where he fell",
+   "sub": "in-game 39.60 s · Lyssajudron wins",
+   "g": 39601,
+   "freeze": false,
+   "hp": {
+    "seiya": 0,
+    "her": 51.67000000000003
+   }
+  },
+  {
+   "file": "fight-54-fall.png",
+   "w": 56251,
+   "label": "the end",
+   "sub": "in-game 42.00 s · Lyssajudron wins",
+   "g": 42001,
+   "freeze": false,
+   "hp": {
+    "seiya": 0,
+    "her": 51.67000000000003
+   }
+  }
+ ],
+ "bench": {
+  "median_ms": 0.7999999523162842,
+  "p95_ms": 2.600000023841858
+ },
+ "plan_ms": {
+  "ms": 3.100000023841858,
+  "same": true
+ },
+ "idle_frames": 0,
+ "errors": [],
+ "consoles": [
+  "THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead."
+ ],
+ "requested": [
+  "/intro/dyson-society/lab/fight-lyssa-seiya.html",
+  "/intro/room/procedural/three.module.js",
+  "/intro/room/procedural/GLTFLoader.js",
+  "/intro/dyson-society/lab/fight-lyssa-seiya.mjs",
+  "/intro/room/lyssajudron-band.mjs",
+  "/intro/dyson-society/lab/fight-fall.mjs",
+  "/intro/room/lyssajudron.mjs",
+  "/intro/room/lyssajudron-score.mjs",
+  "/intro/poleis/orb.js",
+  "/intro/room/boss-intro.mjs",
+  "/intro/dyson-society/lab/ragdoll.mjs",
+  "/intro/dyson-society/lab/rig.mjs",
+  "/intro/room/procedural/BufferGeometryUtils.js",
+  "/intro/room/procedural/SkeletonUtils.js",
+  "/intro/room/lyssajudron-ferro.mjs",
+  "/intro/room/one-law.mjs",
+  "/intro/room/well-law.mjs",
+  "/intro/room/unit0-liquid.mjs",
+  "/intro/room/flight-law.mjs",
+  "/intro/room/lyssajudron-council.mjs",
+  "/intro/room/her-breath.mjs",
+  "/intro/room/terrain-layer.mjs",
+  "/intro/room/her-face.js",
+  "/intro/room/procedural/three.core.js",
+  "/intro/room/camera-geometry.mjs",
+  "/intro/room/reveal-plan.mjs",
+  "/intro/dyson-society/lab/seiya-fight.hades.json",
+  "/intro/dyson-society/lab/seiya-bodies.hades.json",
+  "/intro/dyson-society/lab/seiya.hades.glb",
+  "/favicon.ico"
+ ],
+ "pass": true
+}

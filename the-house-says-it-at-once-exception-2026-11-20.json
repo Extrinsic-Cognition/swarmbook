@@ -1,0 +1,88 @@
+{
+ "base": "9048666f892f83f4d16eb6d291c99f3f4e0a6d4c",
+ "approval": "Ship it, pass +113",
+ "chat": "claude-7209e519, his words typed there: \"Ship it, pass +113\" (Nov 20 2026 07:31:41.234 UTC), the answer to \"Ship the live ball to the site? It needs a +113 JavaScript pass.\", after his \"Build it\" for the live ball",
+ "date": "2026-11-20",
+ "asked": "Ship the live ball to the site? It needs a +113 JavaScript pass.",
+ "scope": "lane/swarmbook-one-branch at these bytes only: THE HOUSE SAYS IT AT ONCE (the Worker's hall worker/drops-live.mjs and its three sayers, the page's half app/dl-drops-live.mjs, the polls out of swarmbook-floor.mjs and dl-mint-pour.js, the seen hook out), merged with main 9048666f89; no general JavaScript allowance",
+ "net": 113,
+ "cap": 113,
+ "files": {
+  "embertide-app/ui/intro/dyson-society/app/assembly-dive.test.mjs": {
+   "before": "f659acb4a04b8a0beb525f89ac65a6114ebdde6e",
+   "after": "a12555819d9862368b08612f1c2994fd30019622"
+  },
+  "embertide-app/ui/intro/dyson-society/app/assembly.js": {
+   "before": "a24e914cb365069860e9d4cf8b6b5337e3d0a06a",
+   "after": "c1e1af4d122677e9f098b8782cbf8aaf9b3f3d73"
+  },
+  "embertide-app/ui/intro/dyson-society/app/dl-drops-live.mjs": {
+   "before": null,
+   "after": "294edbed54cde975fbea152c751f73cdb07af09e"
+  },
+  "embertide-app/ui/intro/dyson-society/app/dl-drops-live.test.mjs": {
+   "before": null,
+   "after": "678dd574eb7c5f9a7630150ac2768b01426e9a53"
+  },
+  "embertide-app/ui/intro/dyson-society/app/dl-mint-flask.js": {
+   "before": "c449ab3cb7ed90d1640c053941cd0af58edf9744",
+   "after": "44505b4b960227426410174083fcf0f49a9f2785"
+  },
+  "embertide-app/ui/intro/dyson-society/app/dl-mint-pour.js": {
+   "before": "e84987c3e4b08a99b2e83333e266de6cb81ab531",
+   "after": "f47041a1e222f67b7334f348753584bfb6eeee84"
+  },
+  "embertide-app/ui/intro/dyson-society/app/dl-mint-pour.test.mjs": {
+   "before": "99bb742fc6b6e59abb1a2f16f042b036965cc288",
+   "after": "8ab139d86deb5524b05071ed70f89b13a58bc95f"
+  },
+  "embertide-app/ui/intro/dyson-society/app/swarmbook-floor.mjs": {
+   "before": "43357fcb0133e28bebcfb90d290d4a37f918d212",
+   "after": "1e313d064632a7ed7f1bbe23b7d142cdc3ec4d1e"
+  },
+  "embertide-app/ui/intro/dyson-society/app/swarmbook-floor.test.mjs": {
+   "before": "f01295ae6017ca816cbee61b2e06c31563b15700",
+   "after": "7da635995db1dd0e8cd0f1dd9d609f0f6489ccb1"
+  },
+  "embertide-app/ui/intro/dyson-society/app/swarmbook.mjs": {
+   "before": "c1f4ed9ba923e7b8373b3dd8b27dea394ff112d9",
+   "after": "3cd1bf6acff36e90d98128f61eb79253bb430ffb"
+  },
+  "embertide-app/ui/intro/dyson-society/app/swarmbook.test.mjs": {
+   "before": "92cc0ce9c43ff79368dad9d3b282538888cb769c",
+   "after": "da8c1ec634007c125dc4df57064d13a2a2f2ebf0"
+  },
+  "embertide-app/ui/intro/dyson-society/app/wall.js": {
+   "before": "7813215c6677d56456710a04daffdeb6dabe0a1f",
+   "after": "4bffd5996765214e44947859bd49222a9145e696"
+  },
+  "embertide-app/ui/intro/dyson-society/worker/drops-live.mjs": {
+   "before": null,
+   "after": "83e4e20a610f8de16c051e80d9b0e5454fdcba10"
+  },
+  "embertide-app/ui/intro/dyson-society/worker/drops-live.test.mjs": {
+   "before": null,
+   "after": "369ab0d3c6d1fb1d2b8e033af28a3d4c34352bf8"
+  },
+  "embertide-app/ui/intro/dyson-society/worker/premint.mjs": {
+   "before": "dcb92180cfeb883ceb68df135c76fbc921f31c69",
+   "after": "5aa42ee970e1211f7ac7992b9b73a36add014ea0"
+  },
+  "embertide-app/ui/intro/dyson-society/worker/space-router-card.mjs": {
+   "before": "cc3ff4367a71f483956d194afce2e1cfed3ab3c1",
+   "after": "12f0e53845c6af8b2db2f8bd98310228f354d060"
+  },
+  "embertide-app/ui/intro/dyson-society/worker/space-router-deposit.mjs": {
+   "before": "1a85a209d1a9f43cb370c8fb6bd780385e4bc877",
+   "after": "d3f5d1d507e42eeccadd2e6506825f488dbf5a80"
+  },
+  "embertide-app/ui/intro/dyson-society/worker/space-router-deposit.test.mjs": {
+   "before": "0eb5d80b896dea0947a9bf408da944e2d973d566",
+   "after": "cff2592bdaea4e22aa3e047f0586bbf7f71e7b67"
+  },
+  "tools/embertide-mesh/tests/the-javascript-only-shrinks.test.mjs": {
+   "before": "ba44490714764df1c757b20e1a18e5d6b8b68344",
+   "after": "8c0b5c9a8d0c1981046f8d932d1a0d4624e4f1f9"
+  }
+ }
+}

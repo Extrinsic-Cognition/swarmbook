@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mint clock</title>
+<!--
+  THE MINT CLOCK: FINANCIAL TIME (Oct 14 2026 07:20 WEST, his word in this lane: "the time is not going to be wall-clock time my
+  dude... it is going to be financial time"). The clock of this mint is its ledger: it ticks when money lands, a dollar a tick; a
+  gold is a hundred bronzes of time; a day with no sale is no time at all. The land is mint-gravity.mjs's (gold has gravity, bronze
+  floats and relocates), folded from a log of causes by mint-clock.mjs: a rung opens when the money in reaches the floor's worth at
+  the floor price (so a floor sold out in bronze opens the next at its last seat, and one gold at genesis opens two); the slider is
+  the money axis and shows the land as it stood at any dollar (a fold of the log to that dollar); the play is a crowd of causes paced
+  over sixty seconds, compounding (a doubling every fifteen); the close refines the sphere at each halving of the land left and shuts
+  it on the star at the last seat (visual only). Nothing at rest costs anything: the sphere draws on a cause and stops (mint-sphere.js
+  rests; the clone mint-gravity.html keeps the live mint's idle spin on purpose). No film here: the twelve chairs are plain and the
+  star is his picture (a gold disc without it: ?face=0, or offline). The wall clock is a stamp on each cause, for the record, never
+  read. His three calls stay open and are shown open, with the lab's reading beside each. Not in the build: this folder is outside
+  app/, js/, skills/ and submission/, so no deploy carries it. window.__clock is the bench's hand (mint-clock.bench.mjs).
+-->
+<link rel="stylesheet" href="../app/warm.css">
+<link rel="stylesheet" href="../app/warm-layout.css">
+<link rel="stylesheet" href="../app/dl-mint-tiers.css">
+<link rel="stylesheet" href="../app/dl-twelve.css">
+<style>
+  body{background:#faf9f5;color:#252921}
+  .lab-dock{position:relative;inset:auto;width:auto;max-width:1100px;margin:0 auto;padding:44px 5.5% 22px;background:none;border:0;box-shadow:none;backdrop-filter:none}
+  .lab-dock h2{font:34px/1.05 var(--serif);letter-spacing:-.03em;margin:0 0 12px;color:#252921}
+  .lab-dock .entry-vow{font-size:12px;line-height:1.65;color:#707765;margin:0 0 26px}
+  .lab-dock .mint-tier .entry-purpose{font:13px/1.5 var(--sans);color:#707765;margin:0 0 16px;min-height:3em}
+  .lab-dock .mint-tier .tier-price{margin:0 0 20px;font:24px/1.3 var(--serif);color:var(--tier-ink)}
+  .lab-dock .mint-tier .gold-button{margin:0;height:58px;width:100%;gap:14px;padding:16px 18px;text-align:left;font-family:var(--sans);cursor:pointer;opacity:.62;transition:opacity .2s,box-shadow .2s}
+  .lab-dock .mint-tier .bronze-button{background:linear-gradient(115deg,#c79a75,#e3c6a6 52%,#bf916b);border-color:#a7734d;color:#39291f}
+  .lab-dock .mint-tier .gold-button[aria-pressed=true]{opacity:1;box-shadow:0 0 0 2px #fffefa,0 0 0 3px var(--tier-ink),0 10px 34px #b8954f33}
+  .lab-hint{margin:18px 0 0;font:12px/1.55 var(--sans);color:#5d6355;min-height:1.6em}
+  .lab-hint b{color:#252921;font-weight:600}
+  .oath-sphere{padding-bottom:40px}
+  .mint-ledger{position:absolute;left:1.5%;top:3%;width:min(300px,30%);max-height:84%;overflow:auto;z-index:3;
+    background:rgb(250 249 245 / .84);border:1px solid #d6bf8970;padding:14px 16px 10px;font:12px/1.45 var(--sans);color:#4c5246;
+    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+  .mint-ledger h3{font:20px/1.1 var(--serif);margin:0 0 4px;color:#252921}
+  .mint-ledger .sum{font:10px/1.6 var(--mono);letter-spacing:.06em;color:#72766c;margin-bottom:8px}
+  .mint-ledger table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+  .mint-ledger td{padding:3px 4px;border-top:1px solid #e6dfcd;white-space:nowrap;vertical-align:middle}
+  .mint-ledger td.m{font-weight:600}.mint-ledger td.gold{color:#8a6d0f}.mint-ledger td.bronze{color:#8f562a}
+  .mint-ledger i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+  .mint-ledger .empty{color:#8b8f84;font-style:italic;padding:6px 0}
+  .clock{border-bottom:1px solid #d6bf8970;margin-bottom:10px;padding-bottom:8px}
+  .clock .label{font:10px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#72766c}
+  .clock .time{font:34px/1 var(--mono);letter-spacing:-.02em;color:#252921;margin:4px 0 6px;font-variant-numeric:tabular-nums}
+  .clock .countdown{font:12px/1.5 var(--sans);color:#4c5246;margin:0}
+  .clock .countdown b{color:#252921}
+  .clock .past{font:10px var(--mono);letter-spacing:.06em;color:#8a6d0f;min-height:1.4em;margin:4px 0 0}
+  #sphere-stage .dl-twelve-controls{opacity:1;pointer-events:auto}
+  .axis{position:relative;margin:10px 0 2px}
+  .axis input{width:100%;margin:0;accent-color:#b8954f}
+  .ticks{position:relative;height:60px;font:10px var(--mono);letter-spacing:.04em}
+  .ticks span{position:absolute;top:0;transform:translateX(-50%);color:#72766c;white-space:nowrap}
+  .ticks span::before{content:'';display:block;width:1px;height:7px;background:#b8954f;margin:0 auto 2px}
+  .ticks span.low{top:14px}.ticks span.low::before{height:3px}
+  .ticks span.end{top:28px;color:#8a6d0f}.ticks span.end::before{height:3px}
+  .ticks span.now{top:42px;color:#252921;font-weight:600}.ticks span.now::before{background:#252921;width:2px;height:3px}
+  .lab-actions{display:flex;flex-wrap:wrap;gap:8px}
+  .lab-actions button{font:10px var(--mono);letter-spacing:.12em;text-transform:uppercase;padding:9px 13px;border:1px solid #b8954f70;color:#535b4c;background:#fffefa;cursor:pointer}
+  .lab-actions button:hover,.lab-actions button[aria-pressed=true]{background:#f3ead6;border-color:#b8954f;color:#30372c}
+  .lab-actions button:disabled{opacity:.45;cursor:default}
+  .lab-actions button[hidden]{display:none}
+  #visual-status{font:10px var(--mono);letter-spacing:.1em;color:#72766c}
+  .calls,.causes-block{max-width:1100px;margin:0 auto;padding:0 5.5% 30px}
+  .calls h3,.causes-block h3{font:20px/1.1 var(--serif);margin:0 0 10px;color:#252921}
+  .calls ol{margin:0;padding-left:1.2em;font:12px/1.65 var(--sans);color:#4c5246}
+  .calls li{margin:0 0 10px}
+  .calls b{color:#252921}
+  .calls em{font:10px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#8a6d0f;font-style:normal;border:1px solid #d6bf89;padding:1px 6px;margin-left:4px}
+  .calls label{margin-right:10px;white-space:nowrap}
+  .calls select{font:11px var(--sans)}
+  .causes{list-style:none;margin:0;padding:0;font:11px/1.6 var(--mono);color:#4c5246;columns:2;column-gap:28px}
+  .causes li{break-inside:avoid;border-top:1px solid #e6dfcd;padding:3px 0}
+  .causes li span{color:#8b8f84;margin-right:6px}
+  .causes li time{float:right;color:#8b8f84}
+  .causes li b{color:#252921}
+  @media(max-width:760px){.mint-ledger{position:relative;left:auto;top:auto;width:auto;max-height:none;margin:10px 0 0}.causes{columns:1}}
+</style>
+</head>
+<body>
+<main>
+<section class="mint-dock antimirror-entry lab-dock" id="mint">
+  <h2>DysonLight Harmony · financial time.</h2>
+  <p class="entry-vow">The clock of this mint is its ledger: it ticks when money lands, a dollar a tick. A gold is a hundred bronzes of time; a day with no sale is no time at all. Choose a metal, then a hexagon on the sphere.</p>
+  <div class="mint-tiers" aria-label="The two metals">
+    <section class="mint-tier mint-tier-bronze">
+      <h3>Bronze Mint.</h3>
+      <p class="entry-purpose">Floats. Rides with the nearest mass and relocates at every expansion. Ten dollars of time.</p>
+      <p class="tier-price" id="bronze-price">$10 <span>a slot</span></p>
+      <button class="gold-button bronze-button" type="button" data-metal="bronze" aria-pressed="true">Take a Bronze slot <span aria-hidden="true">↓</span></button>
+    </section>
+    <section class="mint-tier mint-tier-gold">
+      <h3>Gold Mint.</h3>
+      <p class="entry-purpose">Golden Aiolos · gravity. Holds its place; the land around it rides with it. A hundred bronzes of time.</p>
+      <p class="tier-price" id="gold-price">$1,000 <span>a slot</span></p>
+      <button class="gold-button" type="button" data-metal="gold" aria-pressed="false">Golden Aiolos access <span aria-hidden="true">↓</span></button>
+    </section>
+  </div>
+  <p class="lab-hint" id="hint" role="status"></p>
+</section>
+<div class="oath-sphere" id="oath-sphere" role="group" aria-label="The mint's sphere">
+  <div class="sphere-stage" id="sphere-stage">
+    <canvas id="genesis-sphere" tabindex="0" role="img" aria-label="The Goldberg sphere of the mint growing as money lands. Drag or use the arrow keys to rotate; select a hexagon to buy it."></canvas>
+    <aside class="mint-ledger" id="panel" aria-label="The clock and the ledger">
+      <section class="clock"><div class="label">Financial time</div><div class="time" id="time">$0</div><p class="countdown" id="countdown"></p><p class="past" id="past"></p></section>
+      <section id="ledger"></section>
+    </aside>
+  </div>
+  <div class="genesis-controls">
+    <div class="visual-mode"><span class="small-dot"></span><span id="visual-status">RUNG 1 · GP(2,0) · 30 SEATS · $0</span></div>
+    <div class="axis" id="axis" aria-label="The money axis">
+      <input type="range" id="scrub" min="0" max="6300" step="1" value="0" aria-label="The land as it stood at any dollar of financial time">
+      <div class="ticks" id="ticks"></div>
+    </div>
+    <div class="lab-actions">
+      <button type="button" id="play" aria-pressed="false">A crowd buys · 60 s ▶</button>
+      <button type="button" id="vote" hidden>The holders vote ↑</button>
+      <button type="button" id="now" hidden>Now</button>
+      <button type="button" id="reset">Reset</button>
+    </div>
+  </div>
+</div>
+<section class="calls" aria-label="His three calls">
+  <h3>His three calls, all of them open.</h3>
+  <ol>
+    <li><b>What opens an expansion.</b> Here the clock does: a rung opens when the money in reaches the floor's worth at the floor price, so a floor sold out in bronze opens the next at its last seat and a gold opens what a hundred bronzes would. The other gate is the holders' unanimous vote (his rule of Sep 9), a cause of its own.
+      <label><input type="radio" name="gate" value="mark" checked> the clock</label><label><input type="radio" name="gate" value="vote"> the holders' vote</label><em>open</em></li>
+    <li><b>How much the price rises each rung.</b> Here 0 %: the live mint's $10 and $1,000 on every rung. The marks on the axis follow the rise: at 50 % the second rung costs $15 a bronze and the whole sphere at the floor is $38,310, six times as much.
+      <select id="rise" aria-label="The rise of the price a rung"><option value="0">0 % a rung (the live mint's)</option><option value="0.1">10 % a rung</option><option value="0.25">25 % a rung</option><option value="0.5">50 % a rung</option><option value="1">100 % a rung</option></select><em>open</em></li>
+    <li><b>Real money or reservations.</b> Every dollar on this page is nobody's: a reservation at most, a count of causes. The live mint at optimism.fit is untouched by this page.<em>open</em></li>
+  </ol>
+</section>
+<section class="causes-block" aria-label="The log of causes">
+  <h3>The log: the last causes, newest first.</h3>
+  <ol class="causes" id="causes"></ol>
+</section>
+</main>
+<script type="module">
+import {createMintSphere} from './mint-sphere.js';
+import {createClock, pace} from './mint-clock.mjs';
+import {cellAngle, LADDER} from './mint-gravity.mjs';
+import {buildAssemblySkin} from '../app/assembly-geometry.js';
+const $ = selector => document.querySelector(selector);
+const q = new URLSearchParams(location.search);
+const money = n => '$' + Math.round(n).toLocaleString('en');
+const stamp = ms => new Date(ms).toLocaleTimeString('en-GB');   // the wall clock as a stamp on the record, never read
+let gate = q.get('gate') === 'vote' ? 'vote' : 'mark', rise = Number(q.get('rise')) || 0;
+let clock = createClock({gate, rise});
+let shown = clock;                 // the clock the glass shows: the live one, or a fold of its log to the slider's dollar
+let metal = 'bronze', playing = null, seed = 100, scrubFrame = 0;
+
+// the star and the holders' faces: his X picture, a tone a holder (twelve tones, twelve tiles whatever the crowd); a gold disc when the picture is away
+const FACE = new Image(); FACE.crossOrigin = 'anonymous'; FACE.decoding = 'async';
+const standIn = (() => {
+  const c = document.createElement('canvas'); c.width = c.height = 128; const x = c.getContext('2d');
+  const g = x.createRadialGradient(64, 64, 6, 64, 64, 64); g.addColorStop(0, '#fff6d8'); g.addColorStop(.5, '#e2b85e'); g.addColorStop(1, '#8a6d0f');
+  x.fillStyle = g; x.fillRect(0, 0, 128, 128); return c;
+})();
+const tiles = new Map();
+function portraitOf(holder) {
+  const key = Math.round((holder.id * 47) % 360 / 30) * 30;
+  if (!tiles.has(key)) {
+    const c = document.createElement('canvas'); c.width = c.height = 96; const x = c.getContext('2d');
+    x.filter = `hue-rotate(${key}deg) saturate(1.12)`; x.drawImage(FACE.complete && FACE.naturalWidth ? FACE : standIn, 0, 0, 96, 96);
+    tiles.set(key, c);
+  }
+  return tiles.get(key);
+}
+
+const say = html => { $('#hint').innerHTML = html; };
+const cap = s => s[0].toUpperCase() + s.slice(1) + '.';
+const sphere = createMintSphere($('#genesis-sphere'), {portraitOf, onFace(hit) {
+  if (hit.kind === 'pent') { say(`<b>chair ${String(hit.chair + 1).padStart(2, '0')}</b> is one of the twelve: the chairs are not for sale.`); return; }
+  if (shown !== clock) { live(); say('The slider stood in the past: this is now. Select the hexagon again to buy it.'); return; }
+  const r = clock.buy(hit.index, metal);
+  if (r.why) { say(cap(r.why)); return; }
+  told(r); show();
+}});
+sphere.setStar(standIn);
+const ready = q.get('face') === '0' ? Promise.resolve('stand-in') : new Promise(resolve => {
+  FACE.onload = () => { tiles.clear(); sphere.setStar(FACE); sphere.redraw(); resolve('face'); };
+  FACE.onerror = () => resolve('stand-in');
+  FACE.src = 'https://pbs.twimg.com/profile_images/2043850006566744064/qeOobVml_200x200.jpg';
+});
+
+function told(r) {
+  const t = money(clock.t()), reached = r.opened.length ? ` It reached the mark of <b>${r.opened.map(s => s.capacity + ' seats').join(' and ')}</b>: the swarm expanded.` : '';
+  if (r.holder.metal === 'gold') say(`<b>#${r.holder.id}</b> bought gravity for ${money(r.paid)}: ${r.captured} cells of land ride with it. The clock jumped to <b>${t}</b>.${reached}`);
+  else { const row = clock.ledger().find(x => x.id === r.holder.id); say(`<b>#${r.holder.id}</b> bought a bronze for ${money(r.paid)}: it floats with ${row.ridesWith}, ${row.away} cells away. The clock at <b>${t}</b>.${reached}`); }
+}
+
+for (const button of document.querySelectorAll('[data-metal]')) button.addEventListener('click', () => {
+  metal = button.dataset.metal;
+  document.querySelectorAll('[data-metal]').forEach(b => b.setAttribute('aria-pressed', String(b === button)));
+  say(metal === 'gold' ? '<b>Gold</b>: select open land, or a bronze to give it gravity for the difference. A hundred bronzes of time.' : '<b>Bronze</b>: select open land; it will float. Ten dollars of time.');
+});
+
+// what the glass shows, drawn on cause: the sphere, the clock, the axis, the ledger, the log's tail
+function show({snap = false} = {}) {
+  const c = shown, cd = c.countdown(), f = c.finale();
+  sphere.setLayout(c.layout(), {initial: snap});
+  sphere.setRefine({level: f.level, closed: f.closed});
+  $('#time').textContent = money(c.t());
+  $('#countdown').innerHTML = cd.kind === 'rung' ? `${money(cd.left)} to <b>${cd.seats} seats</b> · ${cd.bronzes} bronze${cd.bronzes === 1 ? '' : 's'} or ${cd.golds} gold`
+    : cd.kind === 'vote' ? (cd.full ? `the floor is full: <b>the holders vote</b> to open ${cd.seats} seats` : `${cd.open} seats open; the holders' vote opens ${cd.seats}`)
+    : cd.open ? `to the close: <b>${cd.open} seat${cd.open === 1 ? '' : 's'}</b> · at least ${money(cd.atLeast)} · refinement ${f.level} of ${f.steps}` : '<b>closed on the star</b>';
+  $('#past').textContent = c === clock ? '' : `as it stood at ${money(c.t())} · ${clock.log().length - c.log().length} causes ago`;
+  $('#now').hidden = c === clock; $('#vote').hidden = gate !== 'vote' || c !== clock;
+  $('#vote').disabled = cd.kind !== 'vote' || !cd.full;
+  $('#bronze-price').innerHTML = `${money(cd.bronze)} <span>a slot</span>`; $('#gold-price').innerHTML = `${money(cd.gold)} <span>a slot</span>`;
+  axis(); ledger(c); status(c); causes(c);
+}
+function axis() {
+  const {opens, worth} = clock.axis, t = clock.t(), max = Math.ceil(Math.max(worth, t) * 1.04 / 100) * 100;
+  const input = $('#scrub'); input.max = max; if (shown === clock) input.value = t;
+  const width = $('#ticks').clientWidth || 600, at = x => `left:${(x / max * 100).toFixed(2)}%`, ticks = [], last = [-99, -99];
+  for (let k = 2; k < LADDER.length; k++) {
+    // two rows of labels; a label within 30 px of the last one on its row keeps its tick and loses its words (the marks crowd once the clock runs past the floor)
+    const row = k % 2, px = opens[k] / max * width, words = px - last[row] >= 30;
+    if (words) last[row] = px;
+    ticks.push(`<span class="${row ? 'low' : ''}" style="${at(opens[k])}" title="${LADDER[k]} seats open at ${money(opens[k])}">${words ? LADDER[k] : ''}</span>`);
+  }
+  ticks.push(`<span class="end" style="${at(worth)}">${money(worth)} · the land at the floor</span>`);
+  ticks.push(`<span class="now" style="${at(t)}">now ${money(t)}</span>`);
+  $('#ticks').innerHTML = ticks.join('');
+}
+function ledger(c) {
+  const st = c.state(), rows = c.ledger();
+  const golds = rows.filter(r => r.metal === 'gold'), bronzes = rows.filter(r => r.metal === 'bronze');
+  const line = r => r.metal === 'gold'
+    ? `<tr><td><i style="background:${r.hue}"></i>#${r.id}</td><td class="m gold">gold</td><td>orbit ${r.orbit}, ${r.companions} bronze</td></tr>`
+    : `<tr><td>${r.hue ? `<i style="background:${r.hue}"></i>` : '<i style="background:#d8d2c2"></i>'}#${r.id}</td><td class="m bronze">bronze</td><td>${r.ridesWith}, ${r.away} away</td></tr>`;
+  const shownRows = [...golds, ...bronzes].slice(0, 14);
+  $('#ledger').innerHTML = `<h3>The ledger</h3><div class="sum">${st.capacity} SEATS · ${st.holders} HELD · ${st.open} OPEN<br>${st.gold} GOLD · ${st.bronze} BRONZE</div>`
+    + (rows.length ? `<table>${shownRows.map(line).join('')}${rows.length > shownRows.length ? `<tr><td colspan="3">and ${rows.length - shownRows.length} more</td></tr>` : ''}</table>`
+      : '<div class="empty">No holder yet: the land is open and the clock stands at $0.</div>');
+}
+function status(c) {
+  const st = c.state(), n = [0, 2, 3, 4, 5, 6, 7, 8][st.rung];
+  $('#visual-status').textContent = `RUNG ${st.rung} · GP(${n},0) · ${st.capacity} SEATS · ${money(c.t())} · ${st.gold} GOLD · ${st.bronze} BRONZE`;
+}
+function causes(c) {
+  const tail = c.log().slice(-10).reverse();
+  $('#causes').innerHTML = tail.map(e => e.kind === 'genesis' ? `<li><span>#0</span>genesis · ${LADDER[1]} seats open · $0<time>${stamp(e.at)}</time></li>`
+    : e.kind === 'open' ? `<li><span>#${e.n}</span>the holders vote: ${e.capacity} seats · <b>${money(e.t)}</b><time>${stamp(e.at)}</time></li>`
+    : `<li><span>#${e.n}</span>${e.metal} on ${e.land} · ${money(e.paid)} → <b>${money(e.t)}</b><time>${stamp(e.at)}</time></li>`).join('');
+}
+
+// the money axis: a drag folds the log to that dollar and shows the land as it stood; one fold a frame at most
+function scrubTo() { const x = Number($('#scrub').value); shown = x >= clock.t() ? clock : clock.replay(clock.log(), x); show({snap: true}); }
+$('#scrub').addEventListener('input', () => { if (!scrubFrame) scrubFrame = requestAnimationFrame(() => { scrubFrame = 0; scrubTo(); }); });
+function live() { shown = clock; show({snap: true}); }
+$('#now').addEventListener('click', live);
+
+// the play: a crowd to the close, its causes paced over sixty seconds and compounding (sixteen times the crowd at the end)
+function stop() { clearTimeout(playing); playing = null; $('#play').setAttribute('aria-pressed', 'false'); $('#play').textContent = 'A crowd buys · 60 s ▶'; }
+function play() {
+  if (playing) { stop(); say('The crowd stopped.'); return; }
+  live();
+  const script = clock.replay(clock.log()).simulate({seed: seed++});
+  if (!script.length) { say('Nothing left to sell: the sphere is closed on its star.'); return; }
+  const s = pace(script.length, {seconds: 60, growth: 16}), t0 = performance.now();
+  let k = 0;
+  const step = () => {
+    const e = script[k++], r = e.kind === 'open' ? clock.open() : clock.buy(e.land, e.metal);
+    if (r.why) { stop(); say('The crowd stopped: ' + r.why + '.'); return; }
+    show();
+    if (k >= script.length) { stop(); say(`The crowd took every seat: <b>${money(clock.t())}</b> of financial time in sixty seconds of wall clock, the crowd sixteen times bigger at the end than at the start.`); return; }
+    playing = setTimeout(step, Math.max(0, t0 + s(k + 1) * 1000 - performance.now()));
+  };
+  $('#play').setAttribute('aria-pressed', 'true'); $('#play').textContent = 'Stop Ⅱ';
+  say(`A crowd of <b>${script.length}</b> buyers comes over sixty seconds, compounding: a doubling every fifteen. Each purchase is a cause; the clock moves on nothing else.`);
+  playing = setTimeout(step, s(1) * 1000);
+}
+$('#play').addEventListener('click', play);
+$('#vote').addEventListener('click', () => { const r = clock.open(); if (r.why) { say(cap(r.why)); return; } say(`The holders voted: <b>${r.step.capacity} seats</b>, ${r.step.born} cells of new land. The clock did not move: a vote is a cause, not a dollar.`); show(); });
+document.addEventListener('visibilitychange', () => { if (document.hidden && playing) { stop(); say('The crowd stopped: the page was hidden.'); } });
+
+// his calls as parameters: a change is a new genesis under the new rule (the log begins again), never a decision
+function genesis(why) {
+  stop(); clock = createClock({gate, rise}); shown = clock; sphere.resetArrivals(); show({snap: true});
+  say(why || 'The seed again: the first floor open, the clock at $0.');
+}
+for (const radio of document.querySelectorAll('[name=gate]')) radio.addEventListener('change', () => { gate = radio.value; genesis(gate === 'vote' ? "A new genesis under <b>the holders' vote</b>: a full floor waits for the vote, and the vote is a cause in the log. His call, not the page's." : 'A new genesis under <b>the clock</b>: a rung opens when the money in reaches the mark. His call, not the page\'s.'); });
+$('#rise').addEventListener('change', () => { rise = Number($('#rise').value); genesis(`A new genesis with the price rising <b>${Math.round(rise * 100)} %</b> a rung: the marks moved with it (the whole sphere at the floor is now ${money(clock.axis.worth)}). His call, not the page's.`); });
+$('#reset').addEventListener('click', () => genesis());
+if (gate === 'vote') $('[name=gate][value=vote]').checked = true;
+if (rise) $('#rise').value = String(rise);
+
+show({snap: true});
+say('The first floor is open and the clock stands at <b>$0</b>: thirty seats, $300 to the next rung. Nothing here moves until money lands.');
+
+// the bench's hand (mint-clock.bench.mjs): the counters, a crowd's script, one cause at a time, a full synthetic sphere to time a draw
+window.__clock = {
+  get clock() { return clock; }, sphere, ready,
+  info: () => ({canvas: '2d', dpr: Math.min(devicePixelRatio || 1, 2), size: [$('#genesis-sphere').clientWidth, $('#genesis-sphere').clientHeight], gate, rise, star: FACE.complete && FACE.naturalWidth ? 'face' : 'stand-in'}),
+  stats: () => ({...sphere.stats(), causes: clock.log().length, t: clock.t(), state: clock.state(), finale: clock.finale()}),
+  buy: (ref, m) => { const r = clock.buy(ref, m); if (!r.why) { told(r); show(); } return {why: r.why, paid: r.paid, opened: r.opened?.map(s => s.capacity), t: clock.t()}; },
+  crowd: (s = 7) => clock.replay(clock.log()).simulate({seed: s}),
+  apply: e => {
+    const r = e.kind === 'open' ? clock.open() : clock.buy(e.land, e.metal);
+    if (!r.why) { if (r.holder) told(r); else say(`The holders voted: <b>${r.step.capacity} seats</b>. The clock did not move: a vote is a cause, not a dollar.`); show(); }
+    return {why: r.why, t: clock.t(), rung: clock.state().rung, finale: clock.finale()};
+  },
+  scrub: x => { $('#scrub').value = x; scrubTo(); }, live,
+  async benchRest(frames = 300) { const before = sphere.stats().draws; for (let n = 0; n < frames; n++) await new Promise(r => requestAnimationFrame(r)); return {frames, draws: sphere.stats().draws - before}; },
+  async benchDraw(capacity, n = 60) {
+    const t0 = performance.now(), skin = buildAssemblySkin(capacity);
+    const byFace = skin.hexes.map((face, i) => ({id: 'bench:' + i, face, faceIndex: i, holder: {id: i + 1, metal: i % 25 === 24 ? 'gold' : 'bronze'}, home: 'chair:0', well: null, born: 1, flip: false, axis: null, frontier: false}));
+    sphere.resetArrivals();
+    sphere.setLayout({skin, rung: 1, capacity, count: byFace.length, slots: new Map(byFace.map(s => [s.id, s])), byFace, cellAngle: cellAngle(capacity)}, {initial: true});
+    const setup_ms = performance.now() - t0;
+    for (let i = 0; i < 400 && sphere.stats().alive; i++) await new Promise(r => requestAnimationFrame(r));
+    const draw_ms = []; for (let i = 0; i < n; i++) draw_ms.push(sphere.drawNow());
+    const raf_ms = []; let last = null;
+    for (let i = 0; i <= n; i++) await new Promise(r => requestAnimationFrame(ts => { if (last != null) raf_ms.push(ts - last); last = ts; sphere.drawNow(); r(); }));
+    return {capacity, faces: byFace.length + 12, setup_ms, draw_ms, raf_ms};
+  },
+};
+</script>
+</body>
+</html>

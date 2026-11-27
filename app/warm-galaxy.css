@@ -1,0 +1,54 @@
+.warm-galaxy{--galaxy-height:min(1200px,max(720px,calc(100svh - 82px)));margin:0;background:#faf9f5;isolation:isolate;scroll-margin-top:0}
+.galaxy-theater{position:relative;overflow:hidden;width:100%;height:var(--galaxy-height);--galaxy-ink:#2B2620;--galaxy-gold:#C99B3F;color:var(--galaxy-ink)}
+/* Crop the viewport, not the scene: canvas geometry still uses the full height. */
+.galaxy-ready .galaxy-viewport{height:calc(var(--galaxy-height) * .8);overflow:clip;position:relative}
+.galaxy-controls[hidden]{display:none!important}
+#galaxy-canvas{display:block;width:100%;height:100%}
+.galaxy-scene-heading{position:absolute;top:32px;left:6%;right:6%;pointer-events:none;transition:opacity .5s}
+.galaxy-overline{font-family:var(--mono,monospace);font-size:11px!important;letter-spacing:.16em;text-transform:uppercase;color:var(--galaxy-gold);margin:0 0 16px!important}
+.galaxy-scene-heading h2{font-family:var(--serif,Georgia,serif);font-size:clamp(30px,3vw,48px);line-height:1.05;font-weight:400;letter-spacing:-.045em;margin:0 0 10px;color:inherit}
+.galaxy-scene-heading>p:last-child{font-size:14px;max-width:650px;line-height:1.5;margin:0;opacity:.8}
+.galaxy-future{color:#f0ecdb;background:#101c1a;text-align:center;padding:65px 6% 90px}
+.galaxy-future h2{font:400 clamp(50px,7.2vw,112px)/.98 var(--serif,Georgia,serif);letter-spacing:-.05em;margin:24px 0 28px;color:#f0ecdb}
+.galaxy-future h2 em{font-weight:400;color:#d2b97b}
+.galaxy-future-purpose{font:400 clamp(18px,2.2vw,30px)/1.42 var(--serif,Georgia,serif);color:#e3ddc7;margin:0 0 23px}
+.galaxy-future-belief{font-size:clamp(13px,1.35vw,18px);line-height:1.7;color:#b9bda8;margin:0 0 22px}
+.galaxy-warm{font:italic 400 clamp(24px,2.6vw,36px)/1.2 var(--serif,Georgia,serif);margin:26px 0 24px;color:#f0ecdb}
+.galaxy-warm em{color:#d2b97b}
+.galaxy-invitation{display:flex;align-items:center;flex-direction:column;gap:23px}
+.galaxy-invitation .gold-button{display:flex;align-items:center;justify-content:space-between;min-width:300px;padding:22px 27px;font-size:18px;border:1px solid #d4b978;background:#d5bd83;color:#243329;text-decoration:none}
+.galaxy-poleis{color:#c5c9b6;text-decoration:none;font-size:13px;border-bottom:1px solid #707864;padding-bottom:5px}
+.galaxy-invitation a:hover{filter:brightness(1.12)}
+.galaxy-ready .galaxy-future{position:absolute;inset:0;z-index:1;background:transparent;animation:galaxy-appear 1.4s ease both}
+.galaxy-ready .galaxy-future[hidden]{display:none}
+.has-future .galaxy-scene-heading{opacity:0;visibility:hidden}
+.galaxy-controls{position:absolute;bottom:25px;left:6%;right:6%;display:flex;gap:23px;align-items:center;color:var(--galaxy-ink);z-index:2;border-top:1px solid color-mix(in srgb,var(--galaxy-gold) 30%,transparent);padding-top:18px}
+.galaxy-controls button{color:inherit;border:0;background:transparent;padding:8px 0;font:inherit;font-size:12px;cursor:pointer;white-space:nowrap}
+.galaxy-controls input{appearance:none;min-width:35px;flex:1;height:2px;background:color-mix(in srgb,var(--galaxy-gold) 40%,transparent);accent-color:var(--galaxy-gold);cursor:pointer}
+.galaxy-controls input::-webkit-slider-thumb{appearance:none;background:var(--galaxy-gold);width:9px;height:9px;border:0;transform:rotate(45deg)}
+.galaxy-controls input::-moz-range-thumb{background:var(--galaxy-gold);width:9px;height:9px;border:0;border-radius:0;transform:rotate(45deg)}
+.galaxy-controls output,.galaxy-simulation{font:10px var(--mono,monospace);letter-spacing:.05em;white-space:nowrap;opacity:.68}
+.galaxy-activity{position:absolute;left:0;top:-23px;font:11px/1.4 var(--mono,monospace);letter-spacing:.02em}
+.galaxy-activity::before{content:'';display:inline-block;width:6px;height:6px;border:1px solid var(--poleis-bronze);border-radius:50%;margin-right:7px}
+.galaxy-activity[data-state="discussion"]::before{background:var(--poleis-verdigris);border-color:var(--poleis-verdigris)}
+.galaxy-activity[data-state="voting"]::before{background:var(--poleis-gold);border-color:var(--poleis-gold)}
+.galaxy-activity[data-state="resolved"]::before{background:var(--poleis-yes);border-color:var(--poleis-yes)}
+.galaxy-activity[data-outcome="rejected"]::before{background:var(--poleis-no);border-color:var(--poleis-no)}
+.galaxy-activity[data-state="mixed"]::before{display:none}
+@media(max-width:700px){.galaxy-activity{left:0;right:0;font-size:9px;top:-39px;letter-spacing:0}}
+.galaxy-controls button:focus-visible,.galaxy-controls input:focus-visible,.galaxy-invitation a:focus-visible{outline:2px solid var(--galaxy-gold);outline-offset:7px}
+.warm-galaxy:not(.galaxy-ready) .galaxy-theater{height:auto;max-height:none}
+.warm-galaxy:not(.galaxy-ready) canvas,.warm-galaxy:not(.galaxy-ready) .galaxy-scene-heading,.warm-galaxy:not(.galaxy-ready) .galaxy-controls{display:none}
+.recursion-founding{padding:0 7% 44px;background:#faf9f5;color:#374332}
+.recursion-founding details{border-top:1px solid #d9cfb7;padding-top:22px}
+.recursion-founding summary{font-size:14px;cursor:pointer;display:flex;justify-content:space-between}
+.recursion-founding details>div{max-width:740px;font-size:14px;line-height:1.7;padding-top:20px}
+.recursion-founding button{font:inherit;color:inherit;background:transparent;border:0;border-bottom:1px solid #aa884b;padding:8px 0;cursor:pointer}
+@keyframes galaxy-appear{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@media(min-width:1600px){.galaxy-scene-heading{top:32px}.galaxy-future{padding-top:80px}.galaxy-future h2{font-size:125px}}
+@media(max-height:850px) and (min-width:701px){.galaxy-future{padding-top:38px}.galaxy-future h2{font-size:78px;margin:18px 0 20px}.galaxy-future-purpose{font-size:24px;margin-bottom:17px}.galaxy-future-belief{font-size:14px;margin-bottom:15px}.galaxy-warm{font-size:29px;margin:18px 0}.galaxy-invitation{gap:15px}.galaxy-invitation .gold-button{padding:18px 24px;font-size:16px}}
+@media(max-width:700px){.warm-galaxy{--galaxy-height:max(740px,calc(100svh - 82px))}.galaxy-theater{height:var(--galaxy-height);max-height:none}.galaxy-scene-heading{top:35px}.galaxy-scene-heading h2{font-size:38px}.galaxy-scene-heading>p:last-child{max-width:85%;font-size:14px}.galaxy-future{padding:60px 6% 90px}.galaxy-future h2{font-size:56px;margin:28px 0}.galaxy-future-purpose{font-size:22px}.galaxy-future-belief{font-size:13px}.galaxy-warm{font-size:29px;margin:28px 0}.galaxy-invitation .gold-button{min-width:260px;font-size:16px;padding:20px}.galaxy-controls{gap:15px;bottom:20px}.galaxy-simulation{position:absolute;top:-20px;font-size:9px}.galaxy-controls output{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.galaxy-ready .galaxy-future{animation:none}.galaxy-scene-heading{transition:none}}
+
+/* Keep the exit legible as the growing surface rises into the final horizon. */
+.galaxy-ready .galaxy-poleis{background:#101c1a;padding:6px 10px;border-bottom-color:#707864}

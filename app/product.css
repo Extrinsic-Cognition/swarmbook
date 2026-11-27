@@ -1,0 +1,121 @@
+/* The governance section, in the same parchment as the crossroads. */
+#governance { margin:14vh 0 0; padding-top:8vh; border-top:1px solid var(--line); scroll-margin-top:100px; }
+#governance { margin-top:clamp(28px,4vh,44px); padding-top:clamp(24px,4vh,40px); }
+#governance .journey-how-wrap { margin:18px 0 14px; }
+/* Two projections of one recursive voting session. */
+#governance .governance { margin:0 0 48px; --gov-yes:#29E35A; --gov-no:#EF334F; --gov-split:#78EFFF; }
+#governance .governance-heading { text-align:center; margin:0 0 42px; }
+#governance .governance-kicker { font:var(--t4); font-size:10px; letter-spacing:.24em; text-transform:uppercase; color:var(--bronze); margin:0 0 14px; }
+#governance .governance-heading h3 { font:var(--t1); font-size:clamp(27px,3vw,42px); letter-spacing:-.02em; margin:0; }
+#governance .governance-pair { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:0; }
+#governance .governance-view { margin:0; min-width:0; padding:0 18px; }
+#governance .governance-view + .governance-view { border-left:1px solid var(--line); }
+#governance .governance-view figcaption { font:var(--t2); font-size:21px; padding:0 12px 12px; }
+#governance .governance-view figcaption > span { font:var(--t4); font-size:11px; margin-right:12px; color:var(--bronze); }
+#governance .governance-view figcaption.mirrored { text-align:right; }
+#governance .governance-view figcaption.mirrored > span { margin-right:0; margin-left:12px; }
+#governance .governance-view figcaption small { display:block; margin:9px 0 0 26px; font:var(--t3); color:var(--ink2); font-size:14px; }
+#governance .governance-view svg { display:block; width:100%; height:auto; overflow:visible; }
+#governance .governance-view canvas { display:block; width:100%; height:auto; aspect-ratio:1; }
+#governance .governance-lede { max-width:64ch; margin:12px auto 0; text-align:center; font:var(--t3); font-size:16px; line-height:1.5; color:var(--ink2); }
+#governance .governance-narration { min-height:46px; margin:0; padding:12px 12px 0; text-align:center; font:var(--t3); font-size:15px; line-height:1.45; color:var(--ink); border-top:1px solid var(--line); }
+#governance .governance-seal { margin:0; padding:0 6px; }
+#governance .governance-seal svg { display:block; width:100%; height:auto; overflow:visible; }
+#governance .governance-steps { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:8px; list-style:none; margin:10px 0 0; padding:0; }
+#governance .governance-steps li { border:1px solid var(--line); border-radius:4px; padding:8px 6px; text-align:center; font:var(--t3); font-size:12px; line-height:1.3; color:var(--ink2); }
+#governance .governance-steps li b { display:block; color:var(--ink); font-size:13px; margin-bottom:3px; }
+#governance .governance-steps li[aria-current=step] { border-color:var(--gold); background:rgba(201,155,63,.13); }
+#governance .governance-node .chair-mark { fill:var(--bronze); font-family:var(--display); text-anchor:middle; }
+#governance .governance-node .node-count { fill:var(--ink2); font:12px var(--words); text-anchor:middle; }
+#governance .governance-node rect.selection { stroke:var(--bronze); stroke-width:1.5; fill:none; opacity:0; }
+#governance .governance-node .node-empty { fill:var(--ink2); font:italic 11px var(--display); text-anchor:middle; }
+#governance .governance-seal .column-title { fill:var(--ink); font:700 15px var(--display); text-anchor:middle; }
+#governance .governance-seal .column-sub { fill:var(--ink2); font:12px var(--words); text-anchor:middle; }
+#governance .governance-mark--pent, #governance .governance-mark--hex, #governance .governance-mark--await { background:var(--panel2); border:1px solid var(--bronze); }
+#governance .governance-mark--pent { clip-path:polygon(50% 0,100% 38%,82% 100%,18% 100%,0 38%); border:0; background:var(--bronze); }
+#governance .governance-mark--hex { clip-path:polygon(25% 5%,75% 5%,100% 50%,75% 95%,25% 95%,0 50%); border:0; background:var(--line2); }
+#governance .governance-mark--await { color:var(--bronze); border-color:var(--gold); }
+#governance .governance-node { cursor:pointer; outline:none; }
+#governance .governance-node circle, #governance .governance-node path { transition:fill .18s linear, stroke .18s linear; }
+@media(prefers-reduced-motion:reduce) { #governance .governance-node circle, #governance .governance-node path { transition:none; } }
+#governance .governance-node .selection { stroke:var(--bronze); stroke-width:1.5; fill:none; opacity:0; }
+#governance .governance-node[aria-pressed=true] .selection, #governance .governance-node:hover .selection, #governance .governance-node:focus-visible .selection { opacity:1; }
+#governance .governance-node:focus-visible .selection { stroke-width:3; }
+#governance .governance-node .node-name { fill:var(--ink); font:19px var(--display); text-anchor:middle; }
+#governance .governance-node .node-name--root { font-size:24px; font-weight:700; }
+#governance .governance-node .node-status { fill:var(--ink); font:15px var(--words); text-anchor:middle; }
+#governance .governance-node .ring-name { fill:var(--ink); font:18px var(--display); text-anchor:middle; }
+#governance .governance-inspect { display:flex; align-items:baseline; justify-content:center; gap:14px; min-height:48px; padding:13px 0; font:var(--t3); font-size:14px; border-top:1px solid var(--line); }
+#governance .governance-inspect b { font-weight:700; }
+#governance [data-governance-tally] { color:var(--ink2); }
+#governance [data-governance-verdict] { font-family:var(--display); font-style:italic; }
+#governance .governance-timeline { display:flex; align-items:center; gap:23px; padding:3px 0 12px; }
+#governance .governance-timeline button { font:var(--t3); font-size:14px; color:var(--ink2); border:0; border-bottom:1px solid var(--line2); background:none; padding:6px 0; cursor:pointer; min-width:42px; }
+#governance .governance-scrubber { flex:1; display:flex; align-items:center; min-width:0; }
+#governance .governance-scrubber input { width:100%; margin:0; height:28px; cursor:ew-resize; appearance:none; background:transparent; --progress:0%; }
+#governance .governance-scrubber input::-webkit-slider-runnable-track { height:2px; background:linear-gradient(to right,var(--gold) var(--progress),var(--line) var(--progress)); }
+#governance .governance-scrubber input::-webkit-slider-thumb { appearance:none; width:9px; height:9px; border:1px solid var(--bronze); background:var(--gold); border-radius:50%; margin-top:-3.5px; }
+#governance .governance-scrubber input::-moz-range-track { height:2px; background:var(--line); }
+#governance .governance-scrubber input::-moz-range-progress { height:2px; background:var(--gold); }
+#governance .governance-scrubber input::-moz-range-thumb { width:9px; height:9px; border:1px solid var(--bronze); background:var(--gold); border-radius:50%; }
+#governance .governance-scrubber input:focus-visible { outline:2px solid var(--gold); outline-offset:4px; }
+#governance .governance-key { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:8px 22px; font:var(--t3); font-size:12px; color:var(--ink2); }
+#governance .governance-example { margin-right:auto; font-family:var(--display); font-style:italic; }
+#governance .governance-mark { display:inline-flex; align-items:center; justify-content:center; width:17px; height:17px; border:1px solid color-mix(in srgb,var(--ink) 20%,transparent); border-radius:50%; margin-right:6px; font-style:normal; line-height:1; color:var(--ink); }
+#governance .governance-mark--approved { background:var(--gov-yes); }
+#governance .governance-mark--rejected { background:var(--gov-no); }
+#governance .governance-mark--split { background:var(--gov-split); }
+#governance .governance-sr { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+@media(max-width:900px) {
+  #governance .governance-view { padding:0 6px; }
+  #governance .governance-view figcaption { font-size:18px; }
+  #governance .governance-view figcaption small { font-size:12px; }
+}
+@media(max-width:700px) {
+  #governance .governance-steps { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  #governance .governance-seal { overflow-x:auto; -webkit-overflow-scrolling:touch; padding:0; }
+  #governance .governance-seal svg { min-width:860px; }
+  #governance .governance-heading { margin-bottom:32px; }
+  #governance .governance-pair { grid-template-columns:minmax(0,1fr); gap:22px; }
+  #governance .governance-view { padding:0; }
+  #governance .governance-view + .governance-view { border-left:0; border-top:1px solid var(--line); padding-top:22px; }
+  #governance .governance-view figcaption { padding:0; font-size:21px; }
+  #governance .governance-view figcaption.mirrored { text-align:left; }
+  #governance .governance-view figcaption.mirrored > span { margin-left:8px; }
+  #governance .governance-view figcaption small { font-size:14px; max-width:30ch; }
+  #governance .governance-node .node-name { font-size:24px; }
+  #governance .governance-node .ring-name { font-size:23px; }
+  #governance .governance-inspect { flex-wrap:wrap; gap:4px 10px; padding:12px 0; }
+  #governance [data-governance-tally] { width:100%; text-align:center; order:3; }
+  #governance .governance-key { gap:8px 12px; font-size:11px; }
+  #governance .governance-example { width:100%; text-align:center; margin:0; }
+}
+/* THE PANTHEON'S BOARD ON THE FRONT (Nov 19 2026, his "Yes, the front too"): the riders by what they brought (swarmbook-board.mjs), in this page's parchment: the
+   governance heading's kicker and title, ruled rows in ink, gold for the first rank, bronze for what each rider brought the swarm, the visitor's own row lit as a
+   current step is lit here. The same rows as under the Claw Riders on the page after the mint, where the night sheet (swarmbook-book.css) dresses them. */
+#board { margin-top:clamp(28px,4vh,44px); padding-top:clamp(24px,4vh,40px); border-top:1px solid var(--line); text-align:center; scroll-margin-top:100px; }
+#board[hidden], #board [hidden], #board .am-board-empty[hidden] { display:none; }
+#board .am-kicker { font:var(--t4); font-size:10px; letter-spacing:.24em; text-transform:uppercase; color:var(--bronze); margin:0 0 14px; }
+#board h2 { font:var(--t1); font-size:clamp(27px,3vw,42px); letter-spacing:-.02em; margin:0 0 30px; color:var(--ink); }
+#board h2 em { color:var(--gold); }
+#board .am-board-rows { list-style:none; max-width:1060px; margin:0 auto 48px; padding:0; text-align:left; border-top:1px solid var(--line); }
+#board .am-board-rows li { display:grid; grid-template-columns:44px 62px minmax(0,1fr) 150px 130px 120px; align-items:center; gap:14px; padding:12px 10px; border-bottom:1px solid var(--line); }
+#board .am-board-rows li.mine { background:rgba(201,155,63,.13); box-shadow:inset 0 0 0 1px var(--gold); }
+#board .am-board-rank { font:var(--t1); font-size:26px; color:var(--bronze); text-align:center; }
+#board li.top .am-board-rank { color:var(--gold); }
+#board .am-board-face { display:block; width:62px; height:62px; clip-path:polygon(50% 2%,93% 26%,93% 74%,50% 98%,7% 74%,7% 26%); background:var(--panel2); }
+#board .am-board-face:has(canvas) { clip-path:none; background:none; }
+#board .am-board-face canvas { display:block; width:100%; height:100%; }
+#board .am-board-who b { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font:var(--t2); font-size:19px; color:var(--ink); }
+#board .am-board-who a { color:inherit; text-decoration:none; }
+#board .am-board-who a:hover, #board .am-board-who a:focus-visible { color:var(--bronze); outline:0; }
+#board .am-board-who small, #board .am-board-num small { font:var(--t3); font-size:12px; color:var(--ink2); }
+#board li.mine .am-board-who small { color:var(--bronze); }
+#board .am-board-num { text-align:right; }
+#board .am-board-num b { display:block; font:600 18px/1.2 var(--words); color:var(--ink); font-variant-numeric:tabular-nums; }
+#board .am-board-num.fee b { color:var(--bronze); }
+#board .am-board-empty { display:grid; justify-items:center; gap:14px; max-width:560px; margin:0 auto 48px; padding:28px 24px; border:1px dashed var(--line2); font:italic 400 22px/1.3 var(--display); color:var(--ink); }
+#board .am-board-empty a { display:inline-flex; align-items:baseline; gap:.6em; padding:0 0 5px; border-bottom:1px solid var(--gold); color:var(--ink); font:var(--t2); font-style:normal; font-size:17px; text-decoration:none; }
+#board .am-board-empty a i { font:var(--t4); font-style:normal; font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--bronze); }
+@media (max-width:960px) { #board .am-board-rows li { grid-template-columns:36px 56px minmax(0,1fr) 100px 96px; gap:10px; padding:12px 6px; } #board .am-board-face { width:56px; height:56px; } #board .am-board-num.burn { display:none; } }   /* this page's column is 160 px narrower than the night page's: at 761 three numbers left a name 131 px and cut two; the burn goes first, as on a phone */
+@media (max-width:760px) { #board .am-board-rows li { grid-template-columns:26px 48px minmax(0,1fr) auto; gap:10px; padding:10px 4px; } #board .am-board-face { width:48px; height:48px; } #board .am-board-num.burn, #board .am-board-num.warm { display:none; } #board .am-board-who b { font-size:16px; } #board .am-board-rank { font-size:20px; } }

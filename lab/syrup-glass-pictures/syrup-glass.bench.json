@@ -1,0 +1,252 @@
+{
+ "at": "2026-10-14T05:33:00.542Z",
+ "chrome": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+ "host": "Guidos-MacBook-Pro.local",
+ "load": [
+  30.63427734375,
+  69.32666015625,
+  83.9375
+ ],
+ "sizes": {
+  "1920x1080": {
+   "info": {
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4 Max, Unspecified Version)",
+    "timer": true,
+    "floatTargets": true,
+    "width": 1920,
+    "height": 1080,
+    "dpr": 1,
+    "textureBytes": 6492432,
+    "meshBytes": 10080,
+    "star": "picture",
+    "field": [
+     1024,
+     512
+    ],
+    "dirty": [
+     560,
+     25,
+     992,
+     1011
+    ]
+   },
+   "star": "picture",
+   "pictures": [
+    "/private/tmp/claude-501/-Users-guidopardi-code-ec-house--claude-worktrees-practical-dhawan-f6d1b2/fe6e7f28-0976-4f69-9c84-b402e41e8e42/scratchpad/run5/1-bronze-mid-fall.png",
+    "/private/tmp/claude-501/-Users-guidopardi-code-ec-house--claude-worktrees-practical-dhawan-f6d1b2/fe6e7f28-0976-4f69-9c84-b402e41e8e42/scratchpad/run5/2-ripple-at-0.3s.png",
+    "/private/tmp/claude-501/-Users-guidopardi-code-ec-house--claude-worktrees-practical-dhawan-f6d1b2/fe6e7f28-0976-4f69-9c84-b402e41e8e42/scratchpad/run5/3-gold-setting.png",
+    "/private/tmp/claude-501/-Users-guidopardi-code-ec-house--claude-worktrees-practical-dhawan-f6d1b2/fe6e7f28-0976-4f69-9c84-b402e41e8e42/scratchpad/run5/5-caustics.png",
+    "/private/tmp/claude-501/-Users-guidopardi-code-ec-house--claude-worktrees-practical-dhawan-f6d1b2/fe6e7f28-0976-4f69-9c84-b402e41e8e42/scratchpad/run5/4-a-rung-later.png"
+   ],
+   "staged": {
+    "frames": 581,
+    "draws": 10,
+    "clock": 9683.33333333334,
+    "energy": 546.5945407423023,
+    "rippling": true,
+    "syncReads": 0,
+    "beads": 0,
+    "hanging": 0,
+    "animating": true,
+    "lastDrawCpu": 0.19999992847442627,
+    "passes": {
+     "glass": {
+      "us": 243.97166666666666,
+      "max_us": 479.25,
+      "n": 9
+     },
+     "back": {
+      "us": 136.78666666666666,
+      "max_us": 395.916,
+      "n": 9
+     },
+     "floor": {
+      "us": 106.26322222222223,
+      "max_us": 386.249,
+      "n": 9
+     },
+     "energy": {
+      "us": 893.4850689655173,
+      "max_us": 2661.249,
+      "n": 29
+     },
+     "wave": {
+      "us": 318.7746379310345,
+      "max_us": 2281.499,
+      "n": 348
+     },
+     "beads": {
+      "us": 14.416,
+      "max_us": 14.416,
+      "n": 1
+     }
+    },
+    "pending": 8
+   },
+   "alive": {
+    "frames": 300,
+    "draws": 300,
+    "passes": {
+     "glass": {
+      "us": 404.06599378881987,
+      "max_us": 3858.249,
+      "n": 322
+     },
+     "back": {
+      "us": 328.16756832298137,
+      "max_us": 3039.208,
+      "n": 322
+     },
+     "floor": {
+      "us": 270.6140310559006,
+      "max_us": 2475.5,
+      "n": 322
+     },
+     "wave": {
+      "us": 295.3323260869565,
+      "max_us": 2515.75,
+      "n": 322
+     },
+     "beads": {
+      "us": 356.30078217821784,
+      "max_us": 3692.75,
+      "n": 303
+     },
+     "energy": {
+      "us": 653.1213703703703,
+      "max_us": 2362.999,
+      "n": 27
+     }
+    },
+    "delta_ms": {
+     "n": 299,
+     "min": 16.599999999998545,
+     "median": 16.69999999999891,
+     "p95": 16.700000000000728,
+     "max": 16.800000000000182,
+     "mean": 16.66588628762542
+    },
+    "draw_cpu_ms": {
+     "n": 300,
+     "min": 0,
+     "median": 0.10000002384185791,
+     "p95": 0.20000004768371582,
+     "max": 0.20000004768371582,
+     "mean": 0.07966666460037232
+    }
+   },
+   "rest": {
+    "frames": 300,
+    "draws": 0,
+    "pageFrames": 0,
+    "energy": 0.029596720973984247,
+    "rippling": false,
+    "syncReads": 0,
+    "animating": false
+   },
+   "passesAlone_us": {
+    "wave x4": 5.0000011920928955,
+    "energy": 1171.6666658719382,
+    "mask": 36.66666547457377,
+    "frame (back+glass+beads)": 15.000001589457193
+   },
+   "errors": [],
+   "refused": []
+  },
+  "1280x720": {
+   "info": {
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4 Max, Unspecified Version)",
+    "timer": true,
+    "floatTargets": true,
+    "width": 1280,
+    "height": 720,
+    "dpr": 1,
+    "textureBytes": 6492432,
+    "meshBytes": 10080,
+    "star": "picture",
+    "field": [
+     1024,
+     512
+    ],
+    "dirty": [
+     373,
+     17,
+     662,
+     674
+    ]
+   },
+   "star": "picture",
+   "pictures": [],
+   "alive": {
+    "frames": 300,
+    "draws": 300,
+    "passes": {
+     "floor": {
+      "us": 218.49829341317363,
+      "max_us": 2248.75,
+      "n": 334
+     },
+     "glass": {
+      "us": 285.3050419161677,
+      "max_us": 2494.416,
+      "n": 334
+     },
+     "back": {
+      "us": 241.53427245508982,
+      "max_us": 2310.124,
+      "n": 334
+     },
+     "beads": {
+      "us": 242.79199342105264,
+      "max_us": 2493.166,
+      "n": 304
+     },
+     "wave": {
+      "us": 261.3560974025974,
+      "max_us": 2065.5,
+      "n": 308
+     },
+     "energy": {
+      "us": 582.52264,
+      "max_us": 1908.499,
+      "n": 25
+     }
+    },
+    "delta_ms": {
+     "n": 299,
+     "min": 16.5,
+     "median": 16.699999999999818,
+     "p95": 16.700000000000728,
+     "max": 16.800000000000182,
+     "mean": 16.666220735785963
+    },
+    "draw_cpu_ms": {
+     "n": 300,
+     "min": 0,
+     "median": 0.10000002384185791,
+     "p95": 0.20000004768371582,
+     "max": 0.30000007152557373,
+     "mean": 0.0790000057220459
+    }
+   },
+   "rest": {
+    "frames": 300,
+    "draws": 0,
+    "pageFrames": 0,
+    "energy": 0.022070755234718575,
+    "rippling": false,
+    "syncReads": 0,
+    "animating": false
+   },
+   "passesAlone_us": {
+    "wave x4": 6.666666269302368,
+    "energy": 1068.3333337306976,
+    "mask": 29.999999205271404,
+    "frame (back+glass+beads)": 16.666666666666668
+   },
+   "errors": [],
+   "refused": []
+  }
+ },
+ "browser": "Chrome/155.0.8059.40"
+}

@@ -1,0 +1,76 @@
+{
+ "at": "2026-10-14T06:57:01.923Z",
+ "host": "Guidos-MacBook-Pro.local",
+ "load": [
+  20.49755859375,
+  31.017578125,
+  32.8505859375
+ ],
+ "size": "1280x720",
+ "remote": true,
+ "pictures": [],
+ "rest": {
+  "frames": 300,
+  "draws": 0
+ },
+ "fps": [
+  {
+   "capacity": 30,
+   "faces": 42,
+   "setup_ms": 1.2000000476837158,
+   "draw": {
+    "n": 60,
+    "min": 1.2999999523162842,
+    "median": 1.7999999523162842,
+    "p95": 4.799999952316284,
+    "max": 21.100000143051147
+   },
+   "raf": {
+    "n": 60,
+    "min": 16.700000000000728,
+    "median": 300,
+    "p95": 366.6000000000058,
+    "max": 15749.400000000001
+   }
+  },
+  {
+   "capacity": 80,
+   "faces": 92,
+   "setup_ms": 9.799999952316284,
+   "draw": {
+    "n": 60,
+    "min": 2.1000001430511475,
+    "median": 2.9000000953674316,
+    "p95": 4.799999952316284,
+    "max": 21.600000143051147
+   },
+   "raf": {
+    "n": 60,
+    "min": 316.59999999999127,
+    "median": 333.3000000000029,
+    "p95": 366.6000000000058,
+    "max": 17382.6
+   }
+  }
+ ],
+ "browser": "Chrome/151.0.7922.137",
+ "star": "stand-in",
+ "info": {
+  "canvas": "2d",
+  "dpr": 1,
+  "size": [
+   1126,
+   832
+  ],
+  "gate": "mark",
+  "rise": 0,
+  "star": "stand-in"
+ },
+ "canvas2d": "enabled",
+ "gl": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver-5.0.0)",
+ "under30": 30,
+ "errors": [],
+ "refused": [
+  "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap"
+ ]
+}

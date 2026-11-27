@@ -1,0 +1,4 @@
+# Disc chunks must remain byte-identical on every platform.
+*.gmi binary
+*.mpl binary
+*.tpl binary

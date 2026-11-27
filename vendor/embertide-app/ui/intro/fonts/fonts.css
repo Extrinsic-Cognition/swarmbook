@@ -1,0 +1,16 @@
+/* fonts.css — the welcome's own faces (Sept 27 2026, his "i hate that the fonts change immediately after launch" and "it just
+   resizes because the cta changes"). The welcome named Apple's faces ('Bodoni 72', Didot, Georgia) and shipped none, so a glass
+   without them drew its own serif, and every picture baked on the Mac changed its letters when the live page took over.
+   Two open faces (SIL Open Font License 1.1, licences beside this file) now answer to the names the styles and the canvases
+   already use, on every machine, the Mac included, so a baked picture and the live page draw the same letters:
+     'Bodoni 72'  -> Bodoni Moda (variable: optical size + weight)      Georgia -> Gelasio (variable: weight; Georgia's metrics)
+   A face declared here wins over an installed face of the same name. font-display: block: never a first paint in another face. */
+@font-face { font-family: 'Bodoni 72'; src: url('./BodoniModa.ttf') format('truetype'); font-weight: 400 900; font-style: normal; font-display: block; }
+@font-face { font-family: 'Bodoni 72'; src: url('./BodoniModa-Italic.ttf') format('truetype'); font-weight: 400 900; font-style: italic; font-display: block; }
+@font-face { font-family: 'Georgia'; src: url('./Gelasio.ttf') format('truetype'); font-weight: 400 700; font-style: normal; font-display: block; }
+@font-face { font-family: 'Georgia'; src: url('./Gelasio-Italic.ttf') format('truetype'); font-weight: 400 700; font-style: italic; font-display: block; }
+/* DM Sans, the mint's text face (dyson-society/app/fonts, SIL OFL 1.1 beside them), for Harmony's text since his Oct 25 2026 go on the one window:
+   the mint's type on every tab (Bodoni for the titles, as 'Bodoni 72' above; DM Sans for the words). Local files only: no font is fetched. */
+@font-face { font-family: 'DM Sans'; src: url('../dyson-society/app/fonts/dm-sans-400.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: 'DM Sans'; src: url('../dyson-society/app/fonts/dm-sans-500.ttf') format('truetype'); font-weight: 500; font-style: normal; font-display: block; }
+@font-face { font-family: 'DM Sans'; src: url('../dyson-society/app/fonts/dm-sans-600.ttf') format('truetype'); font-weight: 600 700; font-style: normal; font-display: block; }

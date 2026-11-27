@@ -1,0 +1,219 @@
+{
+  "schema": "dyson.harmony-mint-handoff.v1",
+  "date": "2026-10-13",
+  "status": "contract_native_wallet_and_rpc_builder_verified_activation_pending",
+  "requirement": {
+    "source": "Guido, this chat; C-16 atom e63e078140daf300",
+    "verbatim": "the mint needs to happen on the Harmony app side... when i do the lyssajudron successfully... you get me?",
+    "surface": "Harmony app",
+    "trigger": "successful Lyssajudron completion",
+    "network": "solana-mainnet-beta",
+    "asset": "NFT",
+    "ownership": {
+      "verbatim": "NFT transfers the society seat",
+      "source": "Guido, this chat; C-16 atom 5812ac301899a045",
+      "rule": "Resale transfers control of the same society seat. A former NFT owner must no longer exercise that seat.",
+      "implementationStatus": "Atomic Token-2022 mint, immutable seat receipt, runtime transfer hook, current-owner voting/dividends, and permanent per-proposal electorate snapshot implemented. 22 NFT tests including exported runtime fixture and 6 electorate tests pass against real SBF. No live issuance."
+    },
+    "transactionApproval": "user reviews and approves inside the Harmony mint journey",
+    "price": null,
+    "treasury": null,
+    "pricing": {
+      "source": "Guido, this chat, Oct 13 2026",
+      "verbatim": "dude, make it increasing",
+      "rule": "Each successful mint increases the next mint price.",
+      "implementation": "Linear quote: startLamports + successfulMintCount * stepLamports. Positive start and increment, exact u64 arithmetic.",
+      "startLamports": null,
+      "stepLamports": null,
+      "status": "Positive increasing curve enforced atomically on-chain; runtime tests passed. Live start and increment remain unset."
+    }
+  },
+  "observed": {
+    "website": "https://optimism.fit/app/warm.html#mint",
+    "websiteFlow": "devnet commitSeatBid and revealSeatBid; no NFT mint",
+    "configuredProgram": "AJdsmjxQjHnBxDEdRxwEk2UMRW7bgNmvEMUwMziRTyab",
+    "existingDeploymentAuthority": {
+      "publicKey": "3nJn2tnmR27xbkjzT49YnSnXL2KeddzM7CkEizYiKMba",
+      "source": "Finalized devnet upgradeable ProgramData account 6Rx3F8wJJkwdu1agmHaNVwfQKaQSQtNsKnqpHp3FppCh",
+      "observedDevnetSlot": 510531705,
+      "mainnetDraftAuthority": "3nJn2tnmR27xbkjzT49YnSnXL2KeddzM7CkEizYiKMba",
+      "status": "Existing public authority reused in preparation draft; key custody and mainnet signature not exercised. No secret file read.",
+      "mainnetFundingRead": {
+        "commitment": "finalized",
+        "slot": 456358115,
+        "balanceLamports": "0",
+        "genesisHash": "5eykt4UsFv8P8NJdTREpY1vzqKqZKvdpKuc147dw2N9d",
+        "note": "Read-only getBalance; authority and transaction fee payer may differ. No key or signing operation."
+      }
+    },
+    "mainnetRead": {
+      "slot": 456339577,
+      "commitment": "finalized",
+      "account": null
+    },
+    "devnetRead": {
+      "slot": 510531705,
+      "commitment": "finalized",
+      "executable": true
+    },
+    "publicInstaller": "none found in audited distribution paths",
+    "nativeEntry": "harmony-mac/native/WorkspaceNavigation.swift: entryURL -> /intro/life-menu/index.html",
+    "welcomeEntry": "harmony-first-door.mjs chooses the persisted Nest journey; /intro/?beginning=1 serves tools/embertide-mesh/mac-onboarding.html",
+    "completionNotProvenBy": [
+      "harmony.onboarded localStorage preference",
+      "join/state granted status",
+      "journey=start or journey=join navigation",
+      "harmonyIntro message type complete",
+      "animation completion",
+      "persona save without completion of the Lyssajudron journey"
+    ],
+    "runnerSeam": "mac-onboarding.html persists scene/entities/golem-lyssajudron-paint and scene/entities/golem-lyssajudron-light. Successful completion means all six chambers colored, matching birth, eyes opened, stable reference revisions and a Nest durable sequence covering both records.",
+    "runnerReceiptLimit": "The saved appearance is a local eligibility input, not a financial attestation or proof of installation. Trace analysis and the answer to the optional traces ticket are not prerequisites. The older /api/learn and /api/trainer path is not this current journey.",
+    "programSource": "Private Poleis baseline plus NFT extension committed in house/poleis. Official SBF build on new Mac; program source bc5778d9, receipt integration 8b0af188, adapter 8fbf6c3f/57523ddf. 45 host tests, 22 NFT integration tests, 6 NFT electorate tests and 13 client tests passed. No mainnet deployment.",
+    "programPublication": "Local-only baseline: source README holds public publication pending a license ruling. house-mirror/drop-filter.sh excludes the entire poleis/ tree, including tests, before synthetic-data exceptions. Import grants no redistribution approval.",
+    "nativeMintAdapter": "Explicit native launch of a bounded local Phantom approval helper, independent Harmony review capability, exact-message Ed25519 verification and receipt recovery. Native compilation and authority harness passed. Builder 35530958 passed the real compiled Rust/SVM fixture integration. Production builder remains null; no real wallet or payment exercised.",
+    "mintActivationSequence": "tools/embertide-mesh/lib/harmony-mint-builder.md#entry-and-remaining-activation-sequence"
+  },
+  "requiredWork": [
+    "Configure the authorized installation/completion issuer and durable admission storage: original completion identity and metadata must survive edits/restarts. Saved local colours alone are not financial attestation.",
+    "Set reviewed positive opening price/increment, supply and sale timing; initialize the canonical on-chain root, treasury and curve before activation.",
+    "Publish immutable NFT metadata for the actual asset and the transaction terms.",
+    "Read the asset's metadata from the karaoke session receipt the birth page writes beside her paint: scene/entities/golem-lyssajudron-session (embertide.golem-session/1: the birth, the song's track/title/artist/length and its position at the first shot and at her eyes, the lines sung as indices and times only, the six shots' beat hits, her six colours, the film's bytes and SHA-256; never the lyrics' words, never the film's bytes), served by GET /api/mint/completion as `session` only when its birth is the paint's birth. Which of these fields become the public metadata, and the price, remain Guido's decisions.",
+    "Wire the complete Harmony 8921 runtime and platform-specific precompiled helper through the existing signed installer; verify the relocated bundle with no checkout/toolchain dependency.",
+    "Fund the existing public deployment authority or nominate a funded fee payer, then complete user-signed mainnet deployment and fresh-install real-wallet rehearsal."
+  ],
+  "implemented": {
+    "completionReader": "tools/embertide-mesh/lib/harmony-mint-completion.mjs",
+    "completionRoute": "GET /api/mint/completion via harmony-mint-route.mjs; existing localOnly boundary",
+    "validation": "On verified new Mac: 59 focused UI/completion/route/pricing/helper tests passed in 177.221 ms at 80d76cce; 36 builder/transport/actual-Rust-SVM integration tests passed in 582.219 ms with 0 skips at 35530958. Six Rust host-adapter tests passed; optimized adapter built. Native authority harness and full Swift app compilation passed earlier. No real-wallet or fresh-install rehearsal.",
+    "cost": "No idle polling or resident mint service. Completion uses five fixed reads. Wallet retains at most eight intents. Four-second builder deadline, 3.5-second child deadline, 2 MiB RPC response cap, 256 KiB child input/64 KiB output. Review modules lazy loaded on Continue: 30,302 bytes (review, wallet-review, state and CSS). Real Rust/SVM cross-language mint/resale/burn/restart case 474.078 ms in a local fixture on new Mac; this is not mainnet latency.",
+    "liveCheck": "Read-only HTTP completion returned 200, incomplete/parts-unpainted in 283.373 ms for the currently persisted journey. Wallet availability returned configured=false, transportConfigured=false, mintReady=false. No completed current birth or live NFT transaction claimed.",
+    "runtime": "This lane has not restarted Harmony or activated minting. The existing release-publish service independently publishes working UI snapshots; do not assume uncommitted/static source is not served. The observed local wallet availability reports configured=false, transportConfigured=false, mintReady=false.",
+    "review": "mint-review.mjs + mint-wallet-review.mjs + state/CSS: persisted completion and exact wallet terms, explicit approval, existing issuance distinct from confirmation, retained same-page recovery even when the current birth is missing or incomplete. New approval stays bound to the original saved completion.",
+    "pricing": "dyson-society/tools/harmony-mint-pricing.mjs: exact canonical decimal strings and BigInt, positive start/increment, u64 overflow rejection; no invented live amounts or trusted count.",
+    "rustPricing": "Checked u64 price from authoritative successful count, positive start/step, both issuer and buyer maximum enforced. Successful atomic mint alone advances count; rollback and replay tested.",
+    "nftState": "Immutable NftSeat123 bytes and MintCurve123 bytes (including chain genesis domain), permanent per-asset holder rows; burning does not reset issuance count or permit consumption.",
+    "buildMachines": "This executor is the old Mac, Guidos-MacBook-Pro.local, serving the Nest. Builds run on the verified new Mac guidos-MacBook-Pro-2.local at 192.168.8.139, in an isolated Git worktree. Do not infer machine role from a DNS alias.",
+    "reviewCapture": "~/Downloads/corp_Extrinsic-Cognition/dyson-society-playground/harmony-mint-review-fixture.png",
+    "contractRuntime": {
+      "commit": "bc5778d9f1064cde17c6a5c3f13264be4220e88a",
+      "hostUnitTests": 45,
+      "nftIntegrationTests": 22,
+      "nftAssemblyTests": 6,
+      "sbfReleaseCompileSeconds": 1.67,
+      "nftTestSeconds": 0.74,
+      "nftAssemblyTestSeconds": 0.12,
+      "assurance": "Actual program SBF, Token-2022 and runtime Ed25519; synthetic keys, prices, metadata and completion fixtures. Native Swift authority origin/route/body harness passed on new Mac. Legacy council loader-upgrade CPI test remains ignored by Mollusk; no claim of fresh-install, real-wallet or mainnet rehearsal.",
+      "pending": "Authorized issuer and durable completion lineage, reviewed live sale terms/root/treasury, immutable public metadata, coherent signed installer, funded user-signed mainnet deployment and fresh-install real-wallet rehearsal.",
+      "testCommit": "055df04a8157772c0326acb7588b154b8fbc0ce7",
+      "clientUnitTests": 13,
+      "legacyAssemblyTests": 12,
+      "legacyCouncilTests": 30,
+      "legacyCouncilIgnored": 1,
+      "legacyAdversarialTests": 18,
+      "legacyCoreTests": 4,
+      "sbfBytes": 410432,
+      "sbfSha256": "86170fb575c08eae7e02814cb61017f456c58dc78a2b1c0ad2db1a97814aa627",
+      "exampleLegacyTransactionBytes": 1066,
+      "exampleMintComputeUnits": 63591,
+      "clientTestSeconds": 0.02,
+      "receiptTestCommit": "8b0af188",
+      "fixtureExportCommit": "3e3e50bc",
+      "hostAdapterCommit": "57523ddf",
+      "hostAdapterTests": 6,
+      "hostAdapterReleaseCompileSeconds": 14.73
+    },
+    "walletTransport": {
+      "commit": "804989c3",
+      "recoveryFixCommit": "55139928",
+      "status": "implemented_unconfigured",
+      "provider": "Phantom external browser helper",
+      "recovery": "Memory-only native capability/signature retention. Stable issuer identity and immutable metadata drive canonical receipt lookup on a new session before new quote/permit. Resale/burn retain original buyer separately from current owner. Finalized failure or proven blockhash expiry with coherent absent receipt permits a new review; unknown outcome never resends. Processed status context is not used as a finalized account-read floor.",
+      "transactionsSent": 0,
+      "integrationCommit": "35530958"
+    },
+    "nativeCompile": {
+      "commit": "13d60311",
+      "machine": "new Mac",
+      "fullAppCompileSeconds": 3.37,
+      "authorityHarness": "passed",
+      "installedByThisLane": false,
+      "realWalletTest": false
+    },
+    "rpcBuilder": {
+      "source": "tools/embertide-mesh/lib/harmony-mint-builder.mjs",
+      "readiness": "tools/embertide-mesh/lib/harmony-mint-builder.md",
+      "commit": "35530958",
+      "status": "implemented_unconfigured",
+      "hostAdapter": "poleis/client/examples/mint_adapter.rs",
+      "checks": "Pinned mainnet/deployed code and authority; canonical account snapshots through Rust; exact issuer permit and buyer message; price/rent/network fee; simulation; one transport submission and receipt-based recovery.",
+      "crossLanguageTests": 3,
+      "crossLanguageSkipped": 0,
+      "fixture": "Actual executed SBF/Token-2022 account bytes; synthetic keys, amounts, metadata and in-memory RPC. Rust executable invoked with empty environment.",
+      "productionMount": "harmony-aiolos.mjs still passes builder:null",
+      "installerLimitation": "Default UI source watcher does not ship the 8921 Node closure or ignored host binary. The separate 18777 overlay staging is insufficient. No second service or updater introduced."
+    },
+    "latestReadOnlyCheck": {
+      "observedAt": "2026-10-13T09:16:39Z",
+      "completion": {
+        "state": "complete",
+        "reason": "persisted-six-chambers",
+        "paintRevision": 664,
+        "lightRevision": 221,
+        "birthRetained": true
+      },
+      "wallet": {
+        "configured": false,
+        "transportConfigured": false,
+        "mintReady": false
+      },
+      "transactionsSent": 0,
+      "mutations": 0,
+      "note": "The actual loopback completion route verified stable references and durable persistence. It is still an eligibility input, not an issuer permit, NFT receipt or proof of a mainnet mint."
+    },
+    "nativeMintEntryFix": {
+      "commit": "99c10190286d4fd90d0bdf5a2e3128a961446768",
+      "source": "harmony-mac/native/AuthorityBridge.swift",
+      "harness": "harmony-mac/tests/MintAuthorityHarness.swift",
+      "problem": "The previous native mint guard rejected actual onboarding URLs after journey, step and birth were added.",
+      "behavior": "Both native review POSTs and the explicit wallet-helper launch accept only the actual bounded literal onboarding query grammar; origin, main-frame, route, body and capability limits remain.",
+      "installedByThisLane": false,
+      "validation": {
+        "machine": "NewMac",
+        "harness": "passed",
+        "harnessCompileSeconds": 35.4,
+        "harnessRunSeconds": 0.37,
+        "fullNativeCompileSeconds": 4.03,
+        "compiler": "CommandLineTools Swift 6.3.3",
+        "sdk": "MacOSX26.5.sdk",
+        "codeSigning": false,
+        "appInstalled": false,
+        "servicesRestarted": false
+      },
+      "candidate": {
+        "host": "192.168.8.139",
+        "path": "/tmp/harmony-mint-native-99c10190/Antimirror",
+        "bytes": 1438264,
+        "sha256": "446f0f07c62521a9fbe66a82d55a11525ac66118429e0eac3d77d630806bd77c",
+        "kind": "unsigned native executable, not a complete app or installer"
+      }
+    }
+  },
+  "acceptance": [
+    "A fresh installation can complete the Lyssajudron and reach the mint inside Harmony.",
+    "Failed, cancelled or incomplete Lyssajudron work cannot authorize a mint.",
+    "Cancelling wallet approval leaves the completed Lyssajudron available for retry.",
+    "Restart or lost confirmation does not charge or issue again for an already completed mint.",
+    "Harmony only displays minted after the expected NFT owner and asset are verified on mainnet.",
+    "Private traces, room recordings and local source content are not published by the mint."
+  ],
+  "criticalCodeHandoff": {
+    "owner": "Codex for this mint implementation, explicitly authorized by Guido in this chat",
+    "authorization": "Allow Codex for this mint implementation",
+    "attempt": "read-only current-program audit through Claude CLI with Read, Glob and Grep only",
+    "result": "Fable returned out of usage credits before producing an audit",
+    "contractReview": "NFT issuance, increasing price, immutable metadata/authorities, current-owner seat rights and permit replay prevention are implemented and tested. Further review and native fresh-install rehearsal remain necessary. Fund staking currently supports legacy key seats only.",
+    "transactionsSent": 0,
+    "mainnetDeployed": false
+  }
+}

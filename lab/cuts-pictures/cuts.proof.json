@@ -1,0 +1,775 @@
+{
+ "at": "2026-10-14T15:06:43.080Z",
+ "chrome": "~/Library/Caches/ms-playwright/chromium-1248/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+ "host": "guidos-MacBook-Pro-2.local",
+ "load": [
+  8.81,
+  9.07,
+  10.02
+ ],
+ "size": [
+  1280,
+  800
+ ],
+ "dpr": 2,
+ "browser": "Chrome/156.0.8078.4",
+ "ready": {
+  "tags": 3,
+  "shots": 28,
+  "tagsFrom": "the Nest, rev 1",
+  "rev": 1,
+  "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Max, Unspecified Version)",
+  "timer": true,
+  "dpr": 2
+ },
+ "pictures": [
+  {
+   "second": 11,
+   "file": "pass-1-picture.jpg",
+   "bytes": 35954,
+   "t": 11,
+   "pass": "picture",
+   "passFrame": null,
+   "blocks": null,
+   "cut": null,
+   "chips": [
+    "10.835 SACRIFICE #29c5dc face 8"
+   ],
+   "held": [
+    null,
+    null
+   ],
+   "draws": 3,
+   "keeps": 0
+  },
+  {
+   "second": 11.1,
+   "file": "pass-2-normals.jpg",
+   "bytes": 18301,
+   "t": 11.1,
+   "pass": "normals",
+   "passFrame": 1,
+   "blocks": null,
+   "cut": {
+    "kind": "pass",
+    "t": 11.044,
+    "frame": 331,
+    "why": "burst"
+   },
+   "chips": [
+    "10.835 SACRIFICE #29c5dc face 8"
+   ],
+   "held": [
+    null,
+    null
+   ],
+   "draws": 4,
+   "keeps": 0
+  },
+  {
+   "second": 11.25,
+   "file": "pass-3-matte.jpg",
+   "bytes": 13390,
+   "t": 11.25,
+   "pass": "matte",
+   "passFrame": 6,
+   "blocks": null,
+   "cut": {
+    "kind": "pass",
+    "t": 11.044,
+    "frame": 331,
+    "why": "burst"
+   },
+   "chips": [
+    "10.835 SACRIFICE #29c5dc face 8"
+   ],
+   "held": [
+    null,
+    null
+   ],
+   "draws": 5,
+   "keeps": 0
+  },
+  {
+   "second": 11.45,
+   "file": "pass-4-picture-back.jpg",
+   "bytes": 40082,
+   "t": 11.45,
+   "pass": "picture",
+   "passFrame": null,
+   "blocks": null,
+   "cut": null,
+   "chips": [
+    "10.835 SACRIFICE #29c5dc face 8"
+   ],
+   "held": [
+    null,
+    null
+   ],
+   "draws": 6,
+   "keeps": 0
+  },
+  {
+   "second": 24.1,
+   "file": "no-cut-24.10.jpg",
+   "bytes": 44527,
+   "t": 24.1,
+   "pass": "picture",
+   "passFrame": null,
+   "blocks": null,
+   "cut": null,
+   "chips": [
+    "10.835 SACRIFICE #29c5dc face 8"
+   ],
+   "held": [
+    null,
+    null
+   ],
+   "draws": 7,
+   "keeps": 0
+  },
+  {
+   "second": 29.5796,
+   "file": "cut-29.563-1-the-two-shot-stands.jpg",
+   "bytes": 69756,
+   "t": 29.5796,
+   "pass": "picture",
+   "passFrame": null,
+   "blocks": {
+    "since": 0.016733333333331046,
+    "filled": 0,
+    "seed": 1988,
+    "holes": 0.3,
+    "cut": 29.563
+   },
+   "cut": {
+    "kind": "blocks",
+    "t": 29.563,
+    "frame": 886,
+    "why": "cut"
+   },
+   "chips": [
+    "10.835 SACRIFICE #29c5dc face 8"
+   ],
+   "held": [
+    29.563,
+    885
+   ],
+   "draws": 9,
+   "keeps": 1
+  },
+  {
+   "second": 29.6797,
+   "file": "cut-29.563-2-half-filled.jpg",
+   "bytes": 69685,
+   "t": 29.6797,
+   "pass": "picture",
+   "passFrame": null,
+   "blocks": {
+    "since": 0.11683333333333223,
+    "filled": 0.5,
+    "seed": 1988,
+    "holes": 0.3,
+    "cut": 29.563
+   },
+   "cut": {
+    "kind": "blocks",
+    "t": 29.563,
+    "frame": 886,
+    "why": "cut"
+   },
+   "chips": [
+    "10.835 SACRIFICE #29c5dc face 8"
+   ],
+   "held": [
+    29.563,
+    885
+   ],
+   "draws": 10,
+   "keeps": 1
+  },
+  {
+   "second": 29.8131,
+   "file": "cut-29.563-3-her-shoulder-whole.jpg",
+   "bytes": 44294,
+   "t": 29.8131,
+   "pass": "picture",
+   "passFrame": null,
+   "blocks": null,
+   "cut": null,
+   "chips": [
+    "10.835 SACRIFICE #29c5dc face 8"
+   ],
+   "held": [
+    29.563,
+    885
+   ],
+   "draws": 11,
+   "keeps": 1
+  },
+  {
+   "second": 36.5866,
+   "file": "cut-36.570-1-her-face-stands.jpg",
+   "bytes": 73627,
+   "t": 36.5866,
+   "pass": "picture",
+   "passFrame": null,
+   "blocks": {
+    "since": 0.016733333333327494,
+    "filled": 0,
+    "seed": 1988,
+    "holes": 0.3,
+    "cut": 36.57
+   },
+   "cut": {
+    "kind": "blocks",
+    "t": 36.57,
+    "frame": 1096,
+    "why": "cut"
+   },
+   "chips": [
+    "10.835 SACRIFICE #29c5dc face 8"
+   ],
+   "held": [
+    36.57,
+    1095
+   ],
+   "draws": 13,
+   "keeps": 2
+  },
+  {
+   "second": 36.6867,
+   "file": "cut-36.570-2-half-filled.jpg",
+   "bytes": 75705,
+   "t": 36.6867,
+   "pass": "picture",
+   "passFrame": null,
+   "blocks": {
+    "since": 0.11683333333333223,
+    "filled": 0.5,
+    "seed": 1988,
+    "holes": 0.3,
+    "cut": 36.57
+   },
+   "cut": {
+    "kind": "blocks",
+    "t": 36.57,
+    "frame": 1096,
+    "why": "cut"
+   },
+   "chips": [
+    "10.835 SACRIFICE #29c5dc face 8"
+   ],
+   "held": [
+    36.57,
+    1095
+   ],
+   "draws": 14,
+   "keeps": 2
+  },
+  {
+   "second": 36.8201,
+   "file": "cut-36.570-3-the-column-whole.jpg",
+   "bytes": 41849,
+   "t": 36.8201,
+   "pass": "picture",
+   "passFrame": null,
+   "blocks": null,
+   "cut": null,
+   "chips": [
+    "10.835 SACRIFICE #29c5dc face 8"
+   ],
+   "held": [
+    36.57,
+    1095
+   ],
+   "draws": 15,
+   "keeps": 2
+  },
+  {
+   "second": 37.2,
+   "file": "chips-at-37.2-in-the-pass.jpg",
+   "bytes": 20557,
+   "t": 37.2,
+   "pass": "normals",
+   "passFrame": 2,
+   "blocks": null,
+   "cut": {
+    "kind": "pass",
+    "t": 37.1,
+    "frame": 1112,
+    "why": "burst"
+   },
+   "chips": [
+    "10.835 SACRIFICE #29c5dc face 8",
+    "37.132 AIOLOS #f2cb2c face 11"
+   ],
+   "held": [
+    36.57,
+    1095
+   ],
+   "draws": 16,
+   "keeps": 2
+  }
+ ],
+ "windows": [
+  {
+   "what": "the pass at the first burst",
+   "from": 10.4,
+   "to": 12.003628,
+   "wall_s": 1.7497000000476837,
+   "draws": 49,
+   "keeps": 0,
+   "by": {
+    "frame": 48,
+    "pause": 1
+   },
+   "frames": 48,
+   "span_frames": 48,
+   "raf": 0,
+   "state": {
+    "picture": {
+     "draws": 39,
+     "cpu_ms": {
+      "n": 39,
+      "min": 0.2,
+      "median": 0.3,
+      "p95": 0.5,
+      "max": 0.7
+     },
+     "gpu_ms": {
+      "n": 38,
+      "min": 0.344,
+      "median": 0.449,
+      "p95": 1.115,
+      "max": 1.86
+     }
+    },
+    "normals": {
+     "draws": 6,
+     "cpu_ms": {
+      "n": 6,
+      "min": 0.2,
+      "median": 0.3,
+      "p95": 0.4,
+      "max": 0.4
+     },
+     "gpu_ms": {
+      "n": 6,
+      "min": 0.349,
+      "median": 0.673,
+      "p95": 2.169,
+      "max": 2.169
+     }
+    },
+    "matte": {
+     "draws": 4,
+     "cpu_ms": {
+      "n": 4,
+      "min": 0.3,
+      "median": 0.4,
+      "p95": 0.5,
+      "max": 0.5
+     },
+     "gpu_ms": {
+      "n": 4,
+      "min": 0.473,
+      "median": 0.649,
+      "p95": 0.785,
+      "max": 0.785
+     }
+    }
+   },
+   "cuts": [
+    "picture",
+    "normals",
+    "matte"
+   ]
+  },
+  {
+   "what": "the codec's cut at the film's 29.563 s",
+   "from": 29,
+   "to": 30.431159,
+   "wall_s": 1.584,
+   "draws": 44,
+   "keeps": 3,
+   "by": {
+    "frame": 43,
+    "pause": 1
+   },
+   "frames": 43,
+   "span_frames": 43,
+   "raf": 0,
+   "state": {
+    "picture": {
+     "draws": 38,
+     "cpu_ms": {
+      "n": 38,
+      "min": 0.2,
+      "median": 0.3,
+      "p95": 0.6,
+      "max": 0.6
+     },
+     "gpu_ms": {
+      "n": 37,
+      "min": 0.33,
+      "median": 0.494,
+      "p95": 1.953,
+      "max": 2.081
+     }
+    },
+    "blocks": {
+     "draws": 6,
+     "cpu_ms": {
+      "n": 6,
+      "min": 0.2,
+      "median": 0.3,
+      "p95": 0.4,
+      "max": 0.4
+     },
+     "gpu_ms": {
+      "n": 6,
+      "min": 0.365,
+      "median": 1.193,
+      "p95": 2.09,
+      "max": 2.09
+     }
+    }
+   },
+   "cuts": [
+    "picture",
+    "picture blocks 0/6",
+    "picture blocks 1/6",
+    "picture blocks 2/6",
+    "picture blocks 3/6",
+    "picture blocks 4/6",
+    "picture blocks 5/6"
+   ]
+  },
+  {
+   "what": "the cut at 36.570 s, the pass at 37.10 s, the cut at 38.071 s, the chips",
+   "from": 36.3,
+   "to": 38.639748,
+   "wall_s": 2.490800000011921,
+   "draws": 72,
+   "keeps": 6,
+   "by": {
+    "frame": 71,
+    "pause": 1
+   },
+   "frames": 71,
+   "span_frames": 71,
+   "raf": 0,
+   "state": {
+    "picture": {
+     "draws": 50,
+     "cpu_ms": {
+      "n": 50,
+      "min": 0.2,
+      "median": 0.3,
+      "p95": 0.6,
+      "max": 0.7
+     },
+     "gpu_ms": {
+      "n": 49,
+      "min": 0.33,
+      "median": 0.451,
+      "p95": 1.413,
+      "max": 1.972
+     }
+    },
+    "blocks": {
+     "draws": 12,
+     "cpu_ms": {
+      "n": 12,
+      "min": 0.2,
+      "median": 0.3,
+      "p95": 0.6,
+      "max": 0.6
+     },
+     "gpu_ms": {
+      "n": 12,
+      "min": 0.366,
+      "median": 0.463,
+      "p95": 0.655,
+      "max": 0.655
+     }
+    },
+    "normals": {
+     "draws": 6,
+     "cpu_ms": {
+      "n": 6,
+      "min": 0.3,
+      "median": 0.4,
+      "p95": 0.4,
+      "max": 0.4
+     },
+     "gpu_ms": {
+      "n": 6,
+      "min": 0.182,
+      "median": 0.454,
+      "p95": 2.177,
+      "max": 2.177
+     }
+    },
+    "matte": {
+     "draws": 4,
+     "cpu_ms": {
+      "n": 4,
+      "min": 0.2,
+      "median": 0.3,
+      "p95": 0.5,
+      "max": 0.5
+     },
+     "gpu_ms": {
+      "n": 4,
+      "min": 0.37,
+      "median": 0.959,
+      "p95": 1.131,
+      "max": 1.131
+     }
+    }
+   },
+   "cuts": [
+    "picture",
+    "picture blocks 0/6",
+    "picture blocks 1/6",
+    "picture blocks 2/6",
+    "picture blocks 3/6",
+    "picture blocks 4/6",
+    "picture blocks 5/6",
+    "normals",
+    "matte"
+   ]
+  },
+  {
+   "what": "the pass at his conversion tag",
+   "from": 61.2,
+   "to": 62.62643,
+   "wall_s": 1.5787000000476836,
+   "draws": 44,
+   "keeps": 0,
+   "by": {
+    "frame": 43,
+    "pause": 1
+   },
+   "frames": 43,
+   "span_frames": 43,
+   "raf": 0,
+   "state": {
+    "picture": {
+     "draws": 34,
+     "cpu_ms": {
+      "n": 34,
+      "min": 0.2,
+      "median": 0.3,
+      "p95": 0.5,
+      "max": 0.6
+     },
+     "gpu_ms": {
+      "n": 33,
+      "min": 0.323,
+      "median": 0.422,
+      "p95": 1.251,
+      "max": 2.093
+     }
+    },
+    "normals": {
+     "draws": 6,
+     "cpu_ms": {
+      "n": 6,
+      "min": 0.2,
+      "median": 0.3,
+      "p95": 0.4,
+      "max": 0.4
+     },
+     "gpu_ms": {
+      "n": 6,
+      "min": 0.356,
+      "median": 0.424,
+      "p95": 0.641,
+      "max": 0.641
+     }
+    },
+    "matte": {
+     "draws": 4,
+     "cpu_ms": {
+      "n": 4,
+      "min": 0.3,
+      "median": 0.4,
+      "p95": 0.5,
+      "max": 0.5
+     },
+     "gpu_ms": {
+      "n": 4,
+      "min": 0.32,
+      "median": 0.369,
+      "p95": 0.511,
+      "max": 0.511
+     }
+    }
+   },
+   "cuts": [
+    "picture",
+    "normals",
+    "matte"
+   ]
+  },
+  {
+   "what": "the armor's flurry, the film's own cut device: none of ours",
+   "from": 64.599999,
+   "to": 69.90279,
+   "wall_s": 5.445599999964237,
+   "draws": 160,
+   "keeps": 0,
+   "by": {
+    "frame": 159,
+    "pause": 1
+   },
+   "frames": 159,
+   "span_frames": 159,
+   "raf": 0,
+   "state": {
+    "picture": {
+     "draws": 160,
+     "cpu_ms": {
+      "n": 160,
+      "min": 0.1,
+      "median": 0.3,
+      "p95": 0.5,
+      "max": 0.6
+     },
+     "gpu_ms": {
+      "n": 159,
+      "min": 0.329,
+      "median": 0.421,
+      "p95": 1.73,
+      "max": 2.127
+     }
+    }
+   },
+   "cuts": [
+    "picture"
+   ]
+  }
+ ],
+ "rest": {
+  "ms": 3000,
+  "draws": 0,
+  "raf": 0,
+  "keeps": 0,
+  "film": [
+   69.90279,
+   69.90279
+  ]
+ },
+ "bench": [
+  {
+   "what": "picture",
+   "t": 11.45,
+   "n": 60,
+   "pass": "picture",
+   "filled": null,
+   "cpu_ms": {
+    "n": 60,
+    "min": 0,
+    "median": 0.1,
+    "p95": 0.2,
+    "max": 0.3
+   },
+   "gpu_ms": {
+    "n": 60,
+    "min": 0.205,
+    "median": 0.461,
+    "p95": 2.031,
+    "max": 2.179
+   }
+  },
+  {
+   "what": "normals",
+   "t": 11.1,
+   "n": 60,
+   "pass": "normals",
+   "filled": null,
+   "cpu_ms": {
+    "n": 60,
+    "min": 0,
+    "median": 0.1,
+    "p95": 0.2,
+    "max": 0.2
+   },
+   "gpu_ms": {
+    "n": 60,
+    "min": 0.397,
+    "median": 0.402,
+    "p95": 1.132,
+    "max": 1.561
+   }
+  },
+  {
+   "what": "matte",
+   "t": 11.25,
+   "n": 60,
+   "pass": "matte",
+   "filled": null,
+   "cpu_ms": {
+    "n": 60,
+    "min": 0,
+    "median": 0.1,
+    "p95": 0.2,
+    "max": 0.2
+   },
+   "gpu_ms": {
+    "n": 60,
+    "min": 0.397,
+    "median": 0.403,
+    "p95": 1.965,
+    "max": 2.061
+   }
+  },
+  {
+   "what": "blocks",
+   "t": 29.6797,
+   "n": 60,
+   "pass": "picture",
+   "filled": 0.5,
+   "cpu_ms": {
+    "n": 60,
+    "min": 0,
+    "median": 0.1,
+    "p95": 0.2,
+    "max": 0.3
+   },
+   "gpu_ms": {
+    "n": 60,
+    "min": 0.23,
+    "median": 0.411,
+    "p95": 1.181,
+    "max": 1.253
+   }
+  }
+ ],
+ "info": {
+  "draws": 639,
+  "keeps": 12,
+  "heldFor": 29.563,
+  "heldFrame": 885,
+  "t": 29.6797,
+  "paused": true,
+  "chips": [
+   10.835
+  ],
+  "gpuMs": 0.410875,
+  "w": 1280,
+  "h": 800,
+  "info": {
+   "frame": 651,
+   "calls": 2,
+   "triangles": 60,
+   "points": 0,
+   "lines": 30
+  }
+ },
+ "refused": [],
+ "errors": []
+}

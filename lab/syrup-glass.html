@@ -1,0 +1,784 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Syrup glass</title>
+<!--
+  SYRUP GLASS: the mint's Goldberg as a glass pouch filling with syrup (Oct 14 2026 05:4x WEST). His words: the sphere must read as
+  "a glass polyhedron, a pouch, filling with syrup: maple syrup, whiskey, amber drops that ripple on the surface, with caustics and
+  pristine liquids, the best shaders in the world", with the rigour of the floating-versus-anchored land. The land is mint-gravity.mjs,
+  unchanged; this page only draws it. The mapping: a drop is a purchase. Bronze is a small drop that rolls into its pool and floats as a
+  pale film; gold is a heavy drop that sets in the glass as a deep amber well. A held cell is amber, an open cell is clear and the star
+  (his X picture, as the lab's stand-in for every face) is seen through it; the amber's depth is the money in the cell. A drop's ripple
+  travels through its own pool and stops at the watershed (the seam between two masses). The pouch's level is the land held over the
+  land there is: a full pouch is sold out; a drop with no cell hangs at the rim. Growth is the swarm's expansion: the mesh glides
+  (mint-sphere.js's morphPlan), the level falls, the wells and the chairs stay, new clear land opens on the seams and the hanging drops
+  pour onto it.
+  FOUR PASSES, WebGL2 (a lab; the WebGPU port is in LANDING.md):
+    (a) the wave: a height field on an equirectangular sphere map, 1024 x 512, RG16F ping-pong (h, h before), the two-tap wave
+        equation with taps one physical cell apart (the longitude tap widens by 1/cos lat, so a ripple is round anywhere), walled by a
+        pool-id texture (RG16F: pool, face; built on the GPU by the nearest face centre, on a cause only). A drop is a cosine splat at
+        its cell's direction. The field integrates only while its energy (a 32 x 16 reduction, read back asynchronously) is above a
+        threshold; then it is cleared and the page stops drawing.
+    (b) the glass: one draw of the Goldberg mesh (buildAssemblySkin faces, a fan a face, front faces only), Fresnel, a thin shell
+        whose outer normal carries the wave's gradient and whose inner normal is the sphere's, so each facet is a faint prism and a
+        ripple bends what is seen through it; the star disc at the centre; Beer-Lambert amber by the cell's money through the front
+        film, the pool below the level and the far cell's film; the room's reflection and the key light; the meniscus at the level.
+    (c) the caustics: the field's Laplacian as light focus, projected onto the parchment under the pouch (the bottom hemisphere seen
+        from below), tinted by the cell's amber and the pool's thickness, in the sphere's shadow ellipse. The parchment is a function
+        of the pixel, not a texture: the glass and the drops evaluate it where their refraction lands, and a frame repaints only the
+        rectangle around the pouch (the canvas keeps its buffer).
+    (d) the drops: instanced beads, sphere impostors that refract the backdrop and carry their metal's amber; a drop rolls 400 ms
+        from the rim to its cell and splashes as the impulse; one seen through the glass is dimmed.
+  THE LAW OF REST: no timer draws, no idle animation; a draw happens on a cause (a drop, a ripple alive, a glide, the level moving,
+  a drag, a resize). At rest the page draws nothing; window.__syrup counts frames and draws so a bench can prove it. Still is told by the
+  clock (LIFE_MS below, a drop's ripple's measured life; the costliest pass, the energy readback, never runs; ?rest=energy reads the field's
+  energy back instead, to measure that life again). FOR THE HERO (Oct 16 2026, the glass on the box with the liquor poured once and no
+  drops): no wave, mask or energy pass at all, the field a zero texture, so the glass pass alone draws (its backdrop read once a pixel,
+  ?dispersion=0, where the fringe is not worth a third of it); a meniscus ripple, if wanted, is analytic (irradiance.js's wave).
+  Not in the build (outside app/, js/, skills/, submission/); worn on no glass. ?bench=1 exposes the seams the bench reads.
+  THE TANK (Oct 16 2026; tank-law.mjs holds the law, tank-law.test.mjs holds it to the law, tank.proof.mjs sees it). His words: Sept 7 "money in
+  vault / money lands in tank (fuel) / agents are getting paid"; Sept 18 "turn the unit0 of every swarm as the 'tank fuel'"; Sept 21 "every time we
+  use tokens i wanna see like in league of legends the DPS or any number flashing to screen showing me how much i spent"; Oct 16, over this glass:
+  "focus on what i had for minirouter... the fucking MMO-like when tank-fuel is consumed by calling agents". The pouch is the MiniRouter tank: the
+  page reads the Nest's house/purse and mint/drops (tools/embertide-mesh/lib/house-purse.mjs writes the first on a cause: every call through the
+  purse door) once at load and then on their stream; the syrup's level is the purse's; a call that drank (a new burn row) flies up from the surface
+  as a number (its cost, its lane, its tokens in: the DPS), sparks rise from the surface and it takes a sip; the balance stands under the pouch with
+  the burn rate of the last minute; a sale (a drop on mint/drops) falls as a drop of its metal. Nothing at rest: the numbers are CSS animations on
+  the compositor, the sparks and the sip are causes of the page's own loop. No purse on the Nest, nothing of it is drawn. ?tank=0 leaves the pouch
+  the lab's; in a bench (?bench=1) the tank is off unless ?tank=1, so a bench stays hermetic; ?nest= names the Nest (default: this host, :8904).
+-->
+<style>
+  :root{--paper:#f4f0e7;--ink:#252921;--mute:#6f7466;--line:#d9d3c5}
+  html,body{margin:0;height:100%;background:var(--paper);color:var(--ink);font:13px/1.45 -apple-system,"Helvetica Neue",Helvetica,Arial,sans-serif;overflow:hidden}
+  canvas{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab}
+  .panel{position:fixed;left:18px;top:16px;width:300px;z-index:2;background:rgb(250 249 245 / .82);border:1px solid #d6bf8970;padding:12px 14px 10px;
+    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+  .panel h1{font:22px/1.1 Georgia,"Times New Roman",serif;letter-spacing:-.02em;margin:0 0 4px}
+  .panel .sum{font:10px/1.6 ui-monospace,Menlo,monospace;letter-spacing:.06em;color:var(--mute);margin:0 0 8px;white-space:pre-wrap}
+  .acts{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}
+  .acts button{font:10px ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;padding:8px 10px;border:1px solid #b8954f70;color:#535b4c;background:#fffefa;cursor:pointer}
+  .acts button:hover{background:#f3ead6;border-color:#b8954f;color:#30372c}
+  .acts button:disabled{opacity:.45;cursor:default}
+  .acts button.bronze{border-color:#a7734d;color:#5a3a22}.acts button.gold{border-color:#b8954f;color:#6b5213}
+  .hint{min-height:2.8em;color:#4c5246;margin:0 0 6px}.hint b{color:var(--ink)}
+  .stats{font:10px/1.5 ui-monospace,Menlo,monospace;color:var(--mute);white-space:pre-wrap;border-top:1px solid var(--line);padding-top:6px}
+  /* THE TANK: the balance under the pouch and the numbers that fly from its surface (his MMO DPS); moved by CSS on the compositor, written on a cause */
+  .tank{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+  .tank[hidden]{display:none}
+  .tank .balance{position:absolute;transform:translate(-50%,0);font:600 16px/1.2 ui-monospace,Menlo,monospace;letter-spacing:.06em;color:#6b5213;text-align:center;white-space:nowrap}
+  .tank .balance small{display:block;font-weight:400;font-size:10px;color:var(--mute);letter-spacing:.1em;margin-top:2px}
+  .tank .balance.drop{animation:tank-drop .7s ease-out}
+  @keyframes tank-drop{0%{color:#ff7a5c;transform:translate(-50%,0) scale(1.2)}100%{color:#6b5213;transform:translate(-50%,0) scale(1)}}
+  .pop{position:absolute;transform:translate(-50%,-50%);font:800 clamp(18px,3.4vmin,42px)/1 "Helvetica Neue",Helvetica,Arial,sans-serif;color:#ffcf5c;
+    -webkit-text-stroke:1px #4a2e05;text-shadow:0 2px 0 #4a2e05,0 0 16px #ffb347aa;white-space:nowrap;text-align:center;
+    animation:pop-rise 1.8s cubic-bezier(.2,.9,.3,1) forwards;will-change:transform,opacity}
+  .pop i{display:block;font:600 .4em/1.4 ui-monospace,Menlo,monospace;letter-spacing:.1em;color:#fff3d6;-webkit-text-stroke:0;text-shadow:0 1px 0 #4a2e05,0 0 8px #4a2e0588;font-style:normal;margin-top:.2em}
+  @keyframes pop-rise{0%{opacity:0;transform:translate(-50%,-50%) scale(.6)}12%{opacity:1;transform:translate(-50%,-85%) scale(1.3)}
+    32%{transform:translate(-50%,-120%) scale(1)}100%{opacity:0;transform:translate(-50%,-300%) scale(.9)}}
+</style>
+</head>
+<body>
+<canvas id="glass" aria-label="The mint's Goldberg as a glass pouch filling with syrup: the MiniRouter tank. Drag to turn it."></canvas>
+<div class="tank" id="tank" hidden aria-live="polite"><div id="pops"></div><div class="balance" id="balance"></div></div>
+<aside class="panel">
+  <h1>Syrup glass.</h1>
+  <div class="sum" id="sum"></div>
+  <div class="acts">
+    <button type="button" class="bronze" id="bronze">Bronze drop</button>
+    <button type="button" class="gold" id="gold">Gold drop</button>
+    <button type="button" id="crowd">A crowd</button>
+    <button type="button" id="expand">Expand</button>
+    <button type="button" id="reset">Reset</button>
+  </div>
+  <p class="hint" id="hint" role="status"></p>
+  <div class="stats" id="stats"></div>
+</aside>
+<script type="module">
+import {createMint, HUES, mulberry} from './mint-gravity.mjs';
+import {morphPlan} from './mint-sphere.js';
+import {createTank, PURSE_REF, DROPS_REF, costText, tokensText, SPARKS, SIP} from './tank-law.mjs';
+
+const $ = s => document.querySelector(s);
+const q = new URLSearchParams(location.search);
+const canvas = $('#glass');
+const gl = canvas.getContext('webgl2', {antialias: true, alpha: false, depth: false, stencil: false, premultipliedAlpha: false, preserveDrawingBuffer: true, powerPreference: 'high-performance'});   // preserved: a frame repaints only the rectangle around the pouch
+if (!gl) { $('#hint').textContent = 'This page needs WebGL2.'; throw new Error('no WebGL2'); }
+const extF = gl.getExtension('EXT_color_buffer_float');
+if (!extF) { $('#hint').textContent = 'This page needs EXT_color_buffer_float (the wave field is a float texture).'; throw new Error('no float render targets'); }
+const extT = gl.getExtension('EXT_disjoint_timer_query_webgl2');
+const dbg = gl.getExtension('WEBGL_debug_renderer_info');
+const RENDERER = dbg ? gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER);
+
+// ---------- the numbers of the look ----------
+// THE QUALITY (Oct 16 2026, his "consider this will have to run on very cheap phones"): 'full' is the look as benched on the Macs; 'lean' is the same
+// look for a cheap glass: the sphere map at a quarter of the texels (512 x 256) stepped at 120 Hz instead of 240 (the wave's speed per texel and
+// step is the same, so a ripple crosses the pouch at the same speed; its life in milliseconds is its own, measured: LIFE_MS), the backdrop
+// read once a pixel in the glass pass (no chromatic fringe), the canvas at one device pixel per css pixel. ?quality=lean|full says; 'auto' (the
+// default outside a bench) takes lean on a coarse pointer (a phone, a tablet) or four cores or fewer. A bench (?bench=1) is full unless told.
+const QUALITY = (() => { const v = q.get('quality'); if (v === 'lean' || v === 'full') return v; if (q.has('bench') && q.get('bench') !== 'auto') return 'full';
+  const cheap = (matchMedia?.('(pointer: coarse)')?.matches ?? false) || (navigator.hardwareConcurrency || 8) <= 4; return cheap ? 'lean' : 'full'; })();
+const LEAN = QUALITY === 'lean';
+const FW = LEAN ? 512 : 1024, FH = LEAN ? 256 : 512;   // the sphere map
+const SUB_MS = LEAN ? 1000 / 120 : 1000 / 240;        // four wave steps a 60 Hz frame (two when lean): half a texel a step, two texels a frame
+const WAVE = {k: 0.36, damp: 0.012, visc: 0.2, kick: 0.3, absorb: 0.5};   // k: c = 0.6 texel a step; visc: the velocity smoothed, short waves die first; k 0.40 with visc 0.2 explodes (the CPU replay, Oct 14)
+const DROP = {bronze: {amp: 0.35, radius: 0.45, size: 0.034, depth: 0.18}, gold: {amp: 1.0, radius: 0.8, size: 0.058, depth: 1.0}, spark: {size: 0.013}};   // radius in cells; depth is the amber (the money); a spark is a call's
+const REST = q.get('rest') === 'energy' ? 'energy' : 'time';   // how the pouch knows it is still: by the clock (LIFE_MS) or by the field's energy read back
+const E_REST = Number(q.get('e_rest') || 0.03);   // the field's energy under which the pouch is still (REST 'energy')
+// THE LIFE OF A RIPPLE (REST 'time', the default since Oct 16 2026). The wave is deterministic in its 240 Hz substeps, so a drop's ripple falls
+// under E_REST the same number of steps after its splat on every machine. Measured once through the energy readback (a probe over window.__syrup,
+// Oct 16 2026, this field, these WAVE constants, the readback every 12 frames): a gold drop is still 5,183 ms after its splat, a bronze 3,783 ms,
+// twice the same to the millisecond; a later drop's life counts from its own splat. So the clock says when the field is still, and the energy
+// pass (a 32 x 32 texel sum a pixel, 683 µs a call on NewMac's M4 Max, the costliest pass of the page) and its fence and readback never run.
+// ?rest=energy keeps them, to measure LIFE_MS again when WAVE or the field changes.
+// The lives, by quality (lean's are longer in milliseconds: half the steps a second, and the field's energy sum is a quarter, so E_REST is met at
+// a smaller amplitude): measured through the readback on this tree, Oct 16 2026: full gold 5,183, bronze 3,783, a call's sip (SIP, tank-law.mjs)
+// 3,600 ms; lean gold 7,983, bronze 5,583, sip 5,000 ms. Each rounded up to the next 200 ms, the readback's own cadence.
+const LIFE_MS = LEAN ? {gold: 8000, bronze: 5600, sip: 5000} : {gold: 5200, bronze: 3800, sip: 3600};
+let restAt = -Infinity;   // the clock at which the last drop's ripple has lived its life
+const FALL_MS = 400, GLIDE_MS = 1600, SET_MS = 350, LEVEL_MS = 250, ENERGY_EVERY = 12;
+const RIPPLE = Number(q.get('ripple') || 9), CAUSTIC = Number(q.get('caustic') || 90);
+const DISPERSION = q.get('dispersion') === '0' || (LEAN && q.get('dispersion') !== '1') ? 0 : 1;   // the far cell's backdrop read three times (R, G and B a little apart: the chromatic fringe) or once (?dispersion=0, and lean: a third of that work in the glass pass)
+const TANK = q.get('tank') === '1' || (!q.has('bench') && q.get('tank') !== '0');   // THE TANK: the purse read from the Nest; off in a bench unless asked, so a bench stays hermetic
+const NEST = (q.get('nest') || `${location.protocol}//${location.hostname}:8904`).replace(/\/$/, '');
+const tank = TANK ? createTank() : null;   // THE TANK's law (tank-law.mjs); its mount is at the end of this script
+const CHAIR_DEPTH = 1.0, STAR_R = 0.34;
+
+// ---------- shaders ----------
+const COMMON = `#version 300 es
+precision highp float; precision highp int; precision highp sampler2D;
+const float PI = 3.14159265358979;
+vec2 equirect(vec3 d) { return vec2(atan(d.z, d.x) / (2.0 * PI) + 0.5, asin(clamp(d.y, -1.0, 1.0)) / PI + 0.5); }
+vec3 dirOf(vec2 uv) { float lon = (uv.x - 0.5) * 2.0 * PI, lat = (uv.y - 0.5) * PI; float c = cos(lat); return vec3(c * cos(lon), sin(lat), c * sin(lon)); }
+const vec3 SIGMA = vec3(0.35, 1.15, 3.3);
+const vec3 KEY = vec3(-0.32, 0.7, 0.64);
+vec3 env(vec3 d) {
+  vec3 sky = mix(mix(vec3(0.30, 0.28, 0.25), vec3(0.74, 0.70, 0.63), smoothstep(-0.9, -0.1, d.y)), vec3(0.99, 0.985, 0.96), smoothstep(0.0, 0.7, d.y));
+  float win = smoothstep(0.90, 0.985, dot(d, normalize(vec3(-0.45, 0.55, 0.70))));
+  return sky + vec3(1.0, 0.98, 0.93) * win * 0.9;
+}
+`;
+const QUAD_VS = `#version 300 es
+out vec2 vUv;
+void main() { vec2 p = vec2(float((gl_VertexID << 1) & 2), float(gl_VertexID & 2)); vUv = p; gl_Position = vec4(p * 2.0 - 1.0, 0.0, 1.0); }`;
+
+// (a) the wave: h_new = h + (h - h_before)(1 - damp) + k Laplacian(h); a tap into another pool is a wall
+const WAVE_FS = COMMON + `
+uniform sampler2D uField, uMask; uniform vec2 uTexel; uniform float uK, uDamp, uVisc, uKick, uAbsorb, uSplatAmp; uniform vec4 uSplat;
+in vec2 vUv; out vec4 o;
+void main() {
+  vec2 uv = vUv; float lat = (uv.y - 0.5) * PI; float cl = max(cos(lat), 0.03125);
+  vec2 dx = vec2(uTexel.x / cl, 0.0), dy = vec2(0.0, uTexel.y);
+  vec2 c = texture(uField, uv).rg; float h = c.r, hp = c.g;
+  float pool = texture(uMask, uv).r; vec2 wall = c * (1.0 - uAbsorb);
+  vec2 l = texture(uMask, uv - dx).r == pool ? texture(uField, uv - dx).rg : wall;
+  vec2 r = texture(uMask, uv + dx).r == pool ? texture(uField, uv + dx).rg : wall;
+  vec2 d = texture(uMask, uv - dy).r == pool ? texture(uField, uv - dy).rg : wall;
+  vec2 up = texture(uMask, uv + dy).r == pool ? texture(uField, uv + dy).rg : wall;
+  vec2 lap2 = l + r + d + up - 4.0 * c;          // .x the Laplacian of h, .y of h before
+  float lap = lap2.x, lapV = lap2.x - lap2.y;     // the Laplacian of the velocity
+  float v = (h - hp) + 0.25 * uVisc * lapV;       // the velocity as a convex mix with its neighbours': the syrup's viscosity, short waves die first
+  float hn = h + v * (1.0 - uDamp) + uK * lap;
+  float before = h;
+  if (uSplatAmp != 0.0) {                         // the drop: a dip, and the displaced syrup risen in a rim twice as wide, so the splat moves no volume
+    float a = acos(clamp(dot(dirOf(uv), uSplat.xyz), -1.0, 1.0)), R = uSplat.w;
+    if (a < 2.0 * R) { float w = (a < R ? 0.5 + 0.5 * cos(PI * a / R) : 0.0) - 0.25 * (0.5 + 0.5 * cos(PI * a / (2.0 * R))); hn -= uSplatAmp * w; before -= uSplatAmp * w * (1.0 - uKick); }
+  }
+  o = vec4(hn, before, 0.0, 0.0);
+}`;
+// the field's energy, 32 x 32 texels a sum
+const ENERGY_FS = COMMON + `
+uniform sampler2D uField; in vec2 vUv; out vec4 o;
+void main() { ivec2 b = ivec2(gl_FragCoord.xy) * 32; float e = 0.0;
+  for (int j = 0; j < 32; j++) for (int i = 0; i < 32; i++) { vec2 c = texelFetch(uField, b + ivec2(i, j), 0).rg; float v = c.r - c.g; e += c.r * c.r + 4.0 * v * v; }
+  o = vec4(e, 0.0, 0.0, 1.0); }`;
+// the pools: every texel of the sphere map takes the nearest face centre; a face's pool is its home mass
+const MASK_FS = COMMON + `
+uniform sampler2D uCenters; uniform int uFaces; uniform float uInside; in vec2 vUv; out vec4 o;
+void main() { vec3 d = dirOf(vUv); float best = -2.0; int bi = 0;
+  for (int i = 0; i < 1024; i++) { if (i >= uFaces) break; vec4 c = texelFetch(uCenters, ivec2(i, 0), 0); float t = dot(d, c.xyz); if (t > best) { best = t; bi = i; if (t > uInside) break; } }
+  o = vec4(texelFetch(uCenters, ivec2(bi, 0), 0).w, float(bi), 0.0, 0.0); }`;
+// (c) the parchment, the pouch's shadow and the caustics under it: a function of the pixel, evaluated by the parchment pass
+// at its own pixel and by the glass and the drops at the pixel their refraction lands on (no backdrop texture, no copy pass)
+const BACKDROP = `
+uniform sampler2D uField, uMask, uFaceData; uniform vec2 uRes, uTexel; uniform vec3 uSphere; uniform mat3 uRotInv; uniform float uLevel, uTime, uCaustic;
+float hash(vec2 p) { return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }
+float lapAt(vec2 uv) { float lat = (uv.y - 0.5) * PI; float cl = max(cos(lat), 0.03125); vec2 dx = vec2(2.0 * uTexel.x / cl, 0.0), dy = vec2(0.0, 2.0 * uTexel.y);
+  float h = texture(uField, uv).r, pool = texture(uMask, uv).r;
+  float hl = texture(uMask, uv - dx).r == pool ? texture(uField, uv - dx).r : h, hr = texture(uMask, uv + dx).r == pool ? texture(uField, uv + dx).r : h;
+  float hd = texture(uMask, uv - dy).r == pool ? texture(uField, uv - dy).r : h, hu = texture(uMask, uv + dy).r == pool ? texture(uField, uv + dy).r : h;
+  return hl + hr + hd + hu - 4.0 * h; }
+vec3 backdrop(vec2 px) {
+  vec3 paper = vec3(0.957, 0.941, 0.906);
+  float grain = (hash(floor(px)) - 0.5) * 0.035;
+  vec2 cc = (px - uRes * 0.5) / uRes.y; float vig = 1.0 - 0.3 * dot(cc, cc);
+  vec3 col = paper * (vig + grain);
+  vec2 sc = vec2(uSphere.x, uSphere.y - uSphere.z * 1.15);
+  vec2 e = (px - sc) / (uSphere.z * vec2(1.25, 0.17));
+  float rho2 = dot(e, e);
+  float shadow = smoothstep(1.0, 0.2, rho2);
+  col *= 1.0 - 0.24 * shadow;
+  if (rho2 < 1.0) {
+    vec3 dw = vec3(e.x, -sqrt(1.0 - rho2), -e.y);
+    vec3 dm = uRotInv * dw; vec2 uv = equirect(dm);
+    float face = texture(uMask, uv).g; vec4 fd = texelFetch(uFaceData, ivec2(int(face + 0.5), 0), 0);
+    float depth = max(fd.r, 0.0) * smoothstep(fd.a, fd.a + 350.0, uTime);
+    float lap = lapAt(uv);
+    float focus = exp(-rho2 * 2.4) * 0.8 + 0.25 * smoothstep(0.1, 0.0, abs(rho2 - 0.5));
+    float pool = max(0.0, uLevel - dw.y);
+    vec3 T = exp(-SIGMA * depth * 1.3) * exp(-SIGMA * 0.55 * pool);
+    float ripple = clamp(1.0 - uCaustic * lap, 0.0, 3.0);
+    col += vec3(1.0, 0.93, 0.78) * focus * T * ripple * 0.26 * smoothstep(1.0, 0.6, rho2);
+  }
+  return col;
+}
+`;
+const BACK_FS = COMMON + BACKDROP + `
+out vec4 o;
+void main() { o = vec4(backdrop(gl_FragCoord.xy), 1.0); }`;
+// (b) the glass
+const GLASS_VS = `#version 300 es
+precision highp float;
+layout(location=0) in vec3 aA; layout(location=1) in vec3 aB; layout(location=2) in vec3 aNA; layout(location=3) in vec3 aNB; layout(location=4) in float aFace; layout(location=5) in float aEdge;
+uniform mat3 uRot; uniform mat4 uVP; uniform float uProgress, uOffset;
+out vec3 vPos; out vec3 vN; out vec3 vModel; flat out float vFace; out float vEdge;
+void main() { vec3 pm = mix(aA, aB, uProgress); vec3 nm = normalize(mix(aNA, aNB, uProgress));
+  vModel = pm; vPos = uRot * pm; vN = uRot * nm; vFace = aFace; vEdge = aEdge;
+  gl_Position = uVP * vec4(vPos, 1.0); gl_Position.x += uOffset * gl_Position.w; }`;
+const GLASS_FS = COMMON + BACKDROP + `
+uniform sampler2D uStar; uniform mat3 uRot; uniform mat4 uVP; uniform vec3 uEye;
+uniform float uRipple, uOffset, uStarR, uHasStar, uDispersion;
+in vec3 vPos; in vec3 vN; in vec3 vModel; flat in float vFace; in float vEdge; out vec4 o;
+vec3 unpackHue(float h) { float r = floor(h / 65536.0), g = floor((h - r * 65536.0) / 256.0), b = h - r * 65536.0 - g * 256.0; return vec3(r, g, b) / 255.0; }
+vec2 screenOf(vec3 p) { vec4 c = uVP * vec4(p, 1.0); c.x += uOffset * c.w; return c.xy / c.w * 0.5 + 0.5; }
+void main() {
+  vec3 dm = normalize(vModel); vec2 uv = equirect(dm);
+  float lat = (uv.y - 0.5) * PI; float cl = max(cos(lat), 0.03125);
+  vec2 dx = vec2(uTexel.x / cl, 0.0), dy = vec2(0.0, uTexel.y);
+  float gu = texture(uField, uv + dx).r - texture(uField, uv - dx).r;
+  float gv = texture(uField, uv + dy).r - texture(uField, uv - dy).r;
+  vec3 T = normalize(vec3(-dm.z, 0.0, dm.x)); vec3 B = cross(T, dm);
+  vec4 fd = texelFetch(uFaceData, ivec2(int(vFace + 0.5), 0), 0);
+  float gold = step(0.95, fd.r), setting = smoothstep(fd.a, fd.a + 350.0, uTime);
+  float depth = max(fd.r, 0.0) * setting;
+  float edge = 1.0 - smoothstep(0.0, 0.22, vEdge);
+  vec3 ns = normalize(vPos);
+  vec3 n0 = normalize(mix(normalize(vN), ns, 0.22 + 0.45 * gold * setting));
+  vec3 n = normalize(n0 - uRipple * (uRot * (gu * T + gv * B)));
+  vec3 I = normalize(vPos - uEye);
+  float cosT = max(0.0, dot(-I, n));
+  float F = 0.04 + 0.96 * pow(1.0 - cosT, 5.0);
+  float film = depth * (1.0 + 1.3 * edge);
+  vec3 Tf = exp(-SIGMA * film * 0.9 / max(cosT, 0.2));
+  vec3 well = unpackHue(fd.b); float hasWell = step(0.5, fd.b);
+  Tf *= mix(vec3(1.0), well * 0.55 + 0.45, 0.14 * hasWell * (1.0 - step(0.01, depth)));
+  vec3 r = refract(I, n, 1.0 / 1.5); vec3 r2 = refract(r, ns, 1.5); r = (dot(r2, r2) > 0.0) ? r2 : r;
+  vec3 p = vPos; float pr = dot(p, r), pp = dot(p, p);
+  float tExit = -pr + sqrt(max(0.0, pr * pr - (pp - 1.0)));
+  vec3 a = normalize(uEye); float ra = dot(r, a);
+  float tDisc = (ra < -1e-4) ? -dot(p, a) / ra : 1e9;
+  vec3 hit = p + tDisc * r; vec2 disc = hit.xy;
+  float dr = length(disc) / uStarR;
+  bool onStar = tDisc < tExit && dr < 1.0 && uHasStar > 0.5;
+  float tHit = onStar ? tDisc : tExit;
+  float len;
+  if (abs(r.y) < 1e-5) len = (p.y < uLevel) ? tHit : 0.0;
+  else { float tL = (uLevel - p.y) / r.y; len = (r.y < 0.0) ? max(0.0, tHit - max(tL, 0.0)) : clamp(tL, 0.0, tHit); }
+  vec3 Tp = exp(-SIGMA * 0.75 * len);
+  vec3 halo = vec3(1.0, 0.91, 0.70) * (0.3 * smoothstep(1.9, 0.9, dr) + 0.06);
+  vec3 inner;
+  if (onStar) { vec2 suv = vec2(disc.x, -disc.y) / (2.0 * uStarR) + 0.5; inner = texture(uStar, suv).rgb * 1.05 + halo * 0.15; }
+  else {
+    vec3 qw = p + tExit * r; vec2 uvB = equirect(normalize(uRotInv * qw));
+    float depthB = 0.0;   // the far cell's film, seen through the pouch: four taps so it reads soft, not as confetti
+    for (int k = 0; k < 4; k++) { vec2 j = vec2(k < 2 ? -1.5 : 1.5, (k & 1) == 0 ? -1.5 : 1.5) * uTexel;
+      vec4 fb = texelFetch(uFaceData, ivec2(int(texture(uMask, uvB + j).g + 0.5), 0), 0); depthB += 0.25 * max(fb.r, 0.0) * smoothstep(fb.a, fb.a + 350.0, uTime); }
+    vec3 Tb = mix(vec3(1.0), exp(-SIGMA * depthB * 1.2), 0.5);
+    vec2 s0 = gl_FragCoord.xy / uRes, dS = screenOf(qw + r * 1.2) - s0;
+    vec3 bg = uDispersion > 0.5 ? vec3(backdrop(clamp(s0 + dS * 0.985, 0.0, 1.0) * uRes).r, backdrop(clamp(s0 + dS, 0.0, 1.0) * uRes).g, backdrop(clamp(s0 + dS * 1.015, 0.0, 1.0) * uRes).b)
+      : backdrop(clamp(s0 + dS, 0.0, 1.0) * uRes);
+    inner = bg * Tb + halo * 0.5 * (1.0 - depthB * 0.6);
+  }
+  vec3 through = inner * Tp * Tf;
+  vec3 refl = env(reflect(I, n));
+  vec3 H = normalize(normalize(KEY) - I); float nh = max(dot(n, H), 0.0);
+  float spec = pow(nh, 260.0) * 1.1 + pow(nh, 22.0) * 0.07;
+  vec3 col = through * (1.0 - F) + refl * F + vec3(1.0, 0.97, 0.9) * spec;
+  float level = exp(-pow((vPos.y - uLevel) / 0.012, 2.0)) * step(-1.0, uLevel) * 0.55;
+  col += vec3(1.0, 0.86, 0.55) * level;
+  col = mix(col, col * 0.6 + vec3(0.03), (1.0 - smoothstep(0.0, 0.035, vEdge)) * 0.55);
+  col += vec3(1.0, 0.72, 0.30) * 0.1 * gold * setting * smoothstep(0.3, 1.0, vEdge);
+  float flash = (fd.a > 0.0 && uTime > fd.a) ? exp(-(uTime - fd.a) / 120.0) : 0.0;
+  col += vec3(1.0, 0.95, 0.8) * flash * 0.25 * step(0.01, fd.r);
+  col = mix(col, vec3(1.0), max(-fd.r, 0.0) * 0.12);
+  o = vec4(col, 1.0);
+}`;
+// (d) the drops
+const BEAD_VS = `#version 300 es
+precision highp float;
+layout(location=0) in vec2 aCorner; layout(location=1) in vec3 aCenter; layout(location=2) in vec2 aSize; layout(location=3) in float aMetal; layout(location=4) in float aAlpha;
+uniform mat4 uVP; uniform float uOffset; uniform vec3 uEye; uniform vec2 uRes;
+out vec2 vUv; out float vMetal; out float vAlpha; out float vHidden; out float vPx;
+void main() {
+  vec3 pw = aCenter + vec3(aCorner.x * aSize.x, aCorner.y * aSize.y, 0.0) * 1.2;
+  vUv = aCorner * 1.2; vMetal = aMetal; vAlpha = aAlpha;
+  vec3 d = aCenter - uEye; float L = length(d); d /= L;
+  float b = dot(uEye, d), c = dot(uEye, uEye) - 1.0, disc = b * b - c;
+  float t = (disc > 0.0) ? (-b - sqrt(disc)) : 1e9;
+  vHidden = (t > 0.0 && t < L - aSize.x) ? 1.0 : 0.0;
+  vec4 c0 = uVP * vec4(aCenter, 1.0), c1 = uVP * vec4(aCenter + vec3(aSize.x, 0.0, 0.0), 1.0);
+  vPx = abs(c1.x / c1.w - c0.x / c0.w) * 0.5 * uRes.x;
+  gl_Position = uVP * vec4(pw, 1.0); gl_Position.x += uOffset * gl_Position.w; }`;
+const BEAD_FS = COMMON + BACKDROP + `
+in vec2 vUv; in float vMetal; in float vAlpha; in float vHidden; in float vPx; out vec4 o;
+void main() {
+  float d2 = dot(vUv, vUv); if (d2 > 1.0) discard;
+  float z = sqrt(1.0 - d2); vec3 n = vec3(vUv, z);
+  if (vMetal > 1.5) { float aa = smoothstep(1.0, 0.55, d2); o = vec4(vec3(1.0, 0.86, 0.5) * (0.6 + 0.8 * (1.0 - d2)), aa * vAlpha); return; }   // a spark: a point of light, no glass
+  float F = 0.04 + 0.96 * pow(1.0 - z, 5.0);
+  vec2 s0 = gl_FragCoord.xy / uRes, off = -n.xy * vPx * 0.6 / uRes;
+  vec3 bg = backdrop(clamp(s0 + off, 0.0, 1.0) * uRes);
+  float thick = 2.0 * z * mix(0.35, 1.6, vMetal);
+  vec3 T = exp(-SIGMA * thick);
+  vec3 refl = env(reflect(vec3(0.0, 0.0, -1.0), n));
+  vec3 H = normalize(normalize(KEY) + vec3(0.0, 0.0, 1.0)); float spec = pow(max(dot(n, H), 0.0), 120.0);
+  vec3 col = bg * T * (1.0 - F) + refl * F + spec * 0.9;
+  col += vec3(1.0, 0.75, 0.35) * vMetal * 0.12 * (1.0 - d2);
+  float aa = smoothstep(1.0, 0.86, d2);
+  o = vec4(col, aa * vAlpha * mix(1.0, 0.28, vHidden)); }`;
+
+function compile(type, src, name) { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(name + ': ' + gl.getShaderInfoLog(s)); return s; }
+function program(vs, fs, name) { const p = gl.createProgram(); gl.attachShader(p, compile(gl.VERTEX_SHADER, vs, name + '.vs')); gl.attachShader(p, compile(gl.FRAGMENT_SHADER, fs, name + '.fs')); gl.linkProgram(p); if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(name + ': ' + gl.getProgramInfoLog(p)); p.u = new Map(); return p; }
+const u = (p, name) => { if (!p.u.has(name)) p.u.set(name, gl.getUniformLocation(p, name)); return p.u.get(name); };
+const P = {wave: program(QUAD_VS, WAVE_FS, 'wave'), energy: program(QUAD_VS, ENERGY_FS, 'energy'), mask: program(QUAD_VS, MASK_FS, 'mask'), back: program(QUAD_VS, BACK_FS, 'back'), glass: program(GLASS_VS, GLASS_FS, 'glass'), bead: program(BEAD_VS, BEAD_FS, 'bead')};
+
+// ---------- textures and targets ----------
+let textureBytes = 0;
+function tex2(w, h, internal, format, type, filter, wrapS, wrapT, data = null, bytes = 0) {
+  const t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t);
+  gl.texImage2D(gl.TEXTURE_2D, 0, internal, w, h, 0, format, type, data);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, filter); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, filter);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, wrapS); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, wrapT);
+  textureBytes += w * h * bytes; return t;
+}
+function fbo(t) { const f = gl.createFramebuffer(); gl.bindFramebuffer(gl.FRAMEBUFFER, f); gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, t, 0);
+  if (gl.checkFramebufferStatus(gl.FRAMEBUFFER) !== gl.FRAMEBUFFER_COMPLETE) throw new Error('framebuffer incomplete'); gl.bindFramebuffer(gl.FRAMEBUFFER, null); return f; }
+const field = [0, 1].map(() => tex2(FW, FH, gl.RG16F, gl.RG, gl.HALF_FLOAT, gl.LINEAR, gl.REPEAT, gl.CLAMP_TO_EDGE, null, 4));
+const fieldFbo = field.map(fbo); let cur = 0;
+const mask = tex2(FW, FH, gl.RG16F, gl.RG, gl.HALF_FLOAT, gl.NEAREST, gl.REPEAT, gl.CLAMP_TO_EDGE, null, 4), maskFbo = fbo(mask);
+const energyTex = tex2(32, 16, gl.RGBA32F, gl.RGBA, gl.FLOAT, gl.NEAREST, gl.CLAMP_TO_EDGE, gl.CLAMP_TO_EDGE, null, 16), energyFbo = fbo(energyTex);
+const centers = tex2(1024, 1, gl.RGBA32F, gl.RGBA, gl.FLOAT, gl.NEAREST, gl.CLAMP_TO_EDGE, gl.CLAMP_TO_EDGE, null, 16);
+const faceData = tex2(1024, 1, gl.RGBA32F, gl.RGBA, gl.FLOAT, gl.NEAREST, gl.CLAMP_TO_EDGE, gl.CLAMP_TO_EDGE, null, 16);
+const tiny = tex2(2, 2, gl.RGBA8, gl.RGBA, gl.UNSIGNED_BYTE, gl.NEAREST, gl.CLAMP_TO_EDGE, gl.CLAMP_TO_EDGE, null, 4), tinyFbo = fbo(tiny);   // the timer's floor: a two-pixel draw
+const star = tex2(1, 1, gl.RGBA8, gl.RGBA, gl.UNSIGNED_BYTE, gl.LINEAR, gl.CLAMP_TO_EDGE, gl.CLAMP_TO_EDGE, new Uint8Array([230, 200, 140, 255]), 4);
+let W = 1, H = 1, dpr = 1, fullNext = true;
+const pbo = gl.createBuffer(); gl.bindBuffer(gl.PIXEL_PACK_BUFFER, pbo); gl.bufferData(gl.PIXEL_PACK_BUFFER, 32 * 16 * 16, gl.STREAM_READ); gl.bindBuffer(gl.PIXEL_PACK_BUFFER, null);
+const quadVao = gl.createVertexArray();
+const meshVao = gl.createVertexArray(), meshBuf = gl.createBuffer(); let meshCount = 0;
+const beadVao = gl.createVertexArray(), beadCorner = gl.createBuffer(), beadInst = gl.createBuffer();
+gl.bindVertexArray(beadVao);
+gl.bindBuffer(gl.ARRAY_BUFFER, beadCorner); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+gl.bindBuffer(gl.ARRAY_BUFFER, beadInst);
+for (const [loc, size, off] of [[1, 3, 0], [2, 2, 12], [3, 1, 20], [4, 1, 24]]) { gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, size, gl.FLOAT, false, 28, off); gl.vertexAttribDivisor(loc, 1); }
+gl.bindVertexArray(null);
+
+// ---------- the camera: the eye 4 radii away, the pouch's silhouette a third of the stage, a little right of centre ----------
+const EYE = [0, 0, 4], SIL = Math.tan(Math.asin(0.25)), OFFSET = 0.1;
+let yaw = -0.32, pitch = -0.12, rot = null, rotInv = null, vp = null;
+function perspective(fovy, aspect, near, far) { const f = 1 / Math.tan(fovy / 2), nf = 1 / (near - far);
+  return new Float32Array([f / aspect, 0, 0, 0, 0, f, 0, 0, 0, 0, (far + near) * nf, -1, 0, 0, 2 * far * near * nf, 0]); }
+function camera() {
+  const cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
+  // rows of R = Rx(pitch) * Ry(yaw), as mint-sphere's rotate(): x' = x cy - z sy, z' = x sy + z cy; y'' = y cp - z' sp, z'' = y sp + z' cp
+  const R = [[cy, 0, -sy], [-sp * sy, cp, -sp * cy], [cp * sy, sp, cp * cy]];
+  rot = new Float32Array([R[0][0], R[1][0], R[2][0], R[0][1], R[1][1], R[2][1], R[0][2], R[1][2], R[2][2]]);
+  rotInv = new Float32Array([R[0][0], R[0][1], R[0][2], R[1][0], R[1][1], R[1][2], R[2][0], R[2][1], R[2][2]]);
+  const fov = 2 * Math.atan(SIL / 0.68), pr = perspective(fov, W / H, 1, 12);
+  // the view translates by -4 along z: VP = P * T, so VP's last column is P * (0, 0, -4, 1)
+  vp = pr.slice(); vp[12] = pr[12] - 4 * pr[8]; vp[13] = pr[13] - 4 * pr[9]; vp[14] = pr[14] - 4 * pr[10]; vp[15] = pr[15] - 4 * pr[11];
+}
+const rotate = p => [rot[0] * p[0] + rot[3] * p[1] + rot[6] * p[2], rot[1] * p[0] + rot[4] * p[1] + rot[7] * p[2], rot[2] * p[0] + rot[5] * p[1] + rot[8] * p[2]];
+const unrotate = p => [rotInv[0] * p[0] + rotInv[3] * p[1] + rotInv[6] * p[2], rotInv[1] * p[0] + rotInv[4] * p[1] + rotInv[7] * p[2], rotInv[2] * p[0] + rotInv[5] * p[1] + rotInv[8] * p[2]];
+
+// ---------- the land ----------
+const mint = createMint();
+const rng = mulberry(Number(q.get('seed') || 7));
+let layout = null, prevLayout = null, morph = null, crowdSeed = 100;
+const landed = new Map();        // holder id -> the clock when its drop set
+let beads = [], hanging = [], splats = [], sparks = [];
+let clock = 0, levelShown = -1.02, levelTarget = -1.02, settingUntil = -1, rippling = false, energy = 0;
+let waveAcc = 0, framesSinceEnergy = 0, energyFence = null, fenceAge = 0, syncReads = 0, frames = 0, draws = 0, lastDrawCpu = 0, pending = [], passStats = {};
+const hueOf = hex => { const n = parseInt(hex.slice(1), 16); return n; };
+const poolOf = id => id.startsWith('chair:') ? Number(id.slice(6)) : 12 + Number(id.slice(5));
+
+function uploadFaces() {
+  const faces = [...layout.skin.pents, ...layout.skin.hexes], n = faces.length;
+  const C = new Float32Array(1024 * 4), D = new Float32Array(1024 * 4);
+  faces.forEach((f, i) => {
+    const pent = i < 12, slot = pent ? null : layout.byFace[i - 12];
+    const pool = pent ? i : poolOf(slot.home);
+    C.set(f.normal, i * 4); C[i * 4 + 3] = pool;
+    let depth = 0, setAt = -1e9, hue = 0;
+    if (pent) { depth = CHAIR_DEPTH; }
+    else if (slot.holder && landed.has(slot.holder.id)) { depth = DROP[slot.holder.metal].depth; setAt = landed.get(slot.holder.id); }
+    else { const age = layout.rung - slot.born; if (age < 2) depth = -(1 - age / 2); }
+    if (slot?.well) hue = hueOf(slot.well);
+    D[i * 4] = depth; D[i * 4 + 1] = pool; D[i * 4 + 2] = hue; D[i * 4 + 3] = setAt;
+  });
+  gl.bindTexture(gl.TEXTURE_2D, centers); gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, 1024, 1, gl.RGBA, gl.FLOAT, C);
+  gl.bindTexture(gl.TEXTURE_2D, faceData); gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, 1024, 1, gl.RGBA, gl.FLOAT, D);
+  return n;
+}
+function buildMask() {
+  const n = uploadFaces();
+  gl.bindFramebuffer(gl.FRAMEBUFFER, maskFbo); gl.viewport(0, 0, FW, FH); gl.useProgram(P.mask);
+  gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, centers); gl.uniform1i(u(P.mask, 'uCenters'), 0);
+  gl.uniform1i(u(P.mask, 'uFaces'), n); gl.uniform1f(u(P.mask, 'uInside'), Math.cos(0.38 * layout.cellAngle));
+  gl.bindVertexArray(quadVao); gl.drawArrays(gl.TRIANGLES, 0, 3); gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+}
+function uploadMesh(shapeA, shapeB) {
+  const fa = [...shapeA.pents, ...shapeA.hexes], fb = [...shapeB.pents, ...shapeB.hexes];
+  let tri = 0; for (const f of fb) tri += f.verts.length;
+  const data = new Float32Array(tri * 3 * 14); let k = 0;
+  const put = (a, b, na, nb, id, e) => { data.set(a, k); data.set(b, k + 3); data.set(na, k + 6); data.set(nb, k + 9); data[k + 12] = id; data[k + 13] = e; k += 14; };
+  fb.forEach((e, id) => { const s = fa[id], m = e.verts.length;
+    for (let i = 0; i < m; i++) { const j = (i + 1) % m; put(s.center, e.center, s.normal, e.normal, id, 1); put(s.verts[i], e.verts[i], s.normal, e.normal, id, 0); put(s.verts[j], e.verts[j], s.normal, e.normal, id, 0); } });
+  gl.bindVertexArray(meshVao); gl.bindBuffer(gl.ARRAY_BUFFER, meshBuf); gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
+  for (const [loc, size, off] of [[0, 3, 0], [1, 3, 12], [2, 3, 24], [3, 3, 36], [4, 1, 48], [5, 1, 52]]) { gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, size, gl.FLOAT, false, 56, off); }
+  gl.bindVertexArray(null); meshCount = tri * 3; return data.byteLength;
+}
+let meshBytes = 0;
+function relayout({glide = false} = {}) {
+  prevLayout = layout; layout = mint.layout();
+  if (glide && prevLayout) { const plan = morphPlan(prevLayout, layout); meshBytes = uploadMesh(plan(0), layout.skin); morph = {t0: clock, dur: GLIDE_MS}; }
+  else { meshBytes = uploadMesh(layout.skin, layout.skin); morph = null; }
+  buildMask(); level(); panel();
+}
+function level() {
+  if (tank && tank.state().level != null) { levelTarget = -1.02 + 2.02 * tank.state().level; return; }   // THE TANK: the level is the purse's
+  const held = layout.byFace.filter(s => s.holder && landed.has(s.holder.id)).length, cap = layout.capacity;
+  levelTarget = cap ? -1 + 2 * held / cap : -1.02;
+}
+
+// ---------- drops ----------
+const worldOf = f => rotate(f.normal);
+function faceOf(i) { return i < 12 ? layout.skin.pents[i] : layout.skin.hexes[i - 12]; }
+function openCells({front = true} = {}) {
+  const open = layout.byFace.filter(s => !s.holder);
+  if (!front) return open;
+  const facing = open.filter(s => { const w = worldOf(s.face); return w[2] > 0.15 && w[1] > -0.55; });
+  return facing.length ? facing : open;
+}
+function pour(faceIndex, metal, at = clock) {
+  const r = mint.buy(faceIndex, metal);
+  if (r.why) return r;
+  layout = mint.layout();
+  beads.push({metal, face: faceIndex, holder: r.holder.id, t0: at, to: faceOf(12 + faceIndex).normal.slice(), k: beads.length + hanging.length});
+  return r;
+}
+function buy(metal, faceIndex = null) {
+  if (!layout.capacity) { say('The seed holds the twelve chairs and no land. <b>Expand</b> to open land.'); return {why: 'no land'}; }
+  let slot = faceIndex != null ? layout.byFace[faceIndex] : null;
+  if (!slot) {
+    if (metal === 'gold') { const dots = mint.frontier().filter(c => { const w = rotate(c.dir); return w[2] > 0.1; }); const all = dots.length ? dots : mint.frontier(); if (all.length) slot = layout.byFace[all[Math.floor(rng() * all.length)].face]; }
+    if (!slot) { const open = openCells(); slot = open.length ? open[Math.floor(rng() * open.length)] : null; }
+  }
+  if (!slot) { hanging.push({metal, k: hanging.length + beads.length}); say(`No open land: the <b>${metal}</b> drop hangs at the rim until the swarm expands.`); wake(); return {why: 'hangs'}; }
+  const r = pour(slot.faceIndex, metal);
+  if (r.why) { say(r.why[0].toUpperCase() + r.why.slice(1) + '.'); return r; }
+  say(metal === 'gold' ? `<b>#${r.holder.id}</b> gold: $${r.paid.toLocaleString('en')}, a well; ${r.captured} cells now ride with it.` : `<b>#${r.holder.id}</b> bronze: $${r.paid}, a drop that floats.`);
+  wake(); return r;
+}
+function crowd() {
+  if (!layout.capacity) return expand();
+  const bought = mint.crowd(crowdSeed++), cells = mint.cells(); layout = mint.layout();
+  bought.forEach((b, i) => { const cell = cells.find(c => c.holder === b.holder); if (cell) beads.push({metal: b.holder.metal, face: cell.face, holder: b.holder.id, t0: clock + i * 90, to: cell.dir.slice(), k: beads.length + hanging.length}); });
+  const gold = bought.filter(b => b.holder.metal === 'gold').length;
+  say(bought.length ? `A crowd: ${bought.length - gold} bronze${gold ? ` and ${gold} gold on the frontier` : ''}.` : 'No open land: the crowd waits for the swarm.');
+  wake(); return bought.length;
+}
+function expand() {
+  if (morph) return false;
+  const step = mint.expand();
+  if (!step) { say('The top rung: 630 seats.'); return false; }
+  relayout({glide: true});
+  say(`The swarm expanded to <b>${step.capacity} seats</b>: ${step.born} cells of new land on the seams. The level falls; the wells hold.`);
+  wake(); return true;
+}
+function pourHanging() {
+  if (!hanging.length) return;
+  const open = layout.byFace.filter(s => !s.holder && s.born === layout.rung);
+  const waiting = hanging; hanging = [];
+  waiting.forEach((h, i) => { const pick = open.length ? open.splice(Math.floor(rng() * open.length), 1)[0] : openCells({front: false})[0]; if (pick) pour(pick.faceIndex, h.metal, clock + i * 120); else hanging.push(h); });
+}
+function reset() { mint.reset(); landed.clear(); beads = []; hanging = []; splats = []; sparks = []; rippling = false; restAt = -Infinity; clearField(); relayout(); say('The seed: twelve chairs, an empty pouch.'); wake(); }
+
+// ---------- the clock: a step is the same whether a frame or the bench drives it ----------
+const ease = x => { x = Math.max(0, Math.min(1, x)); return x * x * (3 - 2 * x); };
+const slerp = (a, b, t) => { const d = Math.max(-1, Math.min(1, a[0] * b[0] + a[1] * b[1] + a[2] * b[2])), th = Math.acos(d); if (th < 1e-4) return b.slice(); const s = Math.sin(th), wa = Math.sin((1 - t) * th) / s, wb = Math.sin(t * th) / s; return [a[0] * wa + b[0] * wb, a[1] * wa + b[1] * wb, a[2] * wa + b[2] * wb]; };
+function animating() { return beads.length > 0 || sparks.length > 0 || morph != null || Math.abs(levelTarget - levelShown) > 0.002 || clock < settingUntil || rippling; }
+function step(dt) {
+  clock += dt; frames++;
+  if (REST === 'energy') energyPoll();
+  if (morph && clock - morph.t0 >= morph.dur) { morph = null; pourHanging(); }
+  // the drops: a bead rolls from the rim to its cell, then splashes
+  const mouth = unrotate([0, 1, 0]);
+  for (let i = beads.length - 1; i >= 0; i--) { const b = beads[i]; if (clock - b.t0 < FALL_MS) continue;
+    beads.splice(i, 1); landed.set(b.holder, clock); settingUntil = Math.max(settingUntil, clock + SET_MS + 300);
+    splats.push({dir: b.to, radius: DROP[b.metal].radius * layout.cellAngle, amp: DROP[b.metal].amp}); rippling = true; restAt = Math.max(restAt, clock + LIFE_MS[b.metal]);
+    if (b.metal === 'gold') buildMask(); else uploadFaces();
+    level(); }
+  // the level
+  const a = 1 - Math.exp(-dt / LEVEL_MS); levelShown += (levelTarget - levelShown) * a; if (Math.abs(levelTarget - levelShown) < 0.002) levelShown = levelTarget;
+  // the wave
+  if (rippling || splats.length) {
+    waveAcc += dt; let n = Math.min(8, Math.floor(waveAcc / SUB_MS)); waveAcc -= n * SUB_MS;
+    if (n > 0) timed('wave', () => { for (let i = 0; i < n; i++) waveStep(splats.shift() || null); });
+    if (REST === 'energy') { if (++framesSinceEnergy >= ENERGY_EVERY && !energyFence) timed('energy', () => energyIssue(false)); }
+    else if (!splats.length && clock >= restAt) { rippling = false; clearField(); }   // still by the clock: the last drop's ripple has lived its life
+  } else waveAcc = 0;
+  beads.forEach(b => { const t = ease((clock - b.t0) / FALL_MS); b.pos = rotate(slerp(mouth, b.to, t)); const lift = 1.04 + 0.22 * Math.sin(Math.PI * t); b.pos = b.pos.map(x => x * lift); b.stretch = 1 + 0.35 * Math.sin(Math.PI * t); });
+  // the sparks of a call: up from the surface and out toward the eye, slowing, gone in SPARKS.life_ms
+  for (let i = sparks.length - 1; i >= 0; i--) { const s = sparks[i], t = (clock - s.t0) / SPARKS.life_ms;
+    if (t >= 1) { sparks.splice(i, 1); continue; }
+    if (t < 0) { s.pos = null; continue; }
+    s.pos = [s.x + s.vx * t, s.y0 + s.vy * t * (1 - 0.3 * t), s.z + s.vz * t]; s.stretch = 1 + 0.6 * (1 - t); s.alpha = (1 - t) * (1 - t); }
+}
+function waveStep(splat) {
+  const next = 1 - cur;
+  gl.bindFramebuffer(gl.FRAMEBUFFER, fieldFbo[next]); gl.viewport(0, 0, FW, FH); gl.useProgram(P.wave);
+  gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, field[cur]); gl.uniform1i(u(P.wave, 'uField'), 0);
+  gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, mask); gl.uniform1i(u(P.wave, 'uMask'), 1);
+  gl.uniform2f(u(P.wave, 'uTexel'), 1 / FW, 1 / FH); gl.uniform1f(u(P.wave, 'uK'), WAVE.k); gl.uniform1f(u(P.wave, 'uDamp'), WAVE.damp); gl.uniform1f(u(P.wave, 'uVisc'), WAVE.visc); gl.uniform1f(u(P.wave, 'uKick'), WAVE.kick); gl.uniform1f(u(P.wave, 'uAbsorb'), WAVE.absorb);
+  gl.uniform1f(u(P.wave, 'uSplatAmp'), splat ? splat.amp : 0); gl.uniform4f(u(P.wave, 'uSplat'), ...(splat ? splat.dir : [0, 1, 0]), splat ? splat.radius : 0);
+  gl.bindVertexArray(quadVao); gl.drawArrays(gl.TRIANGLES, 0, 3); cur = next; gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+}
+function clearField() { for (const f of fieldFbo) { gl.bindFramebuffer(gl.FRAMEBUFFER, f); gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT); } gl.bindFramebuffer(gl.FRAMEBUFFER, null); }
+function energyIssue(sync) {
+  gl.bindFramebuffer(gl.FRAMEBUFFER, energyFbo); gl.viewport(0, 0, 32, 16); gl.useProgram(P.energy);
+  gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, field[cur]); gl.uniform1i(u(P.energy, 'uField'), 0);
+  gl.bindVertexArray(quadVao); gl.drawArrays(gl.TRIANGLES, 0, 3);
+  framesSinceEnergy = 0;
+  if (sync) { const out = new Float32Array(32 * 16 * 4); gl.readPixels(0, 0, 32, 16, gl.RGBA, gl.FLOAT, out); gl.bindFramebuffer(gl.FRAMEBUFFER, null); energyArrived(out); return; }
+  gl.bindBuffer(gl.PIXEL_PACK_BUFFER, pbo); gl.readPixels(0, 0, 32, 16, gl.RGBA, gl.FLOAT, 0); gl.bindBuffer(gl.PIXEL_PACK_BUFFER, null);
+  energyFence = gl.fenceSync(gl.SYNC_GPU_COMMANDS_COMPLETE, 0); fenceAge = 0; gl.flush(); gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+}
+function energyPoll() {
+  if (!energyFence) return;
+  const st = gl.clientWaitSync(energyFence, 0, 0);
+  if (st === gl.TIMEOUT_EXPIRED && ++fenceAge < 30) return;
+  if (st === gl.TIMEOUT_EXPIRED) syncReads++;   // thirty frames and no answer: read it now, at the cost of one stall
+  gl.deleteSync(energyFence); energyFence = null; fenceAge = 0;
+  const out = new Float32Array(32 * 16 * 4); gl.bindBuffer(gl.PIXEL_PACK_BUFFER, pbo); gl.getBufferSubData(gl.PIXEL_PACK_BUFFER, 0, out); gl.bindBuffer(gl.PIXEL_PACK_BUFFER, null);
+  energyArrived(out);
+}
+function energyArrived(out) { let e = 0; for (let i = 0; i < out.length; i += 4) e += out[i]; energy = e; if (e < E_REST && !splats.length) { rippling = false; clearField(); } }
+
+// ---------- the draw ----------
+function timed(name, fn) { if (!extT) { fn(); return; } const qq = gl.createQuery(); gl.beginQuery(extT.TIME_ELAPSED_EXT, qq); fn(); gl.endQuery(extT.TIME_ELAPSED_EXT); pending.push({name, q: qq}); }
+function pollQueries() {
+  if (!extT || !pending.length) return;
+  const disjoint = gl.getParameter(extT.GPU_DISJOINT_EXT);
+  for (let i = pending.length - 1; i >= 0; i--) { const {name, q: qq} = pending[i]; if (!gl.getQueryParameter(qq, gl.QUERY_RESULT_AVAILABLE)) continue;
+    const ns = gl.getQueryParameter(qq, gl.QUERY_RESULT); gl.deleteQuery(qq); pending.splice(i, 1); if (disjoint) continue;
+    const s = passStats[name] || (passStats[name] = {ns: 0, n: 0, max: 0}); s.ns += ns; s.n++; s.max = Math.max(s.max, ns); }
+}
+function sphere() { return [W * (0.5 + OFFSET / 2), H * 0.5, 0.34 * H]; }
+/** the pixels a frame can change: the pouch, the rim above it where drops hang, the shadow and the caustics below */
+function dirtyRect([cx, cy, R]) { const x0 = Math.max(0, Math.floor(cx - 1.35 * R)), y0 = Math.max(0, Math.floor(cy - 1.4 * R)); return [x0, y0, Math.min(W, Math.ceil(cx + 1.35 * R)) - x0, Math.min(H, Math.ceil(cy + 1.35 * R)) - y0]; }
+function backdropUniforms(p) {
+  gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, field[cur]); gl.uniform1i(u(p, 'uField'), 0);
+  gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, mask); gl.uniform1i(u(p, 'uMask'), 1);
+  gl.activeTexture(gl.TEXTURE2); gl.bindTexture(gl.TEXTURE_2D, faceData); gl.uniform1i(u(p, 'uFaceData'), 2);
+  gl.uniform2f(u(p, 'uRes'), W, H); gl.uniform2f(u(p, 'uTexel'), 1 / FW, 1 / FH); gl.uniform3f(u(p, 'uSphere'), ...sphere());
+  gl.uniformMatrix3fv(u(p, 'uRotInv'), false, rotInv); gl.uniform1f(u(p, 'uLevel'), levelShown); gl.uniform1f(u(p, 'uTime'), clock); gl.uniform1f(u(p, 'uCaustic'), CAUSTIC);
+}
+let lastRect = null;
+function draw() {
+  draws++; const t0 = performance.now(); pollQueries();
+  timed('floor', () => { gl.bindFramebuffer(gl.FRAMEBUFFER, tinyFbo); gl.viewport(0, 0, 2, 2); gl.useProgram(P.back); backdropUniforms(P.back); gl.bindVertexArray(quadVao); gl.drawArrays(gl.TRIANGLES, 0, 3); gl.bindFramebuffer(gl.FRAMEBUFFER, null); });   // the timer's floor: a query around a two-pixel draw
+  const progress = morph ? ease((clock - morph.t0) / morph.dur) : 1, sph = sphere();
+  const rect = fullNext ? [0, 0, W, H] : dirtyRect(sph); fullNext = false; lastRect = rect;
+  gl.bindFramebuffer(gl.FRAMEBUFFER, null); gl.viewport(0, 0, W, H); gl.enable(gl.SCISSOR_TEST); gl.scissor(...rect);
+  timed('back', () => { gl.useProgram(P.back); backdropUniforms(P.back); gl.bindVertexArray(quadVao); gl.drawArrays(gl.TRIANGLES, 0, 3); });
+  timed('glass', () => {
+    gl.useProgram(P.glass); gl.enable(gl.CULL_FACE); gl.cullFace(gl.BACK); backdropUniforms(P.glass);
+    gl.activeTexture(gl.TEXTURE3); gl.bindTexture(gl.TEXTURE_2D, star); gl.uniform1i(u(P.glass, 'uStar'), 3);
+    gl.uniformMatrix3fv(u(P.glass, 'uRot'), false, rot); gl.uniformMatrix4fv(u(P.glass, 'uVP'), false, vp);
+    gl.uniform3f(u(P.glass, 'uEye'), ...EYE); gl.uniform1f(u(P.glass, 'uRipple'), RIPPLE * (LEAN ? 0.5 : 1)); gl.uniform1f(u(P.glass, 'uDispersion'), DISPERSION);   // lean: a coarser texel's gradient is twice as steep for the same wave
+    gl.uniform1f(u(P.glass, 'uOffset'), OFFSET); gl.uniform1f(u(P.glass, 'uProgress'), progress); gl.uniform1f(u(P.glass, 'uStarR'), STAR_R); gl.uniform1f(u(P.glass, 'uHasStar'), 1);
+    gl.bindVertexArray(meshVao); gl.drawArrays(gl.TRIANGLES, 0, meshCount); gl.bindVertexArray(null); gl.disable(gl.CULL_FACE); });
+  const shown = [...beads.filter(b => b.pos), ...hanging.map(h => ({metal: h.metal, pos: [Math.cos(h.k * 2.4) * 0.16, 1.07, Math.sin(h.k * 2.4) * 0.16], stretch: 1})), ...sparks.filter(s => s.pos)];
+  if (shown.length) timed('beads', () => {
+    const inst = new Float32Array(shown.length * 7);
+    shown.forEach((b, i) => { const s = DROP[b.metal].size; inst.set([...b.pos, s, s * b.stretch, b.metal === 'gold' ? 1 : b.metal === 'spark' ? 2 : 0, b.alpha ?? 1], i * 7); });
+    gl.bindBuffer(gl.ARRAY_BUFFER, beadInst); gl.bufferData(gl.ARRAY_BUFFER, inst, gl.DYNAMIC_DRAW);
+    gl.useProgram(P.bead); gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA); backdropUniforms(P.bead);
+    gl.uniformMatrix4fv(u(P.bead, 'uVP'), false, vp); gl.uniform1f(u(P.bead, 'uOffset'), OFFSET); gl.uniform3f(u(P.bead, 'uEye'), ...EYE);
+    gl.bindVertexArray(beadVao); gl.drawArraysInstanced(gl.TRIANGLE_STRIP, 0, 4, shown.length); gl.bindVertexArray(null); gl.disable(gl.BLEND); });
+  gl.disable(gl.SCISSOR_TEST);
+  lastDrawCpu = performance.now() - t0;
+}
+
+// ---------- the loop: a frame only while a cause moves something ----------
+let frame = 0, lastTs = null, restWaiters = [], settle = 0, held = false;
+function wake() { if (!frame && !held) frame = requestAnimationFrame(tick); }
+function tick(ts) {
+  frame = 0;
+  const dt = lastTs == null ? 1000 / 60 : Math.min(50, ts - lastTs); lastTs = ts;
+  step(dt); draw(); if (frames % 15 === 0) panel();
+  if (animating() && !held) frame = requestAnimationFrame(tick);
+  else { lastTs = null; panel(); for (const r of restWaiters) r(); restWaiters = []; settleQueries(); }
+}
+function settleQueries() { clearTimeout(settle); let left = 8; const look = () => { pollQueries(); if (pending.length && --left > 0) settle = setTimeout(look, 120); else panel(); }; settle = setTimeout(look, 120); }
+
+// ---------- the page ----------
+const say = html => { $('#hint').innerHTML = html; };
+function resize() {
+  dpr = Math.min(devicePixelRatio || 1, LEAN ? 1 : 2); W = Math.max(1, Math.round(innerWidth * dpr)); H = Math.max(1, Math.round(innerHeight * dpr));
+  canvas.width = W; canvas.height = H;
+  fullNext = true; camera(); if (layout) draw();
+}
+function panel() {
+  const st = mint.state(), fill = layout?.capacity ? Math.round(100 * (levelTarget + 1) / 2) : 0;
+  $('#sum').textContent = st.capacity ? `RUNG ${st.rung} · ${st.capacity} SEATS · ${st.gold} GOLD · ${st.bronze} BRONZE\nTHE POUCH ${fill}% FULL · TREASURY $${st.treasury.toLocaleString('en')}${hanging.length ? ` · ${hanging.length} AT THE RIM` : ''}` : 'THE SEED · THE TWELVE CHAIRS · AN EMPTY POUCH';
+  $('#expand').disabled = st.next == null || morph != null;
+  const pass = Object.entries(passStats).map(([k, s]) => `${k} ${(s.ns / s.n / 1000).toFixed(0)}µs`).join('  ');
+  $('#stats').textContent = `${RENDERER}\n${W}×${H} · frames ${frames} · draws ${draws} · ${animating() ? 'ALIVE' : 'AT REST'}\nfield energy ${energy.toExponential(2)} · textures ${(textureBytes / 1048576).toFixed(1)} MB · mesh ${(meshBytes / 1024).toFixed(0)} KB\n${extT ? 'GPU ' + pass : 'no GPU timer · draw cpu ' + lastDrawCpu.toFixed(2) + ' ms'}`;
+}
+let pointer = null;
+canvas.addEventListener('pointerdown', e => { if (e.button !== 0) return; pointer = {id: e.pointerId, x: e.clientX, y: e.clientY}; canvas.setPointerCapture?.(e.pointerId); });
+canvas.addEventListener('pointermove', e => { if (!pointer || e.pointerId !== pointer.id) return; yaw += (e.clientX - pointer.x) * 0.006; pitch = Math.max(-1.35, Math.min(1.35, pitch + (e.clientY - pointer.y) * 0.004)); pointer.x = e.clientX; pointer.y = e.clientY; camera(); if (!frame) draw(); });
+canvas.addEventListener('pointerup', () => { pointer = null; }); canvas.addEventListener('pointercancel', () => { pointer = null; });
+$('#bronze').addEventListener('click', () => buy('bronze')); $('#gold').addEventListener('click', () => buy('gold'));
+$('#crowd').addEventListener('click', crowd); $('#expand').addEventListener('click', expand); $('#reset').addEventListener('click', reset);
+addEventListener('resize', resize);
+
+// the star: his X picture, the lab's stand-in; a warm disc when it cannot be read
+const FACE = new Image(); FACE.crossOrigin = 'anonymous'; FACE.decoding = 'async';
+let starSource = 'none';
+const ready = new Promise(resolve => {
+  const done = src => { starSource = src; gl.bindTexture(gl.TEXTURE_2D, star); textureBytes -= 4;
+    if (src === 'picture') { gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, gl.RGBA, gl.UNSIGNED_BYTE, FACE); textureBytes += FACE.naturalWidth * FACE.naturalHeight * 4; }
+    else { const c = document.createElement('canvas'); c.width = c.height = 256; const x = c.getContext('2d'); const g = x.createRadialGradient(100, 96, 10, 128, 128, 128); g.addColorStop(0, '#fff3d0'); g.addColorStop(.6, '#e9bd6a'); g.addColorStop(1, '#8a5a1e'); x.fillStyle = g; x.fillRect(0, 0, 256, 256); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, gl.RGBA, gl.UNSIGNED_BYTE, c); textureBytes += 256 * 256 * 4; }
+    if (layout) draw(); resolve(src); };
+  FACE.onload = () => done('picture'); FACE.onerror = () => done('disc');
+  FACE.src = q.get('face') || 'https://pbs.twimg.com/profile_images/2043850006566744064/qeOobVml_200x200.jpg';
+});
+
+resize(); relayout(); clearField(); draw(); panel();
+say('The seed: twelve chairs, an empty pouch. <b>Expand</b> opens the first land; a drop is a purchase.');
+
+// ---------- THE TANK: the purse on the Nest (the header's words; tank-law.mjs; `tank` is made with the numbers of the look above) ----------
+let tankStream = null;
+const tankEl = $('#tank'), popsEl = $('#pops'), balanceEl = $('#balance');
+const escapeHtml = s => String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+function tankPlace() {   // the balance under the pouch, in css px (W, H and sphere() are device px)
+  if (!tank) return; const [cx, cy, R] = sphere();
+  balanceEl.style.left = `${cx / dpr}px`; balanceEl.style.top = `${(cy + 1.22 * R) / dpr}px`;
+}
+function tankPaint() {   // written on a cause only (a take, a resize)
+  if (!tank) return; const st = tank.state();
+  tankEl.hidden = st.posted == null && st.level == null;
+  const d = tank.dps();
+  balanceEl.innerHTML = st.posted == null ? '' : `${escapeHtml(costText(st.posted))}<small>${st.reserved > 0 ? 'held ' + escapeHtml(costText(st.reserved)) + ' · ' : ''}${d.calls ? 'burn ' + escapeHtml(costText(d.usd_per_min)) + '/min · ' + d.calls + (d.calls === 1 ? ' call' : ' calls') : 'at rest'}</small>`;
+  tankPlace();
+}
+function surfacePoint(a) {   // a point of the surface's front rim, world space (the level is a world plane, the pouch the unit ball)
+  const y = Math.max(-0.95, Math.min(0.95, levelShown)), r = Math.sqrt(Math.max(0.02, 1 - y * y));
+  return [Math.sin(a) * r, y, Math.cos(a) * r];
+}
+function drink(c) {   // a call drank from the tank: the number flies from the surface, the sparks, a sip
+  const [cx, cy, R] = sphere(), y = Math.max(-0.95, Math.min(0.95, levelShown));
+  const pop = document.createElement('b'); pop.className = 'pop';
+  pop.innerHTML = `−${escapeHtml(costText(c.cost_usd))}<i>${escapeHtml(c.lane || 'a call')}${c.in != null ? ' · ' + escapeHtml(tokensText(c.in)) + ' in' : ''}</i>`;
+  pop.style.left = `${(cx + (rng() - 0.5) * 0.5 * R) / dpr}px`; pop.style.top = `${(cy - y * R * 0.9) / dpr}px`;
+  pop.addEventListener('animationend', () => pop.remove(), {once: true}); popsEl.append(pop);
+  while (popsEl.children.length > 12) popsEl.firstChild.remove();
+  for (let i = 0; i < SPARKS.n; i++) { const p = surfacePoint((rng() - 0.5) * 1.3);
+    sparks.push({t0: clock + rng() * 120, x: p[0] * 1.03, y0: p[1], z: p[2] * 1.03, vx: (rng() - 0.5) * 0.25, vy: 0.3 + rng() * 0.45, vz: 0.12 + rng() * 0.1, metal: 'spark', pos: null, stretch: 1, alpha: 0}); }
+  if (layout) { const p = unrotate(surfacePoint((rng() - 0.5) * 1.1)), n = Math.hypot(...p) || 1;
+    splats.push({dir: p.map(v => v / n), radius: SIP.radius * (layout.cellAngle || 0.35), amp: SIP.amp}); rippling = true; restAt = Math.max(restAt, clock + LIFE_MS.sip); }
+  balanceEl.classList.remove('drop'); void balanceEl.offsetWidth; balanceEl.classList.add('drop');
+  say(`<b>${escapeHtml(c.lane || 'a call')}</b> drank ${escapeHtml(costText(c.cost_usd))}${c.in != null ? ` (${escapeHtml(tokensText(c.in))} tokens in)` : ''}; the tank at ${escapeHtml(costText(tank.state().posted ?? 0))}.`);
+  wake();
+}
+function takeRef(name, ref) {   // a reading of house/purse or mint/drops, as the Nest hands it ({value, rev}); false when nothing moves
+  if (!tank) return false;
+  const r = tank.take(ref?.value ?? null, {rev: Number.isFinite(ref?.rev) ? ref.rev : null, ref: name});
+  if (!r) return false;
+  if (layout) level();
+  for (const c of r.causes) { if (c.kind === 'burn') drink(c); else if (c.kind === 'drop') buy(c.metal); }
+  tankPaint(); wake(); return true;
+}
+if (tank) {
+  tankPaint();
+  (async () => {   // once at load, then its stream: nothing at rest, a line when the purse moves
+    for (const name of [PURSE_REF, DROPS_REF]) { try { const r = await fetch(`${NEST}/nest/ref/${name}`, {cache: 'no-store'}); const j = r.ok ? await r.json() : null; if (j?.ref) takeRef(name, j.ref); } catch { /* no Nest here: nothing of it is drawn */ } }
+    try { tankStream = new EventSource(`${NEST}/nest/stream?types=ref&refs=${PURSE_REF},${DROPS_REF}`);
+      tankStream.onmessage = m => { try { const e = JSON.parse(m.data); if (e && e.type === 'ref' && e.payload && (e.payload.name === PURSE_REF || e.payload.name === DROPS_REF)) takeRef(e.payload.name, e.payload); } catch { /* not an entry */ } };
+    } catch { tankStream = null; }
+  })();
+  addEventListener('resize', tankPlace);
+}
+
+// ---------- the seams a bench reads (?bench=1 is only a name: nothing here moves by itself) ----------
+window.__syrup = {
+  ready, mint,
+  info: () => ({renderer: RENDERER, timer: Boolean(extT), floatTargets: Boolean(extF), width: W, height: H, dpr, textureBytes, meshBytes, star: starSource, field: [FW, FH], quality: QUALITY, stepsPerSecond: Math.round(1000 / SUB_MS), dispersion: DISPERSION, rest: REST, dirty: dirtyRect(sphere())}),
+  buy, crowd, expand, reset,
+  /** THE TANK's seam: take('house/purse' | 'mint/drops', {value, rev}) as the Nest's stream would hand it (a proof's door); the law beside it */
+  tank: tank ? {take: takeRef, law: tank} : null,
+  faces: () => layout.byFace.map(s => ({face: s.faceIndex, open: !s.holder, dir: worldOf(s.face), home: s.home})),
+  view: (y, p) => { yaw = y; pitch = p; camera(); },
+  /** held: the page's own loop stays off, so advance() and draw() alone move the clock (for pictures) */
+  hold: v => { held = Boolean(v); if (!held) { lastTs = null; wake(); } },
+  /** advance the clock by ms in 60 Hz steps with no frame: deterministic, for pictures; the energy is read synchronously */
+  advance: ms => { const n = Math.max(1, Math.round(ms / (1000 / 60))); for (let i = 0; i < n; i++) { step(1000 / 60); if (energyFence) { gl.deleteSync(energyFence); energyFence = null; } if (REST === 'energy' && rippling && framesSinceEnergy === 0) energyIssue(true); } },
+  draw: () => { draw(); panel(); },
+  stats: () => ({frames, draws, clock, energy, rippling, rest: REST, restAt, dispersion: DISPERSION, sparks: sparks.length, pops: popsEl.children.length, tank: tank ? tank.state() : null, syncReads, beads: beads.length, hanging: hanging.length, animating: animating(), lastDrawCpu, passes: Object.fromEntries(Object.entries(passStats).map(([k, s]) => [k, {us: s.ns / s.n / 1000, max_us: s.max / 1000, n: s.n}])), pending: pending.length}),
+  resetStats: () => { passStats = {}; frames = 0; draws = 0; },
+  /** the field read back whole (8 MB, a stall): the largest |h| and its texel, the energy by the same sum; for a probe only */
+  fieldRead: () => { const out = new Float32Array(FW * FH * 4); gl.bindFramebuffer(gl.FRAMEBUFFER, fieldFbo[cur]); gl.readPixels(0, 0, FW, FH, gl.RGBA, gl.FLOAT, out); gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    let m = 0, at = -1, e = 0, nan = 0; for (let i = 0; i < FW * FH; i++) { const h = out[i * 4], v = h - out[i * 4 + 1]; if (h !== h) { nan++; continue; } if (Math.abs(h) > m) { m = Math.abs(h); at = i; } e += h * h + 4 * v * v; }
+    return {max: m, at: at < 0 ? null : {x: at % FW, y: Math.floor(at / FW), lat: ((Math.floor(at / FW) + 0.5) / FH - 0.5) * 180}, energy: e, nan}; },
+  /** `n` frames with ripples alive: a bronze drop every 24 frames; returns the pass times and the frame deltas */
+  benchAlive: n => new Promise(resolve => { passStats = {}; const deltas = [], cpu = []; let count = 0, last = null; const d0 = draws;
+    const go = ts => { if (last != null) deltas.push(ts - last); last = ts; if (count % 24 === 0) buy('bronze'); if (count % 96 === 48) buy('gold'); wake();
+      cpu.push(lastDrawCpu); if (++count < n) requestAnimationFrame(go); else { const dEnd = draws - d0; const look = () => { pollQueries(); if (pending.length) return setTimeout(look, 100); resolve({frames: n, draws: dEnd, deltas, cpu, passes: window.__syrup.stats().passes}); }; setTimeout(look, 150); } };
+    requestAnimationFrame(go); }),
+  /** waits for rest, then counts `n` frames of its own and the page's draws in them: zero is the law */
+  benchRest: n => new Promise(resolve => { const start = () => { const d0 = draws, f0 = frames; let count = 0; const go = () => { if (++count < n) requestAnimationFrame(go); else resolve({frames: n, draws: draws - d0, pageFrames: frames - f0, energy, rippling, syncReads, animating: animating()}); }; requestAnimationFrame(go); };
+    if (!animating() && !frame) start(); else { restWaiters.push(start); wake(); } }),
+  /** each pass alone, `n` times between two finishes: the wall clock a pass costs when no GPU timer answers */
+  benchPasses: (n = 60) => { const out = {}; const run = (name, fn) => { gl.finish(); const t0 = performance.now(); for (let i = 0; i < n; i++) fn(); gl.finish(); out[name] = (performance.now() - t0) / n * 1000; };
+    const was = rippling; rippling = true; run('wave x4', () => { for (let i = 0; i < 4; i++) waveStep(null); }); run('energy', () => energyIssue(true)); run('mask', () => buildMask()); rippling = was;
+    run('frame (back+glass+beads)', () => draw()); return out; },
+};
+
+// ---------- THE BENCH ON THE GLASS ITSELF (?bench=auto; Oct 16 2026, his "can you start benchmarking it on lysa", "very cheap phones") ----------
+// A phone, a tablet or lysa's kiosk has no DevTools road for the Mac's bench (syrup-glass.bench.mjs): opened with ?bench=auto the page benches
+// itself as that bench does (two rungs of land, 240 frames alive with a drop every 24, 120 at rest, each pass alone) and says the receipt on
+// its panel, in its title (a picture of the glass carries it) and on the console (one line, 'syrup-bench {...}'); window.__syrup.receipt holds
+// it; ?report=<url> posts it there by sendBeacon (nothing leaves otherwise). The tank is off in a bench unless ?tank=1. Nothing repeats.
+if (q.get('bench') === 'auto') {
+  (async () => {
+    await ready; await new Promise(r => setTimeout(r, 300));
+    const S = window.__syrup;
+    S.expand(); S.advance(1700); S.expand(); S.advance(1700); S.draw();
+    const alive = await S.benchAlive(240), rest = await S.benchRest(120), alone = S.benchPasses(30);
+    const st = v => { const s = [...v].sort((a, b) => a - b), at = p => s[Math.min(s.length - 1, Math.floor(p * s.length))]; return s.length ? {median: at(0.5), p95: at(0.95), max: s[s.length - 1]} : null; };
+    const receipt = {at: new Date().toISOString(), ua: navigator.userAgent, renderer: RENDERER, timer: Boolean(extT), size: [W, H], dpr, cores: navigator.hardwareConcurrency || null,
+      quality: QUALITY, field: [FW, FH], stepsPerSecond: Math.round(1000 / SUB_MS), rest: REST, dispersion: DISPERSION,
+      alive: {frames: alive.frames, draws: alive.draws, delta_ms: st(alive.deltas), draw_cpu_ms: st(alive.cpu), gpu_us: alive.passes}, atRest: {frames: rest.frames, draws: rest.draws}, alone_us: alone};
+    window.__syrup.receipt = receipt; console.log('syrup-bench ' + JSON.stringify(receipt));
+    const gpu = extT ? 'GPU ' + Object.entries(alive.passes).map(([k, v]) => `${k} ${v.us.toFixed(0)}µs`).join(' ') : 'no GPU timer';
+    const line = `BENCH ${QUALITY} ${W}×${H}@${dpr} · alive ${receipt.alive.delta_ms.median.toFixed(1)} ms median, p95 ${receipt.alive.delta_ms.p95.toFixed(1)} · rest ${rest.draws} draws in ${rest.frames} · ${gpu} · alone ${Object.entries(alone).map(([k, v]) => `${k} ${v.toFixed(0)}µs`).join(' ')}`;
+    say(`<b>Bench done.</b> ${escapeHtml(line)}`); document.title = line;
+    const report = q.get('report'); if (report) { try { navigator.sendBeacon(report, JSON.stringify(receipt)); } catch { /* the receipt stays on the page */ } }
+  })().catch(e => say(`<b>Bench failed.</b> ${escapeHtml(String(e && e.message || e))}`));
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+/* Load after warm-galaxy.css. Native video owns motion; overlays stay live. */
+.galaxy-video{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;pointer-events:auto;background:var(--galaxy-back,#faf9f5)}
+.warm-galaxy:not(.galaxy-ready) .galaxy-video{display:none}
+.galaxy-video-player .galaxy-theater{background:var(--galaxy-back,#faf9f5)}
+.galaxy-video-player .galaxy-viewport{height:calc(var(--galaxy-height) * .8);overflow:clip;position:relative}
+.galaxy-video-player .galaxy-scene-heading{z-index:1}
+.galaxy-video-player .galaxy-future{pointer-events:none}
+.galaxy-video-player .galaxy-future a{pointer-events:auto}
+.galaxy-video-player .galaxy-controls{bottom:calc(var(--galaxy-height) * .2 + 16px);z-index:4;left:4%;right:4%;padding:10px 15px;border:1px solid rgb(214 191 137 / .35);border-radius:3px;gap:18px;background:rgb(250 249 245 / .94);color:#2b2620;box-shadow:0 4px 24px rgb(0 0 0 / .06);opacity:0;visibility:hidden;pointer-events:none;transform:translateY(5px);transition:opacity .2s,transform .2s,visibility .2s}
+.galaxy-video-player .galaxy-controls-visible .galaxy-controls,.galaxy-video-player .galaxy-keyboard-controls .galaxy-controls:focus-within{opacity:1;visibility:visible;pointer-events:auto;transform:none}
+.galaxy-video-player .galaxy-controls button{min-height:32px;padding:4px 0;font-size:12px}
+.galaxy-video-player .galaxy-controls input{height:18px;background:linear-gradient(#bfa369,#bfa369) center / 100% 2px no-repeat;min-width:50px;accent-color:#ac8535}
+.galaxy-video-player .galaxy-controls input::-webkit-slider-thumb{background:#ac8535;width:10px;height:10px}
+.galaxy-video-player .galaxy-controls input::-moz-range-thumb{background:#ac8535;width:10px;height:10px}
+.galaxy-video-player .galaxy-activity,.galaxy-video-player .galaxy-simulation{display:none}
+.galaxy-start{position:absolute;z-index:3;left:50%;top:39%;transform:translate(-50%,-50%);border:1px solid #b4944d;background:#e2ce96;color:#25352b;padding:17px 27px;font:500 16px/1.2 var(--sans,system-ui,sans-serif);cursor:pointer;box-shadow:0 4px 35px rgb(90 63 14 / .12)}
+.galaxy-start[hidden]{display:none}
+.galaxy-start:focus-visible,.galaxy-video-player .galaxy-theater:focus-visible{outline:2px solid #b4944d;outline-offset:4px}
+.galaxy-reduced-motion .galaxy-theater{background:#101c1a}
+.galaxy-reduced-motion .galaxy-future{animation:none}
+.galaxy-video-player .galaxy-viewport:fullscreen{height:100dvh!important;width:100vw;background:#101c1a;overflow:hidden}
+.galaxy-video-player .galaxy-viewport:fullscreen .galaxy-theater{--galaxy-height:100dvh;height:100dvh;max-height:none}
+.galaxy-video-player .galaxy-viewport:fullscreen .galaxy-controls{bottom:18px}
+@media(max-width:700px){.galaxy-video-player .galaxy-controls{left:3%;right:3%;gap:11px;padding:9px 11px;flex-wrap:wrap}.galaxy-video-player .galaxy-controls input{order:2;flex-basis:calc(100% - 70px)}.galaxy-video-player .galaxy-controls output{order:3}.galaxy-video-player .galaxy-controls [data-galaxy-fullscreen]{margin-left:auto}.galaxy-start{top:38%;font-size:15px}}
+@media(prefers-reduced-motion:reduce){.galaxy-video-player .galaxy-controls{transition:none}}
+@media(max-width:700px){.galaxy-video-player .galaxy-future{padding-top:38px}.galaxy-video-player .galaxy-future h2{margin:20px 0}.galaxy-video-player .galaxy-warm{margin:20px 0}.galaxy-video-player .galaxy-invitation{gap:17px}}

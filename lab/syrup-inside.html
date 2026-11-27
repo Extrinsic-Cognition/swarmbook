@@ -1,0 +1,648 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Inside the pouch</title>
+<!--
+  syrup-inside.html: the mint's pouch seen from inside its syrup (Oct 14 2026 05:5x WEST). His words: "please give to me the most
+  delicious realistic one you can code... I WANT TO SEE THE PROJECTION OF THE MONEY SEEN FROM INSIDE OF IT WITH LIQUOR RIFRACTIONS
+  LIKE YOU KNOW THOSE VIRAL WOW EFFECT VIDEOS". One full-screen WebGL2 fragment shader, ray-traced. The shell is the land model's
+  Goldberg (mint-gravity.mjs), every face a plane at distance one, so the glass polyhedron is exact. The camera floats in maple syrup
+  (index 1.47, Beer-Lambert amber, Snell's window and total internal reflection from below, Fresnel from above). Every held pane is
+  stained glass: the holder's face (his X picture in its own tone, the hive-pfp stand-in) in its metal's tint, gold leading between
+  the panes, the twelve chairs a frame of the Saint Seiya film. The sun stands high outside; a 1024 px cookie (the colour of the pane each
+  sunbeam crosses, redrawn only when a pane is bought) projects the money down through the syrup's moving surface onto the panes
+  below and into the volume as shafts, with caustics from the surface's curvature and a little dispersion. A purchase is a drop that
+  falls from its pane and rings the surface, gold heavier than bronze; the level is the land held. It draws only while something
+  moves (a drop, a living ripple, the level settling, a drag, the show) and keeps its last picture at rest. A private render, outside
+  the build (the build copies app/, js/, skills/, submission/), worn on no glass. window.__lab is the proof seam; its showFrame(t) draws the
+  Show at t with four samples a pixel, the same picture for the same t, and ?clip=1 hides the words and buttons (syrup-inside.clip.mjs
+  records the Show as a vertical clip that way).
+-->
+<style>
+  html,body{margin:0;height:100%;background:#120c06;color:#f3e6c8;font:13px/1.45 -apple-system,"Helvetica Neue",Helvetica,Arial,sans-serif;overflow:hidden}
+  canvas{position:fixed;inset:0;width:100vw;height:100vh;display:block;cursor:grab;touch-action:none}
+  canvas:active{cursor:grabbing}
+  .note{position:fixed;left:16px;top:14px;z-index:2;max-width:min(520px,calc(100vw - 32px));color:#ecdcb8;text-shadow:0 1px 10px #000c;pointer-events:none}
+  .note b{color:#fff4da;font-weight:650}
+  .num{position:fixed;right:16px;top:14px;z-index:2;font:11px/1.6 ui-monospace,Menlo,monospace;letter-spacing:.06em;color:#dcc79e;text-align:right;text-shadow:0 1px 10px #000c;pointer-events:none}
+  .bar{position:fixed;left:16px;right:16px;bottom:16px;display:flex;flex-wrap:wrap;gap:8px;z-index:2}
+  .bar button{font:11px ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;padding:10px 13px;border:1px solid #d9b46a66;
+    background:#1c140bcc;color:#f3e6c8;cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+  .bar button:hover,.bar button[aria-pressed=true]{background:#3e2c13dd;border-color:#e2bd72}
+  @media(max-width:600px){.note{font-size:12px}.bar button{padding:9px 10px;font-size:10px}}
+  body.clip .note,body.clip .num,body.clip .bar{display:none}
+</style>
+</head>
+<body>
+<canvas id="c" aria-label="Inside the glass polyhedron, in maple syrup: the held panes glow as stained glass and the sun projects them into the syrup. Drag to look around."></canvas>
+<div class="note"><b>Inside the pouch.</b> You float in the syrup. Every held pane is a holder; the sun projects them down through the amber. A drop is a purchase, and gold falls heavier. Drag to look around.</div>
+<div class="num" id="num"></div>
+<div class="bar">
+  <button type="button" id="bronze">Bronze drop · $10</button>
+  <button type="button" id="gold">Gold drop · $1,000</button>
+  <button type="button" id="crowd">A crowd</button>
+  <button type="button" id="dive" aria-pressed="true">Under the surface</button>
+  <button type="button" id="show">Show ▶</button>
+</div>
+<script type="module">
+import {createMint} from './mint-gravity.mjs';
+const $ = s => document.querySelector(s);
+document.body.classList.toggle('clip', new URLSearchParams(location.search).get('clip') === '1');   // a clip: the picture alone
+const cv = $('#c');
+const gl = cv.getContext('webgl2', {antialias: false, alpha: false, depth: false, stencil: false, preserveDrawingBuffer: true, powerPreference: 'high-performance'});
+if (!gl) { $('.note').innerHTML = '<b>This page needs WebGL2.</b>'; throw new Error('no WebGL2'); }
+const floatTarget = Boolean(gl.getExtension('EXT_color_buffer_float'));
+const aniso = gl.getExtension('EXT_texture_filter_anisotropic');
+const dbg = gl.getExtension('WEBGL_debug_renderer_info');
+const RENDERER = dbg ? gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER);
+// the page's state, declared before anything can call into it
+let cookieDirty = true, faces = [], layout = null, frame = 0, lastTs = 0, scale = 0.8, frameMs = 0, drag = null;
+let held = false, clipAt = null, glowLit = false;   // the clip's clock holds the page's; the face buffer still holds a glow
+
+// ---------------------------------------------------------------- the shaders
+const COMMON = `
+#define MAXF 256
+layout(std140) uniform Faces { vec4 F[512]; };   // F[2i] = (normal, circumradius); F[2i+1] = (kind, tile, glow, 0)
+uniform int uN;
+uniform sampler2D uAtlas;
+// a ray from inside leaves the polyhedron through the nearest face plane ahead of it
+float exitDome(vec3 o, vec3 d, out int face) {
+  float best = 1e9; face = 0;
+  for (int i = 0; i < MAXF; i++) {
+    if (i >= uN) break;
+    vec3 n = F[2 * i].xyz;
+    float dn = dot(d, n);
+    if (dn > 1e-5) { float t = (1.0 - dot(o, n)) / dn; if (t < best) { best = t; face = i; } }
+  }
+  return best;
+}
+// how far a point on a face lies from that face's nearest edge, in the face's own plane
+float edgeDist(vec3 q, int face) {
+  vec3 ni = F[2 * face].xyz; float m = 1e9;
+  for (int j = 0; j < MAXF; j++) {
+    if (j >= uN) break;
+    if (j == face) continue;
+    vec3 nj = F[2 * j].xyz;
+    float c = dot(ni, nj);
+    if (c < 0.3) continue;
+    m = min(m, (1.0 - dot(q, nj)) / sqrt(max(1e-6, 1.0 - c * c)));
+  }
+  return m;
+}
+vec2 faceUV(vec3 q, int face) {
+  vec3 n = F[2 * face].xyz; float r = F[2 * face].w;
+  vec3 e1 = normalize(cross(abs(n.y) > 0.92 ? vec3(0.0, 0.0, 1.0) : vec3(0.0, 1.0, 0.0), n));
+  vec3 e2 = normalize(cross(n, e1));
+  vec3 p = q - n;
+  return vec2(dot(p, e1), dot(p, e2)) / r;
+}
+vec2 atlasUV(int tile, vec2 uv) {
+  vec2 l = clamp(vec2(0.5 + 0.5 * uv.x, 0.5 - 0.5 * uv.y), 0.0, 1.0);
+  return (vec2(float(tile % 16), float(tile / 16)) + 0.02 + l * 0.96) / 16.0;
+}
+vec3 metalTint(int kind) { return kind == 2 ? vec3(1.32, 1.02, 0.52) : kind == 1 ? vec3(1.14, 0.80, 0.56) : vec3(1.0, 0.88, 0.80); }
+// the light a pane lets through, linear: clear glass, or a picture in its metal
+vec3 paneTransmit(vec3 q, int face, out int kind) {
+  vec4 a = F[2 * face + 1]; kind = int(a.x + 0.5);
+  if (kind == 0) return vec3(0.045, 0.038, 0.032);   // unsold land: smoky glass, so the light in the pouch is the held panes'
+  vec3 pic = texture(uAtlas, atlasUV(int(a.y + 0.5), faceUV(q, face))).rgb;
+  return pow(pic, vec3(2.2)) * metalTint(kind);
+}
+`;
+const VS = `#version 300 es
+layout(location = 0) in vec2 aPos; out vec2 vUV;
+void main() { vUV = aPos * 0.5 + 0.5; gl_Position = vec4(aPos, 0.0, 1.0); }`;
+
+// the cookie: for every sunbeam (a line along the sun through the plane perpendicular to it), the colour of the pane it crosses
+const FS_COOKIE = `#version 300 es
+precision highp float; precision highp int;
+${COMMON}
+uniform vec3 uSun, uC1, uC2;
+in vec2 vUV; out vec4 outColor;
+const float TEXEL = 2.2 / 1024.0;                  // one texel of this map, in the plane across the sun
+// a pane's light as paneTransmit gives it, the atlas read with this map's own gradients over the pane: a quad of texels that straddles
+// two panes read the atlas at its coarsest level, its mean colour, which the projection showed as dots along the leading's shadow
+vec3 paneLight(vec3 q, int face) {
+  vec4 a = F[2 * face + 1]; int kind = int(a.x + 0.5);
+  if (kind == 0) return vec3(0.045, 0.038, 0.032);
+  vec3 n = F[2 * face].xyz; float sn = max(1e-6, dot(uSun, n));
+  vec3 e1 = normalize(cross(abs(n.y) > 0.92 ? vec3(0.0, 0.0, 1.0) : vec3(0.0, 1.0, 0.0), n)), e2 = cross(n, e1);   // faceUV's axes
+  vec3 dx = TEXEL * (uC1 - uSun * (dot(uC1, n) / sn)), dy = TEXEL * (uC2 - uSun * (dot(uC2, n) / sn));   // a texel's step, on the pane
+  vec2 k = vec2(0.03, -0.03) / F[2 * face].w;      // atlasUV's scale over faceUV's
+  vec3 pic = textureGrad(uAtlas, atlasUV(int(a.y + 0.5), faceUV(q, face)), k * vec2(dot(dx, e1), dot(dx, e2)), k * vec2(dot(dy, e1), dot(dy, e2))).rgb;
+  return pow(pic, vec3(2.2)) * metalTint(kind);
+}
+// the light through the leading from its edge out to y on the pane: the integral of smoothstep(0.004, 0.016, u) over [0, y]
+float leadArea(float y) { float t = clamp((y - 0.004) / 0.012, 0.0, 1.0); return 0.012 * t * t * t * (1.0 - 0.5 * t) + max(0.0, y - 0.016); }
+// the nearest edge of the pane a beam leaves through (as edgeDist), the pane across it, and how fast the distance to that edge grows on
+// each of the two panes per unit across the beams: 1 where the sun meets a pane square on, more as it slants
+float edgeNear(vec3 q, int face, out int nb, out float sa, out float sb) {
+  vec3 ni = F[2 * face].xyz; float m = 1e9, si = max(1e-6, dot(uSun, ni)); nb = face; sa = 1.0; sb = 1.0;
+  for (int j = 0; j < MAXF; j++) {
+    if (j >= uN) break;
+    if (j == face) continue;
+    vec3 nj = F[2 * j].xyz;
+    float c = dot(ni, nj);
+    if (c < 0.3) continue;
+    float s = sqrt(max(1e-6, 1.0 - c * c)), d = (1.0 - dot(q, nj)) / s;
+    if (d < m) {
+      float sj = dot(uSun, nj);
+      m = d; nb = j; sa = length(nj - ni * (sj / si)) / s; sb = sj > 1e-6 ? length(ni - nj * (si / sj)) / s : sa;
+    }
+  }
+  return m;
+}
+void main() {
+  vec2 c2 = vUV * 2.2 - 1.1;
+  vec3 o = uC1 * c2.x + uC2 * c2.y - uSun * 3.0;   // the beam, from well below the dome
+  // the exact line through a convex polyhedron leaves it by the first plane it meets going up; a beam that misses the pouch meets that
+  // plane beyond a rim edge, where the distance below is negative and no light comes (none of those beams reaches the syrup)
+  float tOut = 1e9; int face = 0;
+  for (int i = 0; i < MAXF; i++) {
+    if (i >= uN) break;
+    vec3 n = F[2 * i].xyz;
+    float dn = dot(uSun, n);
+    if (dn > 1e-6) { float t = (1.0 - dot(o, n)) / dn; if (t < tOut) { tOut = t; face = i; } }
+  }
+  vec3 q = o + uSun * tOut, tr = paneLight(q, face);
+  int nb; float sa, sb, e = edgeNear(q, face, nb, sa, sb);
+  // seen from the sun a slanted pane's leading narrows by its slant, and its 0.012 ramp with it: a texel or less toward the rim of this
+  // map, which aliased into the teeth the waterline magnifies (Oct 14 2026). No shadow edge gets sharper across the beams than it is
+  // where the sun meets a pane square on (the sun's own disc softens them all alike): a slanted edge is the mean over a box of b across
+  // it, the same box from both panes so their halves meet; the square-on leading is as it always was
+  float b = 0.012 - 0.012 / max(sa, sb);
+  if (b < 1e-5) { outColor = vec4(tr * smoothstep(0.004, 0.016, e), 1.0); return; }
+  vec3 nn = F[2 * nb].xyz; float sn = dot(uSun, nn), h = 0.5 * b, x = e / sa;
+  vec3 across = sn > 1e-6 ? paneLight(o + uSun * ((1.0 - dot(o, nn)) / sn), nb) : vec3(0.0);
+  vec3 lit = tr * (leadArea(max(0.0, x + h) * sa) - leadArea(max(0.0, x - h) * sa)) / sa
+           + across * (leadArea(max(0.0, h - x) * sb) - leadArea(max(0.0, -x - h) * sb)) / sb;
+  outColor = vec4(lit / b, 1.0);
+}`;
+
+const FS_MAIN = `#version 300 es
+precision highp float; precision highp int;
+${COMMON}
+uniform vec2 uRes;
+uniform vec3 uCam; uniform mat3 uRot; uniform float uTan;
+uniform vec3 uSun, uC1, uC2;
+uniform float uLevel;
+uniform int uNR; uniform vec4 uRip[16];          // x, z, age (s), amplitude
+uniform int uNB; uniform vec4 uBead[8]; uniform float uBeadKind[8];
+uniform sampler2D uCookie;
+uniform int uSS;                                   // samples a side: 1 while it moves, 2 for the still at rest
+out vec4 outColor;
+const float IOR = 1.47;                           // maple syrup
+const vec3 SIGMA = vec3(0.55, 1.90, 5.20);        // absorption per unit of radius: blue dies first, then green: deep amber
+const vec3 SUN = vec3(4.4, 3.5, 2.4);
+float PIXA;                                       // the angle one pixel subtends
+vec3 SIN;                                         // the sunlight's direction once inside the syrup
+
+vec3 sky(vec3 d) {
+  vec3 c = mix(vec3(0.018, 0.011, 0.006), vec3(0.11, 0.07, 0.04), smoothstep(-0.2, 0.9, d.y));
+  float s = max(dot(d, uSun), 0.0);
+  c += vec3(1.0, 0.78, 0.48) * (pow(s, 5.0) * 0.35 + pow(s, 60.0) * 2.2);
+  c += vec3(1.0, 0.93, 0.80) * smoothstep(0.99955, 0.99975, s) * 70.0;
+  // the room's lamps: warm points around the horizon, soft orbs through the clear panes
+  for (int i = 0; i < 12; i++) {
+    float a = float(i) * 0.5236 + 0.3 * sin(float(i) * 1.7);
+    float el = 0.04 + 0.2 * fract(sin(float(i) * 12.9898) * 43758.5453);
+    vec3 L = normalize(vec3(cos(a), el, sin(a)));
+    float k = dot(d, L);
+    vec3 hue = mix(vec3(1.0, 0.52, 0.18), vec3(1.0, 0.84, 0.58), fract(float(i) * 0.618));
+    c += hue * (smoothstep(0.9962, 0.9984, k) * 2.4 + pow(max(k, 0.0), 420.0) * 0.7);
+  }
+  return c;
+}
+vec3 aces(vec3 x) { return clamp((x * (2.51 * x + 0.03)) / (x * (2.43 * x + 0.59) + 0.14), 0.0, 1.0); }
+
+// the surface: rings from the drops, slow because syrup is thick, with the dimple and rebound where each drop went in
+float waveH(vec2 p) {
+  float h = 0.0;
+  for (int i = 0; i < 16; i++) {
+    if (i >= uNR) break;
+    vec4 r = uRip[i];
+    float age = r.z, d = length(p - r.xy), fr = d - age * 0.30;
+    h += r.w * exp(-fr * fr * 42.0) * exp(-age * 0.85) * smoothstep(0.0, 0.06, age) * cos(fr * 30.0);
+    h -= r.w * 0.8 * exp(-d * d * 520.0) * exp(-age * 4.5) * cos(age * 15.0);
+  }
+  return h;
+}
+vec3 waveN(vec2 p) {
+  if (uNR == 0) return vec3(0.0, 1.0, 0.0);
+  const float e = 0.0025;
+  float hx = waveH(p + vec2(e, 0.0)) - waveH(p - vec2(e, 0.0));
+  float hz = waveH(p + vec2(0.0, e)) - waveH(p - vec2(0.0, e));
+  return normalize(vec3(-hx, 2.0 * e, -hz));
+}
+float waveL(vec2 p) {
+  if (uNR == 0) return 0.0;
+  const float e = 0.005;
+  float c = waveH(p);
+  return (waveH(p + vec2(e, 0.0)) + waveH(p - vec2(e, 0.0)) + waveH(p + vec2(0.0, e)) + waveH(p - vec2(0.0, e)) - 4.0 * c) / (e * e);
+}
+float fresnel(float cosI, float n1, float n2) {
+  float r0 = (n1 - n2) / (n1 + n2); r0 *= r0;
+  if (n1 > n2) { float s2 = (n1 / n2) * (n1 / n2) * (1.0 - cosI * cosI); if (s2 >= 1.0) return 1.0; cosI = sqrt(1.0 - s2); }
+  return r0 + (1.0 - r0) * pow(1.0 - cosI, 5.0);
+}
+vec2 cookieAt(vec3 p) { return vec2(dot(p, uC1), dot(p, uC2)) / 2.2 + 0.5; }
+// the level the cookie is read at: toward its rim the sun meets the panes at a slant (68 degrees at 0.93 of the radius, a graze at 1) and
+// the map holds detail finer than its texels (a lead's shadow under one texel), which the waterline magnifies 10 to 50 times; read there
+// two levels coarser it stays a soft shadow, never a row of teeth (Oct 14 2026). Anywhere else this is level 0, the same texels as before
+const float RIMLOD = 2.0;
+float cookieLod(vec2 uv) { return RIMLOD * smoothstep(0.93, 1.0, 2.2 * length(uv - 0.5)); }
+// sunlight arriving at a point in the syrup: through its pane (the cookie), bent by the moving surface, focused into caustics
+vec3 lightAt(vec3 p, bool caustics, bool disperse, float foot) {
+  float tS = (uLevel - p.y) / max(1e-3, -SIN.y);
+  vec3 S = p - SIN * tS;
+  float k = clamp(1.0 - foot / 0.03, 0.0, 1.0);   // a pixel wider than a few waves sees their mean: flat
+  vec3 bent = refract(-uSun, normalize(mix(vec3(0.0, 1.0, 0.0), waveN(S.xz), k)), 1.0 / IOR);
+  vec3 off = (bent - SIN) * tS * 1.0;
+  vec3 c; vec2 cu = cookieAt(S - off); float lod = cookieLod(cu);
+  if (disperse) {
+    c.r = textureLod(uCookie, cookieAt(S - off * 0.96), lod).r;
+    c.g = textureLod(uCookie, cu, lod).g;
+    c.b = textureLod(uCookie, cookieAt(S - off * 1.05), lod).b;
+  } else c = textureLod(uCookie, cu, lod).rgb;
+  float caus = 1.0;
+  if (caustics && k > 0.0) { caus = clamp(1.0 / max(0.16, 1.0 + tS * 0.28 * waveL(S.xz) * k), 0.0, 5.0); caus = pow(caus, 1.35); }
+  return c * SUN * caus * exp(-SIGMA * tS);
+}
+float hg(float c, float g) { float g2 = g * g; return (1.0 - g2) / (12.566 * pow(1.0 + g2 - 2.0 * g * c, 1.5)); }
+// light scattered toward the eye along a stretch of syrup: the shafts, coloured by the panes they came through
+vec3 shafts(vec3 o, vec3 d, float t0, float t1, float jit) {
+  const int STEPS = 9;
+  vec3 acc = vec3(0.0); float dt = (t1 - t0) / float(STEPS);
+  float ph = hg(dot(SIN, -d), 0.62) * 4.0;
+  for (int k = 0; k < STEPS; k++) {
+    float t = t0 + (float(k) + jit) * dt;
+    acc += (lightAt(o + d * t, false, false, 0.0) * ph * 0.34 + vec3(0.009, 0.0038, 0.001)) * exp(-SIGMA * (t - t0)) * dt;
+  }
+  return acc;
+}
+// a pane seen from inside: stained glass against the sky behind it, the projection landing on it when it lies under the syrup, the leading
+vec3 paneSeen(vec3 q, vec3 d, int face, bool under, float dist) {
+  int kind; vec3 tr = paneTransmit(q, face, kind);
+  vec3 back = sky(d);
+  vec3 col = kind == 0 ? tr * back + vec3(0.030, 0.017, 0.007) : tr * (0.5 + 1.15 * back);
+  col += metalTint(kind) * F[2 * face + 1].z * 1.6 * float(kind != 0);
+  float px = dist * PIXA / max(0.2, abs(dot(d, F[2 * face].xyz)));
+  if (under) {
+    vec3 pr = lightAt(q, true, true, px);
+    col = col * 0.25 + pr * 0.9 * (kind == 0 ? vec3(0.95) : 0.55 + 0.45 * tr);
+  }
+  float e = edgeDist(q, face), w = kind == 2 ? 0.016 : 0.011;
+  float lead = 1.0 - smoothstep(w - px, w + px, e);
+  if (lead > 0.0) {
+    float bevel = smoothstep(w * 0.95 + px, w * 0.55, e) * (1.0 - smoothstep(w * 0.55, w * 0.2 - px, e));
+    float spec = pow(max(dot(reflect(d, -F[2 * face].xyz), uSun), 0.0), 18.0);
+    vec3 metal = vec3(0.32, 0.22, 0.08) * (0.4 + 0.6 * dot(back, vec3(0.33))) + vec3(1.0, 0.82, 0.45) * (bevel * 0.6 + spec * 1.5);
+    col = mix(col, metal, lead);
+  }
+  return col;
+}
+// the falling drops: teardrops of syrup in the air, stretched as they fall
+bool hitBead(vec3 o, vec3 d, float tMax, out vec3 colr) {
+  float best = tMax; bool hit = false; colr = vec3(0.0);
+  for (int i = 0; i < 8; i++) {
+    if (i >= uNB) break;
+    vec4 b = uBead[i];
+    vec3 s = vec3(1.0, 1.0 / 1.55, 1.0);
+    vec3 oc = (o - b.xyz) * s, dd = d * s;
+    float qa = dot(dd, dd), qb = dot(oc, dd), qc = dot(oc, oc) - b.w * b.w, h = qb * qb - qa * qc;
+    if (h < 0.0) continue;
+    float t = (-qb - sqrt(h)) / qa;
+    if (t <= 1e-4 || t >= best) continue;
+    best = t; hit = true;
+    vec3 p = o + d * t, n = normalize((p - b.xyz) * s * s);
+    float fr = 0.04 + 0.96 * pow(1.0 - max(dot(-d, n), 0.0), 5.0);
+    bool gold = uBeadKind[i] > 1.5;
+    vec3 body = sky(refract(d, n, 1.0 / IOR)) * exp(-SIGMA * b.w * (gold ? 9.0 : 5.0)) + (gold ? vec3(0.95, 0.58, 0.12) : vec3(0.62, 0.32, 0.10)) * 0.4;
+    colr = mix(body, sky(reflect(d, n)), fr) + pow(max(dot(reflect(d, n), uSun), 0.0), 160.0) * 9.0;
+  }
+  return hit;
+}
+vec3 traceRay(vec3 ro, vec3 rd, float jit) {
+  bool inS = ro.y < uLevel;
+  vec3 col = vec3(0.0), thr = vec3(1.0);
+  float dist = 0.0, blur = 1.0;
+  for (int b = 0; b < 4; b++) {
+    int face; float tD = exitDome(ro, rd, face);
+    float tS = 1e9;
+    if (abs(rd.y) > 1e-5) { float t = (uLevel - ro.y) / rd.y; if (t > 1e-4 && t < tD) tS = t; }
+    float tEnd = min(tD, tS);
+    if (!inS) { vec3 bc; if (hitBead(ro, rd, tEnd, bc)) return col + thr * bc; }
+    else { col += thr * shafts(ro, rd, 0.0, tEnd, jit); thr *= exp(-SIGMA * tEnd); }
+    if (tS < tD) {
+      vec3 S = ro + rd * tS, n = waveN(S.xz);
+      float foot = (dist + tS) * PIXA / max(0.02, abs(rd.y));
+      // a mirror at a grazing angle magnifies every tilt: fade the ripples there, and wherever a pixel spans more than a sliver of a wave
+      n = normalize(mix(vec3(0.0, 1.0, 0.0), n, clamp(1.0 - foot / 0.012, 0.0, 1.0) * smoothstep(0.12, 0.45, abs(rd.y))));
+      vec3 N = inS ? -n : n;
+      float n1 = inS ? IOR : 1.0, n2 = inS ? 1.0 : IOR;
+      float Fr = fresnel(clamp(dot(-rd, N), 0.0, 1.0), n1, n2);
+      vec3 tr = refract(rd, N, n1 / n2), rr = reflect(rd, N);
+      // the mirrored ray is shaded the same way on both sides of the critical angle, so Snell's window has a continuous edge
+      int f2; float t2 = exitDome(S + rr * 1e-3, rr, f2);
+      vec3 mirrored = paneSeen(S + rr * t2, rr, f2, inS, (dist + tS + t2) * 3.0) * (inS ? exp(-SIGMA * t2) : vec3(1.0));   // a mirror image is seen softer
+      if (dot(tr, tr) < 1e-6) return col + thr * mirrored;   // total internal reflection: from below, the surface is a mirror
+      col += thr * Fr * mirrored;
+      thr *= 1.0 - Fr;
+      ro = S + tr * 1e-3; rd = tr; inS = !inS; dist += tS; if (uNR > 0) blur = 2.4;
+      continue;
+    }
+    return col + thr * paneSeen(ro + rd * tD, rd, face, inS, (dist + tD) * blur);
+  }
+  return col;
+}
+void main() {
+  SIN = refract(-uSun, vec3(0.0, 1.0, 0.0), 1.0 / IOR);
+  PIXA = 2.0 * uTan / uRes.y / float(uSS);
+  float jit = fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453);
+  vec3 sum = vec3(0.0);
+  for (int sy = 0; sy < 2; sy++) for (int sx = 0; sx < 2; sx++) {
+    if (sx >= uSS || sy >= uSS) continue;
+    vec2 off = uSS == 1 ? vec2(0.0) : (vec2(float(sx), float(sy)) - 0.5) * 0.5;
+    vec2 uv = ((gl_FragCoord.xy + off) * 2.0 - uRes) / uRes.y;
+    vec3 rd = normalize(uRot * vec3(uv.x * uTan, uv.y * uTan, 1.0));
+    vec3 ro = uCam + uRot[1] * (uv.y * 0.022);     // a small sensor: the surface can cut the frame in two
+    vec3 col = traceRay(ro, rd, fract(jit + 0.618 * float(sx + 2 * sy)));
+    col += vec3(1.0, 0.78, 0.45) * smoothstep(0.0018, 0.0, abs(ro.y - uLevel)) * 0.9;   // the meniscus line
+    col *= 1.0 - 0.3 * dot(uv * 0.55, uv * 0.55);
+    sum += pow(aces(col * 1.45), vec3(1.0 / 2.2));  // each sample toned before the mean, so a bright one cannot swamp a pixel
+  }
+  outColor = vec4(sum / float(uSS * uSS) + (jit - 0.5) / 255.0, 1.0);
+}`;
+
+function compile(type, src) {
+  const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+  if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
+  return s;
+}
+function program(fs) {
+  const p = gl.createProgram();
+  gl.attachShader(p, compile(gl.VERTEX_SHADER, VS)); gl.attachShader(p, compile(gl.FRAGMENT_SHADER, fs)); gl.linkProgram(p);
+  if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p));
+  gl.uniformBlockBinding(p, gl.getUniformBlockIndex(p, 'Faces'), 0);
+  const u = {}; const n = gl.getProgramParameter(p, gl.ACTIVE_UNIFORMS);
+  for (let i = 0; i < n; i++) { const info = gl.getActiveUniform(p, i); u[info.name.replace(/\[0\]$/, '')] = gl.getUniformLocation(p, info.name); }
+  return {p, u};
+}
+let pMain, pCookie;
+try { pMain = program(FS_MAIN); pCookie = program(FS_COOKIE); }
+catch (error) { $('.note').innerHTML = '<b>The shader did not compile.</b> ' + String(error.message).slice(0, 300); window.__lab = {error: String(error.message)}; throw error; }
+const vao = gl.createVertexArray(); gl.bindVertexArray(vao);
+gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer()); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+const faceData = new Float32Array(512 * 4), ubo = gl.createBuffer();
+gl.bindBuffer(gl.UNIFORM_BUFFER, ubo); gl.bufferData(gl.UNIFORM_BUFFER, faceData.byteLength, gl.DYNAMIC_DRAW); gl.bindBufferBase(gl.UNIFORM_BUFFER, 0, ubo);
+
+// ---------------------------------------------------------------- the pictures: tile 0 the film's frame, tiles 1 to 255 the holders
+const atlasCanvas = document.createElement('canvas'); atlasCanvas.width = atlasCanvas.height = 2048;
+const ax = atlasCanvas.getContext('2d'); ax.fillStyle = '#6b3f17'; ax.fillRect(0, 0, 2048, 2048);
+const atlasTex = gl.createTexture();
+function uploadAtlas() {
+  gl.bindTexture(gl.TEXTURE_2D, atlasTex);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, gl.RGBA, gl.UNSIGNED_BYTE, atlasCanvas);
+  gl.generateMipmap(gl.TEXTURE_2D);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  if (aniso) gl.texParameterf(gl.TEXTURE_2D, aniso.TEXTURE_MAX_ANISOTROPY_EXT, 8);
+  cookieDirty = true; wake();
+}
+const FACE = new Image(); FACE.crossOrigin = 'anonymous'; FACE.decoding = 'async';
+FACE.src = 'https://pbs.twimg.com/profile_images/2043850006566744064/qeOobVml_200x200.jpg';
+const drawn = new Set();
+function ensureTile(id) {
+  if (!FACE.complete || !FACE.naturalWidth || drawn.has(id)) return false;
+  const tile = 1 + (id - 1) % 255, x = (tile % 16) * 128, y = Math.floor(tile / 16) * 128;
+  ax.save(); ax.filter = `hue-rotate(${(id * 47) % 360}deg) saturate(1.15) contrast(1.06)`; ax.drawImage(FACE, x, y, 128, 128); ax.restore();
+  drawn.add(id); return true;
+}
+let faceIn, filmIn;   // the two pictures, each true once drawn into the atlas or false if it never came; a clip waits for both
+const ready = Promise.all([new Promise(r => { faceIn = r; }), new Promise(r => { filmIn = r; })]).then(([face, film]) => ({face, film}));
+FACE.onload = () => { let any = false; for (const f of faces) if (f.holder) any = ensureTile(f.holder) || any; if (any) uploadAtlas(); faceIn(true); };
+FACE.onerror = () => faceIn(false);
+const film = document.createElement('video');
+film.muted = true; film.preload = 'auto'; film.playsInline = true; film.src = '../app/saint-seiya.mp4';
+film.addEventListener('loadeddata', () => { film.currentTime = 20; }, {once: true});
+film.addEventListener('seeked', () => {
+  const side = Math.min(film.videoWidth, film.videoHeight);
+  ax.drawImage(film, (film.videoWidth - side) / 2, (film.videoHeight - side) / 2, side, side, 0, 0, 128, 128);
+  uploadAtlas(); filmIn(true);
+}, {once: true});
+film.addEventListener('error', () => filmIn(false), {once: true});
+uploadAtlas();
+
+// ---------------------------------------------------------------- the cookie target, with its mip levels (the rim is read at a coarser one)
+const cookieTex = gl.createTexture();
+gl.bindTexture(gl.TEXTURE_2D, cookieTex); gl.texStorage2D(gl.TEXTURE_2D, 11, floatTarget ? gl.RGBA16F : gl.RGBA8, 1024, 1024);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+const fbo = gl.createFramebuffer(); gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, cookieTex, 0); gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+
+// ---------------------------------------------------------------- the land: the mint at 150 seats, a crowd already in
+const norm = v => { const l = Math.hypot(v[0], v[1], v[2]) || 1; return [v[0] / l, v[1] / l, v[2] / l]; };
+const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+const mint = createMint();
+function rebuild() {
+  layout = mint.layout(); faces = [];
+  const add = (face, kind, holder) => {
+    const n = norm(face.normal); let r = 0;
+    for (const v of face.verts) { const k = dot(v, n); r = Math.max(r, Math.hypot(v[0] / k - n[0], v[1] / k - n[1], v[2] / k - n[2])); }
+    faces.push({n, r, kind, holder, glow: 0});
+  };
+  for (const f of layout.skin.pents) add(f, 3, 0);
+  layout.skin.hexes.forEach((f, i) => { const h = layout.byFace[i]?.holder; add(f, h ? (h.metal === 'gold' ? 2 : 1) : 0, h ? h.id : 0); });
+  let fresh = false; for (const f of faces) if (f.holder) fresh = ensureTile(f.holder) || fresh;
+  if (fresh) uploadAtlas();
+  writeFaces(); cookieDirty = true;
+}
+function writeFaces() {
+  faces.forEach((f, i) => {
+    faceData.set([f.n[0], f.n[1], f.n[2], f.r], i * 8);
+    faceData.set([f.kind, f.kind === 3 ? 0 : f.holder ? 1 + (f.holder - 1) % 255 : 0, f.glow, 0], i * 8 + 4);
+  });
+  gl.bindBuffer(gl.UNIFORM_BUFFER, ubo); gl.bufferSubData(gl.UNIFORM_BUFFER, 0, faceData);
+  glowLit = faces.some(f => f.glow > 0);
+}
+// the level is the land held: a tenth of the pouch at rest, plus seven tenths of the floor's share that is held and landed
+const levelFor = fill => { let lo = -1, hi = 1; for (let k = 0; k < 40; k++) { const m = (lo + hi) / 2; ((1 + m) ** 2 * (2 - m) / 4 < fill) ? lo = m : hi = m; } return (lo + hi) / 2; };
+let landed = 0;
+const targetLevel = () => levelFor(.14 + .7 * Math.min(1, landed / mint.state().capacity));
+
+// ---------------------------------------------------------------- the sun, the camera, the drops, the ripples
+const SUN = norm([0.32, 0.92, 0.22]);
+const C1 = norm(cross(SUN, [1, 0, 0])), C2 = cross(SUN, C1);
+const CAM0 = {yaw: 0.35, pitch: 0.62, under: true, x: 0.06, z: -0.1, y: 0, dy: 0}, cam = {...CAM0};
+let level = 0, drops = [], ripples = [], show = null, clock = 0;
+function sideOf(under) { return under ? -0.075 : 0.2; }
+// the scene as it opens, the same every time: the mint at 150 seats with a crowd already in, nothing falling, the camera under the surface
+function begin() {
+  mint.reset(); for (let k = 0; k < 3; k++) mint.expand();
+  for (let k = 0; k < 4; k++) mint.crowd(700 + k, {bronze: 6, gold: 1});
+  drops = []; ripples = []; show = null; clock = 0; Object.assign(cam, CAM0);
+  rebuild(); landed = mint.state().holders; level = targetLevel(); cam.y = level + sideOf(true);
+}
+function pickFace(spread, rng = Math.random) {
+  const f = [Math.sin(cam.yaw) * Math.cos(cam.pitch), Math.sin(cam.pitch), Math.cos(cam.yaw) * Math.cos(cam.pitch)];
+  const open = layout.byFace.map((s, i) => ({s, i, n: faces[12 + i].n})).filter(o => !o.s.holder && o.n[1] > level + 0.25);
+  if (!open.length) return null;
+  open.sort((a, b) => (dot(b.n, f) + rng() * spread) - (dot(a.n, f) + rng() * spread));
+  return open[0];
+}
+function buy(metal, delay = 0, rng) {
+  const o = pickFace(metal === 'gold' ? .5 : .9, rng);
+  if (!o) return false;
+  const r = mint.buy(o.i, metal);
+  if (r.why) return false;
+  rebuild();
+  const face = faces[12 + o.i]; face.glow = 1; writeFaces();
+  const start = [face.n[0] * 0.66, face.n[1] * 0.9, face.n[2] * 0.66];
+  drops.push({x: start[0], y0: start[1], z: start[2], t0: clock + delay, kind: metal === 'gold' ? 2 : 1, face: 12 + o.i});
+  wake(); return true;
+}
+function crowd(rng = Math.random) { for (let k = 0; k < 5; k++) buy('bronze', k * 0.28, rng); buy('gold', 1.6, rng); }
+
+// ---------------------------------------------------------------- the frame, on cause only
+function sizeCanvas() {
+  const dpr = Math.min(devicePixelRatio || 1, 1.5);
+  const w = Math.max(64, Math.round(innerWidth * dpr * scale)), h = Math.max(64, Math.round(innerHeight * dpr * scale));
+  if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; }
+}
+function step(dt) {
+  clock += dt;
+  if (show) runShow(dt);
+  const goal = targetLevel(); level += (goal - level) * (1 - Math.exp(-dt * 1.6));
+  const yGoal = level + sideOf(cam.under);
+  if (!show) cam.y += (yGoal - cam.y) * (1 - Math.exp(-dt * 2.2));
+  for (const f of faces) if (f.glow > 0) f.glow = Math.max(0, f.glow - dt * 0.8);
+  const g = 2.3;
+  drops = drops.filter(d => {
+    const t = clock - d.t0; if (t < 0) return true;
+    const y = d.y0 - 0.5 * g * t * t;
+    if (y > level) return true;
+    ripples.push({x: d.x, z: d.z, t0: clock, amp: d.kind === 2 ? 0.0105 : 0.0055});
+    landed += 1; return false;
+  });
+  ripples = ripples.filter(r => clock - r.t0 < 7).slice(-16);
+}
+function busy() {
+  return Boolean(show || drag || drops.length || ripples.length || faces.some(f => f.glow > 0) ||
+    Math.abs(targetLevel() - level) > 2e-4 || Math.abs(level + sideOf(cam.under) - cam.y) > 2e-4);
+}
+function render(ss = 1, bands = 1) {
+  sizeCanvas();
+  if (cookieDirty) {
+    gl.useProgram(pCookie.p); gl.bindFramebuffer(gl.FRAMEBUFFER, fbo); gl.viewport(0, 0, 1024, 1024);
+    gl.uniform1i(pCookie.u.uN, faces.length); gl.uniform3fv(pCookie.u.uSun, SUN); gl.uniform3fv(pCookie.u.uC1, C1); gl.uniform3fv(pCookie.u.uC2, C2);
+    gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, atlasTex); gl.uniform1i(pCookie.u.uAtlas, 0);
+    gl.drawArrays(gl.TRIANGLES, 0, 3); gl.bindFramebuffer(gl.FRAMEBUFFER, null); cookieDirty = false;
+    gl.bindTexture(gl.TEXTURE_2D, cookieTex); gl.generateMipmap(gl.TEXTURE_2D);
+  }
+  if (glowLit || faces.some(f => f.glow > 0)) writeFaces();   // once more after a glow dies, or the buffer keeps it lit
+  const u = pMain.u; gl.useProgram(pMain.p); gl.viewport(0, 0, cv.width, cv.height);
+  const fwd = [Math.sin(cam.yaw) * Math.cos(cam.pitch), Math.sin(cam.pitch), Math.cos(cam.yaw) * Math.cos(cam.pitch)];
+  const right = norm(cross([0, 1, 0], fwd)), up = cross(fwd, right);
+  gl.uniform2f(u.uRes, cv.width, cv.height); gl.uniform3f(u.uCam, cam.x, cam.y, cam.z);
+  gl.uniformMatrix3fv(u.uRot, false, [...right, ...up, ...fwd]); gl.uniform1f(u.uTan, Math.tan(37 * Math.PI / 180));
+  gl.uniform3fv(u.uSun, SUN); gl.uniform3fv(u.uC1, C1); gl.uniform3fv(u.uC2, C2); gl.uniform1f(u.uLevel, level);
+  gl.uniform1i(u.uN, faces.length); gl.uniform1i(u.uSS, ss);
+  const rip = new Float32Array(64); ripples.forEach((r, i) => rip.set([r.x, r.z, clock - r.t0, r.amp], i * 4));
+  gl.uniform1i(u.uNR, ripples.length); gl.uniform4fv(u.uRip, rip);
+  const bead = new Float32Array(32), kinds = new Float32Array(8); let nb = 0;
+  for (const d of drops) { const t = clock - d.t0; if (t < 0 || nb >= 8) continue; bead.set([d.x, d.y0 - 0.5 * 2.3 * t * t, d.z, d.kind === 2 ? 0.026 : 0.019], nb * 4); kinds[nb++] = d.kind; }
+  gl.uniform1i(u.uNB, nb); gl.uniform4fv(u.uBead, bead); gl.uniform1fv(u.uBeadKind, kinds);
+  gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, atlasTex); gl.uniform1i(u.uAtlas, 0);
+  gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, cookieTex); gl.uniform1i(u.uCookie, 1);
+  if (bands > 1) {   // a clip's frame in bands, each flushed: no one draw holds the GPU for a whole frame while a screen shares it
+    const hb = Math.ceil(cv.height / bands); gl.enable(gl.SCISSOR_TEST);
+    for (let y = 0; y < cv.height; y += hb) { gl.scissor(0, y, cv.width, hb); gl.drawArrays(gl.TRIANGLES, 0, 3); gl.flush(); }
+    gl.disable(gl.SCISSOR_TEST);
+  } else gl.drawArrays(gl.TRIANGLES, 0, 3);
+  const st = mint.state();
+  $('#num').innerHTML = `${st.capacity} SEATS · ${st.holders} HELD · ${st.gold} GOLD<br>LEVEL ${Math.round(100 * (.14 + .7 * Math.min(1, landed / st.capacity)))}% OF THE POUCH<br>`
+    + (frameMs ? `${frameMs.toFixed(1)} MS A FRAME AT ${cv.width}×${cv.height}` : `AT REST · ${cv.width}×${cv.height}`);
+}
+function tick(ts) {
+  frame = 0;
+  const dt = lastTs ? Math.min(0.05, (ts - lastTs) / 1000) : 0;
+  if (lastTs && dt > 0) frameMs = frameMs ? frameMs * 0.9 + (ts - lastTs) * 0.1 : ts - lastTs;
+  lastTs = ts; step(dt); render();
+  if (busy() && !document.hidden) frame = requestAnimationFrame(tick);
+  else { lastTs = 0; frameMs = 0; render(2); }   // at rest: one still at four samples a pixel, then nothing
+}
+function wake() { if (!held && !frame && !document.hidden) frame = requestAnimationFrame(tick); }
+document.addEventListener('visibilitychange', () => { if (!document.hidden) wake(); });
+addEventListener('resize', () => { sizeCanvas(); wake(); });
+
+// ---------------------------------------------------------------- the show: under, through the surface, above, and back
+const KEYS = [
+  {t: 0, yaw: 0.35, pitch: 0.62, y: -0.075}, {t: 5, yaw: 1.2, pitch: 0.85, y: -0.075}, {t: 7.5, yaw: 1.7, pitch: 0.08, y: 0.0},
+  {t: 9.5, yaw: 2.2, pitch: -0.32, y: 0.17}, {t: 13, yaw: 3.0, pitch: -0.5, y: 0.2}, {t: 15.5, yaw: 3.5, pitch: 0.05, y: 0.0},
+  {t: 18, yaw: 4.1, pitch: 0.6, y: -0.075},
+];
+const BEATS = [[0.8, 'bronze'], [2.0, 'gold'], [3.3, 'crowd'], [9.4, 'gold'], [11.0, 'bronze'], [12.4, 'bronze'], [14.8, 'gold']];
+function runShow(dt) {
+  show.t += dt; const t = show.t;
+  while (show.beat < BEATS.length && BEATS[show.beat][0] <= t) {   // each beat's face picks seeded from its own time
+    const [at, what] = BEATS[show.beat++], rng = mulberry(show.seed + Math.round(at * 1000));
+    what === 'crowd' ? crowd(rng) : buy(what, 0, rng);
+  }
+  const last = KEYS[KEYS.length - 1];
+  if (t >= last.t) { cam.yaw = last.yaw; cam.pitch = last.pitch; cam.under = true; cam.y = level + last.y; show = null; $('#show').setAttribute('aria-pressed', 'false'); $('#show').textContent = 'Show ▶'; $('#dive').setAttribute('aria-pressed', 'true'); return; }
+  let k = 0; while (KEYS[k + 1].t <= t) k++;
+  const a = KEYS[k], b = KEYS[k + 1], s = (t - a.t) / (b.t - a.t), e = s * s * (3 - 2 * s);
+  cam.yaw = a.yaw + (b.yaw - a.yaw) * e; cam.pitch = a.pitch + (b.pitch - a.pitch) * e; cam.y = level + a.y + (b.y - a.y) * e; cam.under = cam.y < level;
+}
+function mulberry(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+$('#bronze').onclick = () => buy('bronze');
+$('#gold').onclick = () => buy('gold');
+$('#crowd').onclick = () => crowd();
+$('#dive').onclick = () => { cam.under = !cam.under; cam.pitch = cam.under ? 0.62 : -0.4; $('#dive').setAttribute('aria-pressed', String(cam.under)); $('#dive').textContent = cam.under ? 'Under the surface' : 'Above the surface'; wake(); };
+$('#show').onclick = () => {
+  if (show) { show = null; $('#show').setAttribute('aria-pressed', 'false'); $('#show').textContent = 'Show ▶'; return; }
+  show = {t: 0, beat: 0, seed: 42}; $('#show').setAttribute('aria-pressed', 'true'); $('#show').textContent = 'Stop Ⅱ'; wake();
+};
+cv.addEventListener('pointerdown', e => { drag = {x: e.clientX, y: e.clientY}; cv.setPointerCapture?.(e.pointerId); wake(); });
+cv.addEventListener('pointermove', e => { if (!drag) return; cam.yaw -= (e.clientX - drag.x) * 0.005; cam.pitch = Math.max(-1.2, Math.min(1.35, cam.pitch - (e.clientY - drag.y) * 0.004)); drag = {x: e.clientX, y: e.clientY}; wake(); });
+const endDrag = () => { drag = null; };
+cv.addEventListener('pointerup', endDrag); cv.addEventListener('pointercancel', endDrag); cv.addEventListener('lostpointercapture', endDrag);
+
+begin();
+render(2); wake();
+
+// ---------------------------------------------------------------- the clip: the Show at time t, the same picture for the same t
+// The scene starts from begin() and steps on a grid of 1 / fps with the Show's own beats; a later t goes on from the last call's state and
+// an earlier one (or a state anything else touched) replays from the start, so both roads give the same bytes. Every holder's face is drawn
+// before the first frame, so the atlas never changes mid-clip, and the page's own clock is held from the first call on (reload to play).
+const clipMark = () => [clock, level, landed, drops.length, ripples.length, mint.state().holders, cam.x, cam.y, cam.z, cam.yaw, cam.pitch].join();
+async function showFrame(t, {fps = 30, bands = 8} = {}) {
+  const pictures = await ready, t0 = performance.now();
+  if (!held) { held = true; cancelAnimationFrame(frame); frame = 0; for (let id = 1; id <= 255; id++) ensureTile(id); uploadAtlas(); }
+  const k = Math.max(0, Math.round(t * fps));
+  if (!clipAt || clipAt.fps !== fps || clipAt.k > k || clipAt.mark !== clipMark()) { begin(); show = {t: 0, beat: 0, seed: 42}; clipAt = {fps, k: 0}; }
+  for (; clipAt.k < k; clipAt.k++) step(1 / fps);
+  clipAt.mark = clipMark();
+  const t1 = performance.now(); render(2, bands); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4));   // the read waits for the GPU
+  return {t: k / fps, stepMs: t1 - t0, renderMs: performance.now() - t1, ...pictures, size: [cv.width, cv.height], level, holders: mint.state().holders};
+}
+
+// ---------------------------------------------------------------- the proof seam: a pose, a ripple, a timed burst of frames, the clip
+window.__lab = {
+  renderer: RENDERER, floatTarget, ready, showFrame,
+  pose(p) { Object.assign(cam, p); if (p.y != null) cam.y = level + p.y; render(2); return this.state(); },
+  ripple(x, z, age, amp = 0.008) { ripples.push({x, z, t0: clock - age, amp}); render(2); },
+  clear() { ripples = []; drops = []; render(); },
+  advance(seconds, fps = 30) { for (let k = 0; k < Math.round(seconds * fps); k++) step(1 / fps); render(2); },
+  timeFrames(n = 30, ss = 1) { gl.finish(); const t0 = performance.now(); for (let k = 0; k < n; k++) render(ss); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array(4)); return (performance.now() - t0) / n; },
+  buy, crowd, setScale(s) { scale = s; render(); },
+  state() { return {...mint.state(), level, landed, drops: drops.length, ripples: ripples.length, size: [cv.width, cv.height], cam: {...cam}}; },
+};
+</script>
+</body>
+</html>

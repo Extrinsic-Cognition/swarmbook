@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 180" width="1200" height="180">
+<!-- THE TWELVE HOUSES (drafted Nov 19 2026 02:4x UTC by seat claude-7bd13290 on his "i think it could be the 12 beginning golden knights... keep the lineage aligned to the golden knights hypertrace cult of athena"; his Oct 18 "each pentagon is a house of the zodiac from seya"; brought to the page the same day on his "we had drafted already the 12 pentagons become the 12 houses of the golden knights"). Made by a script from numbers: twelve bevelled pentagons on the bar's own slots (a twelfth of the width each), each house engraved with its sign, drawn as strokes, its numeral under it; the ninth, the archer's, the brightest, the arrow returned to it. No house is marked as held: nothing records a holder yet. -->
+<defs>
+<linearGradient id="rim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff4c9"/><stop offset="0.35" stop-color="#f3d27a"/><stop offset="0.7" stop-color="#c8962f"/><stop offset="1" stop-color="#7a5413"/></linearGradient>
+<linearGradient id="face" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f9e29a"/><stop offset="0.45" stop-color="#e9c062"/><stop offset="1" stop-color="#b98424"/></linearGradient>
+<radialGradient id="spec" cx=".38" cy=".2" r=".6"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+<radialGradient id="halo"><stop offset="0" stop-color="#ffe9a8" stop-opacity=".55"/><stop offset=".5" stop-color="#f0cf74" stop-opacity=".16"/><stop offset="1" stop-color="#f0cf74" stop-opacity="0"/></radialGradient>
+<filter id="grain" x="0" y="0" width="1" height="1"><feTurbulence type="fractalNoise" baseFrequency="0.9 0.02" numOctaves="2" seed="7" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 1  0 0 0 0 .92  0 0 0 0 .7  0 0 0 .09 0" result="g"/><feComposite in="g" in2="SourceGraphic" operator="in" result="gm"/><feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="gm"/></feMerge></filter>
+<filter id="engrave" x="-20%" y="-20%" width="140%" height="140%"><feOffset in="SourceAlpha" dx="0" dy="1.2" result="o"/><feFlood flood-color="#fff1c2" flood-opacity=".7" result="f"/><feComposite in="f" in2="o" operator="in" result="lip"/><feMerge><feMergeNode in="lip"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+</defs>
+<g><circle cx="50" cy="80" r="57.2" fill="url(#halo)" opacity="0.5"/>
+<polygon points="50.00,36.00 91.85,66.40 75.86,115.60 24.14,115.60 8.15,66.40" fill="url(#rim)" filter="url(#grain)"/>
+<polygon points="50.00,36.00 91.85,66.40 83.48,70.12 50.00,45.80" fill="#fff" opacity="0.044"/>
+<polygon points="91.85,66.40 75.86,115.60 70.69,109.48 83.48,70.12" fill="#000" opacity="0.249"/>
+<polygon points="75.86,115.60 24.14,115.60 29.31,109.48 70.69,109.48" fill="#000" opacity="0.198"/>
+<polygon points="24.14,115.60 8.15,66.40 16.52,70.12 29.31,109.48" fill="#fff" opacity="0.127"/>
+<polygon points="8.15,66.40 50.00,36.00 50.00,45.80 16.52,70.12" fill="#fff" opacity="0.277"/>
+<polygon points="50.00,45.80 83.48,70.12 70.69,109.48 29.31,109.48 16.52,70.12" fill="url(#face)" filter="url(#grain)"/><polygon points="50.00,45.80 83.48,70.12 70.69,109.48 29.31,109.48 16.52,70.12" fill="url(#spec)"/>
+<polygon points="50.00,36.00 91.85,66.40 75.86,115.60 24.14,115.60 8.15,66.40" fill="none" stroke="#fff2c4" stroke-opacity=".9"/>
+<path transform="translate(50 83) scale(1.02)" d="M-12 -3 C-15 -13 -3 -15 0 -2 V13 M12 -3 C15 -13 3 -15 0 -2" fill="none" stroke="#4a3209" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#engrave)"/>
+<text x="50" y="151" text-anchor="middle" font-size="15" letter-spacing="2.6" font-family="Gelasio, Georgia, serif" font-weight="700" fill="#f0cf74">I</text>
+</g>
+<g><circle cx="150" cy="80" r="57.2" fill="url(#halo)" opacity="0.5"/>
+<polygon points="150.00,36.00 191.85,66.40 175.86,115.60 124.14,115.60 108.15,66.40" fill="url(#rim)" filter="url(#grain)"/>
+<polygon points="150.00,36.00 191.85,66.40 183.48,70.12 150.00,45.80" fill="#fff" opacity="0.044"/>
+<polygon points="191.85,66.40 175.86,115.60 170.69,109.48 183.48,70.12" fill="#000" opacity="0.249"/>
+<polygon points="175.86,115.60 124.14,115.60 129.31,109.48 170.69,109.48" fill="#000" opacity="0.198"/>
+<polygon points="124.14,115.60 108.15,66.40 116.52,70.12 129.31,109.48" fill="#fff" opacity="0.127"/>
+<polygon points="108.15,66.40 150.00,36.00 150.00,45.80 116.52,70.12" fill="#fff" opacity="0.277"/>
+<polygon points="150.00,45.80 183.48,70.12 170.69,109.48 129.31,109.48 116.52,70.12" fill="url(#face)" filter="url(#grain)"/><polygon points="150.00,45.80 183.48,70.12 170.69,109.48 129.31,109.48 116.52,70.12" fill="url(#spec)"/>
+<polygon points="150.00,36.00 191.85,66.40 175.86,115.60 124.14,115.60 108.15,66.40" fill="none" stroke="#fff2c4" stroke-opacity=".9"/>
+<path transform="translate(150 83) scale(1.02)" d="M-11 -13 C-9 -3 9 -3 11 -13 M8 5 A8 8 0 1 1 -8 5 A8 8 0 1 1 8 5" fill="none" stroke="#4a3209" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#engrave)"/>
+<text x="150" y="151" text-anchor="middle" font-size="15" letter-spacing="2.6" font-family="Gelasio, Georgia, serif" font-weight="700" fill="#f0cf74">II</text>
+</g>
+<g><circle cx="250" cy="80" r="57.2" fill="url(#halo)" opacity="0.5"/>
+<polygon points="250.00,36.00 291.85,66.40 275.86,115.60 224.14,115.60 208.15,66.40" fill="url(#rim)" filter="url(#grain)"/>
+<polygon points="250.00,36.00 291.85,66.40 283.48,70.12 250.00,45.80" fill="#fff" opacity="0.044"/>
+<polygon points="291.85,66.40 275.86,115.60 270.69,109.48 283.48,70.12" fill="#000" opacity="0.249"/>
+<polygon points="275.86,115.60 224.14,115.60 229.31,109.48 270.69,109.48" fill="#000" opacity="0.198"/>
+<polygon points="224.14,115.60 208.15,66.40 216.52,70.12 229.31,109.48" fill="#fff" opacity="0.127"/>
+<polygon points="208.15,66.40 250.00,36.00 250.00,45.80 216.52,70.12" fill="#fff" opacity="0.277"/>
+<polygon points="250.00,45.80 283.48,70.12 270.69,109.48 229.31,109.48 216.52,70.12" fill="url(#face)" filter="url(#grain)"/><polygon points="250.00,45.80 283.48,70.12 270.69,109.48 229.31,109.48 216.52,70.12" fill="url(#spec)"/>
+<polygon points="250.00,36.00 291.85,66.40 275.86,115.60 224.14,115.60 208.15,66.40" fill="none" stroke="#fff2c4" stroke-opacity=".9"/>
+<path transform="translate(250 83) scale(1.02)" d="M-11 -13 C-4 -9 4 -9 11 -13 M-11 13 C-4 9 4 9 11 13 M-5 -10 V10 M5 -10 V10" fill="none" stroke="#4a3209" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#engrave)"/>
+<text x="250" y="151" text-anchor="middle" font-size="15" letter-spacing="2.6" font-family="Gelasio, Georgia, serif" font-weight="700" fill="#f0cf74">III</text>
+</g>
+<g><circle cx="350" cy="80" r="57.2" fill="url(#halo)" opacity="0.5"/>
+<polygon points="350.00,36.00 391.85,66.40 375.86,115.60 324.14,115.60 308.15,66.40" fill="url(#rim)" filter="url(#grain)"/>
+<polygon points="350.00,36.00 391.85,66.40 383.48,70.12 350.00,45.80" fill="#fff" opacity="0.044"/>
+<polygon points="391.85,66.40 375.86,115.60 370.69,109.48 383.48,70.12" fill="#000" opacity="0.249"/>
+<polygon points="375.86,115.60 324.14,115.60 329.31,109.48 370.69,109.48" fill="#000" opacity="0.198"/>
+<polygon points="324.14,115.60 308.15,66.40 316.52,70.12 329.31,109.48" fill="#fff" opacity="0.127"/>
+<polygon points="308.15,66.40 350.00,36.00 350.00,45.80 316.52,70.12" fill="#fff" opacity="0.277"/>
+<polygon points="350.00,45.80 383.48,70.12 370.69,109.48 329.31,109.48 316.52,70.12" fill="url(#face)" filter="url(#grain)"/><polygon points="350.00,45.80 383.48,70.12 370.69,109.48 329.31,109.48 316.52,70.12" fill="url(#spec)"/>
+<polygon points="350.00,36.00 391.85,66.40 375.86,115.60 324.14,115.60 308.15,66.40" fill="none" stroke="#fff2c4" stroke-opacity=".9"/>
+<path transform="translate(350 83) scale(1.02)" d="M12 -3 C7 -11 -5 -12 -11 -7 M-4.5 -4.5 A3.5 3.5 0 1 1 -11.5 -4.5 A3.5 3.5 0 1 1 -4.5 -4.5 M-12 3 C-7 11 5 12 11 7 M11.5 4.5 A3.5 3.5 0 1 1 4.5 4.5 A3.5 3.5 0 1 1 11.5 4.5" fill="none" stroke="#4a3209" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#engrave)"/>
+<text x="350" y="151" text-anchor="middle" font-size="15" letter-spacing="2.6" font-family="Gelasio, Georgia, serif" font-weight="700" fill="#f0cf74">IV</text>
+</g>
+<g><circle cx="450" cy="80" r="57.2" fill="url(#halo)" opacity="0.5"/>
+<polygon points="450.00,36.00 491.85,66.40 475.86,115.60 424.14,115.60 408.15,66.40" fill="url(#rim)" filter="url(#grain)"/>
+<polygon points="450.00,36.00 491.85,66.40 483.48,70.12 450.00,45.80" fill="#fff" opacity="0.044"/>
+<polygon points="491.85,66.40 475.86,115.60 470.69,109.48 483.48,70.12" fill="#000" opacity="0.249"/>
+<polygon points="475.86,115.60 424.14,115.60 429.31,109.48 470.69,109.48" fill="#000" opacity="0.198"/>
+<polygon points="424.14,115.60 408.15,66.40 416.52,70.12 429.31,109.48" fill="#fff" opacity="0.127"/>
+<polygon points="408.15,66.40 450.00,36.00 450.00,45.80 416.52,70.12" fill="#fff" opacity="0.277"/>
+<polygon points="450.00,45.80 483.48,70.12 470.69,109.48 429.31,109.48 416.52,70.12" fill="url(#face)" filter="url(#grain)"/><polygon points="450.00,45.80 483.48,70.12 470.69,109.48 429.31,109.48 416.52,70.12" fill="url(#spec)"/>
+<polygon points="450.00,36.00 491.85,66.40 475.86,115.60 424.14,115.60 408.15,66.40" fill="none" stroke="#fff2c4" stroke-opacity=".9"/>
+<path transform="translate(450 83) scale(1.02)" d="M-3 3 A4.5 4.5 0 1 1 -12 3 A4.5 4.5 0 1 1 -3 3 M-4 0 C-10 -14 8 -16 6 -3 C5 4 3 9 7 12 C9 13.5 12 12 12 9" fill="none" stroke="#4a3209" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#engrave)"/>
+<text x="450" y="151" text-anchor="middle" font-size="15" letter-spacing="2.6" font-family="Gelasio, Georgia, serif" font-weight="700" fill="#f0cf74">V</text>
+</g>
+<g><circle cx="550" cy="80" r="57.2" fill="url(#halo)" opacity="0.5"/>
+<polygon points="550.00,36.00 591.85,66.40 575.86,115.60 524.14,115.60 508.15,66.40" fill="url(#rim)" filter="url(#grain)"/>
+<polygon points="550.00,36.00 591.85,66.40 583.48,70.12 550.00,45.80" fill="#fff" opacity="0.044"/>
+<polygon points="591.85,66.40 575.86,115.60 570.69,109.48 583.48,70.12" fill="#000" opacity="0.249"/>
+<polygon points="575.86,115.60 524.14,115.60 529.31,109.48 570.69,109.48" fill="#000" opacity="0.198"/>
+<polygon points="524.14,115.60 508.15,66.40 516.52,70.12 529.31,109.48" fill="#fff" opacity="0.127"/>
+<polygon points="508.15,66.40 550.00,36.00 550.00,45.80 516.52,70.12" fill="#fff" opacity="0.277"/>
+<polygon points="550.00,45.80 583.48,70.12 570.69,109.48 529.31,109.48 516.52,70.12" fill="url(#face)" filter="url(#grain)"/><polygon points="550.00,45.80 583.48,70.12 570.69,109.48 529.31,109.48 516.52,70.12" fill="url(#spec)"/>
+<polygon points="550.00,36.00 591.85,66.40 575.86,115.60 524.14,115.60 508.15,66.40" fill="none" stroke="#fff2c4" stroke-opacity=".9"/>
+<path transform="translate(550 83) scale(1.02)" d="M-13 -10 V10 M-13 -6 C-11 -11 -6 -11 -6 -6 V10 M-6 -6 C-4 -11 1 -11 1 -6 V6 C1 11 4 13 8 13 M1 -1 C6 -7 13 -3 11 3 C9 8 4 11 -1 14" fill="none" stroke="#4a3209" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#engrave)"/>
+<text x="550" y="151" text-anchor="middle" font-size="15" letter-spacing="2.6" font-family="Gelasio, Georgia, serif" font-weight="700" fill="#f0cf74">VI</text>
+</g>
+<g><circle cx="650" cy="80" r="57.2" fill="url(#halo)" opacity="0.5"/>
+<polygon points="650.00,36.00 691.85,66.40 675.86,115.60 624.14,115.60 608.15,66.40" fill="url(#rim)" filter="url(#grain)"/>
+<polygon points="650.00,36.00 691.85,66.40 683.48,70.12 650.00,45.80" fill="#fff" opacity="0.044"/>
+<polygon points="691.85,66.40 675.86,115.60 670.69,109.48 683.48,70.12" fill="#000" opacity="0.249"/>
+<polygon points="675.86,115.60 624.14,115.60 629.31,109.48 670.69,109.48" fill="#000" opacity="0.198"/>
+<polygon points="624.14,115.60 608.15,66.40 616.52,70.12 629.31,109.48" fill="#fff" opacity="0.127"/>
+<polygon points="608.15,66.40 650.00,36.00 650.00,45.80 616.52,70.12" fill="#fff" opacity="0.277"/>
+<polygon points="650.00,45.80 683.48,70.12 670.69,109.48 629.31,109.48 616.52,70.12" fill="url(#face)" filter="url(#grain)"/><polygon points="650.00,45.80 683.48,70.12 670.69,109.48 629.31,109.48 616.52,70.12" fill="url(#spec)"/>
+<polygon points="650.00,36.00 691.85,66.40 675.86,115.60 624.14,115.60 608.15,66.40" fill="none" stroke="#fff2c4" stroke-opacity=".9"/>
+<path transform="translate(650 83) scale(1.02)" d="M-12 10 H12 M-12 4 H-5 C-10 -9 10 -9 5 4 H12" fill="none" stroke="#4a3209" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#engrave)"/>
+<text x="650" y="151" text-anchor="middle" font-size="15" letter-spacing="2.6" font-family="Gelasio, Georgia, serif" font-weight="700" fill="#f0cf74">VII</text>
+</g>
+<g><circle cx="750" cy="80" r="57.2" fill="url(#halo)" opacity="0.5"/>
+<polygon points="750.00,36.00 791.85,66.40 775.86,115.60 724.14,115.60 708.15,66.40" fill="url(#rim)" filter="url(#grain)"/>
+<polygon points="750.00,36.00 791.85,66.40 783.48,70.12 750.00,45.80" fill="#fff" opacity="0.044"/>
+<polygon points="791.85,66.40 775.86,115.60 770.69,109.48 783.48,70.12" fill="#000" opacity="0.249"/>
+<polygon points="775.86,115.60 724.14,115.60 729.31,109.48 770.69,109.48" fill="#000" opacity="0.198"/>
+<polygon points="724.14,115.60 708.15,66.40 716.52,70.12 729.31,109.48" fill="#fff" opacity="0.127"/>
+<polygon points="708.15,66.40 750.00,36.00 750.00,45.80 716.52,70.12" fill="#fff" opacity="0.277"/>
+<polygon points="750.00,45.80 783.48,70.12 770.69,109.48 729.31,109.48 716.52,70.12" fill="url(#face)" filter="url(#grain)"/><polygon points="750.00,45.80 783.48,70.12 770.69,109.48 729.31,109.48 716.52,70.12" fill="url(#spec)"/>
+<polygon points="750.00,36.00 791.85,66.40 775.86,115.60 724.14,115.60 708.15,66.40" fill="none" stroke="#fff2c4" stroke-opacity=".9"/>
+<path transform="translate(750 83) scale(1.02)" d="M-13 -10 V10 M-13 -6 C-11 -11 -6 -11 -6 -6 V10 M-6 -6 C-4 -11 1 -11 1 -6 V7 C1 11 5 12 12 9 M12 9 L7.5 6 M12 9 L8 13" fill="none" stroke="#4a3209" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#engrave)"/>
+<text x="750" y="151" text-anchor="middle" font-size="15" letter-spacing="2.6" font-family="Gelasio, Georgia, serif" font-weight="700" fill="#f0cf74">VIII</text>
+</g>
+<g><circle cx="850" cy="80" r="77.0" fill="url(#halo)" opacity="1"/>
+<polygon points="850.00,36.00 891.85,66.40 875.86,115.60 824.14,115.60 808.15,66.40" fill="url(#rim)" filter="url(#grain)"/>
+<polygon points="850.00,36.00 891.85,66.40 883.48,70.12 850.00,45.80" fill="#fff" opacity="0.044"/>
+<polygon points="891.85,66.40 875.86,115.60 870.69,109.48 883.48,70.12" fill="#000" opacity="0.249"/>
+<polygon points="875.86,115.60 824.14,115.60 829.31,109.48 870.69,109.48" fill="#000" opacity="0.198"/>
+<polygon points="824.14,115.60 808.15,66.40 816.52,70.12 829.31,109.48" fill="#fff" opacity="0.127"/>
+<polygon points="808.15,66.40 850.00,36.00 850.00,45.80 816.52,70.12" fill="#fff" opacity="0.277"/>
+<polygon points="850.00,45.80 883.48,70.12 870.69,109.48 829.31,109.48 816.52,70.12" fill="url(#face)" filter="url(#grain)"/><polygon points="850.00,45.80 883.48,70.12 870.69,109.48 829.31,109.48 816.52,70.12" fill="url(#spec)"/>
+<polygon points="850.00,36.00 891.85,66.40 875.86,115.60 824.14,115.60 808.15,66.40" fill="none" stroke="#fff2c4" stroke-opacity=".9"/>
+<path transform="translate(850 83) scale(1.02)" d="M-11 11 L11 -11 M2 -11 H11 V-2 M-8 0 L0 8" fill="none" stroke="#4a3209" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#engrave)"/>
+<text x="850" y="151" text-anchor="middle" font-size="15" letter-spacing="2.6" font-family="Gelasio, Georgia, serif" font-weight="700" fill="#f0cf74">IX</text>
+<line x1="792" y1="30" x2="855" y2="83" stroke="#fff3c4" stroke-width="7" stroke-opacity=".25" filter="url(#soft)"/><line x1="792" y1="30" x2="855" y2="83" stroke="#fbe39a" stroke-width="2.4" stroke-linecap="round"/>
+<polygon points="864.95,91.37 851.14,87.59 858.86,78.41" fill="#fff6d6"/>
+<polygon points="792.00,30.00 778.55,30.45 794.30,31.93" fill="#f0cf74" opacity=".9"/><polygon points="792.00,30.00 790.14,16.68 794.30,31.93" fill="#d9ad4e" opacity=".9"/>
+<polygon points="798.89,35.79 785.44,36.24 801.18,37.73" fill="#f0cf74" opacity=".9"/><polygon points="798.89,35.79 797.03,22.47 801.18,37.73" fill="#d9ad4e" opacity=".9"/>
+<polygon points="805.77,41.59 792.33,42.04 808.07,43.52" fill="#f0cf74" opacity=".9"/><polygon points="805.77,41.59 803.92,28.26 808.07,43.52" fill="#d9ad4e" opacity=".9"/>
+</g>
+<g><circle cx="950" cy="80" r="57.2" fill="url(#halo)" opacity="0.5"/>
+<polygon points="950.00,36.00 991.85,66.40 975.86,115.60 924.14,115.60 908.15,66.40" fill="url(#rim)" filter="url(#grain)"/>
+<polygon points="950.00,36.00 991.85,66.40 983.48,70.12 950.00,45.80" fill="#fff" opacity="0.044"/>
+<polygon points="991.85,66.40 975.86,115.60 970.69,109.48 983.48,70.12" fill="#000" opacity="0.249"/>
+<polygon points="975.86,115.60 924.14,115.60 929.31,109.48 970.69,109.48" fill="#000" opacity="0.198"/>
+<polygon points="924.14,115.60 908.15,66.40 916.52,70.12 929.31,109.48" fill="#fff" opacity="0.127"/>
+<polygon points="908.15,66.40 950.00,36.00 950.00,45.80 916.52,70.12" fill="#fff" opacity="0.277"/>
+<polygon points="950.00,45.80 983.48,70.12 970.69,109.48 929.31,109.48 916.52,70.12" fill="url(#face)" filter="url(#grain)"/><polygon points="950.00,45.80 983.48,70.12 970.69,109.48 929.31,109.48 916.52,70.12" fill="url(#spec)"/>
+<polygon points="950.00,36.00 991.85,66.40 975.86,115.60 924.14,115.60 908.15,66.40" fill="none" stroke="#fff2c4" stroke-opacity=".9"/>
+<path transform="translate(950 83) scale(1.02)" d="M-13 -9 L-8 6 L-3 -9 C1 -12 5 -7 5 0 C5 6 2 11 -3 13 M5 3 C9 -2 14 2 12.5 7 C11 11 6 10 5 6" fill="none" stroke="#4a3209" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#engrave)"/>
+<text x="950" y="151" text-anchor="middle" font-size="15" letter-spacing="2.6" font-family="Gelasio, Georgia, serif" font-weight="700" fill="#f0cf74">X</text>
+</g>
+<g><circle cx="1050" cy="80" r="57.2" fill="url(#halo)" opacity="0.5"/>
+<polygon points="1050.00,36.00 1091.85,66.40 1075.86,115.60 1024.14,115.60 1008.15,66.40" fill="url(#rim)" filter="url(#grain)"/>
+<polygon points="1050.00,36.00 1091.85,66.40 1083.48,70.12 1050.00,45.80" fill="#fff" opacity="0.044"/>
+<polygon points="1091.85,66.40 1075.86,115.60 1070.69,109.48 1083.48,70.12" fill="#000" opacity="0.249"/>
+<polygon points="1075.86,115.60 1024.14,115.60 1029.31,109.48 1070.69,109.48" fill="#000" opacity="0.198"/>
+<polygon points="1024.14,115.60 1008.15,66.40 1016.52,70.12 1029.31,109.48" fill="#fff" opacity="0.127"/>
+<polygon points="1008.15,66.40 1050.00,36.00 1050.00,45.80 1016.52,70.12" fill="#fff" opacity="0.277"/>
+<polygon points="1050.00,45.80 1083.48,70.12 1070.69,109.48 1029.31,109.48 1016.52,70.12" fill="url(#face)" filter="url(#grain)"/><polygon points="1050.00,45.80 1083.48,70.12 1070.69,109.48 1029.31,109.48 1016.52,70.12" fill="url(#spec)"/>
+<polygon points="1050.00,36.00 1091.85,66.40 1075.86,115.60 1024.14,115.60 1008.15,66.40" fill="none" stroke="#fff2c4" stroke-opacity=".9"/>
+<path transform="translate(1050 83) scale(1.02)" d="M-13 -3 L-8 -8 L-3 -3 L2 -8 L7 -3 L12 -8 M-13 7 L-8 2 L-3 7 L2 2 L7 7 L12 2" fill="none" stroke="#4a3209" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#engrave)"/>
+<text x="1050" y="151" text-anchor="middle" font-size="15" letter-spacing="2.6" font-family="Gelasio, Georgia, serif" font-weight="700" fill="#f0cf74">XI</text>
+</g>
+<g><circle cx="1150" cy="80" r="57.2" fill="url(#halo)" opacity="0.5"/>
+<polygon points="1150.00,36.00 1191.85,66.40 1175.86,115.60 1124.14,115.60 1108.15,66.40" fill="url(#rim)" filter="url(#grain)"/>
+<polygon points="1150.00,36.00 1191.85,66.40 1183.48,70.12 1150.00,45.80" fill="#fff" opacity="0.044"/>
+<polygon points="1191.85,66.40 1175.86,115.60 1170.69,109.48 1183.48,70.12" fill="#000" opacity="0.249"/>
+<polygon points="1175.86,115.60 1124.14,115.60 1129.31,109.48 1170.69,109.48" fill="#000" opacity="0.198"/>
+<polygon points="1124.14,115.60 1108.15,66.40 1116.52,70.12 1129.31,109.48" fill="#fff" opacity="0.127"/>
+<polygon points="1108.15,66.40 1150.00,36.00 1150.00,45.80 1116.52,70.12" fill="#fff" opacity="0.277"/>
+<polygon points="1150.00,45.80 1183.48,70.12 1170.69,109.48 1129.31,109.48 1116.52,70.12" fill="url(#face)" filter="url(#grain)"/><polygon points="1150.00,45.80 1183.48,70.12 1170.69,109.48 1129.31,109.48 1116.52,70.12" fill="url(#spec)"/>
+<polygon points="1150.00,36.00 1191.85,66.40 1175.86,115.60 1124.14,115.60 1108.15,66.40" fill="none" stroke="#fff2c4" stroke-opacity=".9"/>
+<path transform="translate(1150 83) scale(1.02)" d="M-10 -13 C-3 -5 -3 5 -10 13 M10 -13 C3 -5 3 5 10 13 M-8 0 H8" fill="none" stroke="#4a3209" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#engrave)"/>
+<text x="1150" y="151" text-anchor="middle" font-size="15" letter-spacing="2.6" font-family="Gelasio, Georgia, serif" font-weight="700" fill="#f0cf74">XII</text>
+</g>
+</svg>

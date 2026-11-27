@@ -1,0 +1,1514 @@
+{
+ "v": "braindance/1",
+ "event": "The light at the feet of Odin: the mint's film (Saint Seiya: The Heated Battle of the Gods, 1988) from its first second to Seiya's thanks, read shot by shot into one vector space, every placement a normal distribution",
+ "film": "app/saint-seiya.mp4",
+ "filmVersion": "53561d47",
+ "duration": 154.311,
+ "his": [
+  {
+   "when": "2026-10-14 14:2x WEST",
+   "words": "you see this exact moment where athen is looking down? can you please go find all the time and assets we excavated from the saint seya hades please dude it is vital i need you to find the athena asset from there and bring it here.. what i want to see happen here is i want to have athena outside of the dodecahedron using the hades game asset dude please",
+   "over": "the page at film 30.0 s"
+  },
+  {
+   "when": "2026-10-14 14:4x WEST",
+   "words": "start having spatial computing awareness of where the fight is happening... see this momen when the light appears... where is it?? if you want to make a cinematography replication you need to be able to correctly place athena from the height of where she is and all that dude",
+   "over": "the page at film 45.4 s"
+  },
+  {
+   "when": "2026-10-14 14:4x WEST",
+   "words": "like imagine that you are needing to make a 4DGS of the trajectory AKA BRAINDANCE of the event here... you get what i mean? there is a reason why i got hades installed on pelino dude come on..."
+  },
+  {
+   "when": "2026-10-14 14:5x WEST",
+   "words": "IT IS VECTORIAL SPACES AND NORMAL DISTRIBUTIONS ALL THE WAY DOWN"
+  }
+ ],
+ "frame": {
+  "origin": "Seiya's feet where the column of light stands at his tag 37.132 s (the fight's ground)",
+  "x": "to the right as seen over Athena's shoulder (the arena's width)",
+  "y": "up",
+  "z": "from the fight towards the statue of Odin, Athena's side",
+  "unit": "metres; Seiya 1.65 m tall",
+  "law": "a drawn film has no one lens: every mu below was read off the frames named in its evidence, and its sigma is how far the frames allow it to move. Two spaces disagree by design: the over-the-shoulder shots (28 to 37 s, 71 to 73 s) put the fight 14 to 22 m from Athena; the establishing shot (42.6 to 44.5 s) puts her on a rock pinnacle above the clouds, a hundred metres up. The page replicates the shots, so it takes the cinematographic space; the establishing one is kept beside it."
+ },
+ "sources": [
+  {
+   "what": "Athena bound as the figurehead of the ship on the statue of Odin",
+   "where": "https://saintseiya.fandom.com/wiki/Saint_Seiya:_The_Heated_Battle_of_the_Gods",
+   "words": "She is immobilized by the master of Asgard, and put as the figurehead of the ship on the statue of Odin."
+  },
+  {
+   "what": "the Cloth's arrival",
+   "where": "https://saintseiya.fandom.com/wiki/Saint_Seiya:_The_Heated_Battle_of_the_Gods",
+   "words": "Seiya tries to fight him but fails, and is followed by Ikki and Hyouga. Suddenly the Gold Cloth of Sagitarius appears, and enrobes Seiya."
+  },
+  {
+   "what": "where Athena is sealed",
+   "where": "https://en.wikipedia.org/wiki/List_of_Saint_Seiya_films",
+   "words": "in a strange dimension within the giant statue of Odin"
+  },
+  {
+   "what": "the frames",
+   "where": "scratchpad athena-frames/sheet-*.jpg, over-shoulder.png, arena.png (contact sheets of app/saint-seiya.mp4 at 1 to 10 frames a second), Oct 14 2026"
+  }
+ ],
+ "entities": {
+  "athena": {
+   "who": "Saori Kido, Athena; in the game CHARACTER\\E00 (number 50, 'Saori' at ELF 0x3A84D0)",
+   "asset": "athena.hades.glb",
+   "stance": "athena.hades.stance.json",
+   "height": 1.6,
+   "tracks": [
+    {
+     "t": [
+      24.0,
+      81.0
+     ],
+     "mu": [
+      3,
+      11,
+      14
+     ],
+     "sigma": [
+      3,
+      4,
+      5
+     ],
+     "look": [
+      0,
+      0,
+      0
+     ],
+     "pose": "bound at the ship's prow as its figurehead, the gold curl of the prow at her left, arms at her sides, head down at the fight",
+     "evidence": "29.563 to 33.567 s, 36.570 to 37.204 s and 71.138 to 74.975 s (the film's measured cuts): the camera over her right shoulder, her hair streaming down into the frame's lower left, the two fighters 0.13 to 0.15 of the frame tall at the lower left, the ground seen from above at about 40 degrees; 32 to 36.5 s: her face three-quarter, eyes down-left, the gold prow curl at the frame's left",
+     "measured": {
+      "method": "hand marks of rigid keypoints on a few frames a shot, a Levenberg-Marquardt pose solve a frame with one focal a shot (its prior the fov as read), the world through the shot's anchor body, a pyramidal Lucas-Kanade carry across the shot's frames where the hand residual allowed, covariance off the normal matrix plus the trajectory's scatter (braindance.measure.mjs, braindance.marks.json)",
+      "frames": 176,
+      "residual_px": 7.14,
+      "mu": [
+       5.134,
+       5.55,
+       6.787
+      ],
+      "sigma": [
+       2.091,
+       1.944,
+       2.69
+      ],
+      "cov": [
+       [
+        4.3712,
+        0.9056,
+        3.7561
+       ],
+       [
+        0.9056,
+        3.7792,
+        1.5059
+       ],
+       [
+        3.7561,
+        1.5059,
+        7.2369
+       ]
+      ],
+      "shots": [
+       {
+        "shot": "A",
+        "body": "athena-head",
+        "frames": [
+         886,
+         1005
+        ],
+        "t": [
+         29.563,
+         33.567
+        ],
+        "n": 120,
+        "residual_px": 7.46,
+        "drift_px": 7.51,
+        "mu": [
+         4.879,
+         4.875,
+         7.651
+        ],
+        "sigma": [
+         2.789,
+         2.73,
+         3.899
+        ]
+       },
+       {
+        "shot": "D",
+        "body": "athena-head",
+        "frames": [
+         2172,
+         2246
+        ],
+        "t": [
+         72.472,
+         74.975
+        ],
+        "n": 56,
+        "residual_px": 6.4,
+        "drift_px": 7.97,
+        "mu": [
+         5.668,
+         6.294,
+         6.499
+        ],
+        "sigma": [
+         3.194,
+         2.811,
+         3.821
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "establishing": {
+    "mu": [
+     40,
+     90,
+     150
+    ],
+    "sigma": [
+     30,
+     40,
+     80
+    ],
+    "evidence": "42.6 s and 44.0 s: a rock pinnacle rising through the clouds, the statue of Odin on its top, the ship at the statue's chest, a white speck at the prow; Athena about 8 px of 270, the statue about 130: the statue 16 Athenas tall"
+   }
+  },
+  "seiya": {
+   "who": "Pegasus Seiya; in the game CHARACTER\\00 (number 00) and, in the Sagittarius Cloth, CHARACTER\\15 (SagittariusSeiya at ELF 0x3A8310)",
+   "height": 1.65,
+   "tracks": [
+    {
+     "t": [
+      0.0,
+      2.903
+     ],
+     "mu": [
+      0,
+      0,
+      0
+     ],
+     "sigma": [
+      1,
+      0.1,
+      1
+     ],
+     "pose": "kneeling on the arena floor, 'I will save Athena.'",
+     "evidence": "0 to 2 s"
+    },
+    {
+     "t": [
+      5.405,
+      11.044
+     ],
+     "mu": [
+      0,
+      0,
+      0
+     ],
+     "sigma": [
+      1,
+      0.1,
+      1
+     ],
+     "pose": "standing in Dolbar's red blast, arms spread",
+     "evidence": "5 to 10 s; his tag 10.835 s 'THE MOMENT OF SACRIFICE'"
+    },
+    {
+     "t": [
+      11.044,
+      16.049
+     ],
+     "mu": [
+      0,
+      0,
+      0
+     ],
+     "sigma": [
+      1.5,
+      0.3,
+      1.5
+     ],
+     "pose": "struck; Ikki between him and the blast",
+     "evidence": "11 to 16 s"
+    },
+    {
+     "t": [
+      16.049,
+      36.57
+     ],
+     "mu": [
+      0,
+      0,
+      0
+     ],
+     "sigma": [
+      1,
+      0.1,
+      1
+     ],
+     "pose": "standing, facing Dolbar, a step from him",
+     "evidence": "17 to 27.5 s: the two-shot at chest height; 28 to 31.5 s: both small at the foot of the frame from Athena's place"
+    },
+    {
+     "t": [
+      36.57,
+      42.342
+     ],
+     "mu": [
+      0,
+      0.2,
+      0
+     ],
+     "sigma": [
+      0.5,
+      0.3,
+      0.5
+     ],
+     "pose": "inside the column of light; the Cloth on him from 38.0 s",
+     "evidence": "36.6 to 41.5 s"
+    },
+    {
+     "t": [
+      61.767,
+      68.5
+     ],
+     "mu": [
+      0,
+      0.3,
+      0
+     ],
+     "sigma": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "pose": "the Cloth dressing him in the column: legs, arm, chest, helmet",
+     "evidence": "61 to 68 s; his tag 61.767 s 'THE CONVERSION MOMENT'"
+    },
+    {
+     "t": [
+      69.603,
+      74.975
+     ],
+     "mu": [
+      0,
+      0.2,
+      0
+     ],
+     "sigma": [
+      0.5,
+      0.3,
+      0.5
+     ],
+     "pose": "standing in the column, wide, then seen from Athena's place",
+     "evidence": "69 to 73 s"
+    },
+    {
+     "t": [
+      76.977,
+      81.0
+     ],
+     "mu": [
+      0,
+      0,
+      0
+     ],
+     "sigma": [
+      1,
+      0.1,
+      1
+     ],
+     "pose": "in the full Cloth, arms raised, looking up at her: 'Athena, I thank you for bestowing on me this power, for showing your trust in me!'",
+     "evidence": "76 to 80 s"
+    }
+   ]
+  },
+  "dolbar": {
+   "who": "Dolbar (Durbal), the master of Asgard; not in the game",
+   "height": 1.9,
+   "tracks": [
+    {
+     "t": [
+      2.903,
+      38.071
+     ],
+     "mu": [
+      -2.5,
+      0,
+      0.5
+     ],
+     "sigma": [
+      1.5,
+      0.1,
+      1.5
+     ],
+     "look": [
+      0,
+      0,
+      0
+     ],
+     "pose": "facing Seiya, a step away; at 24 to 27.5 s his head tilted up to call Athena; at 36.6 s beside the beam",
+     "evidence": "3 to 4 s close; 19 to 27.5 s the two-shot with Seiya; 28 to 31.5 s and 36.6 to 37.3 s both at the frame's foot from Athena's place, the beam standing between them",
+     "measured": {
+      "method": "hand marks of rigid keypoints on a few frames a shot, a Levenberg-Marquardt pose solve a frame with one focal a shot (its prior the fov as read), the world through the shot's anchor body, a pyramidal Lucas-Kanade carry across the shot's frames where the hand residual allowed, covariance off the normal matrix plus the trajectory's scatter (braindance.measure.mjs, braindance.marks.json)",
+      "frames": 3,
+      "residual_px": 0,
+      "mu": [
+       0.657,
+       0,
+       -0.324
+      ],
+      "sigma": [
+       0.137,
+       0.029,
+       0.117
+      ],
+      "cov": [
+       [
+        0.0187,
+        0,
+        -0.0033
+       ],
+       [
+        0,
+        0.0008,
+        0
+       ],
+       [
+        -0.0033,
+        0,
+        0.0137
+       ]
+      ],
+      "shots": [
+       {
+        "shot": "A",
+        "body": "dolbar-standing",
+        "frames": [
+         886,
+         1005
+        ],
+        "t": [
+         29.563,
+         33.567
+        ],
+        "n": 3,
+        "residual_px": 0,
+        "drift_px": 56.95,
+        "tracker": "lost: the hand frames alone",
+        "mu": [
+         0.657,
+         0,
+         -0.324
+        ],
+        "sigma": [
+         0.137,
+         0.029,
+         0.117
+        ],
+        "drawn": 1.114
+       }
+      ]
+     }
+    },
+    {
+     "t": [
+      74.975,
+      76.977
+     ],
+     "mu": [
+      -2.5,
+      0,
+      0.5
+     ],
+     "sigma": [
+      2,
+      0.1,
+      2
+     ],
+     "look": [
+      0,
+      0,
+      0
+     ],
+     "pose": "standing, watching the Cloth on Seiya",
+     "evidence": "74 to 75 s"
+    }
+   ]
+  },
+  "ikki": {
+   "who": "Phoenix Ikki; in the game CHARACTER\\04 (and GoldIkki, 48)",
+   "height": 1.75,
+   "tracks": [
+    {
+     "t": [
+      12.0,
+      16.049
+     ],
+     "mu": [
+      -1.2,
+      0,
+      0.3
+     ],
+     "sigma": [
+      1,
+      0.3,
+      1
+     ],
+     "pose": "takes the blast for Seiya and falls: 'Seiya, save Athena'",
+     "evidence": "12 to 16 s"
+    }
+   ]
+  },
+  "saints": {
+   "who": "Shiryu, Shun and Hyoga, down at the arena's edge",
+   "tracks": [
+    {
+     "t": [
+      53.053,
+      59.059
+     ],
+     "mu": [
+      -6,
+      0,
+      -4
+     ],
+     "sigma": [
+      4,
+      0.5,
+      4
+     ],
+     "pose": "looking up at the sky's light; Hyoga lying",
+     "evidence": "53 to 58 s"
+    }
+   ]
+  }
+ },
+ "light": {
+  "column": {
+   "t": [
+    36.57,
+    38.071
+   ],
+   "base": {
+    "mu": [
+     0,
+     0,
+     0
+    ],
+    "sigma": [
+     0.5,
+     0,
+     0.5
+    ]
+   },
+   "top": {
+    "mu": [
+     0,
+     60,
+     0
+    ],
+    "sigma": [
+     5,
+     30,
+     5
+    ]
+   },
+   "width": [
+    [
+     36.57,
+     0.4
+    ],
+    [
+     37.0,
+     1.5
+    ],
+    [
+     37.132,
+     6
+    ],
+    [
+     37.204,
+     40
+    ]
+   ],
+   "evidence": "36.6 to 37.3 s from Athena's place: a thin vertical beam standing at the fighters, out of the frame's top; 37.1 s it opens into a plane (his tag 37.132 s 'AIOLOS STARTS APPEARING'); 37.4 to 38.0 s the frame floods but for her hair"
+  },
+  "star": {
+   "t": [
+    42.342,
+    45.445
+   ],
+   "mu": [
+    -60,
+    85,
+    90
+   ],
+   "sigma": [
+    30,
+    30,
+    60
+   ],
+   "evidence": "42.6 s: a small green star at the frame's upper left while the pinnacle's top is at its upper right; 44.0 s: the star's rays"
+  },
+  "sun": {
+   "t": [
+    45.445,
+    50.05
+   ],
+   "mu": [
+    -20,
+    120,
+    100
+   ],
+   "sigma": [
+    50,
+    50,
+    80
+   ],
+   "evidence": "45 to 49 s: a sunburst, then a white sun in the dark sky"
+  },
+  "cloth": [
+   {
+    "t": [
+     50.05,
+     53.053
+    ],
+    "mu": [
+     -20,
+     90,
+     100
+    ],
+    "sigma": [
+     50,
+     50,
+     80
+    ],
+    "pose": "the Sagittarius Cloth as the golden centaur, in fire, in the sky",
+    "evidence": "50 to 52 s"
+   },
+   {
+    "t": [
+     59.059,
+     60.5
+    ],
+    "mu": [
+     0,
+     8,
+     0
+    ],
+    "sigma": [
+     2,
+     6,
+     2
+    ],
+    "pose": "the Cloth object falling in light to Seiya",
+    "evidence": "59 to 60 s"
+   }
+  ]
+ },
+ "camera": [
+  {
+   "t": [
+    0.0,
+    2.903
+   ],
+   "name": "Seiya kneels",
+   "mu": [
+    1.5,
+    0.6,
+    -3
+   ],
+   "sigma": [
+    1,
+    0.3,
+    1
+   ],
+   "look": [
+    0,
+    0.8,
+    0
+   ],
+   "fov": 40,
+   "evidence": "0 to 2 s: low, the cliffs behind him"
+  },
+  {
+   "t": [
+    2.903,
+    5.405
+   ],
+   "name": "Dolbar's coup de grace",
+   "mu": [
+    -4,
+    1.6,
+    -1.5
+   ],
+   "sigma": [
+    1,
+    0.3,
+    1
+   ],
+   "look": [
+    -2.5,
+    1.6,
+    0.5
+   ],
+   "fov": 30,
+   "evidence": "3 to 4 s: close on Dolbar; 4 to 5 s: his hand charging"
+  },
+  {
+   "t": [
+    5.405,
+    11.044
+   ],
+   "name": "the blast",
+   "mu": [
+    3,
+    1.2,
+    -8
+   ],
+   "sigma": [
+    3,
+    0.5,
+    3
+   ],
+   "look": [
+    0,
+    1,
+    0
+   ],
+   "fov": 45,
+   "evidence": "5 to 10 s: Seiya in the blast, the arena floor lit red, wide at 10 s",
+   "cutsInside": [
+    6.406,
+    8.542,
+    8.909
+   ]
+  },
+  {
+   "t": [
+    11.044,
+    16.049
+   ],
+   "name": "Ikki's sacrifice",
+   "mu": [
+    -2,
+    1.2,
+    -4
+   ],
+   "sigma": [
+    2,
+    0.5,
+    2
+   ],
+   "look": [
+    -1.2,
+    1,
+    0.3
+   ],
+   "fov": 40,
+   "evidence": "11 to 16 s"
+  },
+  {
+   "t": [
+    16.049,
+    19.052
+   ],
+   "name": "behind Seiya, the far cliff",
+   "mu": [
+    0.6,
+    1.5,
+    -1.2
+   ],
+   "sigma": [
+    0.5,
+    0.2,
+    0.5
+   ],
+   "look": [
+    0,
+    1.5,
+    20
+   ],
+   "fov": 45,
+   "evidence": "17 to 18 s: the back of his head, the cliff wall and the floor beyond"
+  },
+  {
+   "t": [
+    19.052,
+    29.563
+   ],
+   "name": "the two-shot",
+   "mu": [
+    -1,
+    1.4,
+    -3
+   ],
+   "sigma": [
+    1,
+    0.2,
+    1
+   ],
+   "look": [
+    -1.2,
+    1.4,
+    0.2
+   ],
+   "fov": 35,
+   "evidence": "19 to 27.5 s: Dolbar left, Seiya right, chest height; 24 to 27.5 s 'Athena! All your Knights are no more.'"
+  },
+  {
+   "t": [
+    29.563,
+    33.567
+   ],
+   "name": "over Athena's shoulder, down at the fight",
+   "mu": [
+    4.2,
+    12.2,
+    15.6
+   ],
+   "sigma": [
+    1,
+    1,
+    1
+   ],
+   "look": [
+    -1,
+    0.8,
+    0
+   ],
+   "fov": 40,
+   "evidence": "28 to 31.5 s: her hair at the right third, the two fighters at the lower left 0.13 to 0.15 of the frame tall, the floor seen at about 40 degrees from above; 'With the last Knight I will have my fun.' The page's own picture at 30.0 s is this shot.",
+   "measured": {
+    "method": "hand marks of rigid keypoints on a few frames a shot, a Levenberg-Marquardt pose solve a frame with one focal a shot (its prior the fov as read), the world through the shot's anchor body, a pyramidal Lucas-Kanade carry across the shot's frames where the hand residual allowed, covariance off the normal matrix plus the trajectory's scatter (braindance.measure.mjs, braindance.marks.json)",
+    "frames": [
+     886,
+     1005
+    ],
+    "t": [
+     29.563,
+     33.567
+    ],
+    "hand": [
+     900,
+     945,
+     990
+    ],
+    "n": 3,
+    "residual_px": 8,
+    "eye": [
+     4.845,
+     6.626,
+     8.654
+    ],
+    "sigma": [
+     2.789,
+     2.728,
+     3.882
+    ],
+    "cov": [
+     [
+      7.7768,
+      0.9201,
+      6.7159
+     ],
+     [
+      0.9201,
+      7.4422,
+      2.1089
+     ],
+     [
+      6.7159,
+      2.1089,
+      15.0683
+     ]
+    ],
+    "look": [
+     2.701,
+     0.768,
+     -1.512
+    ],
+    "up": [
+     -0.318,
+     0.849,
+     -0.422
+    ],
+    "fov": 40,
+    "sigmaFov": 11.3,
+    "anchor": "seiya-standing",
+    "tracked": {
+     "seiya-standing": {
+      "frames": 120,
+      "drift": 2.223524531500131,
+      "rms": 0
+     },
+     "dolbar-standing": {
+      "frames": 0,
+      "drift": 56.94800441598533,
+      "rms": null
+     },
+     "athena-head": {
+      "frames": 120,
+      "drift": 7.510542164022862,
+      "rms": 7.460424129402517
+     }
+    }
+   }
+  },
+  {
+   "t": [
+    33.567,
+    36.57
+   ],
+   "name": "her face, the prow",
+   "mu": [
+    1.8,
+    11.3,
+    12.6
+   ],
+   "sigma": [
+    0.5,
+    0.3,
+    0.5
+   ],
+   "look": [
+    3,
+    11.4,
+    14
+   ],
+   "fov": 30,
+   "evidence": "32 to 36.5 s: three-quarter on her face, her eyes down-left, the gold prow curl at the frame's left; 'Enjoy the show up there.'",
+   "measured": {
+    "method": "hand marks of rigid keypoints on a few frames a shot, a Levenberg-Marquardt pose solve a frame with one focal a shot (its prior the fov as read), the world through the shot's anchor body, a pyramidal Lucas-Kanade carry across the shot's frames where the hand residual allowed, covariance off the normal matrix plus the trajectory's scatter (braindance.measure.mjs, braindance.marks.json)",
+    "frames": [
+     1006,
+     1095
+    ],
+    "t": [
+     33.567,
+     36.57
+    ],
+    "hand": [
+     1020,
+     1050,
+     1085
+    ],
+    "n": 3,
+    "residual_px": 18.23,
+    "eye": [
+     5.292,
+     6.109,
+     6.767
+    ],
+    "sigma": [
+     0.488,
+     0.184,
+     0.422
+    ],
+    "cov": [
+     [
+      0.238,
+      -0.0096,
+      0.0612
+     ],
+     [
+      -0.0096,
+      0.0338,
+      0.0327
+     ],
+     [
+      0.0612,
+      0.0327,
+      0.1784
+     ]
+    ],
+    "look": [
+     5.018,
+     6.239,
+     7.43
+    ],
+    "up": [
+     -0.115,
+     0.965,
+     -0.237
+    ],
+    "fov": 32.2,
+    "sigmaFov": 15.3,
+    "anchor": "athena-face",
+    "tracked": null
+   }
+  },
+  {
+   "t": [
+    36.57,
+    37.204
+   ],
+   "name": "over her shoulder, the column",
+   "mu": [
+    4.2,
+    12.2,
+    15.6
+   ],
+   "sigma": [
+    1,
+    1,
+    1
+   ],
+   "look": [
+    -1,
+    1,
+    0
+   ],
+   "fov": 40,
+   "evidence": "36.6 to 37.3 s: the beam stands at the fighters, her hair at the right"
+  },
+  {
+   "t": [
+    37.204,
+    38.071
+   ],
+   "name": "the flood",
+   "mu": [
+    4.2,
+    12.2,
+    15.6
+   ],
+   "sigma": [
+    2,
+    2,
+    2
+   ],
+   "look": [
+    -1,
+    1,
+    0
+   ],
+   "fov": 40,
+   "evidence": "37.4 to 38.0 s: all light but her hair"
+  },
+  {
+   "t": [
+    38.071,
+    42.342
+   ],
+   "name": "the Cloth on him",
+   "mu": [
+    0,
+    1.3,
+    -2.5
+   ],
+   "sigma": [
+    1,
+    0.3,
+    1
+   ],
+   "look": [
+    0,
+    1.3,
+    0
+   ],
+   "fov": 30,
+   "evidence": "38 to 41.5 s: Seiya's face and chest in the gold Cloth, warm light",
+   "cutsInside": [
+    39.339
+   ]
+  },
+  {
+   "t": [
+    42.342,
+    45.445
+   ],
+   "name": "the pinnacle",
+   "mu": [
+    -40,
+    10,
+    -120
+   ],
+   "sigma": [
+    30,
+    10,
+    60
+   ],
+   "look": [
+    40,
+    80,
+    150
+   ],
+   "fov": 50,
+   "evidence": "42.6 and 44.0 s: the rock column through the clouds, the statue of Odin and the ship at its top, the star at the upper left",
+   "cutsInside": [
+    44.778,
+    45.279
+   ]
+  },
+  {
+   "t": [
+    45.445,
+    53.053
+   ],
+   "name": "the sky",
+   "mu": [
+    -20,
+    60,
+    0
+   ],
+   "sigma": [
+    30,
+    30,
+    30
+   ],
+   "look": [
+    -20,
+    110,
+    100
+   ],
+   "fov": 50,
+   "evidence": "45 to 52 s: the sunburst, the sun, the golden centaur",
+   "cutsInside": [
+    47.514,
+    49.55,
+    49.783,
+    49.883,
+    50.05
+   ]
+  },
+  {
+   "t": [
+    53.053,
+    59.059
+   ],
+   "name": "the saints look up",
+   "mu": [
+    -8,
+    1.2,
+    -8
+   ],
+   "sigma": [
+    3,
+    0.5,
+    3
+   ],
+   "look": [
+    -6,
+    1,
+    -4
+   ],
+   "fov": 40,
+   "evidence": "53 to 58 s",
+   "cutsInside": [
+    55.055,
+    57.057
+   ]
+  },
+  {
+   "t": [
+    59.059,
+    69.603
+   ],
+   "name": "the dressing",
+   "mu": [
+    0,
+    1.2,
+    -3
+   ],
+   "sigma": [
+    1,
+    0.5,
+    1
+   ],
+   "look": [
+    0,
+    1,
+    0
+   ],
+   "fov": 35,
+   "evidence": "59 to 68 s: the Cloth object, then his legs, arm, chest, helmet in the column",
+   "cutsInside": [
+    "64.898 to 69.603: the armor closes in a flurry of about 40 cuts"
+   ]
+  },
+  {
+   "t": [
+    69.603,
+    71.138
+   ],
+   "name": "the column, wide",
+   "mu": [
+    6,
+    2,
+    -16
+   ],
+   "sigma": [
+    4,
+    1,
+    4
+   ],
+   "look": [
+    0,
+    3,
+    0
+   ],
+   "fov": 45,
+   "evidence": "69 to 70 s"
+  },
+  {
+   "t": [
+    71.138,
+    74.975
+   ],
+   "name": "over her shoulder, the column, again",
+   "mu": [
+    4.2,
+    12.2,
+    15.6
+   ],
+   "sigma": [
+    1,
+    1,
+    1
+   ],
+   "look": [
+    -1,
+    1,
+    0
+   ],
+   "fov": 40,
+   "evidence": "71 to 73.5 s",
+   "cutsInside": [
+    71.572,
+    72.472
+   ],
+   "measured": {
+    "method": "hand marks of rigid keypoints on a few frames a shot, a Levenberg-Marquardt pose solve a frame with one focal a shot (its prior the fov as read), the world through the shot's anchor body, a pyramidal Lucas-Kanade carry across the shot's frames where the hand residual allowed, covariance off the normal matrix plus the trajectory's scatter (braindance.measure.mjs, braindance.marks.json)",
+    "frames": [
+     2172,
+     2246
+    ],
+    "t": [
+     72.472,
+     74.975
+    ],
+    "hand": [
+     2175,
+     2205,
+     2240
+    ],
+    "n": 2,
+    "residual_px": 5,
+    "eye": [
+     5.668,
+     8.062,
+     7.44
+    ],
+    "sigma": [
+     3.195,
+     2.812,
+     3.809
+    ],
+    "cov": [
+     [
+      10.2079,
+      2.9865,
+      8.8176
+     ],
+     [
+      2.9865,
+      7.9066,
+      4.0775
+     ],
+     [
+      8.8176,
+      4.0775,
+      14.5075
+     ]
+    ],
+    "look": [
+     3.049,
+     2.151,
+     -3.08
+    ],
+    "up": [
+     -0.268,
+     0.867,
+     -0.42
+    ],
+    "fov": 40,
+    "sigmaFov": 11.3,
+    "anchor": "seiya-standing",
+    "tracked": {
+     "seiya-standing": {
+      "frames": 0,
+      "drift": 83.31923226553182,
+      "rms": null
+     },
+     "athena-head": {
+      "frames": 56,
+      "drift": 7.973945725670387,
+      "rms": 6.401840779910375
+     }
+    }
+   }
+  },
+  {
+   "t": [
+    74.975,
+    76.977
+   ],
+   "name": "Dolbar watches",
+   "mu": [
+    -3.5,
+    1.4,
+    -2.5
+   ],
+   "sigma": [
+    1,
+    0.3,
+    1
+   ],
+   "look": [
+    -2.5,
+    1.4,
+    0.5
+   ],
+   "fov": 35,
+   "evidence": "74 to 75 s"
+  },
+  {
+   "t": [
+    76.977,
+    81.0
+   ],
+   "name": "his thanks",
+   "mu": [
+    0.5,
+    1.2,
+    -3
+   ],
+   "sigma": [
+    1,
+    0.3,
+    1
+   ],
+   "look": [
+    0,
+    1.3,
+    0
+   ],
+   "fov": 35,
+   "evidence": "76 to 80 s: arms raised, the cliff wall behind, looking up",
+   "cutsInside": [
+    80.747
+   ],
+   "measured": {
+    "method": "hand marks of rigid keypoints on a few frames a shot, a Levenberg-Marquardt pose solve a frame with one focal a shot (its prior the fov as read), the world through the shot's anchor body, a pyramidal Lucas-Kanade carry across the shot's frames where the hand residual allowed, covariance off the normal matrix plus the trajectory's scatter (braindance.measure.mjs, braindance.marks.json)",
+    "frames": [
+     2307,
+     2419
+    ],
+    "t": [
+     76.977,
+     80.747
+    ],
+    "hand": [
+     2320,
+     2360,
+     2400
+    ],
+    "n": 3,
+    "residual_px": 15.77,
+    "eye": [
+     0.022,
+     1.435,
+     -0.959
+    ],
+    "sigma": [
+     0.627,
+     0.1,
+     0.638
+    ],
+    "cov": [
+     [
+      0.3925,
+      0.0002,
+      0.0006
+     ],
+     [
+      0.0002,
+      0.01,
+      0.0202
+     ],
+     [
+      0.0006,
+      0.0202,
+      0.407
+     ]
+    ],
+    "look": [
+     -0.038,
+     1.267,
+     0.206
+    ],
+    "up": [
+     -0.012,
+     0.99,
+     0.142
+    ],
+    "fov": 36.8,
+    "sigmaFov": 15.2,
+    "anchor": "seiya-helmet",
+    "tracked": null
+   }
+  }
+ ],
+ "cuts": {
+  "how": "ffmpeg select='gt(scene,0.25)' over app/saint-seiya.mp4 (30000/1001 fps, 960 x 540), each cut at its frame's pts, the score in brackets; measured Oct 14 2026 16:2x WEST. Every shot boundary of `camera` is one of these (until then they were read off the frames at about half a second: 24, 28 and 32 s were not cuts at all, and Athena's shot began 1.56 s early).",
+  "at": [
+   [
+    2.903,
+    0.39
+   ],
+   [
+    5.405,
+    0.26
+   ],
+   [
+    6.406,
+    0.31
+   ],
+   [
+    8.542,
+    0.45
+   ],
+   [
+    8.909,
+    0.43
+   ],
+   [
+    11.044,
+    0.3
+   ],
+   [
+    16.049,
+    0.32
+   ],
+   [
+    19.052,
+    0.39
+   ],
+   [
+    29.563,
+    0.4
+   ],
+   [
+    33.567,
+    0.38
+   ],
+   [
+    36.57,
+    0.43
+   ],
+   [
+    37.204,
+    0.29
+   ],
+   [
+    38.071,
+    0.42
+   ],
+   [
+    39.339,
+    0.49
+   ],
+   [
+    42.342,
+    0.51
+   ],
+   [
+    45.445,
+    0.4
+   ],
+   [
+    49.55,
+    0.33
+   ],
+   [
+    50.05,
+    0.96
+   ],
+   [
+    53.053,
+    0.67
+   ],
+   [
+    55.055,
+    0.44
+   ],
+   [
+    57.057,
+    0.45
+   ],
+   [
+    59.059,
+    0.6
+   ],
+   [
+    71.138,
+    0.56
+   ],
+   [
+    71.572,
+    0.64
+   ],
+   [
+    72.472,
+    0.44
+   ],
+   [
+    74.975,
+    0.35
+   ],
+   [
+    76.977,
+    0.4
+   ],
+   [
+    80.747,
+    0.34
+   ]
+  ],
+  "flurries": [
+   [
+    64.898,
+    69.603,
+    "the armor closes on him: about 40 events 0.07 to 0.2 s apart, the film's own cut device"
+   ]
+  ]
+ },
+ "engine": {
+  "status": "not staged",
+  "what": "the same event measured in the game's own engine (Saint Seiya: The Hades, PS2, SLES-54162, PCSX2 on pelino): the posed world 4x4 of every joint of the figures and the camera object, read from EE RAM per frame and keyed by the film's seconds through his tags on the Nest (mint/seiya-tags); asked 2026-10-14 15:1x WEST for the shot of 28 to 37 s",
+  "read": "2026-10-14 15:18 to 15:22 WEST, three bounded ssh reads of pelino (native programs only, nothing written): no pcsx2 process in any session and nothing listening on 28011; C:\\Embers\\pcsx2\\pcsx2-qt.exe with EnablePINE = true, PINESlot = 28011 and no Hook key in its ini; one savestate, SLES-54162 (73CEADE3).00.p2s of Oct 4 07:36 (PEGASUS 00 against CANCER 36, paused); the RTX 4090 at 34 to 35 % and 2,145 MiB for the desktop and tv1's glass, no game; CPU 1.7 to 7.4 %; commit 30.5 of 60.3 GB",
+  "stageable": "the ground half only, and not as the film shoots it: a fight of Seiya in the Sagittarius Cloth (CHARACTER\\15) against one of 00..48 on one of the ten stages (Palace of Aries(out) to Wailing Wall, ELF 0x394AB0), its two skeletons (the engine's node arrays under the root 0x7f44c8, 288 B a node, the world 4x4 at +64, the name at +166) and the fight camera (the object at the pointer 0x4ff850: V at +0, the eye at +0x80, fovy 40 degrees) read from EE RAM: Seiya standing at the origin, the camera at chest height circling him",
+  "missing": [
+   "the game running on pelino: pcsx2-qt.exe has no process there, and starting it puts a window on tv1, his screen (his word, never a seat's)",
+   "a fight with character 15 in it: no savestate holds one, and making one is his pad through the game's menus on his screen",
+   "a scene with E00 posed: Saori's only motion is ME00.MPL (8 frames of her lips); none of the 174 story motion files (SCRIPT\\MOTION\\STORY_xxxx_NN.FJF) names her, and she is no fighter (no 50.MPL, no SKILL folder, no select name), so no pad press puts her in an arena; her place above it and the camera over her shoulder are writes into EE RAM, an edit of the game",
+   "Dolbar and the column of light: not on the disc; the ten stages are the Hades chapter's, no statue of Odin, no ship"
+  ],
+  "road": {
+   "pine": "127.0.0.1:28011 on pelino (TCP, its ini), reached by an ssh -L bound in time; MsgRead64 batches of 8 B a read: a 60-node figure's world matrices are 480 reads (3,840 B), both figures and the camera object about 1,020 reads a sample; PINE reads between the emulator's frames, so a per-frame record wants the game paused or the hook's packet 17 (493 B, 5.4 to 5.8 us a frame on the Mac, Oct 4)",
+   "units": "1 game unit = 0.10 m, y down, the floor y = 0, row vectors with the translation in row 3; this record's frame is metres, y up, the origin at Seiya's feet"
+  },
+  "hero": "the page keeps reading at() and shotAt() from this record; an engine record would stand beside it as braindance.engine.json: per film second, each figure's joints by the game's own names (the glb's skin uses them) as world 4x4 in the arena frame, and the camera's eye, V and fovy; Athena's place and the film's shot would still be this record's"
+ }
+}

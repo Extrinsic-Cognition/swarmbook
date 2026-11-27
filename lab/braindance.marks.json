@@ -1,0 +1,768 @@
+{
+  "v": "braindance-marks/1",
+  "what": "hand marks of rigid keypoints on a few frames a shot of app/saint-seiya.mp4 (version 53561d47), pixels of the 960 x 540 frame (x right, y down), read off magnified crops with a 10 px grid (sigmaPx says how well); the bodies' shapes in metres; which body anchors the world in each shot. Read by braindance.measure.mjs. The frames themselves never enter git.",
+  "picture": {
+    "w": 960,
+    "h": 540,
+    "columns": [
+      82,
+      877
+    ],
+    "rows": [
+      3,
+      536
+    ],
+    "cx": 480,
+    "cy": 270,
+    "note": "the film is pillarboxed: the picture is 796 x 534 inside the 960 x 540 frame, its centre at (479.5, 269.5)"
+  },
+  "fps": "30000/1001",
+  "shapes": {
+    "fight-pair": {
+      "kind": "rigid",
+      "frame": "the arena: Seiya's feet at the origin, y up, z towards Athena; Dolbar beside him at the read offset, on the side the film shows (image-right from Athena's place is +x)",
+      "sigmaPx": 3,
+      "points": {
+        "seiya-top": [
+          0,
+          1.65,
+          0
+        ],
+        "seiya-feet": [
+          0,
+          0,
+          0
+        ],
+        "dolbar-top": [
+          2.5,
+          1.9,
+          0.5
+        ],
+        "dolbar-feet": [
+          2.5,
+          0,
+          0.5
+        ]
+      }
+    },
+    "fight-pair-mirror": {
+      "kind": "rigid",
+      "frame": "the same pair with Dolbar on -x, the record's read side: the candidate the solve must beat",
+      "sigmaPx": 3,
+      "points": {
+        "seiya-top": [
+          0,
+          1.65,
+          0
+        ],
+        "seiya-feet": [
+          0,
+          0,
+          0
+        ],
+        "dolbar-top": [
+          -2.5,
+          1.9,
+          0.5
+        ],
+        "dolbar-feet": [
+          -2.5,
+          0,
+          0.5
+        ]
+      }
+    },
+    "seiya-standing": {
+      "kind": "standing",
+      "frame": "Seiya upright, 1.65 m, his feet at his own origin; a drawn figure's size is its own guess (sizeSigma, a fraction of the depth)",
+      "sigmaPx": 3,
+      "sizeSigma": 0.15,
+      "points": {
+        "top": [
+          0,
+          1.65,
+          0
+        ],
+        "feet": [
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "dolbar-standing": {
+      "kind": "standing",
+      "frame": "Dolbar upright, 1.9 m",
+      "sigmaPx": 3,
+      "sizeSigma": 0.15,
+      "points": {
+        "top": [
+          0,
+          1.9,
+          0
+        ],
+        "feet": [
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "athena-head": {
+      "kind": "sphere",
+      "radius": 0.11,
+      "frame": "her head with its hair as a ball of 0.11 m: the silhouette's top and sides in the picture give its centre and its distance",
+      "sigmaPx": 4,
+      "sizeSigma": 0.2
+    },
+    "athena-face": {
+      "kind": "rigid",
+      "frame": "athena.hades.glb, her own frame (y up, facing +z, hem on y = 0), the stance's head (down 24 deg): the skinned mesh's crown, chin and temples, the mouth_up joint; the eyes and nose as the face's front",
+      "sigmaPx": 5,
+      "points": {
+        "crown": [
+          0,
+          1.6,
+          0.087
+        ],
+        "chin": [
+          0,
+          1.373,
+          0.047
+        ],
+        "temple-l": [
+          -0.113,
+          1.43,
+          0.028
+        ],
+        "temple-r": [
+          0.113,
+          1.43,
+          0.028
+        ],
+        "mouth": [
+          0,
+          1.4226,
+          0.0875
+        ],
+        "eye-l": [
+          -0.035,
+          1.47,
+          0.09
+        ],
+        "eye-r": [
+          0.035,
+          1.47,
+          0.09
+        ],
+        "nose": [
+          0,
+          1.445,
+          0.115
+        ]
+      },
+      "sizeSigma": 0.08
+    },
+    "seiya-helmet": {
+      "kind": "rigid",
+      "sizeSigma": 0.15,
+      "frame": "Seiya's head in the Sagittarius helmet, his own frame (y up from his feet, facing +z), 1.65 m: a head of 0.23 m by proportion (chin 1.42, crown 1.65); the helmet has no asset, so the tiara's peak, its brow edge and the two side wings were placed by their proportions in f2320 itself (the depth then rests on the head's 0.23 m, sizeSigma 15 %)",
+      "sigmaPx": 6,
+      "points": {
+        "chin": [
+          0,
+          1.42,
+          0.07
+        ],
+        "nose": [
+          0,
+          1.47,
+          0.11
+        ],
+        "eye-l": [
+          -0.034,
+          1.5,
+          0.08
+        ],
+        "eye-r": [
+          0.034,
+          1.5,
+          0.08
+        ],
+        "brow": [
+          0,
+          1.56,
+          0.09
+        ],
+        "crest": [
+          0,
+          1.65,
+          0.02
+        ],
+        "wing-l": [
+          -0.1,
+          1.63,
+          0.0
+        ],
+        "wing-r": [
+          0.1,
+          1.63,
+          0.0
+        ]
+      }
+    }
+  },
+  "shots": [
+    {
+      "id": "A",
+      "name": "over Athena's shoulder, down at the fight",
+      "frames": [
+        886,
+        1005
+      ],
+      "cut": "29.563 to 33.567 s by ffmpeg's scene filter (the record reads 28 to 32)",
+      "sigmaPx": 3,
+      "fov": {
+        "mu": 40,
+        "sigma": 10
+      },
+      "anchor": {
+        "body": "seiya-standing",
+        "world": {
+          "rv": [
+            0,
+            0,
+            0
+          ],
+          "t": [
+            0,
+            0,
+            0
+          ]
+        },
+        "sigma": {
+          "yaw": 0,
+          "t": [
+            0,
+            0,
+            0
+          ]
+        },
+        "why": "the fight-pair as a rigid body (Dolbar 2.5 m from Seiya as read) put the camera on the ground 47 degrees off the read turn at rms 3.9 px: the two are drawn 0.65 m apart in this frame on one ground line with Dolbar 1.24 times his height, so the pair's offset is a measurement, not a shape; Seiya alone, upright at the origin, with the read turn and his drawn size as the depth, anchors the shot"
+      },
+      "track": [
+        "seiya-standing",
+        "dolbar-standing",
+        "athena-head"
+      ],
+      "entities": {
+        "athena-head": "athena",
+        "dolbar-standing": "dolbar"
+      },
+      "turnSigma": 15,
+      "offsets": {
+        "athena-head": [
+          0,
+          -1.49,
+          0
+        ]
+      },
+      "worldOf": {
+        "athena-head": {
+          "rv": [
+            0,
+            3.14159265,
+            0
+          ],
+          "offset": [
+            0,
+            -1.49,
+            0
+          ]
+        }
+      },
+      "hand": {
+        "900": {
+          "seiya-standing": {
+            "top": [
+              288,
+              203
+            ],
+            "feet": [
+              280,
+              298
+            ]
+          },
+          "dolbar-standing": {
+            "top": [
+              320,
+              167
+            ],
+            "feet": [
+              328,
+              302
+            ]
+          },
+          "athena-head": {
+            "top": [
+              710,
+              47
+            ],
+            "left": [
+              610,
+              115
+            ]
+          }
+        },
+        "945": {
+          "seiya-standing": {
+            "top": [
+              287,
+              203
+            ],
+            "feet": [
+              280,
+              298
+            ]
+          },
+          "dolbar-standing": {
+            "top": [
+              320,
+              168
+            ],
+            "feet": [
+              328,
+              302
+            ]
+          },
+          "athena-head": {
+            "top": [
+              710,
+              47
+            ],
+            "left": [
+              610,
+              115
+            ]
+          }
+        },
+        "990": {
+          "seiya-standing": {
+            "top": [
+              287,
+              203
+            ],
+            "feet": [
+              280,
+              298
+            ]
+          },
+          "dolbar-standing": {
+            "top": [
+              320,
+              168
+            ],
+            "feet": [
+              328,
+              302
+            ]
+          },
+          "athena-head": {
+            "top": [
+              710,
+              47
+            ],
+            "left": [
+              610,
+              115
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "B",
+      "name": "her face, the prow",
+      "frames": [
+        1006,
+        1095
+      ],
+      "cut": "33.567 to 36.570 s (the record reads 32 to 36.6); from 35.3 s the cel is lit by the beam and the gold prow curl is at the frame's left, the same drawing of her face",
+      "sigmaPx": 5,
+      "fov": {
+        "mu": 30,
+        "sigma": 3,
+        "why": "with the read sigma of 10 degrees the solve ran to a 131-degree lens to fit the drawn eyes (14 px of residual either way): a drawn face is not her game head, so the lens stays what was read and the residual says so"
+      },
+      "anchor": {
+        "body": "athena-face",
+        "world": {
+          "from": "athena-head"
+        },
+        "sigma": {
+          "yaw": 0.5,
+          "t": [
+            0,
+            0,
+            0
+          ]
+        },
+        "why": "her feet and heading as shot A measured them (the head's centre 1.49 m above her feet, facing the fight); the yaw she faces is a guess within 30 degrees, so the camera's place about her carries it"
+      },
+      "track": [
+        "athena-face"
+      ],
+      "entities": {},
+      "hand": {
+        "1020": {
+          "athena-face": {
+            "crown": [
+              505,
+              67
+            ],
+            "eye-l": [
+              497,
+              170
+            ],
+            "eye-r": [
+              570,
+              192
+            ],
+            "nose": [
+              587,
+              212
+            ],
+            "mouth": [
+              535,
+              245
+            ],
+            "chin": [
+              545,
+              282
+            ]
+          }
+        },
+        "1050": {
+          "athena-face": {
+            "crown": [
+              505,
+              67
+            ],
+            "eye-l": [
+              497,
+              170
+            ],
+            "eye-r": [
+              570,
+              192
+            ],
+            "nose": [
+              587,
+              212
+            ],
+            "mouth": [
+              535,
+              245
+            ],
+            "chin": [
+              545,
+              282
+            ]
+          }
+        },
+        "1085": {
+          "athena-face": {
+            "crown": [
+              505,
+              72
+            ],
+            "eye-l": [
+              500,
+              170
+            ],
+            "eye-r": [
+              567,
+              192
+            ],
+            "nose": [
+              582,
+              212
+            ],
+            "mouth": [
+              535,
+              245
+            ],
+            "chin": [
+              540,
+              280
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "D",
+      "name": "over her shoulder, the column, again",
+      "frames": [
+        2172,
+        2246
+      ],
+      "cut": "72.472 to 74.975 s (the record reads 71 to 74): Seiya stands in the gold column at the lower left, 90 px tall once the beam's flare thins (at f2175 the beam washes his legs out: his feet are not marked there), Athena's hair at the right",
+      "sigmaPx": 3,
+      "fov": {
+        "mu": 40,
+        "sigma": 10
+      },
+      "turnSigma": 15,
+      "anchor": {
+        "body": "seiya-standing",
+        "world": {
+          "rv": [
+            0,
+            0,
+            0
+          ],
+          "t": [
+            0,
+            0,
+            0
+          ]
+        },
+        "sigma": {
+          "yaw": 0,
+          "t": [
+            0,
+            0.2,
+            0
+          ]
+        },
+        "why": "Seiya in the column at the fight's ground (the record has him 0.2 m up in it: the anchor's t carries that as its sigma)"
+      },
+      "track": [
+        "seiya-standing",
+        "athena-head"
+      ],
+      "entities": {
+        "athena-head": "athena"
+      },
+      "offsets": {
+        "athena-head": [
+          0,
+          -1.49,
+          0
+        ]
+      },
+      "hand": {
+        "2175": {
+          "athena-head": {
+            "top": [
+              700,
+              50
+            ],
+            "left": [
+              610,
+              125
+            ]
+          }
+        },
+        "2205": {
+          "seiya-standing": {
+            "top": [
+              212,
+              333
+            ],
+            "feet": [
+              215,
+              420
+            ]
+          },
+          "athena-head": {
+            "top": [
+              705,
+              50
+            ],
+            "left": [
+              610,
+              125
+            ]
+          }
+        },
+        "2240": {
+          "seiya-standing": {
+            "top": [
+              210,
+              333
+            ],
+            "feet": [
+              215,
+              423
+            ]
+          },
+          "athena-head": {
+            "top": [
+              700,
+              50
+            ],
+            "left": [
+              610,
+              125
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "E",
+      "name": "his thanks",
+      "frames": [
+        2307,
+        2419
+      ],
+      "cut": "76.977 to 80.747 s (the record reads 76 to 81): Seiya from the chest up in the gold Cloth, arms raised, looking up at her",
+      "sigmaPx": 6,
+      "fov": {
+        "mu": 35,
+        "sigma": 5,
+        "why": "three frames of a head that turns up gave the lens no hold (f 646 +- 621 px with the read sigma of 10 degrees): the lens stays near what was read; the residual over the three frames says how far the drawn head is from one rigid shape"
+      },
+      "anchor": {
+        "body": "seiya-helmet",
+        "world": {
+          "rv": [
+            0,
+            3.14159265,
+            0
+          ],
+          "t": [
+            0,
+            0,
+            0
+          ]
+        },
+        "sigma": {
+          "yaw": 0.35,
+          "t": [
+            0.5,
+            0.05,
+            0.5
+          ]
+        },
+        "why": "Seiya at the fight's ground (his track as read: sigma 1, 0.1, 1 m; half of it here), facing the camera's side (-z, the two-shot's side) within 20 degrees"
+      },
+      "track": [
+        "seiya-helmet"
+      ],
+      "entities": {},
+      "hand": {
+        "2320": {
+          "seiya-helmet": {
+            "crest": [
+              465,
+              77
+            ],
+            "wing-l": [
+              372,
+              87
+            ],
+            "wing-r": [
+              545,
+              77
+            ],
+            "brow": [
+              465,
+              150
+            ],
+            "eye-l": [
+              432,
+              200
+            ],
+            "eye-r": [
+              495,
+              202
+            ],
+            "nose": [
+              462,
+              230
+            ],
+            "chin": [
+              460,
+              277
+            ]
+          }
+        },
+        "2360": {
+          "seiya-helmet": {
+            "crest": [
+              502,
+              57
+            ],
+            "wing-l": [
+              427,
+              135
+            ],
+            "wing-r": [
+              540,
+              130
+            ],
+            "brow": [
+              482,
+              165
+            ],
+            "eye-l": [
+              457,
+              180
+            ],
+            "eye-r": [
+              517,
+              180
+            ],
+            "nose": [
+              485,
+              217
+            ],
+            "chin": [
+              490,
+              265
+            ]
+          }
+        },
+        "2400": {
+          "seiya-helmet": {
+            "crest": [
+              480,
+              62
+            ],
+            "wing-l": [
+              405,
+              122
+            ],
+            "wing-r": [
+              550,
+              135
+            ],
+            "brow": [
+              480,
+              162
+            ],
+            "eye-l": [
+              442,
+              190
+            ],
+            "eye-r": [
+              502,
+              192
+            ],
+            "nose": [
+              470,
+              227
+            ],
+            "chin": [
+              480,
+              270
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

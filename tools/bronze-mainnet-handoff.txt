@@ -1,0 +1,118 @@
+Bronze mainnet launch — owner signing handoff
+Prepared 2026-10-13. Mainnet is NOT active yet.
+
+Existing public identities
+Authority / payer: 3nJn2tnmR27xbkjzT49YnSnXL2KeddzM7CkEizYiKMba
+Program: AJdsmjxQjHnBxDEdRxwEk2UMRW7bgNmvEMUwMziRTyab
+Bronze sale: yK7UKGNP8d792LkHpYzQRnZ5wqwV2SkggNr23Qus8Vw
+
+At finalized mainnet slot 456416135, the authority held 0 SOL; the program
+and all four sale accounts were absent. Ownership of the corresponding
+signers must be established by the owner before funding. Never paste keys
+or seed phrases into chat. The generated target/deploy keypair is NOT the
+pinned program signer.
+
+Read-only rent quote
+Program + ProgramData:                 1.986041240 SOL
+Config + treasury + registry + sale:   0.045491400 SOL
+Combined retained rent:                2.031532640 SOL
+Transaction fees are additional. These values are a quote, not a spending
+cap. Deployment buffer rent is recycled, not an extra retained charge.
+Refresh the rent quote before funding and allow for transaction fees.
+
+Verified engineering evidence
+Program source: 790caf629e58159ef0eb6267668ed8e54463aa93
+Artifact bytes: 390616
+Artifact SHA-256:
+e4514cfc2292e0663669983ed8b0fb514ef1f37ba079d55eb4a09c1391bb6bda
+52 contract tests passed; one existing loader-CPI harness test ignored.
+26 JavaScript tests passed with the actual SBF binary, zero skips.
+Desktop/mobile checkout and no-wallet recovery feedback checked in preview.
+Actual mainnet initialization simulation remains pending deployment/funding.
+
+Bronze terms
+$10 opening target, converted once to a fixed SOL deposit using a fresh
+Coinbase SOL/USD quote. It is not a live USD peg. 150 places; commit window
+1080000 slots; reveal window 216000 slots. Buyers commit their deposit,
+return to reveal, then settle and claim an allocation or recover their
+deposit. Wallet fees and account rent are additional. This is pre-mint
+access; the NFT mint inside Harmony is separate. Gold remains unpublished.
+
+Run on NewMac, where the tested binary is preserved. These are OWNER commands.
+Agents may run prepare / verify / publish, but not deployment or open.
+
+1. In your own terminal, set paths to signers you control. Do not send them
+   here. The program signer must derive the exact program address above.
+   The authority signer must derive the exact authority address above.
+   Keep the deployment buffer signer for recovery if deployment is interrupted.
+
+   BRONZE_AUTHORITY_SIGNER='/absolute/path/to/your-existing-authority.json'
+   BRONZE_PROGRAM_SIGNER='/absolute/path/to/your-existing-program.json'
+   BRONZE_BUFFER_SIGNER='/absolute/path/to/your-deployment-buffer.json'
+   BRONZE_WORKTREE='/Users/lysergic_ratata/code-ec/house/.worktrees/bronze-mainnet-build'
+   BRONZE_ARTIFACT="$BRONZE_WORKTREE/poleis/program/poleis_treasury/target/deploy/poleis_treasury.so"
+   BRONZE_SOLANA='/Users/lysergic_ratata/.local/share/solana/install/releases/stable-515465dd278366f3785dc75e5cce3165edbe316f/solana-release/bin/solana'
+   BRONZE_TOOL="$BRONZE_WORKTREE/embertide-app/ui/intro/dyson-society/tools/bronze-mainnet.mjs"
+
+2. Confirm signer public addresses locally and fund the authority on mainnet
+   from your wallet. Check the artifact checksum before deploying:
+
+   shasum -a 256 "$BRONZE_ARTIFACT"
+   "$BRONZE_SOLANA" address --keypair "$BRONZE_AUTHORITY_SIGNER"
+   "$BRONZE_SOLANA" address --keypair "$BRONZE_PROGRAM_SIGNER"
+
+3. Owner only: deploy the exact binary with the exact program identity.
+
+   "$BRONZE_SOLANA" program deploy "$BRONZE_ARTIFACT" \
+     --url mainnet-beta \
+     --keypair "$BRONZE_AUTHORITY_SIGNER" \
+     --fee-payer "$BRONZE_AUTHORITY_SIGNER" \
+     --upgrade-authority "$BRONZE_AUTHORITY_SIGNER" \
+     --program-id "$BRONZE_PROGRAM_SIGNER" \
+     --buffer "$BRONZE_BUFFER_SIGNER" \
+     --max-len 390616 --commitment finalized
+
+   Keep preflight and feature verification enabled. Do not use --final.
+   If interrupted, inspect the transaction and retained buffer before retrying.
+
+4. Prepare a NEW launch plan after deployment. Use a new output filename
+   each time; a plan expires after ten minutes. This command reads no key.
+
+   BRONZE_PLAN="$BRONZE_WORKTREE/poleis/program/poleis_treasury/target/bronze-mainnet-owner-plan.json"
+   /opt/homebrew/bin/node "$BRONZE_TOOL" prepare \
+     --artifact "$BRONZE_ARTIFACT" --out "$BRONZE_PLAN"
+
+   Review the displayed digest, fixed SOL deposit and terms in the plan.
+   Do not use the earlier dry-run plan: its quote expires.
+
+5. Owner only: initialize the reviewed sale, substituting the exact digest
+   printed by prepare. This spends sale-account rent and fees. The tool
+   checks mainnet, deployed bytes, authority, vacant sale accounts, balance
+   and an unsigned simulation before loading your signer.
+
+   /opt/homebrew/bin/node "$BRONZE_TOOL" open \
+     --artifact "$BRONZE_ARTIFACT" --plan "$BRONZE_PLAN" \
+     --payer-keypair "$BRONZE_AUTHORITY_SIGNER" \
+     --approve-plan 'PASTE_THE_REVIEWED_PLAN_DIGEST_HERE'
+
+   If submission times out, retain the signature and plan. Do not blindly
+   repeat open or prepare a replacement sale. Use read-only verify:
+
+   /opt/homebrew/bin/node "$BRONZE_TOOL" verify \
+     --artifact "$BRONZE_ARTIFACT" --plan "$BRONZE_PLAN"
+
+6. After finalized verification, the agent can generate the website config
+   with publish, transport that public config through Git to OldMac, then
+   deploy the existing optimism-fit worker and check the live checkout.
+
+   /opt/homebrew/bin/node "$BRONZE_TOOL" publish \
+     --artifact "$BRONZE_ARTIFACT" --plan "$BRONZE_PLAN" \
+     --out "$BRONZE_WORKTREE/embertide-app/ui/intro/dyson-society/app/whitelist.json"
+
+   publish refuses activation once the commit window has ended. verify can
+   inspect the initial configuration during reveal, but deliberately rejects
+   settled/ratified state; use the buyer recovery flow for the later lifecycle.
+
+Completion means the exact mainnet program and sale are finalized and the
+live checkout verifies them and labels real SOL. Preparing this handoff,
+funding a wallet, or submitting a transaction alone does not mean completion.

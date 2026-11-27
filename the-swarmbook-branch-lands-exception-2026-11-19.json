@@ -1,0 +1,164 @@
+{
+ "base": "82ab6374272eb01a3d2d3beee449cc5ce5012d8f",
+ "approval": "Hand it, pass +808",
+ "chat": "claude-137e91ec, his words typed there: \"Hand it, pass +808\" (Nov 19 2026 19:16:29.391 UTC), the answer to \"Hand the whole Swarmbook branch so the board goes live?\", after he was told that the hand lands everything on the branch and that it adds about 808 lines of JavaScript",
+ "date": "2026-11-19",
+ "asked": "Hand the whole Swarmbook branch so the board goes live?",
+ "scope": "lane/swarmbook-one-branch at these bytes only: its work as it stood at 5828a3bf50 (the Swarmbook pages, the front's ball and floor, the hexagon pages, the Pantheon's board on both pages), merged with main 82ab637427; a521e2ae77 (the welcome's floor, pushed 85 s after his word) is reverted out of it; no general JavaScript allowance",
+ "net": 808,
+ "cap": 808,
+ "files": {
+  "embertide-app/ui/intro/dyson-society/app/after-the-mint-book.mjs": {
+   "before": null,
+   "after": "fa5c6efe050740f742a9ebf2da9f3a74ab21c729"
+  },
+  "embertide-app/ui/intro/dyson-society/app/after-the-mint-tree.mjs": {
+   "before": "e2fb01ce4063dcbf71cfe934f8ba149aa3b33507",
+   "after": "b90bfef3c0d69f2c435fb4bd45984d0b35cd8be6"
+  },
+  "embertide-app/ui/intro/dyson-society/app/after-the-mint.html": {
+   "before": "a9871d20fd942e27f38c65f73584e7afda6fae15",
+   "after": "3bfa2b1a86c61d57bf3d050f4409a382fbeeb514"
+  },
+  "embertide-app/ui/intro/dyson-society/app/after-the-mint.test.mjs": {
+   "before": "761281408a289f06a812572cd66909b861883e39",
+   "after": "ff5d577b34b1ebae09737f0eb6d25e0a0b134a98"
+  },
+  "embertide-app/ui/intro/dyson-society/app/assembly-chain.js": {
+   "before": "7a8d047112db398719e9e712b30d766b4d9dd2e5",
+   "after": null
+  },
+  "embertide-app/ui/intro/dyson-society/app/assembly-dive.mjs": {
+   "before": null,
+   "after": "dd32ffe2a12d5ea4995e983ccb44b28ed437f245"
+  },
+  "embertide-app/ui/intro/dyson-society/app/assembly-dive.test.mjs": {
+   "before": null,
+   "after": "b5cc9b32bb9d53e0372ca411a90e525ccbcc0e7f"
+  },
+  "embertide-app/ui/intro/dyson-society/app/assembly-geometry.js": {
+   "before": "b9920cc34491dfb001ab5def9d6dafecc9c84511",
+   "after": "ea3a7d6be71d7a810af075a6acdfa1409ae7178b"
+  },
+  "embertide-app/ui/intro/dyson-society/app/assembly.js": {
+   "before": "fcad25ea5234a81e97bb31cdb19a7a1d08157c3e",
+   "after": "a24e914cb365069860e9d4cf8b6b5337e3d0a06a"
+  },
+  "embertide-app/ui/intro/dyson-society/app/claim.html": {
+   "before": "0bb6d48214b56ef285093a4caf33df902b33758b",
+   "after": "f5f72510b98636731c9b2dbe37fd1bd4b9d60b10"
+  },
+  "embertide-app/ui/intro/dyson-society/app/dl-athena-film.proof.mjs": {
+   "before": "f66f9c4aaf4c3edfb267b2a89c14a2926f4eb1c8",
+   "after": "d4afbbb06e07d46c810e910b4a34145e2c750f24"
+  },
+  "embertide-app/ui/intro/dyson-society/app/dl-mint-ledger.js": {
+   "before": "82f2d09afd1838bc0e56ac0a4aced2e8665f7715",
+   "after": "d27047cb2792d4e013f13b9993ad3ef33f800cd0"
+  },
+  "embertide-app/ui/intro/dyson-society/app/ecology.html": {
+   "before": "d197718ea62c2c1ab2a8e52559bcd2a5b83e7c7d",
+   "after": "57d5140987e72a075bf130b44261a00b02b0bf15"
+  },
+  "embertide-app/ui/intro/dyson-society/app/fees.html": {
+   "before": "826c139247c8592a7ba7634f5385389b5f327542",
+   "after": "74aaddf8581a6cd683dd7efeb9d6b5b0978c96b2"
+  },
+  "embertide-app/ui/intro/dyson-society/app/found.html": {
+   "before": "f864b30456d4dca53d61261323e7219df559c0c9",
+   "after": "3a4aff8b56a50010babca1c89f516db12e964509"
+  },
+  "embertide-app/ui/intro/dyson-society/app/guide.js": {
+   "before": "918d63ee48cb841ad5163945d79a013a6dc36a28",
+   "after": "4ae267b5d163efad3088142ae166aae1d61676c7"
+  },
+  "embertide-app/ui/intro/dyson-society/app/guide.test.mjs": {
+   "before": null,
+   "after": "325a43af6170165e27554f97a101f15477d1ace5"
+  },
+  "embertide-app/ui/intro/dyson-society/app/index.html": {
+   "before": "418cf23f57e2081290ef97470d3383fb5dddf73b",
+   "after": "2c3a87a7d7bec14fc99f78338668177de4a40fe7"
+  },
+  "embertide-app/ui/intro/dyson-society/app/legacy-reservations.html": {
+   "before": "cde7b6ba8d616b85e9597e7497941d4e3406358f",
+   "after": "a0bb99625c9b864ee8da484b95257295385fd846"
+  },
+  "embertide-app/ui/intro/dyson-society/app/polis.html": {
+   "before": "e135ae13ec7b196ba9b8140c63e1f99ada58acf3",
+   "after": "4ff9b731699efeae6da74f810097cc067e325fe7"
+  },
+  "embertide-app/ui/intro/dyson-society/app/polis.js": {
+   "before": "7b44578cbaa9a35d4c5b0e225baa2414b19dbf06",
+   "after": "72a4667893e74c8a6b0ef6fbbb0b77e25d365ae7"
+  },
+  "embertide-app/ui/intro/dyson-society/app/privacy.html": {
+   "before": "4fbb7884b4d502ed3241e9cf4b6aaeeb044d910c",
+   "after": "34f9934934b4b7e2716e7d068f8fdfe006a79737"
+  },
+  "embertide-app/ui/intro/dyson-society/app/rules.html": {
+   "before": "fc1284e837d02572021c7b2522d9e6a6da41f157",
+   "after": "b2f505065e69765b26f50b2146423b9eafc6fbe5"
+  },
+  "embertide-app/ui/intro/dyson-society/app/swarmbook-board.mjs": {
+   "before": null,
+   "after": "ff51e1aa492ce824c0c02b81f568c15816f14453"
+  },
+  "embertide-app/ui/intro/dyson-society/app/swarmbook-board.test.mjs": {
+   "before": null,
+   "after": "f8219e5dc1fb54ae6c66df0f6668592ed34b1efc"
+  },
+  "embertide-app/ui/intro/dyson-society/app/swarmbook-floor.mjs": {
+   "before": null,
+   "after": "d72553cc99a6ca7adf2daed2efa270bb6cf445a0"
+  },
+  "embertide-app/ui/intro/dyson-society/app/swarmbook-floor.test.mjs": {
+   "before": null,
+   "after": "57684fcffe28db34734fc42a15e4c34d28dcc268"
+  },
+  "embertide-app/ui/intro/dyson-society/app/swarmbook.html": {
+   "before": null,
+   "after": "e5af2fc7362d492ce713b8d60a9d643387892acb"
+  },
+  "embertide-app/ui/intro/dyson-society/app/swarmbook.mjs": {
+   "before": null,
+   "after": "e5bc8d2eebd749d377a370be3e5d5617bcc94eb9"
+  },
+  "embertide-app/ui/intro/dyson-society/app/swarmbook.test.mjs": {
+   "before": null,
+   "after": "8e71590ae1853f8d90ac0774d28b742409811284"
+  },
+  "embertide-app/ui/intro/dyson-society/app/terms.html": {
+   "before": "01e8f391ee18a42205c6d08469c28aad71d052d7",
+   "after": "a98db42cd3d8c634072b42912e4cc40b96e4cb2b"
+  },
+  "embertide-app/ui/intro/dyson-society/app/wall.js": {
+   "before": "57577ca1e9f509ed94b6138d56a4a7b0b0447b11",
+   "after": "7813215c6677d56456710a04daffdeb6dabe0a1f"
+  },
+  "embertide-app/ui/intro/dyson-society/app/warm.html": {
+   "before": "bfeba80aadfa99c0c09e8caf0bfea96ba81995f6",
+   "after": "330d80c3d652d573f8de29a771ff13d39816a3bc"
+  },
+  "embertide-app/ui/intro/dyson-society/tools/build-optimism-fit.mjs": {
+   "before": "b322dab17505b142f3396877b3a656afeb8fae10",
+   "after": "e5ef9d69f38e362ba44f9e5a58f7b40a5d8f83a8"
+  },
+  "embertide-app/ui/intro/dyson-society/worker/space-router.mjs": {
+   "before": "c303acdb721b9275d60c0a5b3d3f52889762d074",
+   "after": "2fb466cc7e1670054c7ebfb23fbb29e2bc21efff"
+  },
+  "embertide-app/ui/intro/dyson-society/worker/space-router.test.mjs": {
+   "before": "d4cbd8c2ceb34654248781e22109b2229145fe76",
+   "after": "187b73f506c2fab8f4ca9898725c79f9c52745b7"
+  },
+  "embertide-app/ui/intro/room/assembly-gpu.mjs": {
+   "before": "f6b3bbc40808b72af33e5106b0146c436ff21619",
+   "after": "5e8e8ec3f6d62ed3bac0620652dfb5a9b8af6f9a"
+  },
+  "tools/embertide-mesh/tests/the-javascript-only-shrinks.test.mjs": {
+   "before": "d978705224523545a6d3e59f01ef20e6884536f7",
+   "after": "d34fd256fd99a349d9c8835d4077cf436ffb7b50"
+  }
+ }
+}

@@ -1,0 +1,170 @@
+/* Each inscription has its own lateral perspective rail. The center belongs
+   to the sculpture, including while a text plane approaches the camera. */
+.descent {
+  --descent-day: 0%;
+  --descent-ink: color-mix(in srgb,var(--ink) var(--descent-day),var(--panel));
+  --descent-ground: color-mix(in srgb,var(--panel) var(--descent-day),var(--ink));
+  position: absolute; top: 0; left: 50%; width: 100vw; height: 100%;
+  transform: translateX(-50%); z-index: 7;
+  overflow: clip; pointer-events: none; visibility: hidden;
+}
+.descent[data-active="true"] { visibility: visible; }
+#assembly[data-descent="playing"] :is(.assembly-stats,.assembly-scroll,.wall-head,.cap,.chip,.decision,.scene-legend,.discussion-messages) { visibility: hidden; }
+.descent-rail {
+  position: absolute; top: var(--descent-head,100px); bottom: 110px;
+  left: clamp(20px,3vw,56px);
+  width: min(clamp(260px,36vw,420px),calc(50vw - 24px));
+  display: flex; align-items: center; padding: 0 clamp(12px,1.5vw,24px);
+  container-type: inline-size;
+  /* The scene owns the viewport crop. Cropping each moving inscription here
+     cut off its last letters even when the viewport had room for them. */
+  perspective: 1000px; perspective-origin: 50% 50%; overflow: visible;
+}
+.descent-rail[data-side="right"] { left: auto; right: clamp(20px,3vw,56px); }
+.descent-gate {
+  position: relative; width: 100%; min-width: 0;
+  transform-style: preserve-3d; transform-origin: 50% 50%;
+  text-align: left; color: var(--descent-ink); visibility: hidden;
+  will-change: transform,opacity;
+}
+.descent-words { position: relative; min-width: 0; transform: translateZ(18px); overflow-wrap: anywhere; }
+/* Feather the scene behind the reading plane so a bright orbiting face cannot
+   erase a word. This has no visible panel edge and follows the day/night blend. */
+.descent-words::before { content: ''; position: absolute; inset: -14px -10px; z-index: -1; background: var(--descent-ground); opacity: .92; filter: blur(20px); pointer-events: none; }
+.descent h2 {
+  font: var(--t1); font-size: clamp(19px,10cqi,34px);
+  text-transform: uppercase; letter-spacing: .015em; line-height: 1.12;
+  text-wrap: balance; margin: 0 0 clamp(12px,5cqi,20px);
+  -webkit-text-stroke: .25px var(--descent-ground);
+  text-shadow: 0 1px 0 var(--bronze),0 2px 8px var(--descent-ground);
+}
+.descent p { font: var(--t2); font-size: clamp(13.5px,6cqi,19px); font-weight: 400; line-height: 1.4; margin: 0; text-wrap: pretty; text-shadow: 0 1px 3px var(--descent-ground),0 0 8px var(--descent-ground); }
+.descent-caption { position: relative; }
+.descent-detail { display: block; margin-top: 18px; font: var(--t4); text-transform: uppercase; letter-spacing: .14em; color: var(--gold); }
+.descent-depth { position: absolute; inset: -76px -12px auto; height: 68px; transform: translateZ(-75px) rotateY(-8deg); }
+.descent-rail[data-side="right"] .descent-depth { transform: translateZ(-75px) rotateY(8deg) scaleX(-1); }
+.descent-wire { display: block; width: 100%; height: 100%; overflow: visible; }
+.descent-wire path { fill: none; stroke: var(--gold); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.descent-wire .descent-diamond { fill: var(--gold); stroke: var(--panel); stroke-width: .5; }
+.descent-skip {
+  position: absolute; z-index: 10; right: max(24px,calc((100vw - 1220px)/2)); bottom: 28px;
+  pointer-events: auto; background: transparent; border: 0; border-bottom: 1px solid var(--gold);
+  color: var(--descent-ink); font: var(--t3); padding: 10px 0; min-height: 44px; cursor: pointer;
+}
+.descent-skip[hidden] { display: none; }
+.descent-skip[data-outro="true"] { position: fixed; --descent-ink: var(--ink); }
+.descent-skip:focus-visible { outline: 2px solid var(--gold); outline-offset: 5px; }
+.descent-dev {
+  position: fixed; left: 18px; bottom: 18px; z-index: 60;
+  max-width: calc(100vw - 36px); padding: 0 12px 8px;
+  background: var(--panel); color: var(--ink); border: 1px solid var(--gold);
+  box-shadow: 0 4px 20px #171A1620;
+}
+.descent-dev[hidden] { display: none; }
+.descent-dev > div { display: flex; flex-wrap: wrap; gap: 0 16px; }
+.descent-dev button { font: var(--t3); color: var(--ink); background: transparent; border: 0; min-height: 44px; padding: 0; cursor: pointer; }
+.descent-dev .descent-repeat[aria-pressed="true"] { color: var(--bronze); font-weight: 700; }
+.descent-dev button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.descent-dev button:disabled { opacity: .5; cursor: default; }
+.descent-dev-status { display: block; font: var(--t4); color: var(--ink2); }
+@media(max-width:720px) {
+  .descent-rail { left: 16px; width: calc(50vw - 16px); padding: 0 12px; perspective: 1000px; }
+  .descent-rail[data-side="right"] { right: 16px; }
+  .descent-detail { margin-top: 14px; letter-spacing: .08em; }
+  .descent-depth { inset-inline: -4px; height: 48px; top: -60px; }
+  .descent-skip { right: 24px; bottom: 18px; }
+  body:has(.descent-dev:not([hidden])) .descent-skip { bottom: 102px; }
+}
+@media(max-width:520px) {
+  /* Give a short caption a readable measure instead of a one-word column. */
+  .descent-rail { width: calc(62vw - 16px); }
+}
+@media(max-height:550px) {
+  .descent-rail { bottom: 90px; }
+  .descent h2 { font: var(--t2); margin-bottom: 10px; }
+  .descent p { font: var(--t3); line-height: 1.35; }
+  .descent-detail { margin-top: 10px; }
+  .descent-depth { display: none; }
+}
+@media(prefers-reduced-motion:reduce) { .descent { display: none; } }
+
+/* Final inscription: below the last row, in the open center before the product. */
+/* The anatomical study is ordinary content with its own in-view demonstration. */
+.descent-anatomy { perspective: 1000px; padding-top: 48px; text-align: center; }
+.descent-anatomy[hidden] { display: none; }
+.anatomy-plane { max-width: 960px; margin: 0 auto; transform-style: preserve-3d; }
+.anatomy-wire { width: 100%; height: 28px; display: block; margin-bottom: 24px; }
+.anatomy-wire path { fill: none; stroke: var(--gold); stroke-width: .8; vector-effect: non-scaling-stroke; }
+.anatomy-heading { position: relative; display: flex; align-items: baseline; justify-content: center; }
+.anatomy-heading h2 { max-width: calc(100% - 64px); text-wrap: balance; font: var(--t1); letter-spacing: .025em; text-transform: uppercase; margin: 0; }
+.anatomy-heading button { position: absolute; right: 0; bottom: 0; border: 0; border-bottom: 1px solid var(--line); background: transparent; color: var(--ink2); font: var(--t3); cursor: pointer; padding: 5px 4px; }
+.anatomy-drawing { position: relative; margin: 0; }
+.anatomy-drawing canvas { display: block; width: 100%; height: auto; aspect-ratio: 960 / 450; }
+/* A margin note follows the same scene clock inside the drawing. */
+.anatomy-narration { position: absolute; z-index: 1; top: 18px; left: 4px; width: 26%; max-width: 250px; margin: 0; font: var(--t2); font-weight: 400; line-height: 1.4; color: var(--ink); text-align: left; text-wrap: pretty; pointer-events: none; }
+.anatomy-narration::before { content: ''; display: block; width: 32px; height: 1px; margin-bottom: 10px; background: var(--gold); }
+.anatomy-narration[hidden] { display: none; }
+@media (max-width: 1100px) { .anatomy-narration { font: var(--t3); } }
+@media (max-width: 720px) { .anatomy-narration { display: none; } }
+.anatomy-beats { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 18px; text-align: left; }
+.anatomy-beats button { --anatomy-progress: 0%; position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; min-width: 0; padding: 16px 4px; border: 0; border-top: 1px solid var(--line); background: transparent; color: var(--ink2); cursor: pointer; text-align: left; }
+.anatomy-beats button::before { content: ''; position: absolute; top: -1px; height: 2px; left: 0; width: var(--anatomy-progress); background: var(--gold); }
+.anatomy-beats button svg { width: 27px; height: 27px; flex-shrink: 0; fill: var(--panel); stroke: var(--line2); stroke-width: 1; }
+.anatomy-beats button:first-child svg { fill: none; }
+.anatomy-beats button:nth-child(2) svg { fill: #DCC080; }
+.anatomy-beats button:last-child svg { fill: var(--panel); }
+.anatomy-beats button > span { min-width: 0; }
+.anatomy-beats button b { font: var(--t2); display: block; }
+.anatomy-beats button small { font: var(--t3); display: block; margin-top: 4px; }
+.anatomy-beats button[aria-pressed="true"] { color: var(--ink); }
+.anatomy-beats button[aria-pressed="true"] svg { stroke: var(--bronze); }
+.anatomy-beats button:hover, .anatomy-heading button:hover { color: var(--bronze); }
+.anatomy-beats button:focus-visible, .anatomy-heading button:focus-visible { outline: 2px solid var(--gold); outline-offset: 5px; }
+.descent-anatomy + #product { margin-top: 32px; padding-top: 32px; }
+@media (max-width: 720px) {
+ .descent-anatomy { padding-top: 32px; }
+ .descent-anatomy + #product { margin-top: 24px; padding-top: 24px; }
+ .anatomy-wire { height: 20px; margin-bottom: 18px; }
+ .anatomy-heading { justify-content: flex-start; }
+ .anatomy-heading h2 { font: var(--t2); }
+ .anatomy-heading button { font: var(--t3); }
+ .anatomy-beats { grid-template-columns: repeat(6,minmax(0,1fr)); gap: 10px; }
+ .anatomy-beats button { grid-column: span 2; }
+ .anatomy-beats button:nth-child(n+4) { grid-column: span 3; }
+ .anatomy-beats button { gap: 8px; flex-direction: column; align-items: flex-start; padding: 12px 2px; }
+ .anatomy-beats button b { font: var(--t3); font-weight: 700; }
+ .anatomy-beats button small { font: var(--t4); letter-spacing: .02em; line-height: 1.35; }
+ .anatomy-beats button svg { width: 22px; height: 22px; }
+}
+@media (max-width: 579px) { .anatomy-drawing canvas { aspect-ratio: 480 / 420; } }
+
+.anatomy-floor-readout { position: absolute; left: 0; top: 27%; width: 190px; display: flex; flex-direction: column; gap: 7px; text-align: left; pointer-events: none; }
+.anatomy-floor-readout[hidden] { display: none; }
+.anatomy-floor-readout strong { font: var(--t1); font-variant-numeric: tabular-nums; }
+.anatomy-floor-readout > span:last-child { font: var(--t3); color: var(--ink2); text-wrap: balance; }
+@media (max-width: 720px) {
+ .anatomy-floor-readout { top: 1%; width: 120px; gap: 3px; }
+ .anatomy-floor-readout strong { font: var(--t2); }
+ .anatomy-floor-readout > span:last-child { font: var(--t3); }
+}
+
+.anatomy-funding-readout { position: absolute; right: 0; bottom: 2%; width: 260px; display: flex; flex-direction: column; gap: 5px; text-align: center; pointer-events: none; }
+.anatomy-funding-readout[hidden] { display: none; }
+.anatomy-funding-readout strong { font: var(--t2); font-variant-numeric: tabular-nums; color: var(--bronze); }
+.anatomy-funding-readout small { font: var(--t4); color: var(--ink2); }
+@media (max-width: 720px) {
+ .anatomy-funding-readout { width: 120px; bottom: 1%; gap: 2px; }
+ .anatomy-funding-readout strong { font: var(--t3); }
+}
+
+/* Local review controls hold the actual animation, not a separate mockup. */
+.descent-review { display:flex; align-items:center; gap:10px; padding:6px 0 2px; font:var(--t4); }
+.descent-review select { min-width:0; max-width:240px; width:100%; background:var(--panel); color:var(--ink); border:1px solid var(--line); padding:5px; font:var(--t4); }
+.descent-wire .trace-packet { fill:var(--gold); stroke:var(--panel); stroke-width:.5; }
+body:has(.descent-dev:not([hidden])) .descent-rail { bottom:148px; }
+@media(max-width:720px) { body:has(.descent-dev:not([hidden])) .descent-skip { bottom:140px; } }
+
+#assembly[data-descent="playing"] .assembly-band::before { opacity:1;
+  /* the dawn: the paper opens from the chamber's heart and the night withdraws to the edges (guide.js --intro-dawn), never a grey veil over all */
+  -webkit-mask-image:radial-gradient(circle at 50% 45%,transparent calc(var(--intro-dawn,0) * 150vmax - 35vmax),#000 calc(var(--intro-dawn,0) * 150vmax));
+  mask-image:radial-gradient(circle at 50% 45%,transparent calc(var(--intro-dawn,0) * 150vmax - 35vmax),#000 calc(var(--intro-dawn,0) * 150vmax)); }

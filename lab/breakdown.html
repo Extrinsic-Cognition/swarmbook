@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Breakdown</title>
+<!--
+  THE BREAKDOWN (lab page, outside the build; aiolos serves it at /intro/dyson-society/lab/breakdown.html). His words, Oct 15 2026 ~01:00 WEST,
+  sending the behind-the-scenes of Guillaume Scoffier's After Effects opening for Shad Hottaboy's summer tour (x.com/Botan_cr/status/
+  2109968257822412817: on top AE's 3D view from outside the shot, its 2D layers stood as flat cards spaced in depth on a cyan ground, the shot's
+  camera a yellow frustum, the view swinging slowly round the cards; under it the finished shot from that camera): "can you please start
+  outlining to me what we have scene by scene? is it possible for you to give me something like this or not?".
+  The same thing for his hero, scene by scene (scenes.mjs, the house's read of his page). TOP: every layer the page draws at the scene's second
+  (breakdown.capture.mjs takes them off his page: one transparent picture per layer, named by the file that draws it) stood as a card at its
+  depth, back to front in the page's own stacking, a few centimetres apart in a world where the page's window is 1.44 m wide (a pixel a
+  millimetre); each card is as large as the page's camera sees it at its depth, so the yellow frustum (his eye, the window's four corners)
+  runs through every card's corners and from his eye the stack is the page. The outside view swings slowly round the stack (35 degrees either
+  way), a drag takes it over. BOTTOM: the page as he sees it at that second. Then the scene: its span, what the film shows, the layers and
+  their files, his words that set it, its status. ←/→ step the scenes, Space plays them one after another (3 s each), a click opens one;
+  ?scene=<id> opens that one.
+  NOTHING RUNS AT REST (his law): requestAnimationFrame only while the view swings, a drag moves it or a picture comes in; the swing that opens
+  a scene ends on its turn (zero speed, 1.25 swings) and the frames stop; on pause it ends on the next turn; the page hidden, nothing runs.
+  The one timer is the play's, and only while it plays.
+  The pictures hold frames of the Saint Seiya film: lab/breakdown-pictures/ is made on this Mac (nice -n 19 node lab/breakdown.capture.mjs),
+  gitignored, never committed, never sent anywhere; this page reads them from its own door.
+-->
+<style>
+  :root { --bg: #111317; --panel: #171a1f; --ink: #ebe7dc; --dim: #9aa0a8; --line: #2a2f37; --gold: #d9b45b; --yellow: #ffd23f; --cyan: #33c3d1;
+    --pad: 16px; --strip: 64px; color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink); font: 13px/1.4 ui-sans-serif, system-ui, -apple-system, sans-serif; }
+  body { min-height: 100vh; display: flex; flex-direction: column; }
+  header.bar { display: flex; align-items: baseline; gap: 12px; padding: 10px var(--pad); border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+  header.bar h1 { margin: 0; font: 600 15px/1.2 ui-sans-serif, system-ui, sans-serif; letter-spacing: .14em; text-transform: uppercase; }
+  header.bar small { color: var(--dim); min-width: 0; overflow-wrap: anywhere; }
+  main.split { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, 400px); min-height: 0; }
+  .view { display: grid; grid-template-rows: 1fr 1fr; min-height: 0; min-width: 0; border-right: 1px solid var(--line); height: calc(100vh - 44px - var(--strip)); }
+  .top { position: relative; min-height: 0; overflow: hidden; background: #0c0e11; cursor: grab; touch-action: none; }
+  .top.dragging { cursor: grabbing; }
+  #gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  #labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  #labels div { position: absolute; transform: translate(-100%, -50%); white-space: nowrap; font-size: 10.5px; line-height: 1.25; padding: 1px 4px 1px 5px;
+    border-right: 2px solid currentColor; background: rgba(12, 14, 17, .74); border-radius: 3px 0 0 3px; }
+  #labels.right div { transform: translate(0, -50%); border-right: 0; border-left: 2px solid currentColor; border-radius: 0 3px 3px 0; padding: 1px 5px 1px 4px; }
+  #labels div.eye, #labels.right div.eye { transform: translate(-50%, 15%); border: 0; border-top: 2px solid currentColor; border-radius: 0 0 3px 3px; }
+  #labels div b { font-weight: 600; }
+  #labels div small { color: var(--dim); margin-left: 5px; }
+  #labels div.empty { opacity: .45; }
+  #labels div.eye { color: var(--yellow); }
+  .top .hint { position: absolute; right: 10px; bottom: 8px; color: var(--dim); font-size: 11px; pointer-events: none; }
+  .top .note { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); max-width: calc(100% - 2 * var(--pad)); color: var(--dim); text-align: center; }
+  .bottom { margin: 0; position: relative; min-height: 0; display: flex; align-items: center; justify-content: center; background: #000; border-top: 1px solid var(--line); overflow: hidden; }
+  .bottom img { display: block; max-width: 100%; max-height: 100%; object-fit: contain; }
+  .bottom figcaption { position: absolute; left: 8px; top: 6px; font-size: 11px; color: var(--ink); text-shadow: 0 0 3px #000, 0 0 6px #000; pointer-events: none; }
+  aside.scene { padding: 14px var(--pad) 18px; overflow-y: auto; height: calc(100vh - 44px - var(--strip)); background: var(--panel); min-width: 0; }
+  .when { color: var(--gold); font: 600 12px/1.3 ui-monospace, "SF Mono", Menlo, monospace; letter-spacing: .04em; }
+  .scene h2 { margin: 4px 0 8px; font: 500 21px/1.15 ui-serif, "Bodoni 72", Didot, Georgia, serif; overflow-wrap: anywhere; }
+  .chip { display: inline-block; font: 600 10px/1 ui-monospace, Menlo, monospace; letter-spacing: .08em; text-transform: uppercase; padding: 4px 7px; border-radius: 999px; border: 1px solid currentColor; }
+  .chip[data-status="on his page"] { color: #7fd18b; }
+  .chip[data-status="behind the wall"] { color: var(--gold); }
+  .chip[data-status="being built"] { color: #6fb6ff; }
+  .chip[data-status="held"] { color: #c08cff; }
+  .scene h3 { margin: 14px 0 5px; font: 600 10px/1.2 ui-monospace, Menlo, monospace; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
+  .scene p { margin: 0; }
+  .scene ul { margin: 0; padding: 0; list-style: none; }
+  .scene li { margin: 0 0 4px; overflow-wrap: anywhere; }
+  .scene li code, .scene .file { font: 11px/1.3 ui-monospace, Menlo, monospace; color: var(--dim); }
+  .scene blockquote { margin: 0 0 8px; padding: 0 0 0 10px; border-left: 2px solid var(--gold); font-style: italic; overflow-wrap: anywhere; }
+  .scene blockquote cite { display: block; font: normal 10.5px/1.3 ui-monospace, Menlo, monospace; color: var(--dim); margin-top: 2px; }
+  .passes li { display: flex; gap: 6px; align-items: baseline; }
+  .passes li i { flex: none; width: 9px; height: 9px; border-radius: 2px; transform: translateY(1px); }
+  .passes li span { min-width: 0; }
+  .passes li.empty { opacity: .5; }
+  nav.strip { display: flex; gap: 6px; padding: 8px var(--pad); border-top: 1px solid var(--line); overflow-x: auto; height: var(--strip); align-items: stretch; background: #0d0f12; scrollbar-width: thin; }
+  nav.strip button { flex: none; font: inherit; color: var(--ink); background: #1a1e24; border: 1px solid var(--line); border-radius: 5px; padding: 4px 8px; cursor: pointer;
+    display: flex; flex-direction: column; align-items: flex-start; justify-content: center; max-width: 190px; text-align: left; }
+  nav.strip button b { font: 600 10.5px/1.2 ui-monospace, Menlo, monospace; color: var(--gold); }
+  nav.strip button span { font-size: 11.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 172px; }
+  nav.strip button[aria-current="true"] { border-color: var(--gold); background: #262118; }
+  nav.strip button[data-status="behind the wall"] b { color: #b39552; }
+  nav.strip button[data-status="held"] b { color: #c08cff; }
+  nav.strip button:focus-visible, .controls button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+  .controls { display: flex; gap: 6px; margin: 10px 0 0; flex-wrap: wrap; }
+  .controls button { font: inherit; color: var(--ink); background: #1f242b; border: 1px solid var(--line); border-radius: 4px; padding: 5px 9px; cursor: pointer; }
+  .controls button[aria-pressed="true"] { border-color: var(--gold); color: var(--gold); }
+  @media (max-width: 760px) {
+    body { display: block; }
+    main.split { display: block; }
+    .view { display: block; height: auto; border-right: 0; padding: 0 var(--pad); }
+    .top { aspect-ratio: 4 / 3; height: auto; margin-top: 12px; border: 1px solid var(--line); border-radius: 6px; }
+    .bottom { aspect-ratio: 16 / 10; margin-top: 10px; border: 1px solid var(--line); border-radius: 6px; }
+    aside.scene { height: auto; overflow: visible; background: transparent; padding: 12px var(--pad) 18px; }
+    nav.strip { height: auto; overflow-x: visible; flex-wrap: wrap; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 10px var(--pad) 24px; }
+    nav.strip button { max-width: none; min-width: 0; }
+    nav.strip button span { max-width: 100%; }
+    #labels div small, #labels div.empty { display: none; }
+    #labels div { font-size: 9.5px; }
+  }
+</style>
+<script type="importmap">{"imports": {"three": "../../room/procedural/three.module.js"}}</script>
+</head>
+<body>
+<header class="bar"><h1>Breakdown</h1><small id="src">his page, scene by scene</small></header>
+<main class="split">
+  <section class="view" aria-label="The scene's layers in depth, and the page at that second">
+    <div class="top" id="top" aria-label="The layers as cards in depth, the page's camera drawn as a yellow frustum. Drag to turn the view.">
+      <canvas id="gl"></canvas><div id="labels"></div><p class="note" id="note" hidden></p><span class="hint">drag to turn · ←/→ scenes · space plays</span>
+    </div>
+    <figure class="bottom"><img id="composite" alt=""><figcaption id="cap"></figcaption></figure>
+  </section>
+  <aside class="scene" id="scene" aria-live="polite"></aside>
+</main>
+<nav class="strip" id="strip" aria-label="The scenes"></nav>
+<script type="module">
+import * as THREE from 'three';
+import {SCENES, FILM_S} from './scenes.mjs';
+
+const q = new URLSearchParams(location.search);
+const PICTURES = 'breakdown-pictures/';
+const COLOUR = {film: '#8fa3b8', paper: '#d8cfb8', sphere: '#c9a24a', worlds: '#4fb3a6', dark: '#8a8f99', theater: '#f0d080', irradiance: '#f5a623',
+  box: '#e6c36a', raid: '#e35d5d', sacrifice: '#ff9a76', ko: '#d9443a', dom: '#9db7ff'};
+const MM = 0.001, GAP = 0.07, EYE = 1.3;            // a pixel a millimetre; 7 cm between cards; his eye 1.3 m before the window
+const SWING_S = 12, AMP = 35 * Math.PI / 180;        // one swing in 12 s, 35 degrees either way
+const PLAY_MS = 3000;
+const $ = (id) => document.getElementById(id);
+const el = (tag, props = {}, kids = []) => { const e = Object.assign(document.createElement(tag), props); for (const k of [].concat(kids)) if (k != null) e.append(k); return e; };
+const sec = (t) => `${+t.toFixed(3)} s`;
+
+let manifest = null;
+try { const r = await fetch(PICTURES + 'manifest.json', {cache: 'no-store'}); if (r.ok) manifest = await r.json(); } catch {}
+const W = manifest?.viewport?.[0] ?? 1440, H = manifest?.viewport?.[1] ?? 900;
+$('src').textContent = manifest ? `his page, scene by scene · the passes taken ${new Date(manifest.captured).toLocaleString('en-GB', {dateStyle: 'medium', timeStyle: 'short'})} from ${manifest.page ?? manifest.url} · ${W} × ${H}`
+  : 'his page, scene by scene · no passes yet: nice -n 19 node lab/breakdown.capture.mjs';
+
+// ---- the 3D view: drawn on cause only
+const top = $('top'), canvas = $('gl'), labels = $('labels');
+let renderer = null;
+try { renderer = new THREE.WebGLRenderer({canvas, antialias: true, alpha: false, powerPreference: 'low-power'}); }
+catch (error) { console.warn('breakdown: no WebGL here', error); }
+if (!renderer) { const n = $('note'); n.hidden = false; n.textContent = 'This browser gives no WebGL: the layers are listed beside, the page at that second below.'; }
+renderer = renderer ?? {setClearColor() {}, setPixelRatio() {}, setSize() {}, render() {}, outputColorSpace: null};
+renderer.setClearColor(0x0c0e11, 1);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+const scene3 = new THREE.Scene();
+const view = new THREE.PerspectiveCamera(36, 1, 0.05, 60);
+const stack = new THREE.Group(), rig = new THREE.Group();
+scene3.add(stack, rig);
+const loader = new THREE.TextureLoader();
+let yaw = AMP, yawBase = 0, pitch = 16 * Math.PI / 180, target = new THREE.Vector3(0, 0, -0.2), radius = 4.1;
+let cards = [], eyeLabel = null, current = -1, playing = false, playTimer = 0;
+
+const lineMat = (color, opacity = 1) => new THREE.LineBasicMaterial({color, transparent: opacity < 1, opacity});
+const segs = (points, mat) => { const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(points.flat(), 3)); return new THREE.LineSegments(g, mat); };
+const rect = (x0, y0, x1, y1, z) => [[x0, y0, z], [x1, y0, z], [x1, y0, z], [x1, y1, z], [x1, y1, z], [x0, y1, z], [x0, y1, z], [x0, y0, z]];
+const dispose = (o) => o.traverse((x) => { x.geometry?.dispose?.(); const m = x.material; if (m) { m.map?.dispose?.(); m.dispose?.(); } });
+
+// the stack for one scene: its passes back to front (z: 0 the back), each as large as his eye sees it at its depth
+function build(entry) {
+  for (const o of [...stack.children, ...rig.children]) { dispose(o); o.parent.remove(o); }
+  labels.replaceChildren(); cards = [];
+  const passes = (entry?.passes ?? []).filter((p) => Number.isInteger(p.z)).sort((a, b) => a.z - b.z);
+  const n = passes.length || 1, back = (n - 1) * GAP, sBack = (EYE + back) / EYE;
+  for (const p of passes) {
+    const k = n - 1 - p.z, z = -k * GAP, s = (EYE + k * GAP) / EYE;
+    const [bx, by, bw, bh] = p.box && p.id === 'film' ? p.box : [0, 0, W, H];
+    const w = bw * MM * s, h = bh * MM * s, cx = (bx + bw / 2 - W / 2) * MM * s, cy = (H / 2 - (by + bh / 2)) * MM * s;
+    const empty = !p.ink;
+    const mat = new THREE.MeshBasicMaterial({transparent: true, depthWrite: false, side: THREE.DoubleSide, toneMapped: false, opacity: 0});
+    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat);
+    mesh.position.set(cx, cy, z); mesh.renderOrder = p.z;
+    if (!empty) loader.load(PICTURES + p.png, (tex) => { tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4; mat.map = tex; mat.opacity = 1; mat.needsUpdate = true; want(); });
+    const edge = segs(rect(cx - w / 2, cy - h / 2, cx + w / 2, cy + h / 2, z), lineMat(COLOUR[p.id] ?? '#888', empty ? 0.22 : 0.55));
+    stack.add(mesh, edge);
+    const tag = el('div', {className: empty ? 'empty' : ''}, [el('b', {textContent: `${p.z} ${p.name}`}), el('small', {textContent: p.file + (empty ? ' · nothing here' : '')})]);
+    tag.style.color = COLOUR[p.id] ?? '#ccc';
+    labels.append(tag);
+    // its label on its own card's edge, the front card's highest, so the stack's labels fan out down the edges: on the edge nearer the
+    // outside view (the right while it looks from the right), reaching away from the stack
+    const ly = (H / 2 - ((k + 0.5) / n) * H) * MM * s;
+    cards.push({at: new THREE.Vector3(cx - w / 2, Math.min(cy + h / 2, ly), z), right: new THREE.Vector3(cx + w / 2, Math.min(cy + h / 2, ly), z), tag});
+  }
+  // his eye, the page's camera: the frustum from it through the window's corners to the back card, the window drawn at the front and the back
+  const yellow = lineMat(0xffd23f), fx = W / 2 * MM, fy = H / 2 * MM, bx = fx * sBack, byy = fy * sBack;
+  rig.add(segs([[0, 0, EYE], [-bx, -byy, -back], [0, 0, EYE], [bx, -byy, -back], [0, 0, EYE], [bx, byy, -back], [0, 0, EYE], [-bx, byy, -back]], yellow));
+  rig.add(segs(rect(-fx, -fy, fx, fy, 0), yellow), segs(rect(-bx, -byy, bx, byy, -back), lineMat(0xffd23f, 0.5)));
+  const body = segs([...rect(-0.07, -0.045, 0.07, 0.045, EYE + 0.12), ...rect(-0.07, -0.045, 0.07, 0.045, EYE + 0.02),
+    [-0.07, -0.045, EYE + 0.12], [-0.07, -0.045, EYE + 0.02], [0.07, -0.045, EYE + 0.12], [0.07, -0.045, EYE + 0.02],
+    [0.07, 0.045, EYE + 0.12], [0.07, 0.045, EYE + 0.02], [-0.07, 0.045, EYE + 0.12], [-0.07, 0.045, EYE + 0.02]], yellow);
+  rig.add(body);
+  // AE's ground: a cyan grid under the stack
+  const grid = new THREE.GridHelper(6, 40, 0x33c3d1, 0x1d5f66);
+  grid.position.set(0, -byy - 0.05, -back / 2); grid.material.transparent = true; grid.material.opacity = 0.55;
+  rig.add(grid);
+  eyeLabel = el('div', {className: 'eye'}, [el('b', {textContent: "his eye: the page's camera"}), el('small', {textContent: `${W} × ${H}`})]);
+  labels.append(eyeLabel);
+  cards.push({at: new THREE.Vector3(0, -0.06, EYE + 0.07), tag: eyeLabel});
+  target.set(0, -0.03, -back / 2 + 0.3); radius = 2.4 + back * 0.9;
+  want();
+}
+
+function place() {
+  const cp = Math.cos(pitch);
+  view.position.set(target.x + radius * Math.sin(yaw) * cp, target.y + radius * Math.sin(pitch), target.z + radius * Math.cos(yaw) * cp);
+  view.lookAt(target);
+}
+function size() {
+  const w = top.clientWidth, h = top.clientHeight;
+  if (!w || !h) return false;
+  const dpr = Math.min(devicePixelRatio || 1, 2);
+  if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) { renderer.setPixelRatio(dpr); renderer.setSize(w, h, false); }
+  view.aspect = w / h; view.updateProjectionMatrix();
+  return true;
+}
+const v = new THREE.Vector3();
+function draw() {
+  if (!size()) return;
+  place();
+  renderer.render(scene3, view);
+  const w = top.clientWidth, h = top.clientHeight, right = Math.sin(yaw) > 0;
+  labels.classList.toggle('right', right);
+  for (const c of cards) {
+    v.copy(right && c.right ? c.right : c.at).project(view);
+    const off = v.z > 1 || v.x < -1.2 || v.x > 1.2 || v.y < -1.2 || v.y > 1.2;
+    c.tag.style.display = off ? 'none' : '';
+    if (!off) c.tag.style.left = `${((v.x + 1) / 2 * w).toFixed(1)}px`, c.tag.style.top = `${((1 - v.y) / 2 * h).toFixed(1)}px`;
+  }
+}
+
+// ---- the swing: one and a quarter swings, ending on a turn (no speed left); while playing it goes on, and on pause it ends on the next turn
+let raf = 0, swing = null, frames = 0;
+const want = () => { if (!raf && !document.hidden) raf = requestAnimationFrame(frame); };
+function frame(now) {
+  raf = 0; frames++;
+  if (swing) {
+    const u = (now - swing.t0) / (SWING_S * 1000);
+    if (u >= swing.until) { yaw = yawBase + AMP * Math.sin(2 * Math.PI * swing.until); swing = null; }
+    else yaw = yawBase + AMP * Math.sin(2 * Math.PI * u);
+  }
+  draw();
+  if (swing) want();
+}
+// the first turn (sin at +1 or -1, no speed) at or after u
+const turnAfter = (u) => Math.ceil((u - 0.25) * 2 - 1e-9) / 2 + 0.25;
+// a swing starts on a turn where the view stands (so nothing jumps), goes 35 degrees the other way and back: one swing, then it rests
+function swingFrom(now = performance.now()) {
+  yawBase = yaw - AMP;
+  swing = {t0: now - 0.25 * SWING_S * 1000, until: playing ? Infinity : 1.25};
+  want();
+}
+// on pause: it ends on the next turn
+function settle() {
+  if (!swing) return;
+  swing.until = turnAfter((performance.now() - swing.t0) / (SWING_S * 1000));
+}
+
+// a drag takes the view over: the swing stops, the frames follow the hand only
+let hand = null;
+top.addEventListener('pointerdown', (e) => { if (e.button !== 0) return; hand = {id: e.pointerId, x: e.clientX, y: e.clientY}; swing = null; top.setPointerCapture(e.pointerId); top.classList.add('dragging'); });
+top.addEventListener('pointermove', (e) => {
+  if (hand?.id !== e.pointerId) return;
+  yaw -= (e.clientX - hand.x) * 0.006; pitch = Math.max(-0.17, Math.min(1.05, pitch + (e.clientY - hand.y) * 0.004));
+  hand.x = e.clientX; hand.y = e.clientY; want();
+});
+const letGo = (e) => { if (hand?.id === e.pointerId) { hand = null; top.classList.remove('dragging'); } };
+top.addEventListener('pointerup', letGo); top.addEventListener('pointercancel', letGo);
+new ResizeObserver(() => want()).observe(top);
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) { if (raf) { cancelAnimationFrame(raf); raf = 0; } clearTimeout(playTimer); playTimer = 0; return; }
+  if (swing) swingFrom(); else want();
+  if (playing) playTimer = setTimeout(next, PLAY_MS);
+});
+
+// ---- the scene: its picture, its card, its words
+const strip = $('strip'), panel = $('scene'), img = $('composite'), cap = $('cap'), note = $('note');
+const buttons = SCENES.map((s, i) => {
+  const b = el('button', {type: 'button'}, [el('b', {textContent: `${sec(s.t)} · ${s.from.toFixed(1)}–${s.to.toFixed(1)}`}), el('span', {textContent: s.title})]);
+  b.dataset.status = s.status; b.title = `${s.title}: ${s.status}`;
+  b.addEventListener('click', () => { stop(); open(i); });
+  strip.append(b);
+  return b;
+});
+function open(i, {swingIt = true} = {}) {
+  i = Math.max(0, Math.min(SCENES.length - 1, i));
+  if (i === current) return;
+  current = i;
+  const s = SCENES[i], entry = manifest?.scenes?.[s.id] ?? null;
+  buttons.forEach((b, k) => b.setAttribute('aria-current', String(k === i)));
+  buttons[i].scrollIntoView({block: 'nearest', inline: 'nearest'});
+  history.replaceState(null, '', `?scene=${encodeURIComponent(s.id)}`);
+  build(entry);
+  note.hidden = Boolean(entry);
+  note.textContent = entry ? '' : manifest ? `No passes for this scene yet: nice -n 19 node lab/breakdown.capture.mjs --only ${s.id}` : 'No passes yet: nice -n 19 node lab/breakdown.capture.mjs';
+  img.hidden = !entry;
+  if (entry) { img.src = PICTURES + entry.passes.find((p) => p.id === 'composite').png; img.alt = `The page at ${sec(entry.at)}: ${s.title}`; }
+  cap.textContent = entry ? `the page at ${sec(entry.at)}${entry.view === 'visitor' ? ', as a visitor meets it' : ', as a minter sees it'}` : '';
+  paint(s, entry);
+  if (swingIt) swingFrom();
+  const after = SCENES[i + 1] && manifest?.scenes?.[SCENES[i + 1].id];
+  if (after) { const pre = new Image(); pre.src = PICTURES + after.passes.find((p) => p.id === 'composite').png; }   // the next scene's picture, cached
+}
+function paint(s, entry) {
+  const passes = (entry?.passes ?? []).filter((p) => Number.isInteger(p.z)).sort((a, b) => b.z - a.z);
+  panel.replaceChildren(
+    el('div', {className: 'when', textContent: `${sec(s.t)} · the scene ${s.from.toFixed(3)} to ${s.to.toFixed(3)} s of ${FILM_S} s`}),
+    el('h2', {textContent: s.title}),
+    (() => { const c = el('span', {className: 'chip', textContent: s.status}); c.dataset.status = s.status; return c; })(),
+    el('div', {className: 'controls'}, [
+      el('button', {type: 'button', textContent: '← Before', onclick: () => { stop(); open(current - 1); }}),
+      (() => { const b = el('button', {type: 'button', textContent: playing ? 'Pause' : 'Play the scenes', onclick: () => toggle()}); b.setAttribute('aria-pressed', String(playing)); return b; })(),
+      el('button', {type: 'button', textContent: 'After →', onclick: () => { stop(); open(current + 1); }}),
+    ]),
+    el('h3', {textContent: 'The film'}), el('p', {textContent: s.film}),
+    el('h3', {textContent: 'What the page draws'}),
+    el('ul', {}, s.layers.map((l) => el('li', {}, [el('span', {textContent: `${l.name} `}), el('code', {textContent: l.file})]))),
+    el('h3', {textContent: 'His words'}),
+    ...s.words.map((w) => el('blockquote', {}, [el('span', {textContent: `“${w.text}”`}), el('cite', {textContent: w.when})])),
+    el('h3', {textContent: entry ? `The layers at ${sec(entry.at)}, front to back` : 'The layers'}),
+    entry ? el('ul', {className: 'passes'}, passes.map((p) => {
+      const sw = el('i'); sw.style.background = COLOUR[p.id] ?? '#888';
+      return el('li', {className: p.ink ? '' : 'empty'}, [sw, el('span', {}, [el('span', {textContent: `${p.z} · ${p.name}${p.ink ? '' : ' (nothing here)'} `}), el('code', {textContent: p.file})])]);
+    })) : el('p', {className: 'file', textContent: 'not taken yet'}),
+  );
+}
+
+// ---- play: a scene every 3 s, the swing going on; Space again ends it
+function next() { playTimer = 0; if (!playing) return; if (current >= SCENES.length - 1) { stop(); return; } open(current + 1, {swingIt: false}); playTimer = setTimeout(next, PLAY_MS); }
+function toggle() {
+  playing = !playing;
+  if (playing) { if (current >= SCENES.length - 1) open(0, {swingIt: false}); swingFrom(); playTimer = setTimeout(next, PLAY_MS); }
+  else { clearTimeout(playTimer); playTimer = 0; settle(); }
+  paint(SCENES[current], manifest?.scenes?.[SCENES[current].id] ?? null);
+}
+function stop() { if (!playing) return; playing = false; clearTimeout(playTimer); playTimer = 0; settle(); }
+addEventListener('keydown', (e) => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.key === 'ArrowRight') { e.preventDefault(); stop(); open(current + 1); }
+  else if (e.key === 'ArrowLeft') { e.preventDefault(); stop(); open(current - 1); }
+  else if (e.key === ' ' && !(e.target instanceof HTMLButtonElement)) { e.preventDefault(); toggle(); }
+});
+
+const asked = SCENES.findIndex((s) => s.id === q.get('scene'));
+open(asked >= 0 ? asked : 0);
+// for a reader (breakdown.proof.mjs): what is open and whether anything runs
+window.breakdown = {get scene() { return SCENES[current]?.id; }, get frames() { return frames; }, get swinging() { return Boolean(swing); }, get playing() { return playing; },
+  get dragging() { return Boolean(hand); }, open: (id) => open(SCENES.findIndex((s) => s.id === id)), manifest: () => manifest};
+</script>
+</body>
+</html>

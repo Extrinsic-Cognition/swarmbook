@@ -1,0 +1,11 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Earlier test reservations · Dyson Society</title><link rel="stylesheet" href="./warm.css"><link rel="stylesheet" href="./dl-slot.css"><link rel="stylesheet" href="./holy.css?v=2"><body><main style="max-width:700px;margin:10vh auto;padding:24px"><h1>Earlier test reservations.</h1><p>Recover your original devnet deposit. These test reservations are separate from mainnet purchases.</p><p class="mint-dock"><button class="gold-button" data-mint-tier="bronze">Manage test reservation</button></p><a href="./after-the-mint.html">Return to the mint ↗</a></main><dialog id="slot-dialog" aria-labelledby="slot-title" data-tier="bronze"><button class="dialog-close" aria-label="Close">×</button>
+<h2 id="slot-title">Bronze Mint.</h2><p id="slot-price">$10 · Whitelist pre-mint access.</p>
+<form id="slot-form"><div id="slot-fields" hidden><input id="slot-github" name="github" placeholder="github.com/you" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Your GitHub">
+<input id="slot-twitter" name="twitter" placeholder="@you on X (optional)" maxlength="80" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Your public X profile (optional)" aria-describedby="slot-profile-note">
+<img id="slot-portrait" width="48" height="48" alt="Your X profile picture" hidden>
+<p id="slot-profile-note">Add your X profile to orbit the society. Your public profile is recorded with your reservation.</p>
+</div><p id="slot-quote"></p><button id="slot-go" class="gold-button" type="submit" disabled>Checking availability…</button></form>
+<button id="slot-manage" class="slot-text-action" type="button" hidden>My reservations</button>
+<section id="slot-reservations" aria-label="Your reservation deposits" hidden><ul id="slot-reservation-rows"></ul><button id="slot-settle" class="gold-button" type="button" hidden>Settle reservations</button><button id="slot-new" class="slot-text-action" type="button" hidden>New reservation</button></section>
+<p id="slot-status" role="status" hidden></p></dialog>
+<script type="module" src="./dl-slot.js?v=reservation-recovery-1"></script></body></html>

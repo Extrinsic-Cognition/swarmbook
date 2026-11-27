@@ -1,0 +1,40 @@
+{
+  "base": "5318cfb4c94c5ce8f57c214a8f587b8c2f1cb4ae",
+  "approval": "Yes, pass +24",
+  "chat": "claude-93958ebc, this lane's own chat, his answer there: \"Yes, pass +24\" (Nov 19 2026 20:06:14 UTC), to \"Pass +24 lines of JavaScript for the State of $WARM?\"",
+  "date": "2026-11-19",
+  "asked": "Pass +24 lines of JavaScript for the State of $WARM?",
+  "scope": "lane/the-state-of-warm only: the deposit door's terms carrying the pre-deposits' state (worker/space-router-deposit.mjs), its line under the split (app/dl-kit-deposit.mjs stateLine, app/dl-kit-deposit.js), its place in app/warm.html, and their tests, at these bytes; no general JavaScript allowance",
+  "net": 24,
+  "cap": 24,
+  "files": {
+    "embertide-app/ui/intro/dyson-society/app/dl-kit-deposit.js": {
+      "before": "188e0756cc3712e8b83a415307d949c9a63f9646",
+      "after": "4cc7a729544bdae0288c5d84c72b8fe36403f896"
+    },
+    "embertide-app/ui/intro/dyson-society/app/dl-kit-deposit.mjs": {
+      "before": "85f91dcf80cd9eb73fc2d73c6de5f78ab8c2f72b",
+      "after": "802bdafee478b089196ecac377dae60b9dd6de67"
+    },
+    "embertide-app/ui/intro/dyson-society/app/dl-kit-deposit.test.mjs": {
+      "before": "7676bffca153f5ea445a7f874ad7d1d75be00a70",
+      "after": "4a3b87eda61f9f519fd86a3dd30605a7da8da3bb"
+    },
+    "embertide-app/ui/intro/dyson-society/app/warm.html": {
+      "before": "5b38acea2e1b42b243115167d47e969ead90e057",
+      "after": "ade00e4ce2bde1366b3406b438eaf445c2c7dc40"
+    },
+    "embertide-app/ui/intro/dyson-society/worker/space-router-deposit.mjs": {
+      "before": "32aafbd63555486f7b370a752754556071c8cae6",
+      "after": "a7df09152d46e354800210f54472fe3741ef6733"
+    },
+    "embertide-app/ui/intro/dyson-society/worker/space-router-deposit.test.mjs": {
+      "before": "51d83b495c46b19d40b7edde90e7e0cfec3cfcec",
+      "after": "4edef51ddab5a15fb92f8304bbd5a481625985b9"
+    },
+    "tools/embertide-mesh/tests/the-javascript-only-shrinks.test.mjs": {
+      "before": "76e5abb8cea5aec3dc6a5789a7b87b79f7fc22ab",
+      "after": "c91d8d3097a032a5266cf5a8f967f490f6dd8b7d"
+    }
+  }
+}

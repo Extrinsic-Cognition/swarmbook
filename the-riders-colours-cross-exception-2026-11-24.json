@@ -1,0 +1,44 @@
+{
+  "base": "bc0b91f150e1f961698f852b422a95b97a8687e0",
+  "approval": "Yes, pass +11",
+  "chat": "claude-1c5e2855, this lane's own chat, his words typed there: \"Yes, pass +11\" (Nov 24 2026 16:47:01 UTC), to \"Pass the colours lane's +11 JavaScript lines?\"",
+  "date": "2026-11-24",
+  "asked": "Pass the colours lane's +11 JavaScript lines?",
+  "scope": "lane/the-riders-colours-cross only: the rider's colours on the person word (worker/space-router-grant.mjs), ?riders answering them (worker/space-router-portrait.mjs), the site drawing them (app/riders.mjs, app/polis.html), and their tests, at these bytes; no general JavaScript allowance",
+  "net": 11,
+  "cap": 11,
+  "files": {
+    "embertide-app/ui/intro/dyson-society/app/polis.html": {
+      "before": "18110e19b5b04e24c44249087ba5091e5b8da49a",
+      "after": "ff201fc14fc077562bbfdf05b10686daec2d2237"
+    },
+    "embertide-app/ui/intro/dyson-society/app/riders.mjs": {
+      "before": "5e97d6d55802af0a9fea8b89383bfd487c6a60ec",
+      "after": "61485c0b10c10d356a8175c7c9c910be3f6c76b6"
+    },
+    "embertide-app/ui/intro/dyson-society/app/riders.test.mjs": {
+      "before": "b9da26266eb25a8034b1bb2e6202f66c0dccbf84",
+      "after": "b62823b9f55605073f6b1e6e868f9dc76f6c6152"
+    },
+    "embertide-app/ui/intro/dyson-society/worker/space-router-grant.mjs": {
+      "before": "56ff995b15120d43490a57044992b5accb461f7e",
+      "after": "4ff550513236b06e6696a9e5ae1de5fc91dcbbd3"
+    },
+    "embertide-app/ui/intro/dyson-society/worker/space-router-grant.test.mjs": {
+      "before": "24157bc0f034ab6458eae84b7bc24584133e4262",
+      "after": "86a9c178cb1d212baf8967bfa62b357f995d4e96"
+    },
+    "embertide-app/ui/intro/dyson-society/worker/space-router-portrait.mjs": {
+      "before": "698a4108eed56eeda395a0e889e44d3257424356",
+      "after": "a38fcec18c7e5fb41461693b603fc5912bd6dade"
+    },
+    "embertide-app/ui/intro/dyson-society/worker/space-router-x.test.mjs": {
+      "before": "ff8849ccd94b4750c5e50c631f675f553d288826",
+      "after": "143ecd5555032ab9d3785e1dedd7045d1bfa5b81"
+    },
+    "tools/embertide-mesh/tests/the-javascript-only-shrinks.test.mjs": {
+      "before": "d9836eeefcc3ce46d080a8ef6a59a3df6a80faff",
+      "after": "ef3334030ca06a6c4390fc1416577334a2cee056"
+    }
+  }
+}

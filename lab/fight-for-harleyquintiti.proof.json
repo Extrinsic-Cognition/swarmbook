@@ -1,0 +1,334 @@
+{
+ "proof": "fight-for-harleyquintiti",
+ "at": "2026-10-24T17:29:36.066Z",
+ "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Max, Unspecified Version)",
+ "viewport": [
+  1280,
+  720
+ ],
+ "load_ms": 635,
+ "end": {
+  "g": 53000,
+  "winner": "Seiya",
+  "protected": true,
+  "harley": 71.80000000000007,
+  "wall_ms": 86000
+ },
+ "events": 255,
+ "kinds": {
+  "cast": 18,
+  "summon": 1,
+  "gust": 2,
+  "mark": 2,
+  "act": 55,
+  "dive": 36,
+  "hit": 76,
+  "lost": 62,
+  "shove": 1,
+  "broken": 2
+ },
+ "freezes": 76,
+ "frames_saved": 19,
+ "cells": [
+  {
+   "file": "harley-01-summon.png",
+   "w": 900,
+   "label": "SUMMONING: Seiya before Harleyquintiti",
+   "sub": "she stands 1.2 m behind him, the Lyssajudron before them",
+   "g": 900,
+   "freeze": false,
+   "hp": {
+    "seiya": 100,
+    "her": 300,
+    "harley": 100
+   }
+  },
+  {
+   "file": "harley-02-stop.png",
+   "w": 8115,
+   "label": "HIS BODY STOPS HER DIVE",
+   "sub": "in-game 8.04 s · seat 0",
+   "g": 8040,
+   "freeze": true,
+   "hp": {
+    "seiya": 98.12,
+    "her": 300,
+    "harley": 100
+   }
+  },
+  {
+   "file": "harley-03-punch.png",
+   "w": 8470,
+   "label": "THE PUNCH (59.3040): his lunge",
+   "sub": "in-game 7.80 s",
+   "g": 8320,
+   "freeze": true,
+   "hp": {
+    "seiya": 96.24000000000001,
+    "her": 300,
+    "harley": 100
+   }
+  },
+  {
+   "file": "harley-04-stop.png",
+   "w": 8545,
+   "label": "HIS BODY STOPS HER DIVE",
+   "sub": "in-game 8.32 s · seat 1",
+   "g": 8320,
+   "freeze": true,
+   "hp": {
+    "seiya": 96.24000000000001,
+    "her": 300,
+    "harley": 100
+   }
+  },
+  {
+   "file": "harley-05-stop.png",
+   "w": 8815,
+   "label": "HIS BODY STOPS HER DIVE",
+   "sub": "in-game 8.44 s · seat 2",
+   "g": 8440,
+   "freeze": true,
+   "hp": {
+    "seiya": 94.36000000000001,
+    "her": 300,
+    "harley": 100
+   }
+  },
+  {
+   "file": "harley-06-meteor.png",
+   "w": 12680,
+   "label": "PEGASUS RYU SEI KEN · 4 taps · cosmos x1.75",
+   "sub": "in-game 10.48 s · script",
+   "g": 10880,
+   "freeze": true,
+   "hp": {
+    "seiya": 77.44000000000005,
+    "her": 292.0375,
+    "harley": 100
+   }
+  },
+  {
+   "file": "harley-07-hit.png",
+   "w": 12980,
+   "label": "HIS HIT: PEGASUS METEOR (64.4000)  -7.96",
+   "sub": "in-game 10.88 s · wall 12.98 s · Seiya 77.4 · her 292.0",
+   "g": 10880,
+   "freeze": true,
+   "hp": {
+    "seiya": 77.44000000000005,
+    "her": 292.0375,
+    "harley": 100
+   }
+  },
+  {
+   "file": "harley-08-hit.png",
+   "w": 14300,
+   "label": "HIS HIT: PEGASUS METEOR (64.4000)  -7.96",
+   "sub": "in-game 11.60 s · wall 14.30 s · Seiya 77.4 · her 284.1",
+   "g": 11600,
+   "freeze": true,
+   "hp": {
+    "seiya": 77.44000000000005,
+    "her": 284.07500000000005,
+    "harley": 100
+   }
+  },
+  {
+   "file": "harley-09-meteor.png",
+   "w": 14640,
+   "label": "PEGASUS RYU SEI KEN · 4 taps · cosmos x1.75",
+   "sub": "in-game 11.24 s · script",
+   "g": 11640,
+   "freeze": false,
+   "hp": {
+    "seiya": 77.44000000000005,
+    "her": 284.07500000000005,
+    "harley": 100
+   }
+  },
+  {
+   "file": "harley-10-blink.png",
+   "w": 15750,
+   "label": "THE WHITEHOLE: she rises round him, the line to her open",
+   "sub": "in-game 12.75 s",
+   "g": 12750,
+   "freeze": false,
+   "hp": {
+    "seiya": 77.44000000000005,
+    "her": 284.07500000000005,
+    "harley": 100
+   }
+  },
+  {
+   "file": "harley-11-hit.png",
+   "w": 16420,
+   "label": "HIS HIT: PEGASUS METEOR (64.4000)  -7.96",
+   "sub": "in-game 13.12 s · wall 16.42 s · Seiya 77.4 · her 276.1",
+   "g": 13120,
+   "freeze": true,
+   "hp": {
+    "seiya": 77.44000000000005,
+    "her": 276.11250000000007,
+    "harley": 100
+   }
+  },
+  {
+   "file": "harley-12-bolt.png",
+   "w": 21600,
+   "label": "LIGHTNING BOLT: she flies at Harleyquintiti",
+   "sub": "in-game 15.00 s",
+   "g": 15000,
+   "freeze": false,
+   "hp": {
+    "seiya": 64.93000000000005,
+    "her": 268.1500000000001,
+    "harley": 100
+   }
+  },
+  {
+   "file": "harley-13-harley.png",
+   "w": 30375,
+   "label": "HER DIVE REACHES HARLEYQUINTITI  -1.88",
+   "sub": "in-game 21.15 s · Harleyquintiti 98.1",
+   "g": 21150,
+   "freeze": true,
+   "hp": {
+    "seiya": 63.05000000000005,
+    "her": 236.3000000000001,
+    "harley": 98.12
+   }
+  },
+  {
+   "file": "harley-14-harley.png",
+   "w": 30975,
+   "label": "HER DIVE REACHES HARLEYQUINTITI  -1.88",
+   "sub": "in-game 21.30 s · Harleyquintiti 96.2",
+   "g": 21300,
+   "freeze": true,
+   "hp": {
+    "seiya": 59.29000000000004,
+    "her": 236.3000000000001,
+    "harley": 96.24000000000001
+   }
+  },
+  {
+   "file": "harley-15-harley.png",
+   "w": 31275,
+   "label": "HER DIVE REACHES HARLEYQUINTITI  -1.88",
+   "sub": "in-game 21.45 s · Harleyquintiti 94.4",
+   "g": 21450,
+   "freeze": true,
+   "hp": {
+    "seiya": 59.29000000000004,
+    "her": 236.3000000000001,
+    "harley": 94.36000000000001
+   }
+  },
+  {
+   "file": "harley-16-broken.png",
+   "w": 56790,
+   "label": "HIS METEOR BREAKS HER GOLD ARROW",
+   "sub": "in-game 36.24 s",
+   "g": 36390,
+   "freeze": false,
+   "hp": {
+    "seiya": 41.140000000000036,
+    "her": 140.1425,
+    "harley": 88.72000000000003
+   }
+  },
+  {
+   "file": "harley-17-gold.png",
+   "w": 57000,
+   "label": "THE GOLD ARROW flies at her",
+   "sub": "in-game 36.60 s",
+   "g": 36600,
+   "freeze": false,
+   "hp": {
+    "seiya": 41.140000000000036,
+    "her": 140.1425,
+    "harley": 88.72000000000003
+   }
+  },
+  {
+   "file": "harley-18-end.png",
+   "w": 85960,
+   "label": "HARLEYQUINTITI PROTECTED",
+   "sub": "in-game 53.00 s · Seiya · Harleyquintiti 71.8",
+   "g": 52960,
+   "freeze": false,
+   "hp": {
+    "seiya": 35.50000000000003,
+    "her": 0,
+    "harley": 71.80000000000007
+   }
+  },
+  {
+   "file": "harley-19-broken.png",
+   "w": 86110,
+   "label": "HIS METEOR BREAKS HER BOLT",
+   "sub": "in-game 52.96 s",
+   "g": 53000,
+   "freeze": false,
+   "hp": {
+    "seiya": 35.50000000000003,
+    "her": 0,
+    "harley": 71.80000000000007
+   }
+  }
+ ],
+ "bench": {
+  "median_ms": 1.5,
+  "p95_ms": 2
+ },
+ "plan_ms": {
+  "ms": 4.700000047683716,
+  "same": true
+ },
+ "idle_frames": 0,
+ "errors": [],
+ "consoles": [
+  "THREE.WebGLShadowMap: PCFSoftShadowMap has been deprecated. Using PCFShadowMap instead."
+ ],
+ "requested": [
+  "/intro/dyson-society/lab/fight-lyssa-seiya.html",
+  "/intro/room/procedural/three.module.js",
+  "/intro/room/procedural/GLTFLoader.js",
+  "/intro/dyson-society/lab/fight-lyssa-seiya.mjs",
+  "/intro/room/lyssajudron-band.mjs",
+  "/intro/dyson-society/lab/fight-fall.mjs",
+  "/intro/room/lyssajudron-score.mjs",
+  "/intro/room/lyssajudron.mjs",
+  "/intro/room/boss-intro.mjs",
+  "/intro/room/house-clock.mjs",
+  "/intro/poleis/orb.js",
+  "/intro/room/procedural/BufferGeometryUtils.js",
+  "/intro/room/procedural/SkeletonUtils.js",
+  "/intro/dyson-society/lab/ragdoll.mjs",
+  "/intro/dyson-society/lab/rig.mjs",
+  "/intro/room/lyssajudron-ferro.mjs",
+  "/intro/room/one-law.mjs",
+  "/intro/room/well-law.mjs",
+  "/intro/room/unit0-liquid.mjs",
+  "/intro/room/flight-law.mjs",
+  "/intro/room/lyssajudron-council.mjs",
+  "/intro/room/her-breath.mjs",
+  "/intro/room/terrain-layer.mjs",
+  "/intro/room/her-face.js",
+  "/intro/room/procedural/three.core.js",
+  "/intro/room/camera-geometry.mjs",
+  "/intro/room/eye-door.mjs",
+  "/intro/room/reveal-plan.mjs",
+  "/intro/room/eye-law.mjs",
+  "/intro/room/eye-choice.mjs",
+  "/intro/room/isa/isa.mjs",
+  "/intro/room/wasm/embertide-nexus.wasm",
+  "/intro/dyson-society/lab/seiya-fight.hades.json",
+  "/intro/dyson-society/lab/seiya-bodies.hades.json",
+  "/intro/dyson-society/lab/seiya.hades.glb",
+  "/favicon.ico",
+  "/intro/dyson-society/lab/athena.hades.glb"
+ ],
+ "pass": true
+}

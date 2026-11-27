@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Harmony code · The Dyson Society</title><link rel="stylesheet" href="../vendor/embertide-app/ui/intro/fonts/fonts.css"><link rel="stylesheet" href="./site-bar.css?v=bar-3">
+<meta name="robots" content="noindex">
+<!-- THE CLAIM PAGE (dl-claim.mjs): the QR on a paid seat's card lands here with the claim code in the fragment; the code shown large, the installer's doors named. Nothing sent. -->
+<style>
+html{background:#07060b;color:#fbf6ea;font:16px/1.6 'DM Sans',system-ui,sans-serif}
+body{margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;padding:24px}
+main{width:min(420px,100%);text-align:center}
+.eyebrow{margin:0 0 10px;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#f0cf74}
+h1{margin:0 0 14px;font:400 clamp(40px,5vw,60px)/1.05 'Bodoni 72',Didot,Georgia,serif;letter-spacing:-.02em;color:#fbf6ea;text-shadow:0 4px 22px rgba(0,0,0,.7)}
+p{margin:0 0 12px;color:rgba(251,246,234,.72);font-size:15px}
+.code{margin:18px 0 8px;padding:18px 12px;border:1px solid rgba(240,207,116,.45);background:rgba(7,6,11,.66);color:#fbf6ea;font:28px/1.2 ui-monospace,Menlo,monospace;letter-spacing:.18em;overflow-wrap:anywhere}
+button{border:0;background:none;color:#f0cf74;font:inherit;font-size:15px;cursor:pointer;text-decoration:underline;text-underline-offset:4px;padding:8px}
+button[hidden],[hidden]{display:none}
+h2{margin:28px 0 6px;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#f0cf74}
+#claim-install a{color:#f0cf74;text-decoration:underline;text-underline-offset:4px;margin:0 8px}
+#claim-install span{font-size:13px;color:rgba(251,246,234,.6)}
+.back{display:inline-block;margin-top:28px;font-size:14px;color:#f0cf74}
+#claim-status{min-height:1.4em;font-size:13px}
+</style><link rel="stylesheet" href="./holy.css?v=2">
+</head>
+<body>
+<nav class="site-bar" aria-label="Swarmbook"><a data-to="societies" href="./index.html">Societies</a><a data-to="stake" href="./after-the-mint.html?side=pool">Stake</a><a data-to="ride" href="./after-the-mint.html?side=flask">Ride</a><a data-to="tracenet" href="./tracenet.html?of=photons_enjoyor">Tracenet</a></nav>
+<main>
+  <p class="eyebrow">Dyson Society · Harmony</p>
+  <h1>Your Harmony code.</h1>
+  <p id="claim-none" hidden>This link carries no code. Open your seat on optimism.fit and press Show my Harmony code.</p>
+  <p id="claim-code" class="code" aria-live="polite">—</p>
+  <button type="button" id="claim-copy" hidden>Copy the code</button>
+  <p id="claim-status" role="status" aria-live="polite"></p>
+  <p>In Harmony, open <b>Your box</b> and type this code. It binds your Society seat to your Lyssajudron, once.</p>
+  <h2>Install Harmony</h2>
+  <p id="claim-install"><span>Reading the installer’s doors…</span></p>
+  <a class="back" href="./after-the-mint.html?side=flask">Back to your seat ↗</a>
+</main>
+<script type="module" src="./dl-claim.mjs?v=society-1"></script>
+</body>
+</html>

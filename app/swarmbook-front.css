@@ -1,0 +1,80 @@
+/* swarmbook-front.css · THE PLATES ON THE FRONT (his Nov 19 2026 "bring these vibes here please the blue and red thing...", over swarmbook.html's two plates, an
+   orange arrow from SWARMBOOK to this page's title and a green one from PROMPT-2-MINE to the hero's top right, "prompt-2-mine" written there). The plates are the
+   page after the mint's and swarmbook.html's (after-the-mint.css, swarmbook.css), in their own type and colours: the name in Gelasio caps, cream on its dark stroke,
+   leaning; under it the gold stamp; behind it the slash, blue for Swarmbook (--am-router), red into gold for Prompt-2-mine (--am-warm). Scoped to the hero. */
+.hero{position:relative;--am-plate:'Gelasio','Georgia',serif;--am-cream:#fbf6ea;--am-stroke:#0b0709;--am-stamp:#f0cf74;
+  --am-router:linear-gradient(90deg,transparent,rgba(8,16,58,.92) 12%,rgba(64,128,236,.95) 50%,rgba(8,16,58,.92) 88%,transparent);
+  --am-warm:linear-gradient(90deg,transparent,rgba(140,14,30,.92) 12%,rgba(201,161,74,.95) 50%,rgba(140,14,30,.92) 88%,transparent);
+  --t:clamp(40px,5.4vw,84px);--m:clamp(17px,2.4vw,38px)}   /* the two plates' sizes: side by side with air between at every width over 760 (measured: a Gelasio cap is .83em, so 8.1 t + 9.9 m stays under the hero's width) */
+.hero .am-plate{position:relative;display:grid;justify-items:center;margin:0;padding:.1em .3em;line-height:1}
+.hero .am-slash{position:absolute;left:0;right:0;top:.6em;height:.62em;transform:translateY(-50%) skewY(-4deg)}
+.hero .am-router .am-slash{background:var(--am-router)} .hero .am-warm .am-slash{background:var(--am-warm)}
+.hero .am-name{position:relative;font:700 1em/.9 var(--am-plate);letter-spacing:.02em;text-transform:uppercase;white-space:nowrap;color:var(--am-cream);
+  -webkit-text-stroke:.035em var(--am-stroke);paint-order:stroke fill;text-shadow:-1px 0 rgba(255,36,56,.35),1px 0 rgba(80,220,255,.3),0 .08em .4em rgba(0,0,0,.45);transform:skewX(-10deg)}
+.hero .am-stamp{position:relative;margin-top:.3em;padding-left:.42em;font:700 max(11px,.2em)/1.2 var(--am-plate);letter-spacing:.34em;text-transform:uppercase;white-space:nowrap;color:var(--am-stamp);text-shadow:0 1px 0 #000,0 0 .5em rgba(0,0,0,.35)}
+/* the title is the Swarmbook plate, at the title's size, standing at the hero's left as the title did */
+.hero .mint-big-title.am-plate{align-self:flex-start;font-size:var(--t);line-height:1;letter-spacing:normal}
+.hero .mint-big:hover .am-slash,.hero .mint-big:focus-visible .am-slash,.hero .hero-mine:hover .am-slash,.hero .hero-mine:focus-visible .am-slash{filter:brightness(1.3) saturate(1.25)}
+/* Prompt-2-mine stands at the hero's top right, where he wrote it */
+.hero .hero-mine{position:absolute;z-index:4;right:0;top:calc(clamp(14px,2.5vh,28px) + .7 * (var(--t) - var(--m)));font-size:var(--m);text-decoration:none;color:inherit}   /* its slash level with the title's */
+.hero .hero-mine .am-name{font-variant-numeric:lining-nums} .hero .hero-mine .am-stamp{font-size:max(13px,.46em);letter-spacing:.5em;padding-left:.5em}
+.hero .hero-mine:focus-visible{outline:none} .hero .hero-mine:focus-visible .am-name{-webkit-text-stroke:.035em var(--am-stamp)}
+/* a phone: Swarmbook leads cleanly at the top; Prompt-2-mine sits across from WHY on the action row */
+@media (max-width:760px){section.hero{--t:clamp(30px,9.8vw,60px);--m:clamp(15px,4.6vw,22px);padding-top:clamp(18px,3vh,28px)} .hero .hero-mine{top:auto;bottom:0;right:0;transform:translateY(calc(100% + var(--edge-gap) - 10px))} .hero .mint-big-title .am-stamp{letter-spacing:.16em;padding-left:.16em}}   /* the stamp, the plate's widest line on a phone, closer set */
+
+/* THE SITE WEARS THE HOLY PAGE (lane/the-site-wears-the-holy-page, Nov 21 2026; his Nov 19 11:58 UTC "it is one sad monocolor background. it has nothing
+   to do with glory", 14:56 "this is the holy sacred page dude... left blue pent primcipal... right red hex agent"). BELOW THE HERO ONLY: the hero, its
+   plates, its numbers' dusk and the goldberg of goldbergs keep everything they had. From the wall down, the parchment tokens turn to the holy page's dark
+   ground, ivory and the film's gold (the same values as holy.css, which the other pages load), each section on the ground edge to edge so the cream mesh
+   behind never shows; the governance pair stands on the split, the branches on the pool's blue, the whole on the flask's red. No word under 13px. */
+.wall-head,#wall,#board,#governance,#descent-anatomy,#doors,#roster,main > .road-foot{--stone:#07060b;--panel:rgba(251,246,234,.045);--panel2:rgba(251,246,234,.08);
+  --line:rgba(240,207,116,.24);--line2:rgba(240,207,116,.4);--ink:#fbf6ea;--ink2:rgba(251,246,234,.7);--gold:#f0cf74;--bronze:#c9a14a;--sh:none;
+  --t3:400 15px/1.6 var(--words);--t4:600 13px/1.4 var(--words);--tm:400 13px/1.5 var(--mono);color:var(--ink)}
+#governance,#descent-anatomy,#doors,main > .road-foot{position:relative;isolation:isolate}
+/* the ground, edge to edge, painted by each section's own border image outset sideways (no box, no layout); from the wall down it also reaches over the gaps between */
+/* the wall lies under the hero's band in the same sticky stage: its ground comes in only as the band dives away (the tiles' own --assembly-dive), so the
+   hero's night is never covered */
+#wall::before{content:"";position:absolute;z-index:-1;top:-60px;bottom:-90px;left:calc(50% - 50vw);width:100vw;background:#07060b;opacity:calc(1 - var(--assembly-dive,0));pointer-events:none}
+#board,#governance,#descent-anatomy,#doors,main > .road-foot{border-image:conic-gradient(#07060b 0 0) fill 0//0 100vmax 90px}   /* outset below only: a later section paints over it, never over an earlier one */
+#governance::after{content:"";position:absolute;z-index:-1;top:0;left:calc(50% - 50vw);width:100vw;height:min(74vh,640px);pointer-events:none;
+  background:linear-gradient(98deg,rgba(18,44,150,.92) 0,rgba(64,126,236,.74) calc(50% - 2px),rgba(255,244,214,.85) 50%,rgba(214,44,62,.74) calc(50% + 2px),rgba(140,12,30,.92) 100%);
+  -webkit-mask-image:linear-gradient(#000 0,#000 35%,transparent);mask-image:linear-gradient(#000 0,#000 35%,transparent)}
+#wall .tile{background:rgba(7,6,11,.72);border-color:var(--line)}
+#governance h2,#descent-anatomy h2,#doors h2{color:var(--ink);text-shadow:0 4px 22px rgba(0,0,0,.6)}
+#governance .label,#descent-anatomy .label,.wall-head .label,#doors .label,main > .road-foot .foot-status,main > .road-foot .foot-links a{font-size:13px}
+.journey-how{color:#fbf6ea!important;background:rgba(7,6,11,.6)!important;border-color:#f0cf74!important}
+#doors .warm-invitation,#doors .warm-install{font-size:13px}
+#doors .plug{background:#f0cf74!important;color:#0b0709!important;border-color:#f0cf74!important;border-radius:999px;font-size:13px}
+#doors .plug .door-arrow{color:#0b0709!important}
+/* INDEX'S HEADER BELOW THE HERO: while the hero is on the glass the header stays exactly as it is; once the band has dived away (the engine's own phase on
+   #assembly, 'gathering' then 'wall', read here, never written) it wears the dark ground with ivory words. */
+main:has(#assembly:is([data-phase="gathering"],[data-phase="wall"])) > header{--stone:#07060b;--ink:#fbf6ea;--ink2:rgba(251,246,234,.72);--line:rgba(240,207,116,.24)}
+main > header::before{transition:background-color .3s,box-shadow .3s}
+
+/* THE SCREENS ARE CHECKED (Nov 22 2026, embertide-screens at 589c3a92b2, twelve sizes): what it found red on this page, below the hero and in the plates,
+   by its check. The hero's animation and its boxed WHY and HOW are his and stay as they are. */
+/* d: no word under 12 px, 13 on a phone */
+.hero .am-stamp{font-size:max(12px,.2em)} main .hero .mint-big-kicker{font-size:12px}   /* main: index's own sheet, read after this one, sets it */
+#governance .governance-kicker,#governance .governance-key,#governance .governance-view figcaption > span,#doors .door .door-line,#doors .warm-invitation,#doors .warm-install{font-size:13px}
+#governance .governance-mark{width:19px;height:19px;font-size:13px}
+@media (max-width:499px){.hero .am-stamp,main .hero .mint-big-kicker{font-size:13px} .hero .mint-big-title .am-stamp{letter-spacing:.06em;padding-left:.06em}}
+/* g: the two faces; a door's line keeps its columns */
+:is(.wall-head,#wall,#board,#governance,#descent-anatomy,#doors,#roster,main > .road-foot){--mono:'DM Sans',system-ui,sans-serif}
+#doors .door .door-line,#doors .warm-invitation,#doors .warm-install{font-family:var(--words);font-variant-numeric:tabular-nums}
+/* e: the words over the split in ivory (the bronze and the gold read under 4.5:1 on the pool's blue), the chambers' numerals in the bright gold, the marks'
+   signs dark on their own colours; the plates' stamps and the wall's label over the parchment take the ground */
+#governance .governance-kicker,#governance .governance-lede,#governance .governance-key{color:var(--ink)}
+#governance .governance-view figcaption > span{color:var(--gold)}
+#governance .governance-mark--approved,#governance .governance-mark--rejected,#governance .governance-mark--split{color:#07060b}
+.hero .am-stamp{background:rgba(7,6,11,.82);padding:.12em .3em .12em .6em;text-shadow:none}
+.wall-head > .label:first-child{background:rgba(7,6,11,.82);color:var(--ink);padding:2px 8px}
+/* a and b: the view's words wrap on a phone (the links touch the word "view" and each other, one unbreakable run 402 px wide at 320) */
+.wall-head .views a::before{content:"\200B"}
+/* f: a finger on a phone */
+@media (max-width:499px){
+  main > header .site-nav a,main > .road-foot .foot-links a,.hero .hero-mine{min-height:44px;min-width:44px;box-sizing:border-box}
+  main > header .site-nav a,main > .road-foot .foot-links a{display:inline-flex;align-items:center;justify-content:center}
+  main > .road-foot .study-details summary{min-height:44px;box-sizing:border-box;padding-block:10px}
+  #governance .governance-timeline button,.anatomy-heading button{min-height:44px;min-width:44px}
+  #governance .governance-scrubber input{height:44px}
+}

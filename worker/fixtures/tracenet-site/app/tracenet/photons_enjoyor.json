@@ -1,0 +1,25 @@
+{
+  "schema": "optimism.tracenet/1",
+  "handle": "photons_enjoyor",
+  "name": "extrocco | Latency Guy",
+  "items": [
+    {
+      "id": "2026-10-14-the-subscribe-portal-how-a-drop-is-gated-a-design-trace",
+      "title": "The subscribe portal: how a drop is gated (a design trace)",
+      "kind": "trace",
+      "file": "the-subscribe-portal-design.md",
+      "bytes": 2527,
+      "sha256": "c2a0d88ae0acb2249e6588b477aff1de23e45ae22c215c085f7dc0ad517083bc",
+      "published": "2026-10-14T21:51:05.751Z",
+      "sanitized": {
+        "ref": "tracenet/sanitized/c2a0d88ae0acb2249e6588b477aff1de23e45ae22c215c08",
+        "rev": 1,
+        "seat": "stand-in: a fixture, no Nest wrote this",
+        "ts": 1792014665751
+      }
+    }
+  ],
+  "line": "Traces of OSS work: the house, the Nest, Project Snowtrace.",
+  "x": "https://x.com/photons_enjoyor",
+  "avatar": "https://pbs.twimg.com/profile_images/2043850006566744064/qeOobVml_400x400.jpg"
+}

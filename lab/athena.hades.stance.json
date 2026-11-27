@@ -1,0 +1,9 @@
+{
+  "_": "Athena as the film has her at 28 to 37 s, bound at the ship's prow: arms at her sides, her head down at the fight. Degrees about each joint's own axes (x, y, z), read by tools/hades-glb.mjs --stance. Her joints' frames (the rest pose, e00.gmi): an arm's local y points forward, so a turn about it swings the arm in the body's plane (the left arm's local z points up, the right's down, hence the signs); the head's local z points to her left, so a turn about it pitches the head forward.",
+  "h_jnt_luarm": [0, -75, 0],
+  "h_jnt_ruarm": [0, 75, 0],
+  "h_jnt_llarm": [0, -8, 0],
+  "h_jnt_rlarm": [0, 8, 0],
+  "h_jnt_ubody": [0, 0, 6],
+  "h_jnt_head": [0, 0, 24]
+}

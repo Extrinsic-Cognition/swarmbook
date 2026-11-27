@@ -1,0 +1,615 @@
+{
+ "at": "2026-10-14T19:48:20.127Z",
+ "chrome": "~/Library/Caches/ms-playwright/chromium-1248/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+ "host": "guidos-MacBook-Pro-2.local",
+ "load": [
+  5.9560546875,
+  7.1611328125,
+  6.951171875
+ ],
+ "size": [
+  1440,
+  900
+ ],
+ "scale": 1,
+ "window": {
+  "rise": 134,
+  "from_s": 4.471,
+  "impact": 331,
+  "impact_s": 11.044,
+  "fps": 29.97002997002997
+ },
+ "seconds": [
+  [
+   "before the halo (the orb in his hand)",
+   4.405
+  ],
+  [
+   "the charge's first frame: the signal leaves the rim",
+   4.472
+  ],
+  [
+   "the first signal on its way",
+   4.806
+  ],
+  [
+   "the satellites woken where it found them",
+   5.106
+  ],
+  [
+   "the cut to Seiya in the light",
+   5.801
+  ],
+  [
+   "back to Dolbar",
+   6.474
+  ],
+  [
+   "the middle: aligned",
+   7.751
+  ],
+  [
+   "the blast's streaks",
+   8.61
+  ],
+  [
+   "the hand's flash",
+   9.611
+  ],
+  [
+   "his tag, the sacrifice",
+   10.836
+  ],
+  [
+   "the last frame before the impact",
+   11.012
+  ],
+  [
+   "the impact: gone",
+   11.045
+  ]
+ ],
+ "browser": "Chrome/156.0.8078.4",
+ "ready": {
+  "stage": [
+   1204.75,
+   900
+  ],
+  "order": [
+   "hero-cubism-window",
+   "genesis-sphere",
+   "hero-theater",
+   "hero-box",
+   "hero-front",
+   "hero-anti-satellites",
+   "hero-ko-edge",
+   "div",
+   "face-note",
+   "holder-profiles",
+   "div",
+   "dl-twelve-song",
+   "dl-twelve-film",
+   "button"
+  ],
+  "loaf": {
+   "top": true,
+   "hero": true
+  },
+  "stats": {
+   "draws": 0,
+   "frames": 0,
+   "drawMs": 0,
+   "drawMax": 0,
+   "waiting": false,
+   "shown": false,
+   "painted": true,
+   "paintMs": 0.20000004768371582,
+   "reduced": false,
+   "pixels": [
+    0,
+    0
+   ],
+   "last": null
+  }
+ },
+ "pictures": [
+  {
+   "name": "before the halo (the orb in his hand)",
+   "second": 4.405,
+   "file": "anti-4.405s.png",
+   "worlds": 12,
+   "charge": {
+    "on": false,
+    "frame": null,
+    "level": 0,
+    "gather": 0,
+    "align": 0,
+    "woken": false,
+    "signals": 0
+   },
+   "last": null,
+   "pixels": [
+    0,
+    0
+   ]
+  },
+  {
+   "name": "the charge's first frame: the signal leaves the rim",
+   "second": 4.472,
+   "file": "anti-4.472s.png",
+   "worlds": 12,
+   "charge": {
+    "on": true,
+    "frame": 134,
+    "level": 0.516,
+    "gather": 0.0033416442703105265,
+    "align": 0.00011029444381200807,
+    "woken": false,
+    "signals": 1
+   },
+   "last": {
+    "t": 134,
+    "antis": 0,
+    "lines": 0,
+    "dashes": 12
+   },
+   "pixels": [
+    1205,
+    900
+   ]
+  },
+  {
+   "name": "the first signal on its way",
+   "second": 4.806,
+   "file": "anti-4.806s.png",
+   "worlds": 12,
+   "charge": {
+    "on": true,
+    "frame": 144,
+    "level": 0.889,
+    "gather": 0.052488424052067474,
+    "align": 0.025584326570435207,
+    "woken": false,
+    "signals": 1
+   },
+   "last": {
+    "t": 144,
+    "antis": 0,
+    "lines": 0,
+    "dashes": 12
+   },
+   "pixels": [
+    1205,
+    900
+   ]
+  },
+  {
+   "name": "the satellites woken where it found them",
+   "second": 5.106,
+   "file": "anti-5.106s.png",
+   "worlds": 12,
+   "charge": {
+    "on": true,
+    "frame": 153,
+    "level": 0.901,
+    "gather": 0.10484085095359907,
+    "align": 0.09515497164772854,
+    "woken": true,
+    "signals": 2
+   },
+   "last": {
+    "t": 153,
+    "antis": 12,
+    "lines": 12,
+    "dashes": 12
+   },
+   "pixels": [
+    1205,
+    900
+   ]
+  },
+  {
+   "name": "the cut to Seiya in the light",
+   "second": 5.801,
+   "file": "anti-5.801s.png",
+   "worlds": 12,
+   "charge": {
+    "on": true,
+    "frame": 174,
+    "level": 0.661,
+    "gather": 0.20224071495644846,
+    "align": 0.30619586562230805,
+    "woken": true,
+    "signals": 3
+   },
+   "last": {
+    "t": 174,
+    "antis": 12,
+    "lines": 12,
+    "dashes": 12
+   },
+   "pixels": [
+    1205,
+    900
+   ]
+  },
+  {
+   "name": "back to Dolbar",
+   "second": 6.474,
+   "file": "anti-6.474s.png",
+   "worlds": 12,
+   "charge": {
+    "on": true,
+    "frame": 194,
+    "level": 0.931,
+    "gather": 0.2980409934268045,
+    "align": 0.5626920295851807,
+    "woken": true,
+    "signals": 4
+   },
+   "last": {
+    "t": 194,
+    "antis": 12,
+    "lines": 12,
+    "dashes": 24
+   },
+   "pixels": [
+    1205,
+    900
+   ]
+  },
+  {
+   "name": "the middle: aligned",
+   "second": 7.751,
+   "file": "anti-7.751s.png",
+   "worlds": 12,
+   "charge": {
+    "on": true,
+    "frame": 232,
+    "level": 0.952,
+    "gather": 0.529857850597416,
+    "align": 0.9960747010540512,
+    "woken": true,
+    "signals": 4
+   },
+   "last": {
+    "t": 232,
+    "antis": 12,
+    "lines": 18,
+    "dashes": 12
+   },
+   "pixels": [
+    1205,
+    900
+   ]
+  },
+  {
+   "name": "the blast's streaks",
+   "second": 8.61,
+   "file": "anti-8.610s.png",
+   "worlds": 12,
+   "charge": {
+    "on": true,
+    "frame": 258,
+    "level": 0.804409851267634,
+    "gather": 0.6783537868730369,
+    "align": 1,
+    "woken": true,
+    "signals": 4
+   },
+   "last": {
+    "t": 258,
+    "antis": 12,
+    "lines": 20,
+    "dashes": 24
+   },
+   "pixels": [
+    1205,
+    900
+   ]
+  },
+  {
+   "name": "the hand's flash",
+   "second": 9.611,
+   "file": "anti-9.611s.png",
+   "worlds": 12,
+   "charge": {
+    "on": true,
+    "frame": 288,
+    "level": 0.886,
+    "gather": 0.8007382702457663,
+    "align": 1,
+    "woken": true,
+    "signals": 5
+   },
+   "last": {
+    "t": 288,
+    "antis": 12,
+    "lines": 21,
+    "dashes": 24
+   },
+   "pixels": [
+    1205,
+    900
+   ]
+  },
+  {
+   "name": "his tag, the sacrifice",
+   "second": 10.836,
+   "file": "anti-10.836s.png",
+   "worlds": 12,
+   "charge": {
+    "on": true,
+    "frame": 325,
+    "level": 0.879,
+    "gather": 0.9719522067156687,
+    "align": 1,
+    "woken": true,
+    "signals": 4
+   },
+   "last": {
+    "t": 325,
+    "antis": 12,
+    "lines": 21,
+    "dashes": 12
+   },
+   "pixels": [
+    1205,
+    900
+   ]
+  },
+  {
+   "name": "the last frame before the impact",
+   "second": 11.012,
+   "file": "anti-11.012s.png",
+   "worlds": 12,
+   "charge": {
+    "on": true,
+    "frame": 330,
+    "level": 0.85,
+    "gather": 1,
+    "align": 1,
+    "woken": true,
+    "signals": 4
+   },
+   "last": {
+    "t": 330,
+    "antis": 12,
+    "lines": 20,
+    "dashes": 0
+   },
+   "pixels": [
+    1205,
+    900
+   ]
+  },
+  {
+   "name": "the impact: gone",
+   "second": 11.045,
+   "file": "anti-11.045s.png",
+   "worlds": 12,
+   "charge": {
+    "on": false,
+    "frame": null,
+    "level": 0,
+    "gather": 0,
+    "align": 0,
+    "woken": false,
+    "signals": 0
+   },
+   "last": {
+    "t": 330,
+    "antis": 12,
+    "lines": 20,
+    "dashes": 0
+   },
+   "pixels": [
+    0,
+    0
+   ]
+  }
+ ],
+ "cost": {
+  "with": [
+   {
+    "from": 3.4711333333333334,
+    "to": 11.598766,
+    "wall_s": 8.200899999976158,
+    "frames": 490,
+    "over25": 0,
+    "over50": 0,
+    "p50": 16.69999999999891,
+    "p95": 16.799999999999272,
+    "longest": 16.80000000000109,
+    "loafTop": {
+     "count": 0,
+     "ms": 0,
+     "longest": 0
+    },
+    "loafHero": {
+     "count": 0,
+     "ms": 0,
+     "longest": 0
+    },
+    "anti": {
+     "draws": 197,
+     "frames": 234,
+     "ms": 28.100000381469727,
+     "max": 0.3999999761581421,
+     "waiting": false,
+     "pixels": [
+      0,
+      0
+     ]
+    },
+    "metrics": {
+     "RecalcStyleCount": 69,
+     "RecalcStyleDuration": 1.572,
+     "LayoutCount": 41,
+     "LayoutDuration": 3.987,
+     "ScriptDuration": 868.725,
+     "TaskDuration": 1086.632
+    }
+   },
+   {
+    "from": 3.4711333333333334,
+    "to": 11.606927,
+    "wall_s": 8.199599999964237,
+    "frames": 490,
+    "over25": 0,
+    "over50": 0,
+    "p50": 16.69999999999709,
+    "p95": 16.700000000000728,
+    "longest": 16.80000000000291,
+    "loafTop": {
+     "count": 0,
+     "ms": 0,
+     "longest": 0
+    },
+    "loafHero": {
+     "count": 0,
+     "ms": 0,
+     "longest": 0
+    },
+    "anti": {
+     "draws": 197,
+     "frames": 235,
+     "ms": 26.000001311302185,
+     "max": 0.3999999761581421,
+     "waiting": false,
+     "pixels": [
+      0,
+      0
+     ]
+    },
+    "metrics": {
+     "RecalcStyleCount": 69,
+     "RecalcStyleDuration": 1.678,
+     "LayoutCount": 41,
+     "LayoutDuration": 4.118,
+     "ScriptDuration": 857.351,
+     "TaskDuration": 1082.387
+    }
+   }
+  ],
+  "without": [
+   {
+    "from": 3.4711333333333334,
+    "to": 11.619402,
+    "wall_s": 8.215800000011921,
+    "frames": 491,
+    "over25": 0,
+    "over50": 0,
+    "p50": 16.69999999999709,
+    "p95": 16.700000000004366,
+    "longest": 16.80000000000291,
+    "loafTop": {
+     "count": 0,
+     "ms": 0,
+     "longest": 0
+    },
+    "loafHero": {
+     "count": 0,
+     "ms": 0,
+     "longest": 0
+    },
+    "anti": null,
+    "metrics": {
+     "RecalcStyleCount": 67,
+     "RecalcStyleDuration": 1.547,
+     "LayoutCount": 39,
+     "LayoutDuration": 3.751,
+     "ScriptDuration": 721.78,
+     "TaskDuration": 916.782
+    }
+   },
+   {
+    "from": 3.4711333333333334,
+    "to": 11.612668,
+    "wall_s": 8.217099999964237,
+    "frames": 491,
+    "over25": 0,
+    "over50": 0,
+    "p50": 16.69999999999709,
+    "p95": 16.700000000004366,
+    "longest": 16.80000000000291,
+    "loafTop": {
+     "count": 0,
+     "ms": 0,
+     "longest": 0
+    },
+    "loafHero": {
+     "count": 0,
+     "ms": 0,
+     "longest": 0
+    },
+    "anti": null,
+    "metrics": {
+     "RecalcStyleCount": 67,
+     "RecalcStyleDuration": 1.444,
+     "LayoutCount": 39,
+     "LayoutDuration": 3.767,
+     "ScriptDuration": 685.361,
+     "TaskDuration": 874.088
+    }
+   }
+  ],
+  "outside": {
+   "from": 20,
+   "to": 24.016078,
+   "wall_s": 4.084,
+   "frames": 243,
+   "over25": 0,
+   "over50": 0,
+   "p50": 16.69999999999891,
+   "p95": 16.700000000000728,
+   "longest": 16.80000000000291,
+   "loafTop": {
+    "count": 0,
+    "ms": 0,
+    "longest": 0
+   },
+   "loafHero": {
+    "count": 0,
+    "ms": 0,
+    "longest": 0
+   },
+   "anti": {
+    "draws": 0,
+    "frames": 0,
+    "ms": 0,
+    "max": 0.3999999761581421,
+    "waiting": false,
+    "pixels": [
+     0,
+     0
+    ]
+   },
+   "metrics": {
+    "RecalcStyleCount": 105,
+    "RecalcStyleDuration": 6.449,
+    "LayoutCount": 17,
+    "LayoutDuration": 1.726,
+    "ScriptDuration": 445.372,
+    "TaskDuration": 575.043
+   }
+  },
+  "rest": {
+   "ms": 3000,
+   "draws": 0,
+   "frames": 0,
+   "waiting": false,
+   "shown": true,
+   "pixels": [
+    1205,
+    900
+   ]
+  },
+  "unmounted": true
+ },
+ "errors": [],
+ "refused": [
+  "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap",
+  "http://127.0.0.1:8904/nest/ref/mint/seiya-tags"
+ ]
+}

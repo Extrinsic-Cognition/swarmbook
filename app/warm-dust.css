@@ -1,0 +1,12 @@
+/* Gold is a trace of attention. The text underneath remains untouched. */
+.warm-gold-dust{position:fixed;inset:0;width:100%;height:100%;z-index:9;pointer-events:none!important;contain:strict}
+button.gold-secret{position:relative;display:block;width:min(100%,460px);min-height:66px;margin:22px 0 0;padding:12px 18px 12px 30px;border:0;background:transparent!important;text-align:left;color:#a0782d;cursor:default;isolation:isolate}
+.gold-secret-mark{position:absolute;left:1px;top:50%;transform:translateY(-50%);color:#b59a58;font:19px/1 var(--serif);opacity:.48;transition:opacity .35s,transform .55s}
+.gold-secret-words{display:block;width:fit-content;max-width:100%;font:italic 25px/1.2 var(--serif);letter-spacing:-.02em;color:#a1792e;opacity:0;filter:blur(3px);transform:translateY(3px);transition:opacity .9s,filter 1.1s,transform 1.1s;pointer-events:none;text-wrap:balance}
+.gold-secret.is-awake .gold-secret-mark{opacity:1;transform:translateY(-50%) rotate(90deg)}
+.gold-secret.is-awake .gold-secret-words{opacity:1;filter:blur(0);transform:translateY(0);text-shadow:0 0 17px #dabb6966}
+button.gold-secret:focus-visible{outline:1px solid #b59a5899;outline-offset:3px}
+.gold-secret::before{content:"";position:absolute;inset:3px 0;background:radial-gradient(ellipse at 45% 50%,#cbae5f12,transparent 70%);opacity:0;transition:opacity 1s;z-index:-1}
+.gold-secret.is-awake::before{opacity:1}
+@media(max-width:760px){button.gold-secret{min-height:60px}.gold-secret-words{font-size:23px}}
+@media(prefers-reduced-motion:reduce){.warm-gold-dust{display:none}.gold-secret-mark,.gold-secret-words,.gold-secret::before{transition:none}.gold-secret-words{filter:none;transform:none}.gold-secret.is-awake .gold-secret-mark{transform:translateY(-50%)}}

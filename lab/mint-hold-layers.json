@@ -1,0 +1,25 @@
+{
+  "frame": 1111,
+  "key": 1097,
+  "width": 960,
+  "height": 540,
+  "content": [
+    82,
+    3,
+    796,
+    534
+  ],
+  "channels": {
+    "r": "athena-hair",
+    "g": "fighters",
+    "b": "column",
+    "a": "holes"
+  },
+  "sourceSha256": "53561d478c30988ddd19cc9a282dd16e28b3751a1c078d58e9e80227b3de07a9",
+  "method": "hair keyed on the same cel over teal (1097); fighters hand traced; plate push-pull filled; colours from the film",
+  "hairCoverage": 0.4155,
+  "referenceError": {
+    "mean": 3.413,
+    "p99": 48.53
+  }
+}

@@ -1,0 +1,223 @@
+/* holy.css: THE SITE WEARS THE HOLY PAGE (lane/the-site-wears-the-holy-page, Nov 21 2026).
+   His words, UTC: Nov 19 11:12 "the website style, apart from the hero hexagonal animation and this: [the holy page] is fucking crimes against humany for how
+   fucking ugly it is"; 11:58 "it is one sad monocolor background. it has nothing to do with glory"; 14:56, of the mint's split at her offer, "this is the holy
+   sacred page dude... this has gotta be our vibe and our leading edge into all this... left blue pent primcipal... right red hex agent"; 19:21 "bring these vibes
+   here please the blue and red thing"; Nov 20 05:17 "dude, less. porcoddio. LESS"; Oct 29 "i want essential clean items".
+   One look for the society's secondary pages, taken value for value from the split (dl-paywall.css #dl-sides and .dl-flask-plate, read, never edited): the dark
+   ground, the pool's blue field and pentagon on the left, the flask's red field and hexagon on the right, a seam of light between, the film's gold for the small
+   calls. Bodoni for the titles and DM Sans for the words (harmony-appearance.json, the mint's type), Gelasio caps for a plate's stamp as the split sets them.
+   A page loads this sheet after its own; it redefines the Poleis tokens (poleis.css) so every page that speaks them turns at once, then names what each page
+   still says in literals. No text under 13px. Nothing at rest moves: the band is a background, the plates come in once. */
+:root{
+  --holy-ground:#07060b;
+  --holy-blue-a:rgba(18,44,150,.92);--holy-blue-b:rgba(64,126,236,.74);
+  --holy-red-a:rgba(214,44,62,.74);--holy-red-b:rgba(140,12,30,.92);
+  --holy-gold:#f0cf74;--holy-gold-deep:#c9a14a;--holy-ivory:#fbf6ea;--holy-quiet:rgba(251,246,234,.7);--holy-cyan:#cfeaff;
+  --holy-pent:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 3 97 37.5 79 94H21L3 37.5Z' fill='rgba(255,255,255,.07)' stroke='rgba(255,255,255,.62)' stroke-width='.7' stroke-linejoin='round'/%3E%3C/svg%3E");
+  --holy-hex:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M26 7H74L98 50 74 93H26L2 50Z' fill='rgba(255,255,255,.07)' stroke='rgba(255,255,255,.62)' stroke-width='.7' stroke-linejoin='round'/%3E%3C/svg%3E");
+  --holy-seam:linear-gradient(98deg,var(--holy-blue-a) 0,var(--holy-blue-b) calc(50% - 2px),rgba(255,244,214,.85) 50%,var(--holy-red-a) calc(50% + 2px),var(--holy-red-b) 100%);
+  --holy-join:linear-gradient(98deg,var(--holy-blue-a) 0,var(--holy-blue-b) 42%,var(--holy-red-a) 58%,var(--holy-red-b) 100%);
+  --holy-split:var(--holy-join);   /* THE SEAM NEVER CROSSES WORDS: on the holy page nothing is written across the seam, so where words stand over the fields they meet without the bright line */
+  /* the Poleis tokens, dark (poleis.css :root) */
+  --stone:var(--holy-ground);--panel:rgba(251,246,234,.04);--panel2:rgba(251,246,234,.07);
+  --line:rgba(240,207,116,.24);--line2:rgba(240,207,116,.4);
+  --ink:var(--holy-ivory);--ink2:var(--holy-quiet);--gold:var(--holy-gold);--bronze:var(--holy-gold-deep);
+  --sh:none;
+  --t1:700 34px/1.1 var(--display);--t2:700 19px/1.2 var(--display);
+  --t3:400 15px/1.6 var(--words);--t4:600 13px/1.4 var(--words);--tm:400 13px/1.5 var(--mono);
+  color-scheme:dark;
+}
+html,body{background:var(--holy-ground)!important;color:var(--ink)}
+body{position:relative;isolation:isolate}
+/* THE SPLIT: the first screen of every page stands on the holy page's two fields, the seam of light between, fading into the ground below. */
+body::before,body::after{content:'';position:absolute;z-index:-1;left:0;right:0;top:0;height:var(--holy-band,min(74vh,620px));pointer-events:none;
+  -webkit-mask-image:linear-gradient(#000 0,#000 40%,transparent);mask-image:linear-gradient(#000 0,#000 40%,transparent)}
+body::before{background:var(--holy-split)}
+body::after{background:var(--holy-pent) left max(2vw,calc(17vw - var(--holy-mark,min(40vh,320px))/2)) top var(--holy-mark-y,max(112px,calc(44vh - var(--holy-mark,min(40vh,320px))/2)))/var(--holy-mark,min(40vh,320px)) no-repeat,
+  var(--holy-hex) right max(2vw,calc(17vw - var(--holy-mark,min(40vh,320px))/2)) top var(--holy-mark-y,max(112px,calc(44vh - var(--holy-mark,min(40vh,320px))/2)))/var(--holy-mark,min(40vh,320px)) no-repeat;
+  animation:holy-in .5s ease both}
+@keyframes holy-in{from{opacity:0}}
+@media (max-width:700px){:root{--holy-mark:min(26vw,100px);--holy-mark-y:calc(var(--holy-band) - 190px)}}
+@media (max-width:1099px){:root{--holy-band:100svh}
+  body::before{-webkit-mask-image:linear-gradient(#000 0,#000 72%,transparent);mask-image:linear-gradient(#000 0,#000 72%,transparent)}}   /* NO HALF-SCREEN VOID ON A PHONE (or a tablet, where the marks stand down): the two fields fill the whole first screen */
+@media (min-width:1100px){html:has(#tank-canvas){--holy-split:var(--holy-seam)}}   /* the seam of light stands only where no word crosses it: rules' title and line stand clear of it from 1100 px */
+@media (prefers-reduced-motion:reduce){body::after{animation:none}}
+@media (max-width:1099px){body::after{display:none}}   /* the marks stand at the window's sides only where the sides are clear of a centred column (from 1100 px) */   /* on a phone the words take the whole width: the field carries the split, the marks would stand on the words */
+/* the cream mesh of hexagons is the sad background: the split replaces it */
+.poleis-mesh{display:none!important}
+/* a title on the split speaks as a plate does: ivory, held off the field by a dark stroke and shadow */
+h1{color:var(--holy-ivory);text-shadow:0 4px 22px rgba(0,0,0,.7)}
+/* the header's parchment bleed turns to the ground's glass */
+main > header::before,body > header::before{background:rgba(7,6,11,0);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none;animation:holy-glass linear both;animation-timeline:scroll(root);animation-range:0 120px}@keyframes holy-glass{to{background:rgba(7,6,11,.88);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 1px 0 0 var(--line)}} header .sub{color:var(--holy-ivory);text-shadow:0 2px 14px rgba(0,0,0,.6)}   /* THE SPLIT RUNS UNDER THE HEADER (Nov 26 2026, his "rules is all fucked up", over the header's glass, a darker blurred band whose blue and red did not meet the split below it): at the page's top the header stands on the split itself; its glass comes in over the first 120 px of the scroll, so the words under it stay readable */
+header .actions a{background:rgba(7,6,11,.5)}
+.card{background:rgba(7,6,11,.66);border-color:var(--line);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+a:hover{color:var(--holy-gold)}
+::selection{background:rgba(214,44,62,.6);color:#fff}
+
+/* ---- polis.html: a society. With none chosen the page was a cream wall of empty panels ("The living society", "Reading its activity…", "Connecting"):
+   now the title stands alone on the split with the one door it has, back to the wall of societies. With one chosen its room wears the ground's glass. */
+html[data-no-society] .society,html[data-no-society] .society-details,html[data-no-society] .presence,html[data-no-society] .member-button,html[data-no-society] #say{display:none!important}
+html[data-no-society] main{min-height:100vh;display:flex;flex-direction:column}
+html[data-no-society] .polis-heading{flex:1;display:grid;grid-template-columns:100%;place-items:center;align-content:center;text-align:center;padding:0 0 12vh}
+html[data-no-society] .polis-heading>div{width:100%}html[data-no-society] .polis-heading h1{font-size:clamp(46px,6.4vw,96px);text-align:center}
+html[data-no-society] .back-link{display:inline-flex!important;margin-left:auto;padding:11px 18px;border:1px solid var(--holy-gold);border-radius:999px;color:var(--holy-gold);background:rgba(7,6,11,.45)}
+@media (max-width:700px){html[data-no-society]{--holy-mark:min(40vw,170px);--holy-mark-y:118px} html[data-no-society] body::after{display:block}}
+html[data-no-society] footer{border-top:0;justify-content:center;gap:28px;text-align:center}
+@media(max-width:720px){html[data-no-society] .back-link{white-space:nowrap;padding:8px 14px;font-size:13px}.wordmark{font-size:22px!important}}
+.polis-header{border-bottom-color:transparent}
+.eyebrow{color:var(--holy-gold)!important;font-size:13px!important}
+.society{background:rgba(7,6,11,.62);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid var(--line)}
+.stage::before{border-color:rgba(240,207,116,.18)!important}
+.primary-button{background:var(--holy-gold)!important;color:#0b0709!important;border-color:var(--holy-gold)!important}
+.member-button:hover{background:rgba(240,207,116,.08)}
+.chair{background:rgba(251,246,234,.22)}.chair.bound{background:var(--holy-gold)}.chair.mine{background:var(--holy-blue-b);color:#fff}
+dialog{background:#0d0b12!important;color:var(--ink)!important;border-color:var(--line)!important}
+#body-address,.guardian input,.guardian select,.guardian textarea{background:rgba(251,246,234,.05)!important;color:var(--ink)}
+.presence,.world-top,#access-badge,.facts span,.room-footer,.text-button,.room .room-plan-note,.private-record-head,.locked-note,.panel-heading p,.chip,.row button,
+.floor,.polis-heading ~ * .mono,.guardian label,footer,#body-form .note,.connection-status,.browser-identity summary,.browser-identity code,.entry .meta,.note,.world-bottom p{font-size:13px!important}
+html:has(.polis-heading):not([data-no-society]) body::after{display:none}
+
+/* ---- creator.html: OPEN A TRACENET is the split's red side ("START YOUR OWN / TRACENET", the flask's, the agent's). The generated Claw Riders poster that
+   led it leaves (his Nov 20 09:20 "all these images are fucking cringe dude"); the title stands as the red plate stands, inside its hexagon on the red field,
+   between the split's two dark bands, the steps under it. */
+html:has(#dropzone){--holy-band:100%;--hm:min(58vh,500px);overflow-x:clip}html:has(#dropzone) body{overflow-x:clip}
+html:has(#dropzone) body::before{background:linear-gradient(90deg,var(--holy-red-a),var(--holy-red-b));
+  -webkit-mask-image:linear-gradient(transparent 0,#000 13vh,#000 80vh,transparent);mask-image:linear-gradient(transparent 0,#000 13vh,#000 80vh,transparent)}
+html:has(#dropzone) body::after{display:none}
+html:has(#dropzone) .side{position:relative;isolation:isolate}
+html:has(#dropzone) .side::before{content:'';position:absolute;z-index:-1;left:50%;top:clamp(62px,6.6vw,100px);width:calc(var(--hm)*1.12);height:var(--hm);transform:translate(-50%,-50%);background:var(--holy-hex) center/100% 100% no-repeat;animation:holy-from-right .4s .1s cubic-bezier(.2,1.4,.3,1) both;pointer-events:none}
+@keyframes holy-from-right{from{transform:translate(calc(-50% + 14vw),-50%) skewX(10deg);opacity:0}}
+html:has(#dropzone) main{justify-content:center}
+html:has(#dropzone) .side{flex:0 1 560px;align-items:center;text-align:center}
+html:has(#dropzone) h1{font:700 clamp(34px,4.4vw,62px)/.95 'Gelasio',Georgia,serif;text-transform:uppercase;letter-spacing:.02em;-webkit-text-stroke:2px #0b0709;paint-order:stroke fill;text-shadow:0 4px 18px rgba(0,0,0,.85)}
+html:has(#dropzone) h1 em{font-style:normal;color:var(--holy-gold)}
+html:has(#dropzone) button{border-color:var(--holy-gold);color:var(--holy-gold);background:rgba(7,6,11,.55);font-size:18px;padding:.6em 1.5em}
+html:has(#dropzone) button:hover:not(:disabled){background:var(--holy-gold);color:#0b0709}
+html:has(#dropzone) .label{opacity:.8;font-size:13px}
+html:has(#dropzone) .handle,html:has(#dropzone) .field,html:has(#dropzone) .drop{background:rgba(7,6,11,.4)}
+html:has(#dropzone) .row{justify-content:center}
+@media (max-width:760px){html:has(#dropzone){--hm:min(42vh,300px)} html:has(#dropzone) .side{flex:none;width:100%} html:has(#dropzone) h1{font-size:clamp(30px,9vw,44px)}}
+@media (prefers-reduced-motion:reduce){html:has(#dropzone) .side::before{animation:none}}
+
+/* ---- found.html: EVERY SWARM BEGINS WITH A WISH. The founding tree stands on the split, the wish and its one door under it; the two lines that only
+   repeated the title (the invitation, the hint beside the door) leave. */
+#arrival .invitation,.wish-next span{display:none}
+.wish-next{justify-content:center}
+#arrival .eyebrow{color:var(--holy-gold)}
+#arrival h2{color:var(--holy-ivory);text-shadow:0 4px 22px rgba(0,0,0,.7);font-size:clamp(34px,4vw,58px)!important}
+#wish{background:rgba(7,6,11,.62)!important;border-color:var(--line2)!important;color:var(--ink)}
+#give-form,#publish{background:var(--holy-gold)!important;color:#0b0709!important;border-color:var(--holy-gold)!important;font-weight:600;border-radius:999px}
+#give-form:hover,#publish:hover{filter:brightness(1.08)}
+#stage{background:none!important}
+.text-button,#network,#founder-key,#summary,.chair .who{font-size:13px!important}
+.chair.bound{background:rgba(240,207,116,.22)!important}
+dialog{background:#0d0b12!important;color:var(--ink)!important}
+.row input,#name{color:var(--ink)}
+
+/* ---- rules.html: CASH IS THE SANDBOX. The Goldberg balls of the three studies (seals.js, the real thing moving) stand on the split; the cream mesh behind
+   them (a script written in the page) leaves with its script; the plate's cream halo turns to the ground. */
+.plate::before{display:none}
+.warm-invitation,.warm-install{font-size:13px!important}
+.playback button{font-size:13px!important}
+.hero h2{color:var(--holy-ivory);text-shadow:0 4px 22px rgba(0,0,0,.7);font-size:clamp(34px,4vw,56px)!important}
+.hero p{color:var(--holy-ivory)!important}
+.lenses button span{font-size:13px}
+.plug{font-size:13px!important;background:var(--holy-gold)!important;color:#0b0709!important;border-color:var(--holy-gold)!important;border-radius:999px}
+.plug:hover,.plug:focus-visible{filter:brightness(1.08)}
+.plug .door-arrow{color:#0b0709!important}
+.key{font-size:13px!important}
+.door-figure::before,.door-figure::after{border-color:var(--line2)!important}
+html:has(#tank-canvas) body::after{display:none}
+html:has(#tank-canvas){--verdigris:#407EEC}   /* the studies' work wears the pool's blue (seals-draw.js WORK), the legend with it */
+.plate::before{display:none}   /* the balls of the study lead the first screen: the marks would stand on them */
+
+/* ---- ecology.html: FIND PEOPLE TO BUILD WITH. The lightcones (the page's own moving figure) lead the first screen on the split; the cream mesh and the
+   figure's cream halo leave; the cones' wires take the gold and the ivory through the tokens. */
+#mesh{display:none!important}
+.compatibility::before{display:none}
+html:has(#horizons) body::after{display:none}
+.memory-inspector{background:rgba(7,6,11,.86)!important;border-color:var(--line)!important}
+.memory-inspector code,.memory-inspector small,.memory-controls,.owner span{font-size:13px!important}
+
+/* ---- claim.html: YOUR HARMONY CODE. Its own sheet turns dark in place (the cream values, value for value, to the ground, the ivory and the gold); this sheet
+   gives it the split. With no code in the link the empty code box and the steps that need a code leave: the one line that says what to do stays. */
+main:has(#claim-none:not([hidden])) :is(#claim-code,#claim-copy,#claim-none ~ p:not(#claim-status),#claim-none ~ h2,#claim-install){display:none!important}
+html:has(#claim-code) body{box-sizing:border-box}
+
+/* ---- legacy-reservations.html: EARLIER TEST RESERVATIONS. A cream page whose one door floated alone at the screen's bottom left (the mint's dock): the
+   title, its line and the door now stand together on the split, centred; the dialog the door opens wears the ground. */
+html:has(#slot-dialog) body{margin:0;min-height:100vh}
+html:has(#slot-dialog) main{text-align:center;margin:0 auto!important;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:14px;padding:24px 16px!important;box-sizing:border-box}
+html:has(#slot-dialog) h1{font:400 clamp(38px,5vw,64px)/1.05 'Bodoni 72',Didot,Georgia,serif;letter-spacing:-.02em}
+html:has(#slot-dialog) main p{color:var(--holy-quiet);font-size:16px;max-width:520px}
+html:has(#slot-dialog) main a{color:var(--holy-gold)}
+html:has(#slot-dialog) .mint-dock{position:static;width:auto;padding:0;background:none;border:0;box-shadow:none;order:3}
+html:has(#slot-dialog) main > a{order:4;font-size:14px}
+html:has(#slot-dialog) .gold-button{background:var(--holy-gold);border:1px solid var(--holy-gold);color:#0b0709;border-radius:999px;font-size:15px;font-weight:600;padding:12px 28px;box-shadow:none}
+#slot-dialog{background:#0d0b12!important;color:var(--ink)!important;border-color:var(--line)!important;box-shadow:0 25px 130px rgba(0,0,0,.6)!important}
+#slot-dialog #slot-title{color:var(--holy-ivory)!important}
+#slot-dialog input{background:rgba(251,246,234,.05);color:var(--ink);border-color:var(--line)}
+#slot-dialog #slot-go{background:var(--holy-gold)!important;color:#0b0709!important}
+#slot-dialog .slot-legacy,#slot-dialog .slot-legal,#slot-dialog p{font-size:13px!important}
+#slot-dialog .slot-legal a{color:var(--holy-quiet)!important}
+#slot-dialog::backdrop{background:rgba(7,6,11,.7)}
+
+/* ---- fees.html, terms.html, privacy.html: the legal pages. Their words are the law and stay whole; they stand on the ground in ivory at a reading
+   size, the title on the split, the cream mesh and the script that drew it gone, the tables readable on a phone (they scroll in their own box, never
+   the page). The marks stand down: the column is the page. */
+html:has(.legal){--holy-band:min(52vh,460px)}
+html:has(.legal) body::after{display:none}
+.legal h2{color:var(--holy-ivory);text-shadow:0 4px 22px rgba(0,0,0,.7);font-size:clamp(40px,5vw,64px)!important}
+.legal-meta{color:var(--holy-gold)!important}
+.legal-draft{color:var(--holy-ivory)!important;border-color:rgba(214,44,62,.6)!important}
+.legal p,.legal li{line-height:1.7!important}
+.legal code{font:13px/1.5 var(--mono);color:var(--holy-cyan);overflow-wrap:anywhere}
+.legal .n{color:var(--holy-gold)!important}
+.legal table{display:block;max-width:100%;overflow-x:auto}
+.legal th{color:var(--holy-gold)!important}
+@media (max-width:700px){html:has(#wish-form) main{display:flex;flex-direction:column;justify-content:center} html:has(#wish-form) #arrival{margin-block:0 6vh}}   /* the wish stands in the screen's middle */
+
+/* ---- THE SCREENS ARE CHECKED (Nov 22 2026; his Nov 21 ~23:12 UTC "dont stop until you treated all the vomit ui", ~23:20 "you will have fixed all the UIs
+   across all resolutions?"). embertide-screens (lane/the-screens-are-checked at 589c3a92b2) opened every page at twelve sizes; what it found red on these pages,
+   by its check, is answered here. The fields and the marks stay as they are: a word over them changes its own colour, or the block of words takes the ground. */
+/* g, the two faces: the house's monospace speaks DM Sans (an address keeps its columns and breaks anywhere) */
+:root{--mono:'DM Sans',system-ui,sans-serif}
+code,.mono,.chip,#address{font-family:var(--words);font-variant-numeric:tabular-nums}
+.legal code{font-family:var(--words);font-variant-numeric:tabular-nums;word-break:break-all}
+.warm-entry .warm-invitation,.warm-entry .warm-install{font-family:var(--words);color:var(--holy-ivory)}
+/* e, the words over the fields: the kickers, the leads and the legends in ivory (the gold reads 4.1:1 on the pool's blue); the lenses' row takes the ground */
+.eyebrow,#arrival .eyebrow{color:var(--holy-ivory)!important;font-family:var(--words)}
+html:has(#slot-dialog) main p,#claim-none,.key,.lens-caption-stack>p{color:var(--holy-ivory)!important}
+.lenses{background:rgba(7,6,11,.66);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.lenses button span{color:var(--holy-gold)}
+/* f, a finger on a phone: every link, button and summary at least 44 px each way; the target grows, the type stays */
+@media (max-width:499px){
+  header h1 a,.wordmark,.back-link,header .site-nav a,.foot-links a,#chain-link,.back,html:has(#slot-dialog) main > a{display:inline-flex!important;align-items:center;min-height:44px;min-width:44px;box-sizing:border-box}
+  .foot-links a{justify-content:center}
+  .foot-links{row-gap:0}
+  .study-details summary{min-height:44px;box-sizing:border-box;padding-block:10px}
+  html:has(#dropzone) button,button#connect{min-height:44px}
+  .polis-header{flex-wrap:wrap;row-gap:0}   /* a, polis at 320: the wordmark and the way back wrap rather than push the page wider */
+}
+/* fees on a phone: the table's four columns become one block a row, each part under its column's name (the names are the table's own first row) */
+@media (max-width:499px){
+  .legal table,.legal tbody,.legal tr,.legal td{display:block}
+  .legal table{overflow:visible}
+  .legal tr:first-child{display:none}
+  .legal tr{padding:14px 0;border-bottom:1px solid var(--line)}
+  .legal td{border:0;padding:3px 0}
+  .legal td::before{display:block;font:var(--t4);letter-spacing:.12em;text-transform:uppercase;color:var(--holy-gold)}
+  .legal td:nth-child(1)::before{content:"What"}.legal td:nth-child(2)::before{content:"Charged on"}
+  .legal td:nth-child(3)::before{content:"Set by"}.legal td:nth-child(4)::before{content:"Devnet today"}
+}
+
+/* ---- ONLY TWO-SIDED PAGES (his word, 2026-11-22 01:26:18 UTC, "Only two-sided pages", to "The site's blue and red: only on pages with two sides, or
+   behind every page?"). The split stands where the page shows two sides in its own words: polis (a society, its chairs and its floor), rules (every user
+   and their own Warden), ecology (your traces and agent, theirs); index's "Two chambers. Every branch." and swarmbook's two things keep their own sheets.
+   A page of one side (found, creator, claim, legacy-reservations, fees, terms, privacy) stands on the holy page's own ground: no blue or red field and no
+   pair of marks, only the ground's faint fall at the top, its title in ivory, its labels and its one door in gold. creator keeps the one mark that frames
+   its title, the hexagon, as an outline. */
+html:is(:has(#wish-form),:has(#dropzone),:has(#claim-code),:has(#slot-dialog),:has(.legal)) body::before{background:linear-gradient(180deg,#020104 0,var(--holy-ground) 100%);
+  -webkit-mask-image:none;mask-image:none}
+html:is(:has(#wish-form),:has(#dropzone),:has(#claim-code),:has(#slot-dialog),:has(.legal)) body::after{display:none!important}
+html:is(:has(#wish-form),:has(#claim-code)) .eyebrow{color:var(--holy-gold)!important}   /* on the ground the gold label reads (it read 4.1:1 only on the blue) */

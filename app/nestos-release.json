@@ -1,0 +1,16 @@
+{
+  "schema": "nestos.release.v1",
+  "status": "unpublished",
+  "platforms": {
+    "macos": {
+      "url": "https://swarmbook.com/app/DysonLight-Harmony.dmg",
+      "bytes": 83040736,
+      "sha256": "56f5b3ca45b0f73989df6dd7684102031405bd3242aca4a5b99621ebe85a7b95",
+      "version": "0.0.0",
+      "notarized": true
+    },
+    "windows": null,
+    "linux": null
+  },
+  "launch": null
+}

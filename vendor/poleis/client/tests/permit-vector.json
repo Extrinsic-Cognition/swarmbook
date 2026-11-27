@@ -1,0 +1,36 @@
+{
+  "completionDomain": "space-router:seat:completion:v1\u0000",
+  "curve": {
+    "capacity": "20",
+    "closes": "400000700",
+    "opens": "400000000",
+    "start": "1000000",
+    "step": "100000"
+  },
+  "deposit": "29d2S7vB453rNYFdR5Ycwt7y9haRT5fwVwL9zTmBhfV23JF3sEqM796hk5WFqA6EtmEwJQ9quALszsfJyvXNQKy3",
+  "face": {
+    "name": "Lyssajudron",
+    "symbol": "LYSSA",
+    "uri": "https://optimism.fit/app/lyssajudron.json"
+  },
+  "fields": {
+    "buyer": "9Lmdwsd9nxfYZ2yGiHh4xsByFoiBnXadcqag8FD4Sw8s",
+    "completion": "ca6aadf9d0791df8beeb2908f9e52585f3e5ee78e67f92505e6352a612df7f22",
+    "curve": "Gxq4HQEiSbkLKDYCm5KwsxSUCWCPZEPmCTr8vc7jFzjJ",
+    "expirySlot": "400009000",
+    "genesis": "5eykt4UsFv8P8NJdTREpY1vzqKqZKvdpKuc147dw2N9d",
+    "maxPriceLamports": "2900000",
+    "metadataDigest": "7b1b39ade92af1eb0da38df296a8e098b9d045906b4bd63d82d8796123e46cf5",
+    "program": "AJdsmjxQjHnBxDEdRxwEk2UMRW7bgNmvEMUwMziRTyab",
+    "unit": 0
+  },
+  "key": {
+    "issuer": "7qK5bMGkfKGKPWBbTU74k1DkTAP95KxQrg3P9oBp6gzy",
+    "seed": "f4036bf4906050afe4eda7d1c29bab87faacf5bca506e459c3ff740544b7163a"
+  },
+  "message": "706f6c6569733a6861726d6f6e793a6d696e742d7065726d69743a7631008a3dc04ee57c6f9dd24514149f32627d16792c9d75545eaf2d281cad090131ec45296998a6f8e2a784db5d9f95e18fc23f70441a1039446801089879b08c7ef00000000000000000ed2c960ee343fb374e91777be302c4963e16ccfcdaea09f56276817b6b79b3697bee00832e6bba94c9d372b37f2242e0653088d560717e40239c3bc16753d9f8ca6aadf9d0791df8beeb2908f9e52585f3e5ee78e67f92505e6352a612df7f227b1b39ade92af1eb0da38df296a8e098b9d045906b4bd63d82d8796123e46cf520402c000000000028a7d71700000000",
+  "permitSlots": "9000",
+  "signature": "56d300b36d03a8742b7dd031a150cfad3f0a7f86814cf525dac333f71f4a56fb41675be97d6d33b1dc8a033dbddde5368f5f308b9e11de4d7d0abf5ae5ebd005",
+  "slot": "400000000",
+  "what": "THE DOOR SIGNS THE SEAT: one permit of the mint door, as Poleis's client makes it (poleis/client/tests/permit_vector.rs) and the door must (worker/space-router-seat.test.mjs): a fixed test key, the fields, the message, the signature. No key of anyone's."
+}

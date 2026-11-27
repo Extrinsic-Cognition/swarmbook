@@ -1,0 +1,23 @@
+/* THE DOORS TO HARMONY (his Oct 22 2026 14:0x WEST: "we would require some ui button for people to download the harmony app, perhaps right under
+   this hero rich, we should have 2 large themed buttons with download and github page"): two large doors right under the hero, Harmony's download
+   (an ink plate: the way on) and its code (cream). dl-harmony-doors.mjs gives the download its link; until then it stands, marked as not yet open. */
+.dl-harmony-doors{display:flex;justify-content:center;flex-wrap:wrap;gap:18px;padding:34px 16px 30px;background:linear-gradient(180deg,#f6f1e4,#fbf8f0)}
+.dl-harmony-door{display:grid;gap:4px;box-sizing:border-box;min-width:min(100%,330px);padding:20px 30px 18px;border:1px solid #c9a65c;border-radius:6px;
+  background:#fffdf7;color:#1d211b;text-decoration:none;box-shadow:0 10px 26px rgb(37 41 33 / .12);transition:transform .18s ease,box-shadow .18s ease,background .18s ease}
+.dl-harmony-door span{font:600 11px/1.2 'DM Sans',system-ui,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#a58343}
+.dl-harmony-door strong{font:400 30px/1.05 'Bodoni 72','Didot','Times New Roman',serif;color:inherit}
+.dl-harmony-door strong em{font-style:italic;color:#a58343}
+.dl-harmony-door small{font:400 13px/1.3 'DM Sans',system-ui,sans-serif;color:#55594f}
+.dl-harmony-door:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgb(37 41 33 / .18)}
+.dl-harmony-door:focus-visible{outline:2px solid #b4944d;outline-offset:3px}
+.dl-harmony-door-main{background:#141a16;color:#fbf6ea}
+.dl-harmony-door-main span,.dl-harmony-door-main strong em{color:#e7cf8e}
+.dl-harmony-door-main small{color:#cfc8b4}
+.dl-harmony-door-main:hover{background:#1c241f}
+.dl-harmony-door[aria-disabled=true]{cursor:default;box-shadow:0 6px 18px rgb(37 41 33 / .1)}
+.dl-harmony-door[aria-disabled=true]:hover{transform:none}
+@media (max-width:700px){.dl-harmony-doors{padding:24px 16px}.dl-harmony-door{min-width:100%}.dl-harmony-door strong{font-size:26px}}
+/* THE GATE leads here (dl-harmony-doors.mjs lead(): a seat pressed while it holds, her stop's door): the download called by a gold ring */
+.dl-harmony-door-called{animation:dl-harmony-called 1.6s ease-out}
+@keyframes dl-harmony-called{0%{box-shadow:0 0 0 0 rgb(231 207 142 / .9)}60%{box-shadow:0 0 0 16px rgb(231 207 142 / 0)}100%{box-shadow:0 10px 26px rgb(37 41 33 / .12)}}
+@media (prefers-reduced-motion: reduce){.dl-harmony-door-called{animation:none;outline:2px solid #e7cf8e;outline-offset:3px}}

@@ -1,0 +1,46 @@
+// optimism.fit: static site plus direct pre-mint checkout; no custom Solana program.
+// in the Extrinsic Cognition account that also serves poleis.us. The domain attaches as a custom domain once optimism.fit is a zone there.
+{
+  "name": "optimism-fit",
+  "main": "worker/main.mjs",   // THE FLASK TAKES ITS SEAT: premint.mjs's handler with the seat's law, worker/poleis-seat.wasm, by wrangler's own .wasm import
+  // THE MINT WAITS UNTIL IT IS SAFE (Oct 28 2026, his go ~14:3x WET after his 14:28 "we need a way to make this safe come on... we cant be out there
+  // like this unprepared rushing"): paused, live since 14:3x (version 29d7bee9, deployed with --var PREMINT_ENABLED:false) and here, so no later deploy
+  // reopens it. The page says "Purchases are being prepared"; receipts stay recoverable. Reopen only on his word, after the safety list in
+  // plans/the-marketing-plan-2026-10-28.md ("The mint waits until it is safe").
+  "vars": { "PREMINT_ENABLED": "false", "SOLANA_RPC": "https://solana-rpc.publicnode.com", "SPACE_ROUTER_TRACENET_SOL": "0.1" },   // his Nov 3 2026 "0.1 sol": a tracenet's price (worker/space-router.mjs TRACENET_PATH)
+  "r2_buckets": [{ "binding": "VAULT", "bucket_name": "optimism-fit-vault" }],   // every creator's drops (worker/creators.mjs); his: wrangler r2 bucket create optimism-fit-vault
+  "d1_databases": [{ "binding": "DB", "database_name": "optimism-fit-premint", "database_id": "9143e0db-d5d9-43ec-9de9-42ac62aeffd4", "migrations_dir": "worker/migrations" }],
+  // THE HOUSE SAYS IT AT ONCE (Nov 20 2026, his "Build it" for the live ball): every mint the list takes is pushed to every open ball by one Durable Object
+  // (worker/drops-live.mjs), its sockets asleep between mints; a SQLite class. The tag is applied once, by the first deploy that holds it.
+  "durable_objects": { "bindings": [{ "name": "DROPS_LIVE", "class_name": "DropsLive" }] },
+  "migrations": [{ "tag": "drops-live-1", "new_sqlite_classes": ["DropsLive"] }],
+  "account_id": "e952ee9654bd6589377804e3c2c2b3db",
+  "compatibility_date": "2026-10-12",
+  "workers_dev": false,
+  // his Nov 14 2026 01:19 UTC "Allow the preview" (from away, over a version of the Swarmbook page): an uploaded version answers on its own preview
+  // address and nothing is deployed by it; the live Worker has it on since then (4dde65b211, applied by `wrangler triggers deploy`), so a deploy keeps it
+  "preview_urls": true,
+  // the zone optimism.fit (created Oct 12 2026, Free, nameservers chuck + delilah.ns.cloudflare.com like poleis.us); a deploy attaches both
+  // names as custom domains and offers to replace the parking records Namecheap's scan brought in (A 192.64.119.223, CNAME www)
+  "routes": [
+    { "pattern": "optimism.fit", "custom_domain": true },
+    { "pattern": "www.optimism.fit", "custom_domain": true },
+    // SWARMBOOK AND OPTIMISM.FIT ARE ONE PAGE (Nov 18 2026; his "swarmbook and optimism.fit are unaligned still... u get what i mean? there is no
+    // video here dude...", after Nov 10 23:48 "putting all the latest optimism.fit is at, but on swarmbook.com"): the same Worker on both names and
+    // no front door of a host's own, so / on swarmbook.com opens what / opens on optimism.fit (worker/premint.mjs THE FRONT DOORS): since the mint
+    // closed, app/after-the-mint.html, the page that is Swarmbook's with the Saint Seiya film in its ball. The zone swarmbook.com stands in this
+    // account and Namecheap points at it since Nov 13 16:46 UTC.
+    { "pattern": "swarmbook.com", "custom_domain": true },
+    { "pattern": "www.swarmbook.com", "custom_domain": true }
+  ],
+  "assets": {
+    "directory": "./dist/optimism-fit",
+    "binding": "ASSETS",
+    "run_worker_first": ["/", "/referral", "/claim", "/api/premint/*", "/space-router/*", "/wish", "/.well-known/apple-app-site-association", "/.well-known/assetlinks.json", "/vault/*", "/*.mp4", "/*.m4a", "/*.mp3", "/*.webm", "/*.dmg"],   // the vault: a tracenet's drops, served by the Worker alone against a paid receipt (worker/tracenet-vault.mjs); the three front doors: a friend's ?ref= reaches the page whole (worker/premint.mjs THE FRONT DOORS); THE WISH IS IN THE APP: /wish, the app's door on the web, and the apps' link files iOS and Android read for it (worker/space-router.mjs appLinks)
+    // THE FILMS FROM R2 (worker/ranges.mjs): the films and songs reach the Worker first, which answers them from the bucket (media/<path>, put
+    // there by tools/media-to-r2.mjs) with R2's own ranged read, no byte through JS (a JS cut was cut short live, Oct 28 14:0x, and rolled back);
+    // what the bucket does not hold, the assets' whole answer. "*" matches deep (the platform's docs and its router: ^/.*\.mp4$).
+    "html_handling": "none",
+    "not_found_handling": "none"
+  }
+}

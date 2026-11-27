@@ -1,0 +1,208 @@
+/* The original wall is the assembly. Its canvases remain the moving bodies.
+   The journey runs top-down: the whole chamber (the goldberg of goldbergs) is
+   the first viewport of the story, pinned while the scroll releases the twelve
+   into the wall that flows under it. Scrolling back gathers them again. */
+body { overflow-x: clip; }
+.assembly-story {
+  --assembly-progress: 0;
+  --assembly-chrome: 1;
+  --assembly-reveal: 0;
+  --assembly-arrival: 1;
+  --assembly-viewport: 100svh;
+  --assembly-stage-height: auto;
+  --assembly-pin-top: 0px;
+  --assembly-text: var(--panel);
+  --assembly-night: #171A16;
+  position: relative;
+  width: 100%;
+  height: calc(var(--assembly-stage-height) + 280svh);
+  padding-bottom: 0;
+}
+.assembly-stage {
+  position: sticky;
+  top: var(--assembly-pin-top);
+  display: flow-root;
+  height: var(--assembly-stage-height);
+  min-height: var(--assembly-viewport);
+  isolation: isolate;
+}
+/* The grid must not form a stacking context: each original tile can pass
+   behind or in front of the shared surface. Tiles fade in with the band as
+   the story arrives from below the hero. */
+#assembly #wall { position: relative; }
+#assembly #wall > .tile { transform-origin: 0 0; z-index: 1; opacity: calc(var(--assembly-arrival) * (1 - var(--veil, 0))); }   /* THE SWARMS WEAR THEIR OWN FACES (his Nov 26 2026): drawn on her flight from the top, never handed from her blank ones */   /* --veil: under a caption of the film (assembly.js); --assembly-dive: her worlds stand where these do until the hand-over (assembly-dive.mjs) */
+/* in the ring a tile is a world, not a card: the seal's flash, which the engine paints over its whole square, shows as a disc */
+#assembly[data-phase="whole"] #wall > .tile, #assembly[data-phase="assembling"] #wall > .tile { clip-path: circle(56% at 50% 45%); }
+#assembly #wall > .tile {
+  background: color-mix(in srgb, var(--panel) calc(var(--assembly-chrome) * 100%), transparent);
+  border-color: color-mix(in srgb, var(--line) calc(var(--assembly-chrome) * 100%), transparent);
+  box-shadow: 0 1px 0 color-mix(in srgb, white calc(var(--assembly-chrome) * 65%), transparent);
+}
+#assembly #wall > .tile:is(:hover, :focus-visible) {
+  border-color: color-mix(in srgb, var(--gold) calc(var(--assembly-chrome) * 100%), transparent);
+}
+#assembly :is(.cap, .chip, .decision, .scene-legend, .discussion-messages, .wall-head) { opacity: var(--assembly-chrome); }
+/* The band: the first viewport of the stage. The night behind, the chamber in
+   front, the words over it. It eases in as the hero scrolls away. */
+.assembly-band {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--assembly-viewport);
+  pointer-events: none;
+}
+.assembly-band::before,
+.assembly-canvas {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 100vw;
+  height: 100%;
+  transform: translateX(-50%);
+}
+.assembly-band::before {
+  content: "";
+  z-index: 0;
+  /* no transform here: the hex tile is viewport-fixed so it lies over the mesh canvas, and a transformed box would pin it to itself */
+  left: calc(50% - 50vw);
+  transform: none;
+  /* the top edge is flat night so it meets the hero's dusk band without a step; the glow of the chamber begins below it */
+  background: var(--hex-night) 0 0 / var(--hex-night-size) repeat fixed,
+    linear-gradient(to bottom, var(--assembly-night) 0, transparent 24%),
+    radial-gradient(ellipse at 50% 49%, #3D3B25 0%, #22251C 29%, var(--assembly-night) 72%);
+  /* the night is solid from its first pixel: the hero's dusk band above already eases the parchment into it,
+     and an arrival fade here would show a seam under the numbers on short viewports */
+  opacity: var(--assembly-reveal);
+}
+.assembly-canvas { z-index: 2; display: block; opacity: var(--assembly-arrival); }
+/* THE DIVING ONE IN THE HERO (assembly-dive.mjs): her canvas over the page's, under the worlds in front of her (z 3) and over those behind (z 1). The ball is hers
+   for as long as the chamber shows it (--assembly-ball); at the hand-over her worlds go and the wall's come up where they fly, on the same lines (--assembly-dive) */
+.assembly-canvas.assembly-dive { z-index: 2; opacity: calc(var(--assembly-arrival) * var(--assembly-ball, 0)); pointer-events: none; }
+/* her unit1s fly their whole loops: her canvas reaches a quarter screen above the band, over the dusk, and is cut only at the bar (assembly-dive.mjs clips it there) */
+.assembly-canvas.assembly-dive { top: -25vh; height: calc(100% + 25vh); }
+.assembly-stats,
+.assembly-outro,
+.assembly-scroll {
+  position: absolute;
+  z-index: 5;
+  color: var(--assembly-text);
+  opacity: calc(var(--assembly-reveal) * var(--assembly-arrival));
+  pointer-events: none;
+}
+.assembly-stats {
+  left: 0;
+  bottom: clamp(112px, 15svh, 164px);
+  display: flex;
+  gap: clamp(24px, 4vw, 62px);
+  margin: 0;
+}
+.assembly-stats > div { display: flex; flex-direction: column-reverse; gap: 7px; }
+/* the cells answer to the pointer so their tooltips (field and raw lamports) can show; the strip stays inert elsewhere */
+.assembly-stats dd { pointer-events: auto; cursor: help; }
+/* the source line: where the four numbers were read, slot and accounts, each account a link to the explorer */
+.assembly-source {
+  position: absolute;
+  z-index: 5;
+  left: 0;
+  bottom: calc(clamp(112px, 15svh, 164px) - 30px);
+  margin: 0;
+  font: var(--tm);
+  letter-spacing: .04em;
+  color: var(--assembly-text);
+  opacity: calc(var(--assembly-reveal) * var(--assembly-arrival) * .62);
+  pointer-events: auto;
+  white-space: nowrap;
+}
+.assembly-source a { color: inherit; text-decoration: underline dotted; text-underline-offset: 3px; }
+.assembly-source a:hover { text-decoration-style: solid; }
+.assembly-stats dt { margin: 0; font: var(--t4); letter-spacing: .12em; text-transform: uppercase; opacity: .58; }
+.assembly-stats dd {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 27px;
+  font-weight: 400;
+  line-height: 1;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.assembly-outro {
+  right: 0;
+  bottom: calc(clamp(28px, 5svh, 54px) + 16px);
+  max-width: 40ch;
+  margin: 0;
+  text-align: right;
+  font: var(--t3); font-family: var(--display);
+  font-style: italic;
+}
+.assembly-scroll { inset-inline: 0; bottom: clamp(28px, 5svh, 54px); }
+.assembly-progress { height: 1px; background: #A08B6645; }
+/* the bar fills as the twelve descend: the journey's own progress, not the chamber's */
+.assembly-progress::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(calc(1 - var(--assembly-progress)));
+  transform-origin: left;
+}
+.assembly-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+@media (max-width: 700px) {
+  .assembly-stats { bottom: 138px; width: 100%; justify-content: space-between; gap: 12px; }
+  .assembly-stats dd { font-size: 23px; }
+  .assembly-stats dt { font-size: 8px; letter-spacing: .08em; }
+  .assembly-source { bottom: 108px; font-size: 10px; white-space: normal; }
+  .assembly-outro { left: 0; bottom: 48px; max-width: none; text-align: left; font-size: 12px; }
+  .assembly-scroll { bottom: 28px; }
+}
+@media (max-height: 480px) {
+  .assembly-stats { bottom: 82px; }
+  .assembly-outro { bottom: 46px; }
+  .assembly-scroll { bottom: 20px; }
+}
+/* Reduced motion: the completed chamber stands still at the top, the wall
+   stands under it, nothing moves with the scroll. */
+@media (prefers-reduced-motion: reduce) {
+  .assembly-story { --assembly-progress: 1 !important; --assembly-chrome: 1 !important; --assembly-reveal: 1 !important; --assembly-arrival: 1 !important; --assembly-dive: 0 !important; --assembly-ball: 0 !important; height: var(--assembly-stage-height); }
+  .assembly-stage { position: relative; top: auto; min-height: 0; }
+  #assembly .wall-head { margin-top: var(--assembly-viewport); }
+  #assembly #wall > .tile { transform: none !important; z-index: auto !important; }
+}
+.assembly-story:not([data-ready="true"]) {
+  --assembly-progress: 0 !important;
+  --assembly-chrome: 1 !important;
+  --assembly-reveal: 0 !important;
+  --assembly-arrival: 1 !important;
+  height: auto;
+}
+.assembly-story:not([data-ready="true"]) .assembly-stage { position: relative; top: auto; height: auto; min-height: 0; }
+.assembly-story:not([data-ready="true"]) .assembly-band { display: none; }
+
+/* Keep the story's footprint while cached accounts hydrate. The night field
+   appears in its final position; unposed cards cannot flash over it. */
+html[data-poleis-boot="loading"] .assembly-story:not([data-ready="true"]) {
+  --assembly-stage-height: var(--poleis-boot-stage, 100svh) !important;
+  --assembly-reveal: 1 !important;
+  height: calc(var(--assembly-stage-height) + 280svh);
+}
+html[data-poleis-boot="loading"] .assembly-story:not([data-ready="true"]) .assembly-stage {
+  position: sticky; top: 0; height: var(--assembly-stage-height); min-height: 100svh;
+}
+html[data-poleis-boot="loading"] .assembly-story:not([data-ready="true"]) .assembly-band { display: block; }
+html[data-poleis-boot="loading"] #assembly :is(#wall, .wall-head, .assembly-stats, .assembly-outro, .assembly-scroll) { visibility: hidden; }
+@media (prefers-reduced-motion: reduce) {
+  html[data-poleis-boot="loading"] .assembly-story:not([data-ready="true"]) { height: var(--assembly-stage-height); }
+}
+
+/* Rehydrated canvases are already painted when exposed; do not fade them up from transparent. */
+#assembly .activity-scene > .voting-canvas { transition: none; }

@@ -1,0 +1,40 @@
+{
+  "base": "e1cf078fd42ee956c208a70712e2af58a1dd76b3",
+  "approval": "Yes, pass +23",
+  "chat": "claude-1cd371e0, this lane's own chat, his words typed there: \"Yes, pass +23\" (Nov 20 2026 06:37 UTC), to \"Pass the +23 lines of JavaScript on this lane?\"",
+  "date": "2026-11-20",
+  "asked": "Pass the +23 lines of JavaScript on this lane?",
+  "scope": "lane/the-pour-pays-to-land only: the compute budget and the priority fee in the deposit law (app/space-router-deposit.mjs), the door that says and writes back the price (worker/space-router-deposit.mjs), the page that signs it (app/dl-kit-deposit.js), their tests and the proof's check 9 (and its checks 1, 6, 7 following the egg's door), at these bytes; no general JavaScript allowance",
+  "net": 23,
+  "cap": 23,
+  "files": {
+    "embertide-app/ui/intro/dyson-society/app/dl-kit-deposit.js": {
+      "before": "54ed5a337aa121e76ab028f38d44201d876597e8",
+      "after": "c7dc18e653b938fc3c59d0f543704b5fdb7c2ffb"
+    },
+    "embertide-app/ui/intro/dyson-society/app/space-router-deposit.mjs": {
+      "before": "ac9dee342d0f9679b86fffcb029a58316c5e903f",
+      "after": "1f425d5f4d22c1f75063e2a6c2f7ac200fb3fd08"
+    },
+    "embertide-app/ui/intro/dyson-society/app/space-router-deposit.test.mjs": {
+      "before": "89916341b411627ccc5a794b0d2dedaa5fbab359",
+      "after": "8a513baa37c1d8e066a7a136f623f69f3b44203d"
+    },
+    "embertide-app/ui/intro/dyson-society/tools/flask-grant.proof.mjs": {
+      "before": "411f9b70baf03284d4e56f9a9845af698b30ed35",
+      "after": "3c7b35c8208423bb840219ece2278ea14ab4e4b3"
+    },
+    "embertide-app/ui/intro/dyson-society/worker/space-router-deposit.mjs": {
+      "before": "1f2ac8354c8e9474896bef3b507cfd6c6d82edfd",
+      "after": "1a85a209d1a9f43cb370c8fb6bd780385e4bc877"
+    },
+    "embertide-app/ui/intro/dyson-society/worker/space-router-deposit.test.mjs": {
+      "before": "aac25b52eb5567b20222df18be497be23a75999c",
+      "after": "0eb5d80b896dea0947a9bf408da944e2d973d566"
+    },
+    "tools/embertide-mesh/tests/the-javascript-only-shrinks.test.mjs": {
+      "before": "494b882d70545cd0e7729016d8e75397baf82318",
+      "after": "ba44490714764df1c757b20e1a18e5d6b8b68344"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+# The three mint-page media sets are bundled by his October 15 self-contained repo request.
+app/warm-media/*
+!app/warm-media/film-mothership-1/
+!app/warm-media/fantasia-1/
+!app/warm-media/world-lossless-2/
+app/warm-media/fantasia-1/*
+!app/warm-media/fantasia-1/fantasia-projection.mp4
+!app/warm-media/fantasia-1/fantasia-soundtrack.m4a
+app/warm-media/film-mothership-1/*
+!app/warm-media/film-mothership-1/galaxy-*
+# The submission's two videos (web cuts of ~/Movies/Project Snowtrace) are served by optimism.fit and never committed.
+submission/*.mp4
+# THE BREAKDOWN's passes (lab/breakdown.capture.mjs) hold frames of the Saint Seiya film: made on this Mac from his page, never committed, never sent.
+lab/breakdown-pictures/
+target/
+node_modules/
+dist/
+.wrangler/
+.env
+.env.*
+*.key
+*.key.json
+*.pem
+*.p12
+*.keystore
+*.jks
+.DS_Store

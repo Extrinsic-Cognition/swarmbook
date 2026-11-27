@@ -1,0 +1,24 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Her portrait's painter</title></head><body>
+<canvas id="L"></canvas><video id="out" autoplay muted playsinline></video>
+<script type="module">
+// dl-her-portrait-frame.html · her portrait's painter (dl-her-portrait.js paintHer). Reactor's kit runs here and nowhere else on the site, in a frame with no
+// origin (sandbox="allow-scripts"): no storage, no cookie, no wallet, no page. In: a pass good for one session of seconds, her drawing, the standard's
+// words. Out: one picture. Her drawing is held still on the source track (a held still paints clean; a motion smears).
+import { X2Model } from './vendor/reactor-x2-1.0.0.min.js';
+const sleep = (ms) => new Promise((ok) => setTimeout(ok, ms)), L = document.getElementById('L'), out = document.getElementById('out');
+addEventListener('message', async (e) => {
+  if (e.source !== parent || e.data?.her !== 'paint') return; const { jwt, prompt, hold, px, picture } = e.data; let x2 = null, keep = 0, began = null;
+  try {
+    L.width = L.height = px; const g = L.getContext('2d'), draw = () => g.drawImage(picture, 0, 0, px, px), started = new Promise((ok) => (began = ok)); draw(); keep = setInterval(draw, 100);
+    x2 = new X2Model({ jwt }); const failed = new Promise((_, no) => x2.on('error', (er) => no(new Error(`${er.code} ${er.message}`)))); failed.catch(() => {});
+    x2.on('trackReceived', (name, track, stream) => { if (name === 'main_video') { out.srcObject = stream; out.play().catch(() => {}); } });
+    x2.on('message', (m) => { if (m.type === 'generation_started') began(); });
+    await Promise.race([failed, (async () => { await x2.connect(); await x2.publishTrack('source', L.captureStream(24).getVideoTracks()[0]); await x2.setPrompt({ prompt }); await Promise.race([started, sleep(9000)]); await sleep(hold); })()]);
+    if (!out.videoWidth) throw new Error('no picture came back');
+    const c = document.createElement('canvas'); c.width = c.height = px; c.getContext('2d').drawImage(out, 0, 0, px, px);
+    c.toBlob((blob) => parent.postMessage(blob ? { her: 'painted', blob } : { her: 'failed', why: 'no picture' }, '*'), 'image/png');
+  } catch (er) { parent.postMessage({ her: 'failed', why: String(er?.message || er) }, '*'); }
+  finally { clearInterval(keep); try { await x2?.disconnect(); } catch { /* gone already */ } }
+});
+parent.postMessage({ her: 'ready' }, '*');
+</script></body></html>

@@ -1,0 +1,20 @@
+/* Scoped to the explicit installed-app entry. The ordinary introduction keeps its own layout. */
+.harmony-mint-welcome {display:none}
+html[data-entry="harmony"] {scroll-behavior:auto}
+html[data-entry="harmony"] body > :not(main):not(#slot-dialog),
+html[data-entry="harmony"] main > :not(#genesis),
+html[data-entry="harmony"] #genesis > :not(#mint),
+html[data-entry="harmony"] #mint > :not(.harmony-mint-welcome):not(.dl-paywall-choice),
+html[data-entry="harmony"] .snowtrace-offer-heading,
+html[data-entry="harmony"] .snowtrace-free,
+html[data-entry="harmony"] .dl-paywall-choice-line {display:none!important}
+html[data-entry="harmony"] #genesis {display:block;min-height:100svh;height:auto;padding:0;background:var(--paper);overflow:visible}
+html[data-entry="harmony"] #mint {width:min(900px,100%);max-width:none;margin:0 auto;padding:clamp(28px,6vw,64px) 24px;scroll-margin:0;border:0}
+html[data-entry="harmony"] .harmony-mint-welcome {display:block;margin-bottom:30px}
+html[data-entry="harmony"] .harmony-mint-eyebrow {font:500 10px/1.5 var(--sans);letter-spacing:.14em;color:var(--gold);margin:0 0 18px}
+html[data-entry="harmony"] .harmony-mint-welcome h1 {font:400 clamp(36px,6vw,58px)/1.05 var(--serif);letter-spacing:-.03em;margin:0 0 18px;outline:none}
+html[data-entry="harmony"] .harmony-mint-welcome p {max-width:620px;font-size:15px;line-height:1.65}
+html[data-entry="harmony"] .harmony-mint-welcome .harmony-mint-return {font-size:13px;color:var(--muted);margin-top:8px}
+html[data-entry="harmony"] .harmony-mint-welcome a {display:inline-block;margin-top:14px;color:var(--gold);font:400 13px/1.5 var(--sans);text-underline-offset:4px}
+html[data-entry="harmony"] .snowtrace .dl-paywall-choice {margin:0;padding:0;border:0}
+html[data-entry="harmony"] .snowtrace-offer-footer {justify-content:flex-end;margin-top:16px}
