@@ -554,11 +554,11 @@ his call). The Board and the TVs' radio have their own law (`radio: the invarian
 ## THE VOW'S HASH ON A GLASS: the ceremony runs on a TV (Oct 17 2026, 02:0x to 02:2x WEST, lane `claude/mint-digest-on-glass`)
 
 After she is saved, the journey gate holds every glass on the mint (`warm.html#mint`), which a TV reads through the rite's intro door over plain
-http at the Mac's LAN address (`http://192.168.8.164:8903`). That is not a secure context, so a TV has no `crypto.subtle`, and `warm-ceremony.js`
+http at the Mac's LAN address (`http://192.0.2.1:8903`). That is not a secure context, so a TV has no `crypto.subtle`, and `warm-ceremony.js`
 hashed the vow with it at the top level (lines 8 and 9). The journey-gate house seat found it with `tools/embertide-mesh/journey-pages/proof.mjs`
 (its LANDING.md, "Found, not this lane's").
 
-**What stood before**, read live (`proof.mjs --live`, the rite at `192.168.8.164:8903` serving main 3da3dff57, Chrome 156 on the new Mac). The
+**What stood before**, read live (`proof.mjs --live`, the rite at `192.0.2.1:8903` serving main 3da3dff57, Chrome 156 on the new Mac). The
 mint's one page error was `Cannot read properties of undefined (reading 'digest') at sha256 (.../warm-ceremony.js?v=film-position-2:8:77)`, and
 `#ceremony-status` was empty. So on every glass the ceremony set no handler (submit, copy, reset, save, the CLI), no visibility or page-show
 handler, no "Ceremony preview" and no status words. `warm-entry.mjs`'s story promise rejected, so the scroll to the sphere on
@@ -607,7 +607,7 @@ The vow is 499 bytes. Both roads give `b3193702cc55ffbf1b703f5fc41decdfbef2b5993
 every record and stream frame.
 
 **Rule 8** (the mint plays a film; the page has the sound button and the sphere). The node test is `node --test app/dl-twelve.test.mjs`: 16 of 16.
-The proof page is this tree served by `tools/serve-range` at the new Mac's LAN address, `http://192.168.8.188:8987/intro/dyson-society/app/warm.html`.
+The proof page is this tree served by `tools/serve-range` at the new Mac's LAN address, `http://192.0.2.1:8987/intro/dyson-society/app/warm.html`.
 That is a glass's plain http, so the ceremony took the JavaScript road there too. serve-range answers 206 on `bytes=1000-1999` of
 `saint-seiya.mp4` and on the m4a. It was built against MacOSX26.5.sdk, because that Mac's MacOSX27.0 SDK stubs do not link with its linker.
 

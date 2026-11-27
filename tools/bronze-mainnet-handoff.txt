@@ -49,9 +49,9 @@ Agents may run prepare / verify / publish, but not deployment or open.
    BRONZE_AUTHORITY_SIGNER='/absolute/path/to/your-existing-authority.json'
    BRONZE_PROGRAM_SIGNER='/absolute/path/to/your-existing-program.json'
    BRONZE_BUFFER_SIGNER='/absolute/path/to/your-deployment-buffer.json'
-   BRONZE_WORKTREE='/Users/lysergic_ratata/code-ec/house/.worktrees/bronze-mainnet-build'
+   BRONZE_WORKTREE='~/code-ec/house/.worktrees/bronze-mainnet-build'
    BRONZE_ARTIFACT="$BRONZE_WORKTREE/poleis/program/poleis_treasury/target/deploy/poleis_treasury.so"
-   BRONZE_SOLANA='/Users/lysergic_ratata/.local/share/solana/install/releases/stable-515465dd278366f3785dc75e5cce3165edbe316f/solana-release/bin/solana'
+   BRONZE_SOLANA='~/.local/share/solana/install/releases/stable-515465dd278366f3785dc75e5cce3165edbe316f/solana-release/bin/solana'
    BRONZE_TOOL="$BRONZE_WORKTREE/embertide-app/ui/intro/dyson-society/tools/bronze-mainnet.mjs"
 
 2. Confirm signer public addresses locally and fund the authority on mainnet

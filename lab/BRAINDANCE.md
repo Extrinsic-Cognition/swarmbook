@@ -134,7 +134,7 @@ From a seat on the serving Mac (the run itself goes to the new Mac; nothing heav
 git -C ~/code-ec/house archive -o /tmp/bd.tar HEAD embertide-app/ui/intro/dyson-society/lab embertide-app/ui/intro/dyson-society/app/saint-seiya.mp4 embertide-app/ui/intro/room/procedural tools/dead-tasks/bounded.mjs
 ```
 
-then `ssh lysergic_ratata@guidos-macbook-pro-2.local "mkdir -p ~/code/bd && tar -x -C ~/code/bd" < /tmp/bd.tar`, run
+then `ssh builder@local-host "mkdir -p ~/code/bd && tar -x -C ~/code/bd" < /tmp/bd.tar`, run
 `nice -n 10 node ~/code/bd/tools/dead-tasks/bounded.mjs 4m -- node ~/code/bd/embertide-app/ui/intro/dyson-society/lab/braindance.proof.mjs --out ~/code/bd/out`
 there through `ssh ... 'bash -s'`, bring `out/` back by `tar` over ssh, and remove `~/code/bd` by its literal path. About 70 s of one Chrome.
 

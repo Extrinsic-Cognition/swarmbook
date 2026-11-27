@@ -93,7 +93,7 @@
     "pricing": "dyson-society/tools/harmony-mint-pricing.mjs: exact canonical decimal strings and BigInt, positive start/increment, u64 overflow rejection; no invented live amounts or trusted count.",
     "rustPricing": "Checked u64 price from authoritative successful count, positive start/step, both issuer and buyer maximum enforced. Successful atomic mint alone advances count; rollback and replay tested.",
     "nftState": "Immutable NftSeat123 bytes and MintCurve123 bytes (including chain genesis domain), permanent per-asset holder rows; burning does not reset issuance count or permit consumption.",
-    "buildMachines": "This executor is the old Mac, Guidos-MacBook-Pro.local, serving the Nest. Builds run on the verified new Mac guidos-MacBook-Pro-2.local at 192.168.8.139, in an isolated Git worktree. Do not infer machine role from a DNS alias.",
+    "buildMachines": "This executor is the old Mac, Guidos-MacBook-Pro.local, serving the Nest. Builds run on the verified new Mac guidos-MacBook-Pro-2.local at 192.0.2.1, in an isolated Git worktree. Do not infer machine role from a DNS alias.",
     "reviewCapture": "~/Downloads/corp_Extrinsic-Cognition/dyson-society-playground/harmony-mint-review-fixture.png",
     "contractRuntime": {
       "commit": "bc5778d9f1064cde17c6a5c3f13264be4220e88a",
@@ -191,7 +191,7 @@
         "servicesRestarted": false
       },
       "candidate": {
-        "host": "192.168.8.139",
+        "host": "192.0.2.1",
         "path": "/tmp/harmony-mint-native-99c10190/Antimirror",
         "bytes": 1438264,
         "sha256": "446f0f07c62521a9fbe66a82d55a11525ac66118429e0eac3d77d630806bd77c",

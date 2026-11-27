@@ -65,7 +65,7 @@ rays (0.10 to 0.18), the finisher closing on the star (1359 to 1361, d 0.02), th
 frames at 800 x 1004 on 298635cd9, against the light as `lab/twelve-dct.js` measures it frame by frame) read the hole's residual at 0.009 mean and
 0.031 at most over 30 lit frames, main 0.068 and 0.396; it gave way to the house's proof and is not kept.
 
-**Receipt** (the new Mac, lysergic_ratata@guidos-macbook-pro-2.local, node v26.11.0, nice 19, every run under tools/dead-tasks/bounded.mjs; the
+**Receipt** (the new Mac, builder@local-host, node v26.11.0, nice 19, every run under tools/dead-tasks/bounded.mjs; the
 page served by tools/serve-range, 206):
 - `lab/sagittarius-flight.test.mjs` 14 of 14 (the cut to the sky pinned at four shapes; the boomerang; the finisher on the star); `tools/twelve-dct.test.mjs`
   6 of 6; `lab/glass-look.test.mjs` 7 of 7; `lab/one-page.test.mjs` 8 of 10 (main's own 8 and 9).
@@ -142,7 +142,7 @@ rev 1, seq 413146: row 1 main as he saw it, row 2 the light, row 3 the middle, r
 thread tagging him on the Claude page (thread 3789d70c-4cee-512c-9ca9-ec5650e08268, seq 413155). Until he answers, the light is the default.
 The pictures stay out of git (the film's frames): `lab/twelve-dct.proof.mjs` makes them again.
 
-**Receipt** (the new Mac, lysergic_ratata@guidos-macbook-pro-2.local, node v26.11.0, nice 19, every run under tools/dead-tasks/bounded.mjs; this
+**Receipt** (the new Mac, builder@local-host, node v26.11.0, nice 19, every run under tools/dead-tasks/bounded.mjs; this
 lane's tree and main 63c39ecd1 side by side, each served by tools/serve-range, 206):
 - `tools/twelve-dct.test.mjs` (new) 6 of 6: the DCT's identities (DC over 8 is the mean, Parseval, the change's AC energy), orientation, the
   source through a third of wrong lines, the sectors, the song on a struck note, and `lab/twelve-dct.js` re-derived from the film and the song

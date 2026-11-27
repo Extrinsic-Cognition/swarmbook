@@ -41,7 +41,7 @@ alone. The debug start (`app/dl-twelve-clock.js` rule 7, the Nest's word mint/de
   other value is his to type (`mint/glass` holds `pass` alone today).
 - Read live at 21:2x WEST: `mint/glass` holds no word (null), so his doors show the transparent glass from the landing on.
 
-## Receipt (the new Mac, lysergic_ratata@guidos-macbook-pro-2.local, node v26.11.0, nice 19, every run under tools/dead-tasks/bounded.mjs)
+## Receipt (the new Mac, builder@local-host, node v26.11.0, nice 19, every run under tools/dead-tasks/bounded.mjs)
 
 Scratch worktrees under `~/c4-scratch/twelve-dct`: the lane and main 63c39ecd1 side by side, each served by `tools/serve-range` (206 on the
 film's ranges), Chrome for Testing headless off every screen; requests to any other origin refused (the Nest's reads among them).
