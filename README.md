@@ -27,3 +27,7 @@ node --test app/swarmbook-*.test.mjs app/tracenet*.test.mjs
 ```
 
 > Note: A small subset of cross-monorepo parity tests in `app/` inspect sibling desktop/iOS source trees (`harmony-clip`, `embertide-app/ui/intro/room`) when run inside the full monorepo.
+
+## License
+
+- Licensed under [AGPL-3.0](LICENSE) (see [NOTICE](NOTICE)). Commercial dual licensing is available from Extrinsic Cognition, Inc.
